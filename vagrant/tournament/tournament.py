@@ -4,6 +4,9 @@
 #
 
 import psycopg2
+DB = connect()
+c=DB.cursor()
+c.execute( register_player('Homer Simpson') )
 
 
 def connect():
@@ -26,12 +29,16 @@ def countPlayers():
 def registerPlayer(name):
     """Adds a player to the tournament database.
   
-    The database assigns a unique serial id number for the player.  (This
-    should be handled by your SQL database schema, not in your Python code.)
+    """The database assigns a unique serial id number for the player.  (This
+    """should be handled by your SQL database schema, not in your Python code.)
   
-    Args:
-      name: the player's full name (need not be unique).
-    """
+    #Args:
+      #name: the player's full name (need not be unique).
+    #"""
+    """Creates a player"""
+     return 'INSERT INTO players (name) VALUES ('%S')" % name)'
+
+
 
 
 def playerStandings():
