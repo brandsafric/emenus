@@ -5,8 +5,11 @@
 
 import psycopg2
 DB = connect()
-c=DB.cursor()
-c.execute( register_player('Homer Simpson') )
+c = DB.cursor()
+c.execute( registerPlayer('Homer Simpson') )
+DB.commit()
+DB.close()
+
 
 
 def connect():
@@ -36,7 +39,7 @@ def registerPlayer(name):
       #name: the player's full name (need not be unique).
     #"""
     """Creates a player"""
-     return 'INSERT INTO players (name) VALUES ('%S')" % name)'
+     return 'INSERT INTO players (name) VALUES ('%S')" % name);'
 
 
 
