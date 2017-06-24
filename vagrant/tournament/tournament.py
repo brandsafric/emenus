@@ -3,14 +3,10 @@
 # tournament.py -- implementation of a Swiss-system tournament
 #
 
-import psycopg2
-DB = connect()
-c = DB.cursor()
-c.execute( registerPlayer('Homer Simpson') )
-DB.commit()
-DB.close()
-
-
+"""Players Array"""
+players = ["Homer Simpson", "Marge Simpson", "Bart Simpson", "Lisa Simpson", "Maggie Simpson",
+"Mr. Burns", "Ned Flanders", "Milhouse Van", "Moe Szyslak", "Waylon Smithers", "Barney Gumble",
+"Edna Krabappel", "Nelson Muntz", "Principal Skinner", "Patty Bouvier", "Ralph Wiggum"]
 
 def connect():
     """Connect to the PostgreSQL database.  Returns a database connection."""
@@ -30,19 +26,9 @@ def countPlayers():
 
 
 def registerPlayer(name):
-    """Adds a player to the tournament database.
-  
-    """The database assigns a unique serial id number for the player.  (This
-    """should be handled by your SQL database schema, not in your Python code.)
-  
-    #Args:
-      #name: the player's full name (need not be unique).
-    #"""
-    """Creates a player"""
-     return 'INSERT INTO players (name) VALUES ('%S')" % name);'
-
-
-
+    """Adds a player to the tournament database."""
+    c.execute("INSERT INTO players (name) VALUES ('%s')" % name)
+    """return "INSERT INTO players (name) VALUES ('%S')" % name)"""
 
 def playerStandings():
     """Returns a list of the players and their win records, sorted by wins.
@@ -84,4 +70,14 @@ def swissPairings():
         name2: the second player's name
     """
 
-
+import psycopg2
+DB = connect()
+c = DB.cursor()
+"""registerPlayer('Marge Simpson')"""
+for player in players:
+    print "Adding " + player
+    registerPlayer(player)
+    print player + " added."
+DB.commit()
+c.execute("SELECT * from players")
+DB.close()
