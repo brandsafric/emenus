@@ -30,7 +30,7 @@ def countPlayers():
 
 def registerPlayer(name):
     """Adds a player to the tournament database."""
-    c.execute("INSERT INTO players (name) VALUES ('%s')" % name)
+    c.execute("INSERT INTO players (name) VALUES ('%s');" % name)
 
 def playerStandings():
     """Returns a list of the players and their win records, sorted by wins.
@@ -78,6 +78,8 @@ def pickRandom(players):
     return players.pop(idx)
 
 
+
+
 import random
 import psycopg2
 DB = connect()
@@ -101,8 +103,20 @@ while players:
     rand2 = pickRandom(players)
     pair = rand1, rand2
     pairs.append(pair)
-
 print pairs
-"""print random.sample(players, 2)"""
+
+""" Create the initial 8 matches and the winners"""
+for pair in pairs:
+    print pair
+    winner = random.randint(0, 1)
+    print winner
+    winner = pair[winner]
+    print "Winner is " + winner
+    c.execute("INSERT INTO matches VALUES (DEFAULT,'{0}','{1}','{2}')".format(pair[0], pair[1], winner))
+
+DB.commit()
+
+c.execute("SELECT * from matches")
+print c.fetchall()
 
 DB.close()
