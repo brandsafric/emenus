@@ -15,20 +15,22 @@ def connect():
 
 def deleteMatches():
     """Remove all the match records from the database."""
+    c.execute("DELETE * FROM matches;")
 
 
 def deletePlayers():
     """Remove all the player records from the database."""
+    c.execute("DELETE * FROM players;")
 
 
 def countPlayers():
     """Returns the number of players currently registered."""
+    c.execute("SELECT count(*) FROM players;")
 
 
 def registerPlayer(name):
     """Adds a player to the tournament database."""
     c.execute("INSERT INTO players (name) VALUES ('%s')" % name)
-    """return "INSERT INTO players (name) VALUES ('%S')" % name)"""
 
 def playerStandings():
     """Returns a list of the players and their win records, sorted by wins.
@@ -70,14 +72,37 @@ def swissPairings():
         name2: the second player's name
     """
 
+
+def pickRandom(players):
+    idx = random.randrange(0, len(players))
+    return players.pop(idx)
+
+
+import random
 import psycopg2
 DB = connect()
 c = DB.cursor()
-"""registerPlayer('Marge Simpson')"""
+"""countPlayers()"""
+"""deletePlayers()"""
+
+""" Create the Players """
 for player in players:
     print "Adding " + player
     registerPlayer(player)
     print player + " added."
 DB.commit()
 c.execute("SELECT * from players")
+print c.fetchall()
+
+""" Create the pairs """
+pairs = []
+while players:
+    rand1 = pickRandom(players)
+    rand2 = pickRandom(players)
+    pair = rand1, rand2
+    pairs.append(pair)
+
+print pairs
+"""print random.sample(players, 2)"""
+
 DB.close()
