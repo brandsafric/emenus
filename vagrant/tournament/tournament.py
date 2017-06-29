@@ -112,10 +112,17 @@ for pair in pairs:
     print winner
     winner = pair[winner]
     print "Winner is " + winner
-    c.execute("INSERT INTO matches VALUES (DEFAULT,'{0}','{1}','{2}')".format(pair[0], pair[1], winner))
+    print "Going to grab ID of winner"
+    c.execute("SELECT id from players WHERE name = '{0}'".format(winner))
+    result = c.fetchone()
+    winner_id = result[0]
+    print winner_id
+    c.execute("INSERT INTO matches VALUES (DEFAULT, '{0}','{1}','{2}','{3}')".format(pair[0], pair[1], winner, winner_id))
     print "Adding win to Players table"
+    c.execute("SELECT player_scores.player,wins from player_scores;")
+    c.fetchall()
 
-    """SELECT a.winner, b.winner from SELECT name FROM scores"""
+
 DB.commit()
 
 
@@ -128,6 +135,7 @@ c.execute("SELECT * from match_winners")
 print c.fetchall()
 
 """ Create 2nd match """
+
 """
 c.execute("SELECT a.winner, b.winner from SELECT * from match_winners WHERE match_id != '' a INNER JOIN {SELECT * from match_winners WHERE match_id != '') b on a.match_id != b.match_id where a.winner < b.winner order by a.winner;"
 INSERT INTO matches (player_one, player_two)
