@@ -49,14 +49,12 @@ def playerStandings():
     """
 
 SELECT
-SELECT player_one || player_two AS name, COUNT(player_one || player_two) AS matches_played FROM matches GROUP BY player_one || player_two;
+SELECT player, COUNT(player) AS matches_played FROM matches GROUP BY player ORDER BY matches_played;
 
 
-(SELECT player_two AS name, COUNT(player_two) AS matches_played FROM matches GROUP BY player_two) AS MatchCount;
 
 
-) AS MatchCount
-SELECT matches.winner_id AS id, matches.winner AS name, COUNT(matches.winner_id) as wins FROM matches INNER JOIN player_scores
+SELECT matches.winner_id AS id, matches.winner AS name, COUNT(matches.winner_id)/2 as wins, COUNT(matches.player)/2 AS matches_played FROM matches INNER JOIN player_scores
     ON matches.winner = player_scores.player GROUP BY matches.winner, matches.winner_id ORDER BY matches.winner;
 
 
