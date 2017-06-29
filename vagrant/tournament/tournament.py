@@ -46,6 +46,24 @@ def playerStandings():
         matches: the number of matches the player has played
     """
 
+    """
+
+SELECT
+SELECT player_one || player_two AS name, COUNT(player_one || player_two) AS matches_played FROM matches GROUP BY player_one || player_two;
+
+
+(SELECT player_two AS name, COUNT(player_two) AS matches_played FROM matches GROUP BY player_two) AS MatchCount;
+
+
+) AS MatchCount
+SELECT matches.winner_id AS id, matches.winner AS name, COUNT(matches.winner_id) as wins FROM matches INNER JOIN player_scores
+    ON matches.winner = player_scores.player GROUP BY matches.winner, matches.winner_id ORDER BY matches.winner;
+
+
+SELECT matches.winner_id AS id, matches.winner AS name, COUNT(matches.winner_id) as wins FROM matches INNER JOIN player_scores
+    ON matches.winner = player_scores.player GROUP BY matches.winner, matches.winner_id ORDER BY matches.winner;
+
+"""
 
 def reportMatch(winner, loser):
     """Records the outcome of a single match between two players.
@@ -77,9 +95,6 @@ def pickRandom(players):
     idx = random.randrange(0, len(players))
     return players.pop(idx)
 
-
-
-
 import random
 import psycopg2
 DB = connect()
@@ -106,7 +121,9 @@ while players:
 print pairs
 
 """ Create the initial 8 matches and the winners"""
+count = 0
 for pair in pairs:
+    count += 1
     print pair
     winner = random.randint(0, 1)
     print winner
@@ -117,14 +134,14 @@ for pair in pairs:
     result = c.fetchone()
     winner_id = result[0]
     print winner_id
-    c.execute("INSERT INTO matches VALUES (DEFAULT, '{0}','{1}','{2}','{3}')".format(pair[0], pair[1], winner, winner_id))
+        # c.execute("INSERT INTO matches VALUES (DEFAULT, '{0}','{1}','{2}','{3}')".format(pair[0], pair[1], winner, winner_id))
+    c.execute("INSERT INTO matches VALUES ('{0}','{1}','{2}','{3}')".format(count, pair[0], winner, winner_id))
+    c.execute("INSERT INTO matches VALUES ('{0}','{1}','{2}','{3}')".format(count, pair[1], winner, winner_id))
     print "Adding win to Players table"
-    c.execute("SELECT player_scores.player,wins from player_scores;")
-    c.fetchall()
-
 
 DB.commit()
-
+c.execute("SELECT player_scores.player,wins from player_scores;")
+c.fetchall()
 
 
 c.execute("SELECT * from matches")
