@@ -10,9 +10,9 @@ DROP DATABASE IF EXISTS tournament;
 
 CREATE DATABASE tournament;
 \c tournament
-CREATE TABLE players (id SERIAL, name TEXT);
-CREATE TABLE matches (match_id serial, player_one TEXT, player_two TEXT, winner TEXT);
+CREATE TABLE players (id serial, name text);
+CREATE TABLE matches (match_id serial, player_one text, player_two text, winner text, winner_id integer);
 CREATE VIEW match_winners AS SELECT match_id, winner FROM matches GROUP BY match_id, winner ORDER BY match_id ASC;
-CREATE VIEW player_scores AS SELECT winner, count(*) AS wins FROM match_winners GROUP BY winner ORDER BY wins ASC;
+CREATE VIEW player_scores AS SELECT winner AS player, count(*) AS wins FROM match_winners GROUP BY winner ORDER BY wins DESC;
 
 ---CREATE VIEW player_scores AS SELECT total_wins, winner, count(*) AS wins FROM scores GROUP BY winner ORDER BY wins DESC;
