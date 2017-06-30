@@ -30,7 +30,7 @@ def countPlayers():
 
 def registerPlayer(name):
     """Adds a player to the tournament database."""
-    c.execute("INSERT INTO players (name) VALUES ('%s');" % name)
+    c.execute("INSERT INTO players (name) VALUES ('[0]');".format(name))
 
 def playerStandings():
     """Returns a list of the players and their win records, sorted by wins.
@@ -56,7 +56,7 @@ def reportMatch(winner, loser):
       winner:  the id number of the player who won
       loser:  the id number of the player who lost
     """
-
+    c.execute("INSERT INTO matches VALUES (DEFAULT, '{0}','{1}');".format(loser, winner))
  
  
 def swissPairings():
