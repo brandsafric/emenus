@@ -132,7 +132,7 @@ for pair in pairs:
     print "Adding win to Players table"
 
 DB.commit()
-c.execute("SELECT name, match_wins from player_scores;")
+c.execute("SELECT name, match_wins from player_standings;")
 c.fetchall()
 
 
