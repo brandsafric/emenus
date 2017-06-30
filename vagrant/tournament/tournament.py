@@ -45,23 +45,9 @@ def playerStandings():
         wins: the number of matches the player has won
         matches: the number of matches the player has played
     """
-
-    """
-
-SELECT
-SELECT player, COUNT(player) AS matches_played FROM matches GROUP BY player ORDER BY matches_played;
+    c.execute("SELECT * FROM player_standings;")
 
 
-
-
-SELECT matches.winner_id AS id, matches.winner AS name, COUNT(matches.winner_id)/2 as wins, COUNT(matches.player)/2 AS matches_played FROM matches INNER JOIN player_scores
-    ON matches.winner = player_scores.player GROUP BY matches.winner, matches.winner_id ORDER BY matches.winner;
-
-
-SELECT matches.winner_id AS id, matches.winner AS name, COUNT(matches.winner_id) as wins FROM matches INNER JOIN player_scores
-    ON matches.winner = player_scores.player GROUP BY matches.winner, matches.winner_id ORDER BY matches.winner;
-
-"""
 
 def reportMatch(winner, loser):
     """Records the outcome of a single match between two players.
@@ -70,6 +56,7 @@ def reportMatch(winner, loser):
       winner:  the id number of the player who won
       loser:  the id number of the player who lost
     """
+
  
  
 def swissPairings():
@@ -119,12 +106,15 @@ while players:
 print pairs
 
 """ Create the initial 8 matches and the winners"""
-count = 0
 for pair in pairs:
-    count += 1
     print pair
     winner = random.randint(0, 1)
     print winner
+    if winner:
+        loser = pair[0]
+    else:
+        loser = pair[1]
+
     winner = pair[winner]
     print "Winner is " + winner
     print "Going to grab ID of winner"
@@ -132,13 +122,17 @@ for pair in pairs:
     result = c.fetchone()
     winner_id = result[0]
     print winner_id
+    print "Going to grab ID of loser"
+    c.execute("SELECT id from players WHERE name = '{0}'".format(loser))
+    result = c.fetchone()
+    loser_id = result[0]
+    print loser_id
         # c.execute("INSERT INTO matches VALUES (DEFAULT, '{0}','{1}','{2}','{3}')".format(pair[0], pair[1], winner, winner_id))
-    c.execute("INSERT INTO matches VALUES ('{0}','{1}','{2}','{3}')".format(count, pair[0], winner, winner_id))
-    c.execute("INSERT INTO matches VALUES ('{0}','{1}','{2}','{3}')".format(count, pair[1], winner, winner_id))
+    c.execute("INSERT INTO matches VALUES (DEFAULT, '{0}','{1}')".format(loser_id, winner_id))
     print "Adding win to Players table"
 
 DB.commit()
-c.execute("SELECT player_scores.player,wins from player_scores;")
+c.execute("SELECT name, match_wins from player_scores;")
 c.fetchall()
 
 
