@@ -15,22 +15,28 @@ def connect():
 
 def deleteMatches():
     """Remove all the match records from the database."""
-    c.execute("DELETE * FROM matches;")
+    c.execute("DELETE FROM matches;")
 
 
 def deletePlayers():
     """Remove all the player records from the database."""
-    c.execute("DELETE * FROM players;")
+    return c.execute("DELETE FROM players;")
+
 
 
 def countPlayers():
     """Returns the number of players currently registered."""
     c.execute("SELECT count(*) FROM players;")
+    DB.commit()
+    rows = c.fetchall()
+    return rows[0][0]
+
 
 
 def registerPlayer(name):
     """Adds a player to the tournament database."""
-    c.execute("INSERT INTO players (name) VALUES ('[0]');".format(name))
+    c.execute("INSERT INTO players VALUES (DEFAULT, '{0}');".format(name))
+    DB.commit()
 
 def playerStandings():
     """Returns a list of the players and their win records, sorted by wins.
@@ -46,6 +52,9 @@ def playerStandings():
         matches: the number of matches the player has played
     """
     c.execute("SELECT * FROM player_standings;")
+    DB.commit()
+    rows = c.fetchall()
+    return rows
 
 
 
@@ -84,83 +93,53 @@ import random
 import psycopg2
 DB = connect()
 c = DB.cursor()
-"""countPlayers()"""
-"""deletePlayers()"""
-
-""" Create the Players """
-for player in players:
-    print "Adding " + player
-    registerPlayer(player)
-    print player + " added."
-DB.commit()
-c.execute("SELECT * from players")
-print c.fetchall()
-
-""" Create the pairs """
-pairs = []
-while players:
-    rand1 = pickRandom(players)
-    rand2 = pickRandom(players)
-    pair = rand1, rand2
-    pairs.append(pair)
-print pairs
-
-""" Create the initial 8 matches and the winners"""
-for pair in pairs:
-    print pair
-    winner = random.randint(0, 1)
-    print winner
-    if winner:
-        loser = pair[0]
-    else:
-        loser = pair[1]
-
-    winner = pair[winner]
-    print "Winner is " + winner
-    print "Going to grab ID of winner"
-    c.execute("SELECT id from players WHERE name = '{0}'".format(winner))
-    result = c.fetchone()
-    winner_id = result[0]
-    print winner_id
-    print "Going to grab ID of loser"
-    c.execute("SELECT id from players WHERE name = '{0}'".format(loser))
-    result = c.fetchone()
-    loser_id = result[0]
-    print loser_id
-        # c.execute("INSERT INTO matches VALUES (DEFAULT, '{0}','{1}','{2}','{3}')".format(pair[0], pair[1], winner, winner_id))
-    c.execute("INSERT INTO matches VALUES (DEFAULT, '{0}','{1}')".format(loser_id, winner_id))
-    print "Adding win to Players table"
-
-DB.commit()
-c.execute("SELECT name, match_wins from player_standings;")
-c.fetchall()
-
-
-c.execute("SELECT * from matches")
-print c.fetchall()
-
-""" Display winners from match 1 """
-c.execute("SELECT * from match_winners")
-print c.fetchall()
-
-""" Create 2nd match """
-
-"""
-c.execute("SELECT a.winner, b.winner from SELECT * from match_winners WHERE match_id != '' a INNER JOIN {SELECT * from match_winners WHERE match_id != '') b on a.match_id != b.match_id where a.winner < b.winner order by a.winner;"
-INSERT INTO matches (player_one, player_two)
-select a.id, b.id
-from people1 a
-inner join people1 b on a.id < b.id
-where not exists (
-    select *
-    from pairs1 c
-    where c.person_a_id = a.id
-      and c.person_b_id = b.id)
-order by a.id * rand()
-limit 1;
-
-SELECT a.winner FROM scores AS a JOIN scores AS b ON a.winner != b.winner;
-"""
-
-
-DB.close()
+#
+#
+# """ Create the Players """
+# for player in players:
+#     print "Adding " + player
+#     registerPlayer(player)
+#     print player + " added."
+# DB.commit()
+# c.execute("SELECT * from players")
+# print c.fetchall()
+#
+# """ Create the pairs """
+# pairs = []
+# while players:
+#     rand1 = pickRandom(players)
+#     rand2 = pickRandom(players)
+#     pair = rand1, rand2
+#     pairs.append(pair)
+# print pairs
+#
+# """ Create the initial 8 matches and the winners"""
+# for pair in pairs:
+#     print pair
+#     winner = random.randint(0, 1)
+#     print winner
+#     if winner:
+#         loser = pair[0]
+#     else:
+#         loser = pair[1]
+#
+#     winner = pair[winner]
+#     print "Winner is " + winner
+#     print "Going to grab ID of winner"
+#     c.execute("SELECT id from players WHERE name = '{0}'".format(winner))
+#     result = c.fetchone()
+#     winner_id = result[0]
+#     print winner_id
+#     print "Going to grab ID of loser"
+#     c.execute("SELECT id from players WHERE name = '{0}'".format(loser))
+#     result = c.fetchone()
+#     loser_id = result[0]
+#     print loser_id
+#         # c.execute("INSERT INTO matches VALUES (DEFAULT, '{0}','{1}','{2}','{3}')".format(pair[0], pair[1], winner, winner_id))
+#     c.execute("INSERT INTO matches VALUES (DEFAULT, '{0}','{1}')".format(loser_id, winner_id))
+#     print "Adding win to Players table"
+#
+# DB.commit()
+# c.execute("SELECT name, match_wins from player_standings;")
+# c.fetchall()
+# DB.close()
