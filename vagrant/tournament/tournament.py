@@ -8,6 +8,19 @@ players = ["Homer Simpson", "Marge Simpson", "Bart Simpson", "Lisa Simpson", "Ma
 "Mr. Burns", "Ned Flanders", "Milhouse Van", "Moe Szyslak", "Waylon Smithers", "Barney Gumble",
 "Edna Krabappel", "Nelson Muntz", "Principal Skinner", "Patty Bouvier", "Ralph Wiggum"]
 
+html_escape_table = {
+    "&": "&amp;",
+    '"': "&quot;",
+    "'": "&apos;",
+    ">": "&gt;",
+    "<": "&lt;",
+    }
+
+def html_escape(text):
+    """Produce entities within text."""
+    return "".join(html_escape_table.get(c,c) for c in text)
+
+
 def connect():
     """Connect to the PostgreSQL database.  Returns a database connection."""
     return psycopg2.connect("dbname=tournament")
@@ -35,7 +48,10 @@ def countPlayers():
 
 def registerPlayer(name):
     """Adds a player to the tournament database."""
-    c.execute("INSERT INTO players VALUES (DEFAULT, '{0}');".format(name))
+
+    escaped = html_escape(name)
+    c.execute("INSERT INTO players VALUES (DEFAULT, '{0}');".format(escaped))
+
     DB.commit()
 
 def playerStandings():
@@ -91,8 +107,12 @@ def pickRandom(players):
 
 import random
 import psycopg2
+import re
+
 DB = connect()
 c = DB.cursor()
+# registerPlayer("Chandra Nalaar")
+# registerPlayer("Jace Beleren")
 #
 #
 # """ Create the Players """
