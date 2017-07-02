@@ -34,7 +34,7 @@ players.id = matches.winner
 GROUP BY players.id, players.name
 ) sum2,
 (
-SELECT players.id, COUNT(*) matches_played
+SELECT players.id, COUNT(sum3.player) matches_played
 FROM (
 SELECT loser as player
 FROM matches
