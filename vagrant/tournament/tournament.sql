@@ -88,14 +88,15 @@ GROUP BY sum1.player, sum1.name, sum1.match_wins, sum4.matches_played
 ORDER BY sum1.match_wins DESC, sum1.player;
 
 
-SELECT distinct wins.id, wins.name, wins.total AS wins, losses.total AS losses
+SELECT distinct wins.id, wins.name, wins.total AS wins, losses.total AS losses, wins.total + losses.total as total
 FROM (
 SELECT players.id AS id, players.name as name, COUNT(match_winners.winner) AS total
 FROM players
 LEFT JOIN match_winners ON
 players.id = match_winners.winner
 GROUP BY players.id, players.name
-) AS wins,
+) AS wins
+inner join
 (
 SELECT players.id AS id, COUNT(match_losers.loser) AS total
 FROM players
@@ -103,7 +104,7 @@ LEFT JOIN match_losers ON
 players.id = match_losers.loser
 GROUP BY players.id
 ) AS losses
-WHERE wins.id = losses.id
+on wins.id = losses.id
 GROUP BY wins.id, wins.name, wins.total, losses.total
 ORDER BY wins.total DESC, wins.id;
 
