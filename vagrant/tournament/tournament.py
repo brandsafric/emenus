@@ -40,7 +40,7 @@ def deletePlayers():
 def countPlayers():
     """Returns the number of players currently registered."""
     c.execute("SELECT count(*) FROM players;")
-    DB.commit()
+    # DB.commit()
     rows = c.fetchall()
     return rows[0][0]
 
@@ -98,8 +98,69 @@ def swissPairings():
         name1: the first player's name
         id2: the second player's unique id
         name2: the second player's name
+
+
     """
 
+    c.execute("SELECT * FROM player_standings;")
+    rows = c.fetchall()
+    n = len(rows)/2
+
+    for row in n:
+        try:
+            print row[0], row[1] + " vs. "
+            print rows[rows.index(row) + 1][0], rows[rows.index(row) + 1][1]
+        except:
+            pass
+            # print rows[n][0], rows[n][1]
+            # print rows[n][0], rows[n][1]
+
+    # n = 0
+    # a = []
+    # for row in rows:
+    #     while n > 8:
+    #         n += 1
+    #         print n
+    #         print row
+
+
+
+
+    """
+
+SELECT  FROM
+player_standings FULL JOIN
+(SELECT *
+FROM player_standings
+LIMIT 2)
+AS top_two
+ON player_standings.id = top_two.id;
+
+
+SELECT player_standings1.id, player_standings1.name
+from player_standings AS player_standings1
+INNER JOIN player_standings AS player_standings2
+ON (player_standings1.id = player_standings2.id)
+WHERE player_standings1.id > player_standings2.id;
+
+SELECT *
+FROM player_standings
+WHERE (ROWID,0) IN (SELECT ROWID, MOD(ROWNUM,4)
+                     FROM player_standings);
+
+
+SELECT pair2.id, pair2.name from
+(select *
+from player_standings
+limit 2 OFFSET 2) AS pair2,
+SELECT pair3.id, pair3.name FROM
+(SELECT *
+FROM player_standings
+LIMIT 2 OFFSET 4) AS pair3,
+
+
+
+    """
 
 def pickRandom(players):
     idx = random.randrange(0, len(players))
@@ -111,6 +172,7 @@ import re
 
 DB = connect()
 c = DB.cursor()
+swissPairings()
 # registerPlayer("Chandra Nalaar")
 # registerPlayer("Jace Beleren")
 #
