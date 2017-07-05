@@ -12,6 +12,7 @@ CREATE DATABASE tournament;
 \c tournament
 CREATE TABLE players (id serial, name text);
 CREATE TABLE matches (match serial, loser integer, winner integer);
+CREATE TABLE swiss_pairings (match serial, player_one_id integer, player_one_name text, player_two_id integer, player_two_name text);
 --3 Column Table player | name | match_wins
 CREATE VIEW match_winners AS
 SELECT match, winner FROM matches GROUP BY match, winner ORDER BY match ASC;
