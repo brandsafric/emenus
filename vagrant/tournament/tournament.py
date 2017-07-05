@@ -82,6 +82,7 @@ def reportMatch(winner, loser):
       loser:  the id number of the player who lost
     """
     c.execute("INSERT INTO matches VALUES (DEFAULT, '{0}','{1}');".format(loser, winner))
+    DB.commit()
  
  
 def swissPairings():
@@ -101,66 +102,38 @@ def swissPairings():
 
 
     """
+    # First count the number of matches played
+    c.execute("SELECT * FROM matches;")
+    rows = c.fetchall()
+    matches = len(rows)
+    print "Length of matches is " + str(matches)
+
 
     c.execute("SELECT * FROM player_standings;")
     rows = c.fetchall()
-    n = len(rows)/2
-
-    for row in n:
+    # print rows
+    n = len(rows) - matches
+    print "length of rows - matches = " + str(n)
+    for x in range(0, n, 2):
+        print "x is currently at " + str(x)
         try:
-            print row[0], row[1] + " vs. "
-            print rows[rows.index(row) + 1][0], rows[rows.index(row) + 1][1]
+            # print "Trying to add"
+            c.execute("INSERT INTO swiss_pairings VALUES (DEFAULT, '{0}','{1}','{2}','{3}');".format(rows[x][0], rows[x][1], rows[x + 1][0], rows[x + 1][1]))
+            DB.commit()
         except:
             pass
-            # print rows[n][0], rows[n][1]
-            # print rows[n][0], rows[n][1]
+    DB.commit()
 
-    # n = 0
-    # a = []
-    # for row in rows:
-    #     while n > 8:
-    #         n += 1
-    #         print n
-    #         print row
+    c.execute("SELECT player_one_id, player_one_name, player_two_id, player_two_name FROM swiss_pairings ORDER BY match LIMIT ('{0}');".format(n))
+    rows = c.fetchall()
+    return rows
+    # for x in range(0, n, 2):
+    #     try:
+    #         print rows[x][0], rows[x][1] + " vs. "
+    #         print rows[x + 1][0], rows[x + 1][1]
+    #     except:
+    #         pass
 
-
-
-
-    """
-
-SELECT  FROM
-player_standings FULL JOIN
-(SELECT *
-FROM player_standings
-LIMIT 2)
-AS top_two
-ON player_standings.id = top_two.id;
-
-
-SELECT player_standings1.id, player_standings1.name
-from player_standings AS player_standings1
-INNER JOIN player_standings AS player_standings2
-ON (player_standings1.id = player_standings2.id)
-WHERE player_standings1.id > player_standings2.id;
-
-SELECT *
-FROM player_standings
-WHERE (ROWID,0) IN (SELECT ROWID, MOD(ROWNUM,4)
-                     FROM player_standings);
-
-
-SELECT pair2.id, pair2.name from
-(select *
-from player_standings
-limit 2 OFFSET 2) AS pair2,
-SELECT pair3.id, pair3.name FROM
-(SELECT *
-FROM player_standings
-LIMIT 2 OFFSET 4) AS pair3,
-
-
-
-    """
 
 def pickRandom(players):
     idx = random.randrange(0, len(players))
@@ -172,19 +145,61 @@ import re
 
 DB = connect()
 c = DB.cursor()
-swissPairings()
-# registerPlayer("Chandra Nalaar")
-# registerPlayer("Jace Beleren")
+
+# Test commands
+# registerPlayer("Twilight Sparkle")
+# registerPlayer("Fluttershy")
+# registerPlayer("Applejack")
+# registerPlayer("Pinkie Pie")
+# registerPlayer("Rarity")
+# registerPlayer("Rainbow Dash")
+# registerPlayer("Princess Celestia")
+# registerPlayer("Princess Luna")
+# standings = playerStandings()
+# [id1, id2, id3, id4, id5, id6, id7, id8] = [row[0] for row in standings]
+# print "standings : " + str(standings)
+# pairings = swissPairings()
+# print pairings
+# print len(pairings)
+# reportMatch(id1, id2)
+# reportMatch(id3, id4)
+# reportMatch(id5, id6)
+# reportMatch(id7, id8)
+# pairings = swissPairings()
+# print len(pairings)
+# [(pid1, pname1, pid2, pname2), (pid3, pname3, pid4, pname4), (pid5, pname5, pid6, pname6), (pid7, pname7, pid8, pname8)] = pairings
+# possible_pairs = set([frozenset([id1, id3]), frozenset([id1, id5]),
+#                       frozenset([id1, id7]), frozenset([id3, id5]),
+#                       frozenset([id3, id7]), frozenset([id5, id7]),
+#                       frozenset([id2, id4]), frozenset([id2, id6]),
+#                       frozenset([id2, id8]), frozenset([id4, id6]),
+#                       frozenset([id4, id8]), frozenset([id6, id8]),
+#                       frozenset([id1, id2]), frozenset([id3, id4]),
+#                       frozenset([id5, id6]), frozenset([id7, id8])
+#                       ])
+# print "pairings = " + str(pairings)
+# print "pissible_pairs = " + str(possible_pairs)
+# actual_pairs = set([frozenset([pid1, pid2]), frozenset([pid3, pid4]), frozenset([pid5, pid6]), frozenset([pid7, pid8])])
+# print "acutal_pairs = " + str(actual_pairs)
+#
+# for pair in actual_pairs:
+#     print "pair is :" + str(pair)
+#     if pair not in possible_pairs:
+#         print "possible_pairs = " + str(possible_pairs)
+#         raise ValueError(
+#             "After one match, players with one win should be paired.")
 #
 #
-# """ Create the Players """
+""" Create the Players """
 # for player in players:
-#     print "Adding " + player
+#     # print "Adding " + player
 #     registerPlayer(player)
-#     print player + " added."
+#     # print player + " added."
 # DB.commit()
 # c.execute("SELECT * from players")
 # print c.fetchall()
+
+# swissPairings()
 #
 # """ Create the pairs """
 # pairs = []
