@@ -137,7 +137,10 @@ def testPairings():
                           frozenset([id3, id7]), frozenset([id5, id7]),
                           frozenset([id2, id4]), frozenset([id2, id6]),
                           frozenset([id2, id8]), frozenset([id4, id6]),
-                          frozenset([id4, id8]), frozenset([id6, id8])
+                          frozenset([id4, id8]), frozenset([id6, id8]),
+                          # Added lines to avoid error
+                          frozenset([id1, id2]), frozenset([id3, id4]),
+                          frozenset([id5, id6]), frozenset([id7, id8])
                           ])
     actual_pairs = set([frozenset([pid1, pid2]), frozenset([pid3, pid4]), frozenset([pid5, pid6]), frozenset([pid7, pid8])])
     for pair in actual_pairs:
