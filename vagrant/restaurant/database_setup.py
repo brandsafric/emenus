@@ -14,7 +14,6 @@ class Restaurant(Base):
     name = Column(String(250), nullable = False)
 
 class MenuItem(Base):
-
     __tablename__ = 'menu_item'
 
     name = Column(String(80), nullable = False)
