@@ -49,6 +49,21 @@ class webServerHandler(BaseHTTPRequestHandler):
                 output += "<html><body>"
                 for restaurant_name in restaurant_names:
                     output += "<h1>{0}</h1>".format(restaurant_name.name)
+                    output += "<div><a href='/edit'>Edit</a></div>"
+                    output += "<div><a href='/delete'>Delete</a></div>"
+                output += "</body></html>"
+                self.wfile.write(output)
+                print output
+                return
+
+            if self.path.endswith("/restaurants/new"):
+                self.send_response(200)
+                self.send_header('Content-type', 'text/html')
+                self.end_headers()
+                output = ""
+                output += "<html><body>"
+                output += "<h1>Add a new Restaurant</h1>"
+                output += '''<form method='POST' enctype='multipart/form-data' action=''><h2>What is the restaurant name?</h2><input name="name" type="text" ><input type="submit" value="Submit"> </form>'''
                 output += "</body></html>"
                 self.wfile.write(output)
                 print output
@@ -66,15 +81,32 @@ class webServerHandler(BaseHTTPRequestHandler):
                 self.headers.getheader('content-type'))
             if ctype == 'multipart/form-data':
                 fields = cgi.parse_multipart(self.rfile, pdict)
-                messagecontent = fields.get('message')
-            output = ""
-            output += "<html><body>"
-            output += " <h2> Okay, how about this: </h2>"
-            output += "<h1> {0} </h1>".format(messagecontent[0])
-            output += '''<form method='POST' enctype='multipart/form-data' action='/hello'><h2>What would you like me to say?</h2><input name="message" type="text" ><input type="submit" value="Submit"> </form>'''
-            output += "</body></html>"
-            self.wfile.write(output)
-            print output
+                try:
+                    messagecontent = fields.get('message')
+                    output = ""
+                    output += "<html><body>"
+                    output += " <h2> Okay, how about this: </h2>"
+                    output += "<h1> {0} </h1>".format(messagecontent[0])
+                    output += '''<form method='POST' enctype='multipart/form-data' action='/hello'><h2>What would you like me to say?</h2><input name="message" type="text" ><input type="submit" value="Submit"> </form>'''
+                    output += "</body></html>"
+                    self.wfile.write(output)
+                    print output
+                except:
+                    messagecontent = fields.get('name')
+                    output = ""
+                    output += " <h2> {0} added </h2>".format(messagecontent[0])
+                    output += "</body></html>"
+                    self.wfile.write(output)
+                    engine = create_engine('sqlite:///restaurantmenu.db')
+                    Base.metadata.bind = engine
+                    DBSession = sessionmaker(bind=engine)
+                    session = DBSession()
+                    newRestaurant = Restaurant(name = messagecontent[0])
+                    session.add(newRestaurant)
+                    session.commit()
+                    session.close()
+                    print output
+
         except:
             pass
 
