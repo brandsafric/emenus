@@ -1,5 +1,6 @@
 from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
 import cgi
+import re
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from database_setup import Base, Restaurant, MenuItem
@@ -49,7 +50,7 @@ class webServerHandler(BaseHTTPRequestHandler):
                 output += "<html><body>"
                 for restaurant_name in restaurant_names:
                     output += "<h1>{0}</h1>".format(restaurant_name.name)
-                    output += "<div><a href='/edit'>Edit</a></div>"
+                    output += "<div><a href='/restaurant/{0}/edit'>Edit</a></div>".format(restaurant_name.id)
                     output += "<div><a href='/delete'>Delete</a></div>"
                 output += "</body></html>"
                 self.wfile.write(output)
@@ -69,6 +70,29 @@ class webServerHandler(BaseHTTPRequestHandler):
                 print output
                 return
 
+            if self.path.endswith("/edit"):
+                exp = re.search('\/(\d+)', self.path)
+                exp_id = exp.group(1)
+                self.send_response(200)
+                self.send_header('Content-type', 'text/html')
+                self.end_headers()
+                engine = create_engine('sqlite:///restaurantmenu.db')
+                Base.metadata.bind = engine
+                DBSession = sessionmaker(bind=engine)
+                session = DBSession()
+                restaurant = session.query(Restaurant).filter_by(id=exp_id).one()
+                print restaurant.name
+                old_name = restaurant.name
+                session.close()
+                output = ""
+                output += "<html><body>"
+                output += "<h1>Edit the Restaurant name:</h1>"
+                output += '''<form method='POST' enctype='multipart/form-data' action=''><h2>What is the new restaurant name for {0}?</h2><input name="new_name" type="text" ><input type="submit" value="Submit"> </form>'''.format(old_name)
+                output += "</body></html>"
+                self.wfile.write(output)
+                print output
+                return
+6a
         except IOError:
             self.send_error(404, 'File Not Found: {0}'.format(self.path))
 
@@ -91,7 +115,7 @@ class webServerHandler(BaseHTTPRequestHandler):
                     output += "</body></html>"
                     self.wfile.write(output)
                     print output
-                except:
+                try:
                     messagecontent = fields.get('name')
                     output = ""
                     output += " <h2> {0} added </h2>".format(messagecontent[0])
@@ -106,6 +130,24 @@ class webServerHandler(BaseHTTPRequestHandler):
                     session.commit()
                     session.close()
                     print output
+                try:
+                    messagecontent = fields.get('new_name')
+                    output = ""
+                    output += "<h2>Restaurant Name has been changed to {0} </h2>".format(messagecontent[0])
+                    output += "</body></html>"
+                    self.wfile.write(output)
+                    engine = create_engine('sqlite:///restaurantmenu.db')
+                    Base.metadata.bind = engine
+                    DBSession = sessionmaker(bind=engine)
+                    session = DBSession()
+                    changed_Restaurant = session.query(Restaurant).filter_by(id=messagecontent[0]).one()
+                    changed_Restaurant.name =
+                    session.add(newRestaurant)
+                    session.commit()
+                    session.close()
+                    print output
+                except:
+                    pass
 
         except:
             pass
