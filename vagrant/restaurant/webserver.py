@@ -92,7 +92,7 @@ class webServerHandler(BaseHTTPRequestHandler):
                 self.wfile.write(output)
                 print output
                 return
-6a
+
         except IOError:
             self.send_error(404, 'File Not Found: {0}'.format(self.path))
 
