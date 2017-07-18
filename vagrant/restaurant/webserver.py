@@ -105,50 +105,60 @@ class webServerHandler(BaseHTTPRequestHandler):
                 self.headers.getheader('content-type'))
             if ctype == 'multipart/form-data':
                 fields = cgi.parse_multipart(self.rfile, pdict)
-                try:
-                    messagecontent = fields.get('message')
-                    output = ""
-                    output += "<html><body>"
-                    output += " <h2> Okay, how about this: </h2>"
-                    output += "<h1> {0} </h1>".format(messagecontent[0])
-                    output += '''<form method='POST' enctype='multipart/form-data' action='/hello'><h2>What would you like me to say?</h2><input name="message" type="text" ><input type="submit" value="Submit"> </form>'''
-                    output += "</body></html>"
-                    self.wfile.write(output)
-                    print output
-                try:
-                    messagecontent = fields.get('name')
-                    output = ""
-                    output += " <h2> {0} added </h2>".format(messagecontent[0])
-                    output += "</body></html>"
-                    self.wfile.write(output)
-                    engine = create_engine('sqlite:///restaurantmenu.db')
-                    Base.metadata.bind = engine
-                    DBSession = sessionmaker(bind=engine)
-                    session = DBSession()
-                    newRestaurant = Restaurant(name = messagecontent[0])
-                    session.add(newRestaurant)
-                    session.commit()
-                    session.close()
-                    print output
-                try:
-                    messagecontent = fields.get('new_name')
-                    output = ""
-                    output += "<h2>Restaurant Name has been changed to {0} </h2>".format(messagecontent[0])
-                    output += "</body></html>"
-                    self.wfile.write(output)
-                    engine = create_engine('sqlite:///restaurantmenu.db')
-                    Base.metadata.bind = engine
-                    DBSession = sessionmaker(bind=engine)
-                    session = DBSession()
-                    changed_Restaurant = session.query(Restaurant).filter_by(id=messagecontent[0]).one()
-                    changed_Restaurant.name =
-                    session.add(newRestaurant)
-                    session.commit()
-                    session.close()
-                    print output
-                except:
-                    pass
-
+                if fields.get('message') != None:
+                    try:
+                        messagecontent = fields.get('message')
+                        output = ""
+                        output += "<html><body>"
+                        output += " <h2> Okay, how about this: </h2>"
+                        output += "<h1> {0} </h1>".format(messagecontent[0])
+                        output += '''<form method='POST' enctype='multipart/form-data' action='/hello'><h2>What would you like me to say?</h2><input name="message" type="text" ><input type="submit" value="Submit"> </form>'''
+                        output += "</body></html>"
+                        self.wfile.write(output)
+                        print output
+                    except:
+                        pass
+                else:
+                    if fields.get('name') != None:
+                        try:
+                            messagecontent = fields.get('name')
+                            output = ""
+                            output += " <h2> {0} added </h2>".format(messagecontent[0])
+                            output += "</body></html>"
+                            self.wfile.write(output)
+                            engine = create_engine('sqlite:///restaurantmenu.db')
+                            Base.metadata.bind = engine
+                            DBSession = sessionmaker(bind=engine)
+                            session = DBSession()
+                            newRestaurant = Restaurant(name = messagecontent[0])
+                            session.add(newRestaurant)
+                            session.commit()
+                            session.close()
+                            print output
+                        except:
+                            pass
+                    else:
+                        if fields.get('new_name') != None:
+                            try:
+                                exp = re.search('\/(\d+)', self.path)
+                                exp_id = exp.group(1)
+                                engine = create_engine('sqlite:///restaurantmenu.db')
+                                Base.metadata.bind = engine
+                                DBSession = sessionmaker(bind=engine)
+                                session = DBSession()
+                                changed_restaurant = session.query(Restaurant).filter_by(id=exp_id).one()
+                                messagecontent = fields.get('new_name')
+                                output = ""
+                                output += "<h2> {0} has been changed to {1} </h2>".format(changed_restaurant.name, messagecontent[0])
+                                output += "</body></html>"
+                                self.wfile.write(output)
+                                changed_restaurant.name = messagecontent[0]
+                                session.add(changed_restaurant)
+                                session.commit()
+                                session.close()
+                                print output
+                            except:
+                                pass
         except:
             pass
 
