@@ -51,7 +51,7 @@ class webServerHandler(BaseHTTPRequestHandler):
                 for restaurant_name in restaurant_names:
                     output += "<h1>{0}</h1>".format(restaurant_name.name)
                     output += "<div><a href='/restaurant/{0}/edit'>Edit</a></div>".format(restaurant_name.id)
-                    output += "<div><a href='/delete'>Delete</a></div>"
+                    output += "<div><a href='/restaurant/{0}/delete'>Delete</a></div>".format(restaurant_name.id)
                 output += "</body></html>"
                 self.wfile.write(output)
                 print output
@@ -93,6 +93,27 @@ class webServerHandler(BaseHTTPRequestHandler):
                 print output
                 return
 
+            if self.path.endswith("/delete"):
+                exp = re.search('\/(\d+)', self.path)
+                exp_id = exp.group(1)
+                self.send_response(200)
+                self.send_header('Content-type', 'text/html')
+                self.end_headers()
+                engine = create_engine('sqlite:///restaurantmenu.db')
+                Base.metadata.bind = engine
+                DBSession = sessionmaker(bind=engine)
+                session = DBSession()
+                restaurant = session.query(Restaurant).filter_by(id=exp_id).one()
+                session.close()
+                output = ""
+                output += "<html><body>"
+                output += "<h1>Enter yes to continue:</h1>"
+                output += '''<form method='POST' enctype='multipart/form-data' action=''><h2>Delete {0}?</h2><input name="delete" type="text" ><input type="submit" value="Submit"> </form>'''.format(restaurant.name)
+                output += "</body></html>"
+                self.wfile.write(output)
+                print output
+                return
+
         except IOError:
             self.send_error(404, 'File Not Found: {0}'.format(self.path))
 
@@ -124,6 +145,7 @@ class webServerHandler(BaseHTTPRequestHandler):
                             messagecontent = fields.get('name')
                             output = ""
                             output += " <h2> {0} added </h2>".format(messagecontent[0])
+                            output += "<div><a href='/restaurants'>Return to restaurants</a></div>"
                             output += "</body></html>"
                             self.wfile.write(output)
                             engine = create_engine('sqlite:///restaurantmenu.db')
@@ -150,6 +172,7 @@ class webServerHandler(BaseHTTPRequestHandler):
                                 messagecontent = fields.get('new_name')
                                 output = ""
                                 output += "<h2> {0} has been changed to {1} </h2>".format(changed_restaurant.name, messagecontent[0])
+                                output += "<div><a href='/restaurants'>Return to restaurants</a></div>"
                                 output += "</body></html>"
                                 self.wfile.write(output)
                                 changed_restaurant.name = messagecontent[0]
@@ -159,6 +182,38 @@ class webServerHandler(BaseHTTPRequestHandler):
                                 print output
                             except:
                                 pass
+                        else:
+                            if fields.get('delete') != None:
+                                try:
+                                    print "in delete"
+                                    exp = re.search('\/(\d+)', self.path)
+                                    exp_id = exp.group(1)
+                                    engine = create_engine('sqlite:///restaurantmenu.db')
+                                    Base.metadata.bind = engine
+                                    DBSession = sessionmaker(bind=engine)
+                                    session = DBSession()
+                                    delete_restaurant = session.query(Restaurant).filter_by(id=exp_id).one()
+                                    messagecontent = fields.get('delete')
+                                    print messagecontent
+                                    if messagecontent[0] == 'yes':
+                                        # Add deleted code
+                                        output = ""
+                                        output += "<h2> {0} has been deleted. </h2>".format(delete_restaurant.name)
+                                        output += "<div><a href='/restaurants'>Return to restaurants</a></div>"
+                                        output += "</body></html>"
+                                        session.delete(delete_restaurant)
+                                        session.commit()
+                                        self.wfile.write(output)
+                                    else:
+                                        # Message not delete
+                                        output = ""
+                                        output += "<h2> {0} has NOT been deleted. </h2>".format(delete_restaurant.name)
+                                        output += "<div><a href='/restaurants'>Return to restaurants</a></div>"
+                                        output += "</body></html>"
+                                        self.wfile.write(output)
+                                    session.close()
+                                except:
+                                    pass
         except:
             pass
 
