@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from database_setup import Base, Restaurant, MenuItem
@@ -19,33 +19,17 @@ def restaurantMenu(restaurant_id):
     return render_template('menu.html', restaurant = restaurant, items = items)
 
 # Task 1: Create route for newMenuItem function here
-@app.route('/restaurants/<int:restaurant_id>/new')
+@app.route('/restaurants/<int:restaurant_id>/new', methods=['GET', 'POST'])
 def newMenuItem(restaurant_id):
-    # try:
-    #     restaurant = session.query(Restaurant).filter_by(id = restaurant_id).one()
-    #     output = ''
-    #     output += restaurant.name
-    #     output += ' already exists.  Choose another index.'
-    # except:
-    #     output = ''
-    #     output += 'Enter the name of the new restaurant below.'
-    # return output
     return "page to create a new menu item.  Task 1 complete!"
-
+# test
 # Task 2: Create route for editMenuItem function here
 
 @app.route('/restaurants/edit/<int:restaurant_id>/<int:menu_id>')
 def editMenuItem(restaurant_id, menu_id):
     # restaurant = session.query(Restaurant).filter_by(id = restaurant_id).one()
     # item = session.query(MenuItem).filter_by(id = menu_id).one()
-    # output = ''
-    # output += item.name
-    # output += '<br>'
-    # output += item.price
-    # output += "<br>"
-    # output += item.description
-    # output += "<br><br>"
-    # return output
+
 
 
     return "page to edit a menu item.  Take 2 complete!"
@@ -55,14 +39,7 @@ def editMenuItem(restaurant_id, menu_id):
 def deleteMenuItem(restaurant_id, menu_id):
     # restaurant = session.query(Restaurant).filter_by(id = restaurant_id).one()
     # item = session.query(MenuItem).filter_by(id = menu_id).one()
-    # output = ''
-    # output += item.name
-    # output += '<br>'
-    # output += item.price
-    # output += "<br>"
-    # output += item.description
-    # output += "<br><br>"
-    # return output
+
 
     return "page to delete a menu item.  Task 3 complete!"
 
