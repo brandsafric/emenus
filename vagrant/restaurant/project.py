@@ -66,7 +66,7 @@ def editMenuItem(restaurant_id, MenuID):
         session.commit()
         return redirect(url_for('restaurantMenu', restaurant_id = restaurant_id))
     else:
-        return render_template('editmenuitem.html', restaurant_id = restaurant_id, MenuID = MenuID, item = editedItem)
+        return render_template('editmenuitem.html', restaurant_id = restaurant_id, MenuID = MenuID, i = editedItem)
 
 
     # return "page to edit a menu item.  Take 2 complete!"
