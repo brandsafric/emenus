@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 
 app = Flask(__name__)
 
@@ -29,7 +29,8 @@ def editRestaurant(restaurant_id):
 
 @app.route('/restaurant/<int:restaurant_id>/delete')
 def deleteRestaurant(restaurant_id):
-    return "This page will be for deleting {0}.".format(restaurant_id)
+    # return "This page will be for deleting {0}.".format(restaurant_id)
+    return render_template('deleteMenuItem.html', item=restaurants[restaurant_id])
 
 @app.route('/restaurant/<int:restaurant_id>')
 @app.route('/restaurant/<int:restaurant_id>/menu')

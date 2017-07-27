@@ -1,22 +1,74 @@
-<html>
-	<head>
-	<!--<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">-->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+		<link rel=stylesheet type=text/css href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+		<title></title>
 	</head>
 	<body>
-	<h1>
-		Restaurant List
-	</h1>
+		<div>
+			<header>
+				<!-- Navigation -->
+				<nav class="navbar navbar-custom navbar-fixed-top navbar-default" role="navigation">
+					<div class="container">
+						<div class="navbar-header">
+							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+								<i class="fa fa-bars"></i>
+							</button>
+							<a class="navbar-brand page-scroll" href="#/">
+								<span>Restaurant Menu</span>
+							</a>
+						</div>
+						<div class="collapse navbar-collapse navbar-right navbar-main-collapse">
+							<ul class="nav navbar-nav">
+								<li class="hidden">
+									<a href="#"></a>
+								</li>
+								<li>
+									<a class="page-scroll" href="#/">Menus</a>
+								</li>
 
+							</ul>
+						</div>
+					</div>
+				</nav>
+			</header>
+			<div class="button-nav">
+				<ul class="list-group">
+					<a class="list-group-item" href="{{ url_for('editRestaurant', restaurant_id = 1)}}">Edit Item</a>
+					<a class="list-group-item" href="{{ url_for('deleteRestaurant', restaurant_id = 1)}}">Delete Item</a>
+				</ul>
+			</div>
+			<div class="row">
+				<div class="col-lg-1"></div>
+				<div class="col-lg-4">
+					<h1>
+						Restaurant List
+					</h1>
+					<div class="restaurant-list">
 
-		{% for r in restaurants %}
-		<div class="restaurantName">
-			<p>
-				{{r.name}}
-			</p>
-		</div>
+						{% for r in restaurants %}
+						<div class="restaurantName">
+							<p>
+								{{r.name}}
+							</p>
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+				<div class="col-lg-7"></div>
 
-		{% endfor %}
+			</div>
+			<footer>
 
+			</footer>
+		</container>
 	</body>
+	<script src="app.js"></script>
 
 </html>
