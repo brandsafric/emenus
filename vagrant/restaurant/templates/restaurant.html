@@ -11,7 +11,7 @@
 		<title></title>
 	</head>
 	<body>
-		<div>
+		<div class="container">
 			<header>
 				<!-- Navigation -->
 				<nav class="navbar navbar-custom navbar-fixed-top navbar-default" role="navigation">
@@ -40,8 +40,11 @@
 			</header>
 			<div class="button-nav">
 				<ul class="list-group">
-					<a class="list-group-item" href="{{ url_for('editRestaurant', restaurant_id = 1)}}">Edit Item</a>
-					<a class="list-group-item" href="{{ url_for('deleteRestaurant', restaurant_id = 1)}}">Delete Item</a>
+					<a class="list-group-item" href="{{	url_for('showMenu', restaurant_id = 1) }}">Show Menu</a>
+					<a class="list-group-item" href="{{ url_for('newRestaurant') }}">Create Restaurant</a>
+					<a class="list-group-item" href="{{	url_for('newMenuItem', restaurant_id = 1) }}">Create Item</a>
+					<a class="list-group-item" href="{{ url_for('editRestaurant', restaurant_id = 1) }}">Edit Item</a>
+					<a class="list-group-item" href="{{ url_for('deleteRestaurant', restaurant_id = 1) }}">Delete Item</a>
 				</ul>
 			</div>
 			<div class="row">
@@ -64,10 +67,32 @@
 				<div class="col-lg-7"></div>
 
 			</div>
+			<div class="row">
+				<div class="col-lg-1"></div>
+				<div class="col-lg-4">
+					<h1>
+						Item List
+					</h1>
+					<div class="item-list">
+
+						{% for i in items %}
+						<div class="itemName">
+							<p>
+								{{i.name}} <br>
+								{{i.description}} <br>
+								{{i.price}} <br>
+							</p>
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+				<div class="col-lg-7"></div>
+
+			</div>
 			<footer>
 
 			</footer>
-		</container>
+		</div>
 	</body>
 	<script src="app.js"></script>
 
