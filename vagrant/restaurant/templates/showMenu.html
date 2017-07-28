@@ -1,0 +1,44 @@
+<html>
+    <head>
+        <link rel=stylesheet type=text/css href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+    </head>
+    <body>
+        <div class="container">
+
+			<div class="row">
+				<div class="col-lg-1"></div>
+				<div class="col-lg-4">
+					<h1>
+						{{restaurant.name}}
+					</h1>
+				</div>
+				<div class="col-lg-7"></div>
+
+			</div>
+			<div class="row">
+				<div class="col-lg-1"></div>
+				<div class="col-lg-4 col-md-offset-4">
+					<h2>
+						Item List
+					</h2>
+					<div class="item-list">
+
+						{% for i in items %}
+						<div class="itemName">
+							<p>
+								{{i.name}} <br>
+								{{i.description}} <br>
+								{{i.price}} <br>
+							</p>
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+				<div class="col-lg-7"></div>
+
+			</div>
+			<a href="/">Return to home</a>
+        </div>
+    </body>
+</html>
