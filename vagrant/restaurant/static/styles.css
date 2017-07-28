@@ -16,6 +16,6 @@ container {
     text-align: center;
 }
 
-.restaurant-list {
+.restaurant-list, .item-list {
     margin-left: 2em;
 }
