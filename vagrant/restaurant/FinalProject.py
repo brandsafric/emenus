@@ -16,11 +16,12 @@ item =  {'name':'Cheese Pizza','description':'made with fresh cheese','price':'$
 @app.route('/restaurants/')
 def showRestaurants():
     # return 'This page will show all my restaurants.'
-    return render_template('restaurant.html', restaurants=restaurants)
+    return render_template('restaurant.html', restaurants=restaurants, items=items)
 
 @app.route('/restaurants/new')
 def newRestaurant():
-    return "This page will be for making a new restaurant."
+    # return "This page will be for making a new restaurant."
+    return render_template('newRestaurant.html')
 
 @app.route('/restaurant/<int:restaurant_id>/edit')
 def editRestaurant(restaurant_id):
@@ -35,11 +36,13 @@ def deleteRestaurant(restaurant_id):
 @app.route('/restaurant/<int:restaurant_id>')
 @app.route('/restaurant/<int:restaurant_id>/menu')
 def showMenu(restaurant_id):
-    return "This page is the menu for restraurant {0}".format(restaurant_id)
+    # return "This page is the menu for restaurant {0}".format(restaurant_id)
+    return render_template('showMenu.html', restaurant=restaurants[restaurant_id], items=items)
 
 @app.route('/restaurant/<int:restaurant_id>/menu/new')
 def newMenuItem(restaurant_id):
-    return "This page is for making a new menu item for restaurant {0}.".format(restaurant_id)
+    # return "This page is for making a new menu item for restaurant {0}.".format(restaurant_id)
+    return render_template('newMenuItem.html', restaurant=restaurants[restaurant_id])
 
 @app.route('/restaurant/<int:restaurant_id>/<int:menu_id>/edit')
 def editMenuItem(restaurant_id, menu_id):
