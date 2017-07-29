@@ -32,10 +32,21 @@
 								{{i.price}} <br>
 							</p>
 						</div>
+						<div class="button-nav">
+							<ul class="list-group">
+								<a class="list-group-item" href="{{ url_for('editMenuItem', restaurant_id = restaurant.id, menu_id = i.id) }}">Edit Item</a>
+								<a class="list-group-item" href="{{ url_for('deleteMenuItem', restaurant_id = restaurant.id, menu_id = i.id) }}">Delete Item</a>
+							</ul>
+						</div>
 						{% endfor %}
 					</div>
 				</div>
 				<div class="col-lg-7"></div>
+				<div class="button-nav">
+					<ul class="list-group">
+						<a class="list-group-item" href="{{	url_for('newMenuItem', restaurant_id = restaurant.id) }}">Create Item</a>
+					</ul>
+				</div>
 
 			</div>
 			<a href="/">Return to home</a>

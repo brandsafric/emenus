@@ -38,17 +38,7 @@
 					</div>
 				</nav>
 			</header>
-			<div class="button-nav">
-				<ul class="list-group">
-					<a class="list-group-item" href="{{	url_for('showMenu', restaurant_id = 1) }}">Show Menu</a>
-					<a class="list-group-item" href="{{ url_for('newRestaurant') }}">Create Restaurant</a>
-					<a class="list-group-item" href="{{ url_for('editRestaurant', restaurant_id = 1) }}">Edit Restaurant</a>
-					<a class="list-group-item" href="{{ url_for('deleteRestaurant', restaurant_id = 1) }}">Delete Restaurant</a>
-					<a class="list-group-item" href="{{	url_for('newMenuItem', restaurant_id = 1) }}">Create Item</a>
-					<a class="list-group-item" href="{{ url_for('editMenuItem', restaurant_id = 1, menu_id = 1) }}">Edit Item</a>
-					<a class="list-group-item" href="{{ url_for('deleteMenuItem', restaurant_id = 1, menu_id = 1) }}">Delete Item</a>
-				</ul>
-			</div>
+
 			<div class="row">
 				<div class="col-lg-1"></div>
 				<div class="col-lg-4">
@@ -58,39 +48,32 @@
 					<div class="restaurant-list">
 
 						{% for r in restaurants %}
+
 						<div class="restaurantName">
 							<p>
 								{{r.name}}
 							</p>
+							<div class="button-nav">
+								<ul class="list-group">
+									<a class="list-group-item" href="{{	url_for('showMenu', restaurant_id = r.id) }}">Show Menu</a>
+									<a class="list-group-item" href="{{ url_for('editRestaurant', restaurant_id = r.id) }}">Edit Restaurant</a>
+									<a class="list-group-item" href="{{ url_for('deleteRestaurant', restaurant_id = r.id) }}">Delete Restaurant</a>
+								</ul>
+							</div>
 						</div>
 						{% endfor %}
 					</div>
 				</div>
-				<div class="col-lg-7"></div>
-
-			</div>
-			<div class="row">
-				<div class="col-lg-1"></div>
-				<div class="col-lg-4">
-					<h1>
-						Item List
-					</h1>
-					<div class="item-list">
-
-						{% for i in items %}
-						<div class="itemName">
-							<p>
-								{{i.name}} <br>
-								{{i.description}} <br>
-								{{i.price}} <br>
-							</p>
-						</div>
-						{% endfor %}
+				<div class="col-lg-7">
+					<div class="button-nav">
+						<ul class="list-group">
+							<a class="list-group-item" href="{{ url_for('newRestaurant') }}">Create Restaurant</a>
+						</ul>
 					</div>
 				</div>
-				<div class="col-lg-7"></div>
 
 			</div>
+
 			<footer>
 
 			</footer>

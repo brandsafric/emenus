@@ -26,33 +26,33 @@ def newRestaurant():
 @app.route('/restaurant/<int:restaurant_id>/edit')
 def editRestaurant(restaurant_id):
     # return "This page will be for editing restaurant {0}.".format(restaurant_id)
-    return render_template('editRestaurant.html', restaurant=restaurants[restaurant_id])
+    return render_template('editRestaurant.html', restaurant=restaurants[restaurant_id - 1])
 
 @app.route('/restaurant/<int:restaurant_id>/delete')
 def deleteRestaurant(restaurant_id):
     # return "This page will be for deleting {0}.".format(restaurant_id)
-    return render_template('deleteRestaurant.html', restaurant=restaurants[restaurant_id])
+    return render_template('deleteRestaurant.html', restaurant=restaurants[restaurant_id - 1])
 
 @app.route('/restaurant/<int:restaurant_id>')
 @app.route('/restaurant/<int:restaurant_id>/menu')
 def showMenu(restaurant_id):
     # return "This page is the menu for restaurant {0}".format(restaurant_id)
-    return render_template('showMenu.html', restaurant=restaurants[restaurant_id], items=items)
+    return render_template('showMenu.html', restaurant=restaurants[restaurant_id - 1], items=items)
 
 @app.route('/restaurant/<int:restaurant_id>/menu/new')
 def newMenuItem(restaurant_id):
     # return "This page is for making a new menu item for restaurant {0}.".format(restaurant_id)
-    return render_template('newMenuItem.html', restaurant=restaurants[restaurant_id])
+    return render_template('newMenuItem.html', restaurant=restaurants[restaurant_id - 1])
 
 @app.route('/restaurant/<int:restaurant_id>/<int:menu_id>/edit')
 def editMenuItem(restaurant_id, menu_id):
     # return "This page is forf editing menu item {0}.".format(menu_id)
-    return render_template('editMenuItem.html', item=items[menu_id])
+    return render_template('editMenuItem.html', restaurant=restaurants[restaurant_id - 1], item=items[menu_id - 1])
 
 @app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/delete')
 def deleteMenuItem(restaurant_id, menu_id):
     # return "This page is for deleting menu item {0}.".format(menu_id)
-    return render_template('deleteMenuItem.html', item=items[menu_id])
+    return render_template('deleteMenuItem.html', restaurant=restaurants[restaurant_id -1], item=items[menu_id - 1])
 
 if __name__ == '__main__':
     app.debug = True
