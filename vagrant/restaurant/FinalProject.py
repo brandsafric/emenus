@@ -26,12 +26,12 @@ def newRestaurant():
 @app.route('/restaurant/<int:restaurant_id>/edit')
 def editRestaurant(restaurant_id):
     # return "This page will be for editing restaurant {0}.".format(restaurant_id)
-    return render_template('editMenuItem.html', item=restaurants[restaurant_id])
+    return render_template('editRestaurant.html', restaurant=restaurants[restaurant_id])
 
 @app.route('/restaurant/<int:restaurant_id>/delete')
 def deleteRestaurant(restaurant_id):
     # return "This page will be for deleting {0}.".format(restaurant_id)
-    return render_template('deleteMenuItem.html', item=restaurants[restaurant_id])
+    return render_template('deleteRestaurant.html', restaurant=restaurants[restaurant_id])
 
 @app.route('/restaurant/<int:restaurant_id>')
 @app.route('/restaurant/<int:restaurant_id>/menu')
@@ -46,12 +46,13 @@ def newMenuItem(restaurant_id):
 
 @app.route('/restaurant/<int:restaurant_id>/<int:menu_id>/edit')
 def editMenuItem(restaurant_id, menu_id):
-    return "This page is forf editing menu item {0}.".format(menu_id)
+    # return "This page is forf editing menu item {0}.".format(menu_id)
+    return render_template('editMenuItem.html', item=items[menu_id])
 
 @app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/delete')
 def deleteMenuItem(restaurant_id, menu_id):
-    return "This page is for deleting menu item {0}.".format(menu_id)
-
+    # return "This page is for deleting menu item {0}.".format(menu_id)
+    return render_template('deleteMenuItem.html', item=items[menu_id])
 
 if __name__ == '__main__':
     app.debug = True
