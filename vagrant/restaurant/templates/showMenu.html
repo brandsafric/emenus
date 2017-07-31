@@ -5,49 +5,98 @@
     </head>
     <body>
         <div class="container">
+			<div class="title">
+				<h1>
+					{{restaurant.name}}
+				</h1>
+			</div>
+			<div class="title">
+				<h4>
+					Restaurant
+				</h4>
+			</div>
 
-			<div class="row">
-				<div class="col-lg-1"></div>
-				<div class="col-lg-4">
-					<h1>
-						{{restaurant.name}}
-					</h1>
+				<div class="menu-section">
+					<h4 class="section-title">Appetizers</h4>
+					{% for i in items if i.course == 'Appetizer'%}
+					<div class="row">
+						<div class="item-list col-sm-8">
+							<div class="itemName">
+								<p>
+									{{i.name}} <br>
+									{{i.description}} <br>
+									{{i.price}} <br>
+									{{i.course}} <br>
+								</p>
+							</div>
+						</div>
+						<div class="button-nav col-sm-4">
+							<input type="button" class="btn btn-primary" value="Edit Item" onclick="location.href = '{{ url_for('editMenuItem', restaurant_id = restaurant.id, menu_id = i.id) }}'">
+							<input type="button" class="btn btn-danger" value="Delete Item" onclick="location.href = '{{ url_for('deleteMenuItem', restaurant_id = restaurant.id, menu_id = i.id) }}'">
+						</div>
+					{% endfor %}
+					</div>
+					<h4 class="section-title">Entrees</h4>
+					{% for i in items if i.course == 'Entree'%}
+					<div class="row">
+						<div class="item-list col-sm-8">
+							<div class="itemName">
+								<p>
+									{{i.name}} <br>
+									{{i.description}} <br>
+									{{i.price}} <br>
+									{{i.course}} <br>
+								</p>
+							</div>
+						</div>
+						<div class="button-nav col-sm-4">
+							<input type="button" class="btn btn-primary" value="Edit Item" onclick="location.href = '{{ url_for('editMenuItem', restaurant_id = restaurant.id, menu_id = i.id) }}'">
+							<input type="button" class="btn btn-danger" value="Delete Item" onclick="location.href = '{{ url_for('deleteMenuItem', restaurant_id = restaurant.id, menu_id = i.id) }}'">
+						</div>
+					</div>
+					{% endfor %}
+
+					<h4 class="section-title">Desserts</h4>
+					{% for i in items if i.course == 'Dessert'%}
+					<div class="row">
+						<div class="item-list col-sm-8">
+							<div class="itemName">
+								<p>
+									{{i.name}} <br>
+									{{i.description}} <br>
+									{{i.price}} <br>
+									{{i.course}} <br>
+								</p>
+							</div>
+						</div>
+						<div class="button-nav col-sm-4">
+							<input type="button" class="btn btn-primary" value="Edit Item" onclick="location.href = '{{ url_for('editMenuItem', restaurant_id = restaurant.id, menu_id = i.id) }}'">
+							<input type="button" class="btn btn-danger" value="Delete Item" onclick="location.href = '{{ url_for('deleteMenuItem', restaurant_id = restaurant.id, menu_id = i.id) }}'">
+						</div>
+					</div>
+					{% endfor %}
+					<h4 class="section-title">Beverages</h4>
+					{% for i in items if i.course == 'Beverage'%}
+					<div class="row">
+						<div class="item-list col-sm-8">
+							<div class="itemName">
+								<p>
+									{{i.name}} <br>
+									{{i.description}} <br>
+									{{i.price}} <br>
+									{{i.course}} <br>
+								</p>
+							</div>
+						</div>
+						<div class="button-nav col-sm-4">
+							<input type="button" class="btn btn-primary" value="Edit Item" onclick="location.href = '{{ url_for('editMenuItem', restaurant_id = restaurant.id, menu_id = i.id) }}'">
+							<input type="button" class="btn btn-danger" value="Delete Item" onclick="location.href = '{{ url_for('deleteMenuItem', restaurant_id = restaurant.id, menu_id = i.id) }}'">
+						</div>
+					</div>
+					{% endfor %}
 				</div>
-				<div class="col-lg-7"></div>
-
 			</div>
 			<div class="row">
-				<div class="col-lg-1"></div>
-				<div class="col-lg-4 col-md-offset-4">
-					<h2>
-						Item List
-					</h2>
-					<div class="item-list">
-
-						{% for i in items %}
-						<div class="itemName">
-							<p>
-								{{i.name}} <br>
-								{{i.description}} <br>
-								{{i.price}} <br>
-							</p>
-						</div>
-						<div class="button-nav">
-							<ul class="list-group">
-								<a class="list-group-item" href="{{ url_for('editMenuItem', restaurant_id = restaurant.id, menu_id = i.id) }}">Edit Item</a>
-								<a class="list-group-item" href="{{ url_for('deleteMenuItem', restaurant_id = restaurant.id, menu_id = i.id) }}">Delete Item</a>
-							</ul>
-						</div>
-						{% endfor %}
-					</div>
-				</div>
-				<div class="col-lg-7"></div>
-				<div class="button-nav">
-					<ul class="list-group">
-						<a class="list-group-item" href="{{	url_for('newMenuItem', restaurant_id = restaurant.id) }}">Create Item</a>
-					</ul>
-				</div>
-
 			</div>
 			<a href="/">Return to home</a>
         </div>
