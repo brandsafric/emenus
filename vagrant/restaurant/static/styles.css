@@ -1,9 +1,14 @@
+html {
+    font-family: 'Lato', sans-serif;
+}
+
 ul {
     list-style: none;
 }
 
 body {
     margin-top: 6em;
+    font-family: 'Lato', sans-serif;
 }
 
 container {
@@ -19,3 +24,19 @@ container {
 .restaurant-list, .item-list {
     margin-left: 2em;
 }
+
+.title {
+    margin: 0 auto;
+}
+
+.title h1,
+.title h4 {
+    text-align: center;
+}
+.section-title {
+    text-transform: uppercase;
+}
+.button-nav .btn {
+    width: 98px;
+}
+
