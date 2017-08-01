@@ -28,17 +28,29 @@ def showRestaurants():
     # return 'This page will show all my restaurants.'
     # return render_template('restaurant.html', restaurants=restaurants, items=items)
     restaurants = session.query(Restaurant).all()
-    return render_template(
-        'restaurant.html', restaurants=restaurants)
+    return render_template('restaurant.html', restaurants=restaurants)
+
 @app.route('/restaurants/new')
 def newRestaurant():
     # return "This page will be for making a new restaurant."
     return render_template('newRestaurant.html')
 
-@app.route('/restaurant/<int:restaurant_id>/edit')
+@app.route('/restaurant/<int:restaurant_id>/edit', methods=['GET', 'POST'])
 def editRestaurant(restaurant_id):
     # return "This page will be for editing restaurant {0}.".format(restaurant_id)
-    return render_template('editRestaurant.html', restaurant=restaurants[restaurant_id - 1])
+    # return render_template('editRestaurant.html', restaurant=restaurants[restaurant_id - 1])
+    restaurantToEdit = session.query(Restaurant).filter_by(id=restaurant_id).one()
+    if request.method == 'POST':
+        if request.form['name']:
+            restaurantToEdit.name = request.form['name']
+        session.add(restaurantToEdit)
+        flash("Restaurant has been edited")
+        session.commit()
+        return redirect(url_for('showRestaurants'))
+    else:
+        return render_template(
+            'editRestaurant.html', restaurant_id=restaurant_id, restaurant=restaurantToEdit)
+
 
 @app.route('/restaurant/<int:restaurant_id>/delete')
 def deleteRestaurant(restaurant_id):
@@ -67,6 +79,7 @@ def deleteMenuItem(restaurant_id, menu_id):
     return render_template('deleteMenuItem.html', restaurant=restaurants[restaurant_id -1], item=items[menu_id - 1])
 
 if __name__ == '__main__':
+    app.secret_key = 'super_secret_key'
     app.debug = True
     app.run(host='0.0.0.0', port=5000)
 
