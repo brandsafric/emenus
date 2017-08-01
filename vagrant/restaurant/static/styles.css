@@ -21,8 +21,18 @@ container {
     text-align: center;
 }
 
-.restaurant-list, .item-list {
+.restaurant-header {
+   margin-bottom: 50px;
+}
+
+
+.restaurant-item, .item-list {
     margin-left: 2em;
+}
+
+.restaurant-item {
+    height: 50px;
+    margin-bottom: 50px;
 }
 
 .title {
