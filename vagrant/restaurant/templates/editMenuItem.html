@@ -6,7 +6,7 @@
     <body>
         <div class="container">
             <h1> Edit Menu Item </h1>
-            <form action="#" method="post">
+            <form action="{{ url_for('editMenuItem', restaurant_id=restaurant_id, menu_id=item.id) }}" method="post">
                 <p>Name:</p>
                 <input type="text" size="30" name="name" placeholder="{{item.name}}">
                 <p>Description</p>
@@ -16,7 +16,7 @@
                 <p>Course:</p>
                 <input type="text" size="30" name="name" placeholder="{{item.course}}">
                 <input type="submit" value="Edit">
-                <a href="{{	url_for('showMenu', restaurant_id = restaurant.id) }}">Back</a>
+                <a href="{{	url_for('showMenu', restaurant_id = restaurant_id) }}">Back</a>
             </form>
         </div>
     </body>
