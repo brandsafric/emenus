@@ -49,4 +49,10 @@ container {
 .button-nav .btn {
     width: 98px;
 }
+footer {
+    margin: 0 auto 2em 0;
+}
 
+footer div {
+    text-align: center;
+}
