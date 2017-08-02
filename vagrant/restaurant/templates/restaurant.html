@@ -53,7 +53,9 @@
                         <p>
                             {{r.name}}
                         </p>
-                    </div>
+						<input type="button" class="btn btn-primary" value="Menu" onclick="location.href = '{{ url_for('showMenu', restaurant_id = r.id) }}'">
+
+					</div>
                     <div class="col-sm-4 button-nav">
                         <input type="button" class="btn btn-primary" value="Edit" onclick="location.href = '{{ url_for('editRestaurant', restaurant_id = r.id) }}'">
                         <input type="button" class="btn btn-danger" value="Delete" onclick="location.href = '{{ url_for('deleteRestaurant', restaurant_id = r.id) }}'">
