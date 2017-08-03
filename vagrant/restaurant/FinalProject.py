@@ -104,19 +104,17 @@ def newMenuItem(restaurant_id):
 def editMenuItem(restaurant_id, menu_id):
     # return "This page is forf editing menu item {0}.".format(menu_id)
     # return render_template('editMenuItem.html', restaurant=restaurants[restaurant_id - 1], item=items[menu_id - 1])
+    itemToEdit = session.query(MenuItem).filter_by(id=menu_id).one()
     if request.method == 'POST':
-        print "here"
-        print restaurant_id
-        print menu_id
-        print request.form['name']
-        editedItem = MenuItem(name=request.form['name'], description=request.form['description'], price=request.form['price'], course=request.form['course'])
-        print editedItem
-        session.add(editedItem)
+        itemToEdit.name=request.form['name']
+        itemToEdit.description=request.form['description']
+        itemToEdit.price=request.form['price']
+        itemToEdit.course=request.form['course']
+        session.add(itemToEdit)
         flash("Menu Item has been edited")
         session.commit()
-        return redirect(url_for('showRestaurants'))
+        return redirect(url_for('showMenu', restaurant_id=restaurant_id))
     else:
-        itemToEdit = session.query(MenuItem).filter_by(id=menu_id).one()
         return render_template('editMenuItem.html', restaurant_id=restaurant_id, item=itemToEdit)
 
 @app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/delete', methods=['GET', 'POST'])
