@@ -65,8 +65,6 @@ def deleteRestaurant(restaurant_id):
     # return "This page will be for deleting {0}.".format(restaurant_id)
     # return render_template('deleteRestaurant.html', restaurant=restaurants[restaurant_id - 1])
     restaurantToDelete = session.query(Restaurant).filter_by(id=restaurant_id).one()
-    print 'here now 2'
-    print restaurantToDelete
     if request.method == 'POST':
         print 'here'
         session.delete(restaurantToDelete)
@@ -124,7 +122,6 @@ def deleteMenuItem(restaurant_id, menu_id):
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
     itemToDelete = session.query(MenuItem).filter_by(id=menu_id).one()
     if request.method == 'POST':
-        print 'here'
         session.delete(itemToDelete)
         session.commit()
         flash("Item has been deleted")
