@@ -21,12 +21,53 @@ container {
     text-align: center;
 }
 
+
 .restaurant-header {
    margin-bottom: 50px;
 }
 
+.restaurant-list {
+    -moz-column-count: 3;
+    -webkit-column-count: 3;
+    column-count: 3;
+    width: 600px;
+    margin: 0 auto;
+}
 
-.restaurant-item, .item-list {
+
+.restaurant-list-item {
+    width: 150px;
+    height: 150px;
+    border: 1px solid black;
+    margin-bottom: 20px;
+        -webkit-column-break-inside: avoid;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    background: black;
+    color: white;
+}
+
+.restaurant-name {
+    margin-top: 25%;
+    text-align: center;
+}
+
+.bottom {
+    margin: 2em auto 0 auto;
+    width: 50%
+}
+
+.bottom p {
+    text-align: center;
+}
+
+.wrapper-r-button {
+    float: right;
+    clear: both;
+}
+
+
+.item-list {
     margin-left: 2em;
 }
 
