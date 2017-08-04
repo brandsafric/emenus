@@ -47,26 +47,25 @@
                 </div>
             </div>
             <div class="row">
-                {% for r in restaurants %}
-                <div class="restaurant-item">
-                    <div class="restaurantName col-sm-6 col-sm-offset-1">
-                        <p>
-                            {{r.name}}
-                        </p>
-						<input type="button" class="btn btn-primary" value="Menu" onclick="location.href = '{{ url_for('showMenu', restaurant_id = r.id) }}'">
-
-					</div>
-                    <div class="col-sm-4 button-nav">
-                        <input type="button" class="btn btn-primary" value="Edit" onclick="location.href = '{{ url_for('editRestaurant', restaurant_id = r.id) }}'">
-                        <input type="button" class="btn btn-danger" value="Delete" onclick="location.href = '{{ url_for('deleteRestaurant', restaurant_id = r.id) }}'">
-                    </div>
-                </div>
-                {% endfor %}
+                <ul class="restaurant-list">
+                    {% for r in restaurants %}
+                    <li class="restaurant-list-item" onclick="location.href = '{{ url_for('showMenu', restaurant_id = r.id) }}'">
+                        <div class="restaurant-name">{{r.name}}</div>
+                        <div class="wrapper-r-button">
+                            <input type="button" class="btn btn-primary btn-small" value="Edit" onclick="location.href = '{{ url_for('editRestaurant', restaurant_id = r.id) }}'">
+                        </div>
+                        <div clas="wrapper-r-button">
+                            <input type="button" class="btn btn-danger btn-small" value="Delete" onclick="location.href = '{{ url_for('deleteRestaurant', restaurant_id = r.id) }}'">
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
 			</div>
-            <div class="row">
-                <div class="sol-sm-4 col-sm-offset-4">
-                    <input type="button" class="btn btn-primary" value="New Restaurant" onclick="location.href = '{{ url_for('newRestaurant') }}'">
-                </div>
+            <div class="row bottom">
+                <p>
+                        <input type="button" class="btn btn-primary" value="New Restaurant" onclick="location.href = '{{ url_for('newRestaurant') }}'">
+                </p>
+
             </div>
 
 			<footer>
