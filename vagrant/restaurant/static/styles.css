@@ -48,8 +48,52 @@ container {
 }
 
 .restaurant-name {
-    margin-top: 25%;
+    margin-top: 25px;
     text-align: center;
+    transition: color.25s;
+}
+
+
+.restaurant-name:hover {
+    color: yellow;
+}
+
+.icon-edit,
+.icon-delete {
+    color: grey !important;
+    font-size: 27px !important;
+    opacity: 0.25;
+    transition: opacity, color .35s;
+}
+
+.icon-edit  {
+    position: relative;
+    left: 119px;
+    top: 120px;
+
+}
+
+.icon-delete {
+    position: relative;
+    top: 2px;
+    left: -26px;
+}
+/*.wrapper-edit-button {*/
+    /*position: relative;*/
+    /*top: 60px;*/
+    /*left: 4px;*/
+/*}*/
+
+/*.wrapper-delete-button {*/
+    /*position: relative;*/
+    /*top: -24px;*/
+    /*right: -4px;*/
+/*}*/
+
+.icon-edit:hover,
+.icon-delete:hover {
+    color: goldenrod !important;
+    opacity: 1;
 }
 
 .bottom {
@@ -61,10 +105,6 @@ container {
     text-align: center;
 }
 
-.wrapper-r-button {
-    float: right;
-    clear: both;
-}
 
 
 .item-list {

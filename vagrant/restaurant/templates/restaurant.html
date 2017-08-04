@@ -6,9 +6,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
+        <script src="https://use.fontawesome.com/d530985332.js"></script>
 		<link rel=stylesheet type=text/css href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 		<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
 		<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+
+
 		<title></title>
 	</head>
 	<body>
@@ -49,14 +52,17 @@
             <div class="row">
                 <ul class="restaurant-list">
                     {% for r in restaurants %}
-                    <li class="restaurant-list-item" onclick="location.href = '{{ url_for('showMenu', restaurant_id = r.id) }}'">
-                        <div class="restaurant-name">{{r.name}}</div>
-                        <div class="wrapper-r-button">
-                            <input type="button" class="btn btn-primary btn-small" value="Edit" onclick="location.href = '{{ url_for('editRestaurant', restaurant_id = r.id) }}'">
-                        </div>
-                        <div clas="wrapper-r-button">
-                            <input type="button" class="btn btn-danger btn-small" value="Delete" onclick="location.href = '{{ url_for('deleteRestaurant', restaurant_id = r.id) }}'">
-                        </div>
+                    <li class="restaurant-list-item">
+                    <!--<li class="restaurant-list-item">-->
+                        <!--<div class="wrapper-edit-button">-->
+                            <i class="fa fa-pencil-square-o icon-edit" aria-hidden="true" onclick="location.href = '{{ url_for('editRestaurant', restaurant_id = r.id) }}'"></i>
+                            <!--<input type="button" class="btn btn-primary btn-small" value="Edit" onclick="location.href = '{{ url_for('editRestaurant', restaurant_id = r.id) }}'">-->
+                        <!--</div>-->
+                        <!--<div class="wrapper-delete-button">-->
+                            <i class="fa fa-trash icon-delete" aria-hidden="true" onclick="location.href = '{{ url_for('deleteRestaurant', restaurant_id = r.id) }}'"></i>
+                            <!--<input type="button" class="btn btn-danger btn-small" value="Delete" onclick="location.href = '{{ url_for('deleteRestaurant', restaurant_id = r.id) }}'">-->
+                        <!--</div>-->
+                        <div class="restaurant-name" onclick="location.href = '{{ url_for('showMenu', restaurant_id = r.id) }}'">{{r.name}}</div>
                     </li>
                     {% endfor %}
                 </ul>
