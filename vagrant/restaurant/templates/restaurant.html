@@ -53,15 +53,8 @@
                 <ul class="restaurant-list">
                     {% for r in restaurants %}
                     <li class="restaurant-list-item">
-                    <!--<li class="restaurant-list-item">-->
-                        <!--<div class="wrapper-edit-button">-->
-                            <i class="fa fa-pencil-square-o icon-edit" aria-hidden="true" onclick="location.href = '{{ url_for('editRestaurant', restaurant_id = r.id) }}'"></i>
-                            <!--<input type="button" class="btn btn-primary btn-small" value="Edit" onclick="location.href = '{{ url_for('editRestaurant', restaurant_id = r.id) }}'">-->
-                        <!--</div>-->
-                        <!--<div class="wrapper-delete-button">-->
-                            <i class="fa fa-trash icon-delete" aria-hidden="true" onclick="location.href = '{{ url_for('deleteRestaurant', restaurant_id = r.id) }}'"></i>
-                            <!--<input type="button" class="btn btn-danger btn-small" value="Delete" onclick="location.href = '{{ url_for('deleteRestaurant', restaurant_id = r.id) }}'">-->
-                        <!--</div>-->
+                        <i class="fa fa-pencil icon-edit" aria-hidden="true" onclick="location.href = '{{ url_for('editRestaurant', restaurant_id = r.id) }}'"></i>
+                        <i class="fa fa-trash icon-delete" aria-hidden="true" onclick="location.href = '{{ url_for('deleteRestaurant', restaurant_id = r.id) }}'"></i>
                         <div class="restaurant-name" onclick="location.href = '{{ url_for('showMenu', restaurant_id = r.id) }}'">{{r.name}}</div>
                     </li>
                     {% endfor %}

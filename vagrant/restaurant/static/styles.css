@@ -32,6 +32,9 @@ container {
     column-count: 3;
     width: 600px;
     margin: 0 auto;
+        -webkit-column-break-inside: avoid;
+    page-break-inside: avoid;
+    break-inside: avoid;
 }
 
 
@@ -45,55 +48,65 @@ container {
     break-inside: avoid;
     background: black;
     color: white;
+    transition: background .25s;
+     -webkit-backface-visibility: hidden;
+    /*-webkit-perspective: 1000;*/
 }
 
 .restaurant-name {
     margin-top: 25px;
     text-align: center;
-    transition: color.25s;
-}
-
-
-.restaurant-name:hover {
-    color: yellow;
+    transition: color .25s;
+    color: lightgrey;
 }
 
 .icon-edit,
 .icon-delete {
-    color: grey !important;
-    font-size: 27px !important;
-    opacity: 0.25;
-    transition: opacity, color .35s;
+    color: lightgrey;
+    font-size: 20px !important;
+    opacity: 0;
+    transition: color .25s, opacity .25s, transform .35s;
 }
 
 .icon-edit  {
     position: relative;
-    left: 119px;
-    top: 120px;
+    left: 128px;
+    top: 130px;
 
 }
 
 .icon-delete {
     position: relative;
-    top: 2px;
-    left: -26px;
+    top: -1px;      /*4 pixels from top*/
+    left: -17px;
 }
-/*.wrapper-edit-button {*/
-    /*position: relative;*/
-    /*top: 60px;*/
-    /*left: 4px;*/
-/*}*/
 
-/*.wrapper-delete-button {*/
-    /*position: relative;*/
-    /*top: -24px;*/
-    /*right: -4px;*/
-/*}*/
+.restaurant-list-item:hover {
+    background: grey;
+}
+
+.restaurant-list-item:hover .icon-edit,
+.restaurant-list-item:hover .icon-delete {
+    opacity: 1;
+}
+
+.restaurant-list-item:hover .icon-edit {
+    transform: translateY(-5px);
+}
+
+.restaurant-list-item:hover .icon-delete {
+    transform: translateY(3px);
+
+}
+
+.restaurant-list-item:hover .restaurant-name {
+    color: white
+}
+
 
 .icon-edit:hover,
 .icon-delete:hover {
-    color: goldenrod !important;
-    opacity: 1;
+    color: white !important;
 }
 
 .bottom {
