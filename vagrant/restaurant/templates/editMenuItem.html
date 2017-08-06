@@ -7,14 +7,19 @@
         <div class="container">
             <h1> Edit Menu Item </h1>
             <form action="{{ url_for('editMenuItem', restaurant_id=restaurant_id, menu_id=item.id) }}" method="post">
-                <p>Name:</p>
-                <input type="text" size="30" name="name" placeholder="{{item.name}}">
-                <p>Description</p>
-                <input type="text" size="30" name="description" placeholder="{{item.description}}">
-                <p>Cost:</p>
-                <input type="text" size="30" name="price" placeholder="{{item.price}}">
-                <p>Course:</p>
-                <input type="text" size="30" name="course" placeholder="{{item.course}}">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="{{item.name}}" required>
+                <label for="description">Description</label>
+                <input type="text" id="description" name="description" placeholder="{{item.description}}" required>
+                <label for="price">Price</label>
+                <input type="text" id="price" name="price" placeholder="{{item.price}}" required><br>
+                <label for="course">Course</label>
+                <select id="course" name="course">
+                    <option value="Appetizer">Appetizer</option>
+                    <option value="Entree">Entree</option>
+                    <option value="Dessert">Dessert</option>
+                    <option value="Beverage">Beverage</option>
+                </select>
                 <input type="submit" value="Edit">
                 <a href="{{	url_for('showMenu', restaurant_id = restaurant_id) }}">Back</a>
             </form>
