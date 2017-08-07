@@ -168,11 +168,6 @@ form .required{
     color:red;
 }
 
-form div a {
-    float: right;
-}
-
-
 option {
     font-weight: normal;
     display: block;
@@ -180,7 +175,7 @@ option {
     min-height: 1.2em;
     padding: 0px 2px 1px;
 }
-select, select[size="0"], select[size="1"] {
+select {
     border-radius: 0px;
     border-color: rgb(169, 169, 169);
 }
@@ -205,12 +200,13 @@ input[type=text]:focus,
 select:focus,
 textarea:focus{
     background-color: lightyellow;
+    border: red;
 }
 
 input[type=submit],
-.back-link {
+.cancel {
     /*width: 100%;*/
-    background-color: #4CAF50;
+    background-color: #4fb840;
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
@@ -220,17 +216,18 @@ input[type=submit],
     transition: background .25s, color .25s;
 }
 
-.back-link {
-    background: red;
+.cancel {
+    background: linear-gradient(#f4f4f4, #e4e4e4);
+    color: gray;
 }
 
+.cancel:hover {
+    background: linear-gradient(#ececec, #dcdcdc);
+    color: gray;
+    text-decoration: none;
+}
 input[type=submit]:hover {
-    background: blue;
-    color: white;
-}
-
-.back-link:hover {
-    background: darkred;
+    background: linear-gradient(#4aad3c, #129100);
     color: white;
 }
 
