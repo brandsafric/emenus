@@ -5,11 +5,34 @@
     </head>
     <body>
         <div class="container">
-            <span>Are you sure you want to delete {{item.name}}?</span>
-            <form action="#" method = 'post'>
-                <input type='submit', value = 'Delete'>
-            </form>
-            <a href="{{	url_for('showMenu', restaurant_id = restaurant_id) }}">Back</a>
+            <div class="form-wrapper">
+                <div class="form-heading">
+                    <h1>Delete Menu Item</h1>
+                </div>
+                <form action="{{ url_for('deleteMenuItem', restaurant_id=restaurant_id, menu_id=item.id) }}" method="post">
+                    <!--<label>Name</label>-->
+                    <div>
+                        <span>{{item.name}}</span>
+                    </div>
+                    <!--<label>Description</label>-->
+                    <div>
+                        <span>{{item.description}}</span>
+                    </div>
+                    <!--<label>Price</label>-->
+                    <div>
+                        <span>{{item.price}}</span>
+                    </div>
+                    <!--<label>Course </label>-->
+                    <div>
+                        <span>{{item.course}}</span>
+                    </div>
+                    <div>
+                        <input type="submit" value="Delete">
+                        <a class="back-link" href="{{ url_for('showMenu', restaurant_id = restaurant_id) }}">Back</a>
+                    </div>
+                </form>
+            </div>
         </div>
+    </body>
     </body>
 </html>
