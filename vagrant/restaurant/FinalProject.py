@@ -88,12 +88,14 @@ def showMenu(restaurant_id):
 def newMenuItem(restaurant_id):
     # return "This page is for making a new menu item for restaurant {0}.".format(restaurant_id)
     # return render_template('newMenuItem.html', restaurant=restaurants[restaurant_id - 1])
+    print"here"
+    print restaurant_id
     if request.method == 'POST':
         newItem = MenuItem(name=request.form['name'], description=request.form['description'], price=request.form['price'], course=request.form['course'], restaurant_id=restaurant_id)
         session.add(newItem)
         session.commit()
         flash("New Item created!")
-        return redirect(url_for('showRestaurants'))
+        return redirect(url_for('showMenu', restaurant_id=restaurant_id))
     else:
         restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
         return render_template('newMenuItem.html', restaurant=restaurant)
@@ -125,7 +127,7 @@ def deleteMenuItem(restaurant_id, menu_id):
         session.delete(itemToDelete)
         session.commit()
         flash("Item has been deleted")
-        return redirect(url_for('showRestaurants'))
+        return redirect(url_for('showMenu', restaurant_id=restaurant_id))
     else:
         return render_template(
             'deleteMenuItem.html', restaurant_id=restaurant_id, item=itemToDelete)
