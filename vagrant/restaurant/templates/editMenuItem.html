@@ -12,15 +12,15 @@
                 <form action="{{ url_for('editMenuItem', restaurant_id=restaurant_id, menu_id=item.id) }}" method="post">
                     <label>Name <span class="required">*</span></label>
                     <div>
-                        <input type="text" size="80" name="name" placeholder="{{item.name}}" required>
+                        <input size="80" name="name" placeholder="{{item.name}}" required>
                     </div>
                     <label>Description <span class="required">*</span></label>
                     <div>
-                        <textarea class="input input-desc" type="text" size="250" id="description" name="description" placeholder="{{item.description}}" required></textarea>
+                        <textarea class="input input-desc" type="text" size="250" name="description" placeholder="{{item.description}}" required></textarea>
                     </div>
                     <label>Price <span class="required">*</span></label>
                     <div>
-                        <input type="text" size="8" name="price" placeholder="{{item.price}}" required><br>
+                        <input size="8" name="price" placeholder="{{item.price}}" required><br>
                     </div>
                     <label>Course <span class="required">*</span></label>
                     <div>
