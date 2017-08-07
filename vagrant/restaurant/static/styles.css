@@ -154,6 +154,10 @@ footer div {
 
 /*forms*/
 
+form div {
+    width: 100%;
+}
+
 option {
     font-weight: normal;
     display: block;
@@ -171,7 +175,7 @@ select:not(:-internal-list-box) {
 }
 
 input[type=text], select {
-    width: 100%;
+    /*width: 100%;*/
     padding: 12px 10px;
     margin: 8px 0;
     display: inline-block;
@@ -185,7 +189,7 @@ input[type=text]:focus {
 }
 
 input[type=submit] {
-    width: 100%;
+    /*width: 100%;*/
     background-color: #4CAF50;
     color: white;
     padding: 14px 20px;
@@ -202,7 +206,7 @@ input[type=submit]:hover {
 }
 
 #course {
-    width: 100%;
+    width: 19em;
     padding: 12px 20px;
     margin: 8px 0;
     display: inline-block;

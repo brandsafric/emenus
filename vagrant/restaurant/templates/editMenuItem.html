@@ -8,20 +8,30 @@
             <h1> Edit Menu Item </h1>
             <form action="{{ url_for('editMenuItem', restaurant_id=restaurant_id, menu_id=item.id) }}" method="post">
                 <label for="name">Name</label>
-                <input type="text" id="name" name="name" placeholder="{{item.name}}" required>
+                <div>
+                    <input type="text" size="30" id="name" name="name" placeholder="{{item.name}}" required>
+                </div>
                 <label for="description">Description</label>
-                <input type="text" id="description" name="description" placeholder="{{item.description}}" required>
+                <div>
+                    <input type="text" size="30" id="description" name="description" placeholder="{{item.description}}" required>
+                </div>
                 <label for="price">Price</label>
-                <input type="text" id="price" name="price" placeholder="{{item.price}}" required><br>
+                <div>
+                    <input type="text" size="30" id="price" name="price" placeholder="{{item.price}}" required><br>
+                </div>
                 <label for="course">Course</label>
-                <select id="course" name="course">
-                    <option value="Appetizer">Appetizer</option>
-                    <option value="Entree">Entree</option>
-                    <option value="Dessert">Dessert</option>
-                    <option value="Beverage">Beverage</option>
-                </select>
-                <input type="submit" value="Edit">
-                <a href="{{	url_for('showMenu', restaurant_id = restaurant_id) }}">Back</a>
+                <div>
+                    <select id="course" name="course">
+                        <option value="Appetizer">Appetizer</option>
+                        <option value="Entree">Entree</option>
+                        <option value="Dessert">Dessert</option>
+                        <option value="Beverage">Beverage</option>
+                    </select>
+                </div>
+                <div>
+                    <input type="submit" value="Edit">
+                    <a href="{{	url_for('showMenu', restaurant_id = restaurant_id) }}">Back</a>
+                </div>
             </form>
         </div>
     </body>
