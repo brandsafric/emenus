@@ -21,11 +21,6 @@ container {
     text-align: center;
 }
 
-
-.restaurant-header {
-   margin-bottom: 50px;
-}
-
 .restaurant-list {
     -moz-column-count: 3;
     -webkit-column-count: 3;
@@ -61,24 +56,41 @@ container {
 }
 
 .icon-edit,
-.icon-delete {
+.icon-delete,
+.icon-menu {
+    position: relative;
     color: lightgrey;
     font-size: 20px !important;
     opacity: 0;
     transition: color .25s, opacity .25s, transform .35s;
 }
 
-.icon-edit  {
+.icon-add {
     position: relative;
+    left: 175px;
+    top: 42px;
+    font-size: 45px;
+    color: #4fb840;
+    transition: transform .5s;
+}
+
+.icon-add:hover {
+    transform: scale(1.2);
+}
+
+.icon-edit  {
     left: 128px;
     top: 130px;
-
 }
 
 .icon-delete {
-    position: relative;
     top: -1px;      /*4 pixels from top*/
     left: -17px;
+}
+
+.icon-menu {
+    top: 81px;
+    left: 27px;
 }
 
 .restaurant-list-item:hover {
@@ -86,7 +98,8 @@ container {
 }
 
 .restaurant-list-item:hover .icon-edit,
-.restaurant-list-item:hover .icon-delete {
+.restaurant-list-item:hover .icon-delete,
+.restaurant-list-item:hover .icon-menu {
     opacity: 1;
 }
 
@@ -96,16 +109,20 @@ container {
 
 .restaurant-list-item:hover .icon-delete {
     transform: translateY(3px);
-
 }
+
+.restaurant-list-item:hover .icon-menu {
+    transform: translateY(5px) scale(1.2);
+}
+
 
 .restaurant-list-item:hover .restaurant-name {
     color: white
 }
 
-
 .icon-edit:hover,
-.icon-delete:hover {
+.icon-delete:hover,
+.icon-menu:hover{
     color: white !important;
 }
 
@@ -117,8 +134,6 @@ container {
 .bottom p {
     text-align: center;
 }
-
-
 
 .item-list {
     margin-left: 2em;
@@ -150,7 +165,6 @@ footer {
 footer div {
     text-align: center;
 }
-
 
 /*forms*/
 
