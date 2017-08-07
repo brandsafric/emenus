@@ -10,25 +10,25 @@
                     <h1>Delete Menu Item</h1>
                 </div>
                 <form action="{{ url_for('deleteMenuItem', restaurant_id=restaurant_id, menu_id=item.id) }}" method="post">
-                    <!--<label>Name</label>-->
-                    <div>
+                    <label>Name</label>
+                    <div class="item-value">
                         <span>{{item.name}}</span>
                     </div>
-                    <!--<label>Description</label>-->
-                    <div>
+                    <label>Description</label>
+                    <div class="item-value">
                         <span>{{item.description}}</span>
                     </div>
-                    <!--<label>Price</label>-->
-                    <div>
+                    <label>Price</label>
+                    <div class="item-value">
                         <span>{{item.price}}</span>
                     </div>
-                    <!--<label>Course </label>-->
-                    <div>
+                    <label>Course </label>
+                    <div class="item-value">
                         <span>{{item.course}}</span>
                     </div>
                     <div>
                         <input type="submit" value="Delete">
-                        <a class="back-link" href="{{ url_for('showMenu', restaurant_id = restaurant_id) }}">Back</a>
+                        <a class="cancel" href="{{ url_for('showMenu', restaurant_id = restaurant_id) }}">Back</a>
                     </div>
                 </form>
             </div>

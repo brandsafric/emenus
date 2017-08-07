@@ -186,7 +186,8 @@ select:not(:-internal-list-box) {
 
 input[type=text],
 select,
-textarea {
+textarea,
+.item-value {
     width: 100%;
     padding: 12px 10px;
     margin: 8px 0;
@@ -240,4 +241,3 @@ input[type=submit]:hover {
     border-radius: 4px;
     box-sizing: border-box;
 }
-
