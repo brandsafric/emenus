@@ -160,6 +160,10 @@ form {
     overflow-x: hidden;
 }
 
+.edit-form {
+    max-width: 594px;
+}
+
 form div {
     width: 100%;
 }
