@@ -5,34 +5,38 @@
     </head>
     <body>
         <div class="container">
-            <h1> Edit Menu Item </h1>
-            <form action="{{ url_for('editMenuItem', restaurant_id=restaurant_id, menu_id=item.id) }}" method="post">
-                <label for="name">Name</label>
-                <div>
-                    <input type="text" size="30" id="name" name="name" placeholder="{{item.name}}" required>
+            <div class="form-wrapper">
+                <div class="form-heading">
+                    <h1>Edit Menu Item</h1>
                 </div>
-                <label for="description">Description</label>
-                <div>
-                    <input type="text" size="30" id="description" name="description" placeholder="{{item.description}}" required>
-                </div>
-                <label for="price">Price</label>
-                <div>
-                    <input type="text" size="30" id="price" name="price" placeholder="{{item.price}}" required><br>
-                </div>
-                <label for="course">Course</label>
-                <div>
-                    <select id="course" name="course">
-                        <option value="Appetizer">Appetizer</option>
-                        <option value="Entree">Entree</option>
-                        <option value="Dessert">Dessert</option>
-                        <option value="Beverage">Beverage</option>
-                    </select>
-                </div>
-                <div>
-                    <input type="submit" value="Edit">
-                    <a href="{{	url_for('showMenu', restaurant_id = restaurant_id) }}">Back</a>
-                </div>
-            </form>
+                <form action="{{ url_for('editMenuItem', restaurant_id=restaurant_id, menu_id=item.id) }}" method="post">
+                    <label>Name <span class="required">*</span></label>
+                    <div>
+                        <input type="text" size="80" name="name" placeholder="{{item.name}}" required>
+                    </div>
+                    <label>Description <span class="required">*</span></label>
+                    <div>
+                        <textarea class="input input-desc" type="text" size="250" id="description" name="description" placeholder="{{item.description}}" required></textarea>
+                    </div>
+                    <label>Price <span class="required">*</span></label>
+                    <div>
+                        <input type="text" size="8" name="price" placeholder="{{item.price}}" required><br>
+                    </div>
+                    <label>Course <span class="required">*</span></label>
+                    <div>
+                        <select name="course">
+                            <option value="Appetizer">Appetizer</option>
+                            <option value="Entree">Entree</option>
+                            <option value="Dessert">Dessert</option>
+                            <option value="Beverage">Beverage</option>
+                        </select>
+                    </div>
+                    <div>
+                        <input type="submit" value="Edit">
+                        <a class="back-link" href="{{	url_for('showMenu', restaurant_id = restaurant_id) }}">Back</a>
+                    </div>
+                </form>
+            </div>
         </div>
     </body>
 </html>

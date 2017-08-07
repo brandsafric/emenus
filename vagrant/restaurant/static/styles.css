@@ -154,9 +154,24 @@ footer div {
 
 /*forms*/
 
+form {
+    margin-left: 20px;
+    max-width: 500px;
+    overflow-x: hidden;
+}
+
 form div {
     width: 100%;
 }
+
+form .required{
+    color:red;
+}
+
+form div a {
+    float: right;
+}
+
 
 option {
     font-weight: normal;
@@ -174,8 +189,10 @@ select:not(:-internal-list-box) {
     overflow: visible !important;
 }
 
-input[type=text], select {
-    /*width: 100%;*/
+input[type=text],
+select,
+textarea {
+    width: 100%;
     padding: 12px 10px;
     margin: 8px 0;
     display: inline-block;
@@ -184,11 +201,14 @@ input[type=text], select {
     box-sizing: border-box;
 }
 
-input[type=text]:focus {
-    background-color: lightblue;
+input[type=text]:focus,
+select:focus,
+textarea:focus{
+    background-color: lightyellow;
 }
 
-input[type=submit] {
+input[type=submit],
+.back-link {
     /*width: 100%;*/
     background-color: #4CAF50;
     color: white;
@@ -200,8 +220,17 @@ input[type=submit] {
     transition: background .25s, color .25s;
 }
 
+.back-link {
+    background: red;
+}
+
 input[type=submit]:hover {
     background: blue;
+    color: white;
+}
+
+.back-link:hover {
+    background: darkred;
     color: white;
 }
 
@@ -215,6 +244,3 @@ input[type=submit]:hover {
     box-sizing: border-box;
 }
 
-:required {
-  /*background: red;*/
-}
