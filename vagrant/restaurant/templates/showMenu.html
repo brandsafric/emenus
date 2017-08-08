@@ -6,7 +6,7 @@
     </head>
     <body>
         <div class="container">
-			<div class = 'flash'>
+			<div class="flash blink_me">
 				{% with messages = get_flashed_messages() %}
 					{% if messages %}
 				<ul>
@@ -17,6 +17,7 @@
 					{% endif %}
 				{% endwith %}
 			</div>
+			<div class="clearfix"></div>
 			<div class="title">
 				<h1>
 					{{restaurant.name}}
@@ -31,8 +32,8 @@
 				<div class="menu-section">
 					<i class="fa fa-plus icon-add-r" aria-hidden="true" onclick="location.href = '{{ url_for('newMenuItem', restaurant_id = restaurant.id) }}'"></i>
 					<h4 class="section-title">Appetizers</h4>
-					{% for i in items if i.course == 'Appetizer'%}
 					<div class="row">
+						{% for i in items if i.course == 'Appetizer'%}
 						<div class="item-list col-sm-8">
 							<div class="itemName">
 								<p>

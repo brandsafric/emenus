@@ -17,31 +17,19 @@
 	<body>
 		<div class="container">
 			<header>
-				<!-- Navigation -->
-				<!--<nav class="navbar navbar-custom navbar-fixed-top navbar-default" role="navigation">-->
-					<!--<div class="container">-->
-						<!--<div class="navbar-header">-->
-							<!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">-->
-								<!--<i class="fa fa-bars"></i>-->
-							<!--</button>-->
-							<!--<a class="navbar-brand page-scroll" href="#/">-->
-								<!--<span>Restaurant Menu</span>-->
-							<!--</a>-->
-						<!--</div>-->
-						<!--<div class="collapse navbar-collapse navbar-right navbar-main-collapse">-->
-							<!--<ul class="nav navbar-nav">-->
-								<!--<li class="hidden">-->
-									<!--<a href="#"></a>-->
-								<!--</li>-->
-								<!--<li>-->
-									<!--<a class="page-scroll" href="#/">Menus</a>-->
-								<!--</li>-->
-
-							<!--</ul>-->
-						<!--</div>-->
-					<!--</div>-->
-				<!--</nav>-->
 			</header>
+            <div class="flash blink_me">
+				{% with messages = get_flashed_messages() %}
+					{% if messages %}
+				<ul>
+					{% for message in messages %}
+					<li> <strong> {{ message }} </strong> </li>
+					{% endfor %}
+				</ul>
+					{% endif %}
+				{% endwith %}
+			</div>
+			<div class="clearfix"></div>
 			<div class="row">
                 <div class="col-sm-4 col-sm-offset-1">
                     <h1>
