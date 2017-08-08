@@ -41,12 +41,21 @@
                 <i class="fa fa-plus icon-add" aria-hidden="true" onclick="location.href = '{{ url_for('newRestaurant') }}'"></i>
                 <ul class="restaurant-list">
                     {% for r in restaurants %}
-                    <li class="restaurant-list-item">
-                        <i class="fa fa-pencil icon-edit" aria-hidden="true" onclick="location.href = '{{ url_for('editRestaurant', restaurant_id = r.id) }}'"></i>
-                        <i class="fa fa-trash icon-delete" aria-hidden="true" onclick="location.href = '{{ url_for('deleteRestaurant', restaurant_id = r.id) }}'"></i>
-                        <i class="fa fa-file icon-menu" aria-hidden="true" onclick="location.href = '{{ url_for('showMenu', restaurant_id = r.id) }}'"></i>
-                        <div class="restaurant-name">{{r.name}}</div>
-                    </li>
+                    <div class="restaurant-card">
+                       <li class="restaurant-list-item">
+                           <i class="fa fa-pencil icon-edit" aria-hidden="true" onclick="location.href = '{{ url_for('editRestaurant', restaurant_id = r.id) }}'"></i>
+                           <i class="fa fa-trash icon-delete" aria-hidden="true" onclick="location.href = '{{ url_for('deleteRestaurant', restaurant_id = r.id) }}'"></i>
+                           <i class="fa fa-file icon-menu" aria-hidden="true" onclick="location.href = '{{ url_for('showMenu', restaurant_id = r.id) }}'"></i>
+                           <div class="menu-header" onclick="location.href = '{{ url_for('showMenu', restaurant_id = r.id) }}'">
+                               Menu
+                           </div>
+                       </li>
+                       <div class="restaurant-footer">
+                           <div class="restaurant-name">
+                                {{r.name}}
+                            </div>
+                       </div>
+                    </div>
                     {% endfor %}
                 </ul>
 			</div>

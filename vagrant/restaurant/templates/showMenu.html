@@ -4,7 +4,7 @@
         <link rel=stylesheet type=text/css href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
     </head>
-    <body>
+    <body class="body-menu">
         <div class="container">
 			<div class="flash blink_me">
 				{% with messages = get_flashed_messages() %}
@@ -37,10 +37,9 @@
 						<div class="item-list col-sm-8">
 							<div class="itemName">
 								<p>
-									<b>{{i.name}}</b> <br>
+									<div class="item-name">{{i.name}}</div>
 									<i>{{i.description}}</i><br>
 									{{i.price}} <br>
-									{{i.course}} <br>
 								</p>
 							</div>
 						</div>
@@ -60,10 +59,9 @@
 						<div class="item-list col-sm-8">
 							<div class="itemName">
 								<p>
-									<b>{{i.name}}</b> <br>
+									<div class="item-name">{{i.name}}</div>
 									<i>{{i.description}}</i><br>
 									{{i.price}} <br>
-									{{i.course}} <br>
 								</p>
 							</div>
 						</div>
@@ -84,10 +82,9 @@
 						<div class="item-list col-sm-8">
 							<div class="itemName">
 								<p>
-									<b>{{i.name}}</b> <br>
+									<div class="item-name">{{i.name}}</div>
 									<i>{{i.description}}</i><br>
 									{{i.price}} <br>
-									{{i.course}} <br>
 								</p>
 							</div>
 						</div>
@@ -107,10 +104,9 @@
 						<div class="item-list col-sm-8">
 							<div class="itemName">
 								<p>
-									<b>{{i.name}}</b> <br>
+									<div class="item-name">{{i.name}}</div>
 									<i>{{i.description}}</i><br>
 									{{i.price}} <br>
-									{{i.course}} <br>
 								</p>
 							</div>
 						</div>
