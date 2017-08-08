@@ -27,7 +27,7 @@ container {
     column-count: 3;
     width: 600px;
     margin: 0 auto;
-        -webkit-column-break-inside: avoid;
+    -webkit-column-break-inside: avoid;
     page-break-inside: avoid;
     break-inside: avoid;
 }
@@ -41,11 +41,10 @@ container {
     -webkit-column-break-inside: avoid;
     page-break-inside: avoid;
     break-inside: avoid;
-    background: black;
+    background: #6b241b;
     color: white;
     transition: background .25s;
      -webkit-backface-visibility: hidden;
-    /*-webkit-perspective: 1000;*/
 }
 
 .restaurant-name {
@@ -53,13 +52,14 @@ container {
     text-align: center;
     transition: color .25s;
     color: lightgrey;
+    transition: all .25s;
 }
 
 .icon-edit,
 .icon-delete,
 .icon-menu {
     position: relative;
-    color: lightgrey;
+    color: hsla(179, 100%, 100%, 0.7);
     font-size: 20px !important;
     opacity: 0;
     transition: color .25s, opacity .25s, transform .35s;
@@ -76,6 +76,7 @@ container {
 
 .icon-add:hover {
     transform: scale(1.2);
+    color: #72c666;
 }
 
 .icon-edit  {
@@ -89,12 +90,12 @@ container {
 }
 
 .icon-menu {
-    top: 81px;
+    top: 91px;
     left: 27px;
 }
 
 .restaurant-list-item:hover {
-    background: grey;
+    background: #895048;
 }
 
 .restaurant-list-item:hover .icon-edit,
@@ -112,12 +113,12 @@ container {
 }
 
 .restaurant-list-item:hover .icon-menu {
-    transform: translateY(5px) scale(1.2);
+    transform: translateY(10px) scale(1.2);
 }
 
 
 .restaurant-list-item:hover .restaurant-name {
-    color: white
+    font-size: 15px;
 }
 
 .icon-edit:hover,
