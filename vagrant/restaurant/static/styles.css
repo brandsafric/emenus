@@ -15,12 +15,6 @@ container {
     width: 100%;
 }
 
-.button-nav {
-    width: 150px;
-    margin: 0 auto;
-    text-align: center;
-}
-
 .restaurant-list {
     -moz-column-count: 3;
     -webkit-column-count: 3;
@@ -65,7 +59,8 @@ container {
     transition: color .25s, opacity .25s, transform .35s;
 }
 
-.icon-add {
+.icon-add,
+.icon-add-r {
     position: relative;
     left: 175px;
     top: 42px;
@@ -74,7 +69,8 @@ container {
     transition: transform .5s;
 }
 
-.icon-add:hover {
+.icon-add:hover,
+.icon-add-r:hover{
     transform: scale(1.2);
     color: #72c666;
 }
@@ -140,10 +136,12 @@ container {
     margin-left: 2em;
 }
 
-.restaurant-item {
-    height: 50px;
-    margin-bottom: 50px;
-}
+/*.restaurant-item {*/
+    /*height: 50px;*/
+    /*margin-bottom: 50px;*/
+/*}*/
+
+/*showMenu template*/
 
 .title {
     margin: 0 auto;
@@ -156,9 +154,52 @@ container {
 .section-title {
     text-transform: uppercase;
 }
-.button-nav .btn {
-    width: 98px;
+
+.icon-add-r {
+    left: 14px;
+    top: -11px;
 }
+
+
+
+.button-nav {
+    /*width: 150px;*/
+    /*margin: 0 auto;*/
+    text-align: center;
+}
+
+
+.button-nav div {
+    margin-bottom: 5px;
+}
+
+.icon-edit-r,
+.icon-delete-r {
+    position: relative;
+    font-size: 25px;
+    /*color: yellow !important;*/
+}
+
+.icon-edit-r {
+    color: #3b8a30;
+    transition: color .25s, transform .5s;
+}
+
+.icon-edit-r:hover {
+    color: #4fb840;
+    transform: scale(1.2);
+}
+
+.icon-delete-r {
+    color: #c54b3b;
+    transition: color .25s, transform .5s;
+}
+
+.icon-delete-r:hover {
+    color: #d06f62;
+    transform: scale(1.2);
+}
+
 footer {
     margin: 0 auto 2em 0;
 }
@@ -173,6 +214,11 @@ form {
     margin-left: 20px;
     max-width: 500px;
     overflow-x: hidden;
+}
+
+.form-heading .title-new-item,
+.form-heading h2{
+    display:inline;
 }
 
 .edit-form {

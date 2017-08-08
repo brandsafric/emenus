@@ -7,8 +7,8 @@
         <div class="container">
             <div class="form-wrapper">
                 <div class="form-heading">
-                    <h1>New Menu Item</h1>
-                    <h2>for {{ restaurant.name }}</h2>
+                    <h1 class="title-new-item">New Menu Item</h1>
+                    <h2>({{ restaurant.name }})</h2>
                 </div>
                 <form action="{{ url_for('newMenuItem', restaurant_id=restaurant.id) }}" method="post">
                     <label>Name <span class="required">*</span></label>
