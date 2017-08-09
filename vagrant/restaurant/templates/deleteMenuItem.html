@@ -14,20 +14,20 @@
                     <div class="item-value">
                         <span>{{item.name}}</span>
                     </div>
-                    <label>Description</label>
-                    <div class="item-value">
-                        <span>{{item.description}}</span>
-                    </div>
-                    <label>Price</label>
-                    <div class="item-value">
-                        <span>{{item.price}}</span>
-                    </div>
-                    <label>Course </label>
-                    <div class="item-value">
-                        <span>{{item.course}}</span>
-                    </div>
+                    <!--<label>Description</label>-->
+                    <!--<div class="item-value">-->
+                        <!--<span>{{item.description}}</span>-->
+                    <!--</div>-->
+                    <!--<label>Price</label>-->
+                    <!--<div class="item-value">-->
+                        <!--<span>{{item.price}}</span>-->
+                    <!--</div>-->
+                    <!--<label>Course </label>-->
+                    <!--<div class="item-value">-->
+                        <!--<span>{{item.course}}</span>-->
+                    <!--</div>-->
                     <div>
-                        <input type="submit" value="Delete">
+                        <input class="input-delete" type="submit" value="Delete">
                         <a class="cancel" href="{{ url_for('showMenu', restaurant_id = restaurant_id) }}">Cancel</a>
                     </div>
                 </form>
@@ -36,3 +36,4 @@
     </body>
     </body>
 </html>
+

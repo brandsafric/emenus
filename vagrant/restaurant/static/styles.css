@@ -355,3 +355,13 @@ input[type=submit]:hover {
     border-radius: 4px;
     box-sizing: border-box;
 }
+
+.input-delete {
+    background: #c54b3b !important;
+    transition: background .25s;
+}
+
+.input-delete:hover {
+    background: #d06f62 !important;
+}
+
