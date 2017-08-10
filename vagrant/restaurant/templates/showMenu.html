@@ -32,8 +32,8 @@
 				<div class="menu-section">
 					<i class="fa fa-plus icon-add-r" aria-hidden="true" onclick="location.href = '{{ url_for('newMenuItem', restaurant_id = restaurant.id) }}'"></i>
 					{% if appetizers %}
-					<h4 class="section-title" onclick="slideToggle()">Appetizers</h4>
-					<div class="row">
+					<h4 class="section-title" id="appetizer-section">Appetizers<i class="fa fa-chevron-down" id="appetizer-toggle" aria-hidden="true"></i></h4>
+					<div class="row" id="appetizer-row">
 						{% for a in appetizers %}
 						<div class="item-list col-sm-7">
 							<div class="itemName">
@@ -58,9 +58,9 @@
 					</div>
 					{% endif %}
 					{% if entrees %}
-					<h4 class="section-title">Entrees</h4>
-					{% for e in entrees %}
-					<div class="row">
+					<h4 class="section-title" id="entree-section">Entrees<i class="fa fa-chevron-down" id="entree-toggle" aria-hidden="true"></i></h4>
+					<div class="row" id="entree-row">
+						{% for e in entrees %}
 						<div class="item-list col-sm-7">
 							<div class="itemName">
 								<p>
@@ -70,7 +70,7 @@
 							</div>
 						</div>
 						<div class="item-price col-sm-1">
-								{{e.price}}
+							{{e.price}}
 						</div>
 						<div class="button-nav col-sm-3">
 							<div>
@@ -80,13 +80,13 @@
 								<i class="fa fa-trash icon-delete-r" aria-hidden="true" onclick="location.href = '{{ url_for('deleteMenuItem', restaurant_id = restaurant.id, menu_id = e.id) }}'"></i>
 							</div>
 						</div>
+						{% endfor %}
 					</div>
-					{% endfor %}
 					{% endif %}
 					{% if desserts %}
-					<h4 class="section-title">Desserts</h4>
-					{% for d in desserts %}
-					<div class="row">
+					<h4 class="section-title" id="dessert-section">Desserts<i class="fa fa-chevron-down" id="dessert-toggle" aria-hidden="true"></i></h4>
+					<div class="row" id="dessert-row">
+						{% for d in desserts %}
 						<div class="item-list col-sm-7">
 							<div class="itemName">
 								<p>
@@ -107,13 +107,13 @@
 								<i class="fa fa-trash icon-delete-r" aria-hidden="true" onclick="location.href = '{{ url_for('deleteMenuItem', restaurant_id = restaurant.id, menu_id = d.id) }}'"></i>
 							</div>
 						</div>
+						{% endfor %}
 					</div>
-					{% endfor %}
 					{% endif %}
 					{% if beverages %}
-					<h4 class="section-title">Beverages</h4>
-					{% for b in beverages %}
-					<div class="row">
+					<h4 class="section-title" id="beverage-section">Beverages<i class="fa fa-chevron-down" id="beverage-toggle" aria-hidden="true"></i></h4>
+					<div class="row" id="beverage-row">
+						{% for b in beverages %}
 						<div class="item-list col-sm-7">
 							<div class="itemName">
 								<p>
@@ -133,8 +133,8 @@
 								<i class="fa fa-trash icon-delete-r" aria-hidden="true" onclick="location.href = '{{ url_for('deleteMenuItem', restaurant_id = restaurant.id, menu_id = b.id) }}'"></i>
 							</div>
 						</div>
+						{% endfor %}
 					</div>
-					{% endfor %}
 					{% endif %}
 				</div>
 			</div>
@@ -147,5 +147,6 @@
 
         </div>
     </body>
-	<script src="app.js"></script>
+		<script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+		<script src="{{ url_for('static', filename='app.js') }}"></script>
 </html>
