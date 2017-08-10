@@ -18,7 +18,9 @@ ul {
 body {
     margin-top: 6em;
     font-family: 'Lato', sans-serif;
-    background: #e2d3d1;
+    /*background: #e2d3d1;*/
+    background: #1b0907;
+    color: #edfbea;
 }
 
 .body-menu {
@@ -114,21 +116,22 @@ container {
 }
 
 .icon-menu {
-    top: 55px;
+    top: 45px;
     left: 27px;
 }
 
 .menu-header {
     position: relative;
-    top: 45px;
+    top: 38px;
     left: 55px;
     transition: opacity .25s, color .25s, transform .25s;
     opacity: 0;
     color: hsla(360, 100%, 100%, 0.69);
 }
 
-.restaurant-list-item:hover {
+.restaurant-card:hover {
     background: #895048;
+    border: 1px solid hsla(360, 100%, 100%, 0.69);
 }
 
 .restaurant-list-item:hover .icon-edit,
@@ -198,6 +201,9 @@ container {
 .section-title {
     text-transform: uppercase;
     color: #a67c76;
+    cursor: pointer;
+    position: relative;
+    border-bottom: 1px solid #895048;
 }
 
 .icon-add-r {
@@ -207,6 +213,12 @@ container {
 
 .item-name {
     color: #fbecea;
+    font-weight: 600;
+}
+
+.item-price {
+    padding-top: 10px;
+    text-align: right;
 }
 
 

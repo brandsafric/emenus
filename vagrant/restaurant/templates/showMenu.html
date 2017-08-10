@@ -32,17 +32,19 @@
 				<div class="menu-section">
 					<i class="fa fa-plus icon-add-r" aria-hidden="true" onclick="location.href = '{{ url_for('newMenuItem', restaurant_id = restaurant.id) }}'"></i>
 					{% if appetizers %}
-					<h4 class="section-title">Appetizers</h4>
+					<h4 class="section-title" onclick="slideToggle()">Appetizers</h4>
 					<div class="row">
 						{% for a in appetizers %}
-						<div class="item-list col-sm-8">
+						<div class="item-list col-sm-7">
 							<div class="itemName">
 								<p>
 									<div class="item-name">{{a.name}}</div>
 									<i>{{a.description}}</i><br>
-									{{a.price}} <br>
 								</p>
 							</div>
+						</div>
+						<div class="item-price col-sm-1">
+								{{a.price}}
 						</div>
 						<div class="button-nav col-sm-3">
 							<div>
@@ -59,14 +61,16 @@
 					<h4 class="section-title">Entrees</h4>
 					{% for e in entrees %}
 					<div class="row">
-						<div class="item-list col-sm-8">
+						<div class="item-list col-sm-7">
 							<div class="itemName">
 								<p>
 									<div class="item-name">{{e.name}}</div>
 									<i>{{e.description}}</i><br>
-									{{e.price}} <br>
 								</p>
 							</div>
+						</div>
+						<div class="item-price col-sm-1">
+								{{e.price}}
 						</div>
 						<div class="button-nav col-sm-3">
 							<div>
@@ -83,15 +87,18 @@
 					<h4 class="section-title">Desserts</h4>
 					{% for d in desserts %}
 					<div class="row">
-						<div class="item-list col-sm-8">
+						<div class="item-list col-sm-7">
 							<div class="itemName">
 								<p>
 									<div class="item-name">{{d.name}}</div>
 									<i>{{d.description}}</i><br>
-									{{d.price}} <br>
 								</p>
 							</div>
 						</div>
+						<div class="item-price col-sm-1">
+								{{d.price}}
+						</div>
+
 						<div class="button-nav col-sm-3">
 							<div>
 								<i class="fa fa-pencil icon-edit-r" aria-hidden="true" onclick="location.href = '{{ url_for('editMenuItem', restaurant_id = restaurant.id, menu_id = d.id) }}'"></i>
@@ -107,14 +114,16 @@
 					<h4 class="section-title">Beverages</h4>
 					{% for b in beverages %}
 					<div class="row">
-						<div class="item-list col-sm-8">
+						<div class="item-list col-sm-7">
 							<div class="itemName">
 								<p>
 									<div class="item-name">{{b.name}}</div>
 									<i>{{b.description}}</i><br>
-									{{b.price}} <br>
 								</p>
 							</div>
+						</div>
+						<div class="item-price col-sm-1">
+								{{b.price}}
 						</div>
 						<div class="button-nav col-sm-3">
 							<div>
@@ -138,4 +147,5 @@
 
         </div>
     </body>
+	<script src="app.js"></script>
 </html>
