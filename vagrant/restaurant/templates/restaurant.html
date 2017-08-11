@@ -12,6 +12,9 @@
 		<link rel=stylesheet type=text/css href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 		<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
 		<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+
+
+
 		<title>EMenus</title>
 	</head>
 	<body>
@@ -63,7 +66,8 @@
             </div>
             <div class="row">
                 <i class="fa fa-plus icon-add" aria-hidden="true" onclick="location.href = '{{ url_for('newRestaurant') }}'"></i>
-                <ul class="restaurant-list">
+                <!--<i class="fa fa-sort-alpha-asc icon-sort" id="icon-sort" aria-hidden="true"></i>-->
+                <ul class="restaurant-list" id="restaurant-list">
                     {% for r in restaurants %}
                     <div class="restaurant-card">
                        <li class="restaurant-list-item">
@@ -89,4 +93,5 @@
         </div>
 	</body>
 	<script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
 </html>
