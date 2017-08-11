@@ -11,28 +11,24 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
-
-#Fake Restaurants
-restaurant = {'name': 'The CRUDdy Crab', 'id': '1'}
-
-restaurants = [{'name': 'The CRUDdy Crab', 'id': '1'}, {'name':'Blue Burgers', 'id':'2'},{'name':'Taco Hut', 'id':'3'}]
-
-
-#Fake Menu Items
-items = [ {'name':'Cheese Pizza', 'description':'made with fresh cheese', 'price':'$5.99','course' :'Entree', 'id':'1'}, {'name':'Chocolate Cake','description':'made with Dutch Chocolate', 'price':'$3.99', 'course':'Dessert','id':'2'},{'name':'Caesar Salad', 'description':'with fresh organic vegetables','price':'$5.99', 'course':'Entree','id':'3'},{'name':'Iced Tea', 'description':'with lemon','price':'$.99', 'course':'Beverage','id':'4'},{'name':'Spinach Dip', 'description':'creamy dip with fresh spinach','price':'$1.99', 'course':'Appetizer','id':'5'} ]
-item =  {'name':'Cheese Pizza','description':'made with fresh cheese','price':'$5.99','course' :'Entree'}
+# #Fake Restaurants
+# restaurant = {'name': 'The CRUDdy Crab', 'id': '1'}
+#
+# restaurants = [{'name': 'The CRUDdy Crab', 'id': '1'}, {'name':'Blue Burgers', 'id':'2'},{'name':'Taco Hut', 'id':'3'}]
+#
+#
+# #Fake Menu Items
+# items = [ {'name':'Cheese Pizza', 'description':'made with fresh cheese', 'price':'$5.99','course' :'Entree', 'id':'1'}, {'name':'Chocolate Cake','description':'made with Dutch Chocolate', 'price':'$3.99', 'course':'Dessert','id':'2'},{'name':'Caesar Salad', 'description':'with fresh organic vegetables','price':'$5.99', 'course':'Entree','id':'3'},{'name':'Iced Tea', 'description':'with lemon','price':'$.99', 'course':'Beverage','id':'4'},{'name':'Spinach Dip', 'description':'creamy dip with fresh spinach','price':'$1.99', 'course':'Appetizer','id':'5'} ]
+# item =  {'name':'Cheese Pizza','description':'made with fresh cheese','price':'$5.99','course' :'Entree'}
 
 @app.route('/')
 @app.route('/restaurants/')
 def showRestaurants():
-    # return 'This page will show all my restaurants.'
-    # return render_template('restaurant.html', restaurants=restaurants, items=items)
     restaurants = session.query(Restaurant).all()
     return render_template('restaurant.html', restaurants=restaurants)
 
 @app.route('/restaurants/new', methods=['GET', 'POST'])
 def newRestaurant():
-    # return "This page will be for making a new restaurant."
     if request.method == 'POST':
         newRestaurant = Restaurant(name=request.form['name'])
         session.add(newRestaurant)
@@ -44,8 +40,6 @@ def newRestaurant():
 
 @app.route('/restaurant/<int:restaurant_id>/edit', methods=['GET', 'POST'])
 def editRestaurant(restaurant_id):
-    # return "This page will be for editing restaurant {0}.".format(restaurant_id)
-    # return render_template('editRestaurant.html', restaurant=restaurants[restaurant_id - 1])
     restaurantToEdit = session.query(Restaurant).filter_by(id=restaurant_id).one()
     if request.method == 'POST':
         if request.form['name']:
@@ -62,8 +56,6 @@ def editRestaurant(restaurant_id):
 @app.route('/restaurant/<int:restaurant_id>/delete', methods=['GET', 'POST'])
 def deleteRestaurant(restaurant_id):
     print 'here now'
-    # return "This page will be for deleting {0}.".format(restaurant_id)
-    # return render_template('deleteRestaurant.html', restaurant=restaurants[restaurant_id - 1])
     restaurantToDelete = session.query(Restaurant).filter_by(id=restaurant_id).one()
     if request.method == 'POST':
         print 'here'
@@ -78,8 +70,6 @@ def deleteRestaurant(restaurant_id):
 @app.route('/restaurant/<int:restaurant_id>')
 @app.route('/restaurant/<int:restaurant_id>/menu')
 def showMenu(restaurant_id):
-    # return "This page is the menu for restaurant {0}".format(restaurant_id)
-    # return render_template('showMenu.html', restaurant=restaurants[restaurant_id - 1], items=items)
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
     appetizers = session.query(MenuItem).filter_by(restaurant_id=restaurant_id, course="Appetizer").all()
     entrees = session.query(MenuItem).filter_by(restaurant_id=restaurant_id, course="Entree").all()
@@ -90,8 +80,6 @@ def showMenu(restaurant_id):
 
 @app.route('/restaurant/<int:restaurant_id>/menu/new', methods=['GET', 'POST'])
 def newMenuItem(restaurant_id):
-    # return "This page is for making a new menu item for restaurant {0}.".format(restaurant_id)
-    # return render_template('newMenuItem.html', restaurant=restaurants[restaurant_id - 1])
     print"here"
     print restaurant_id
     if request.method == 'POST':
@@ -106,8 +94,6 @@ def newMenuItem(restaurant_id):
 
 @app.route('/restaurant/<int:restaurant_id>/<int:menu_id>/edit', methods=['GET', 'POST'])
 def editMenuItem(restaurant_id, menu_id):
-    # return "This page is forf editing menu item {0}.".format(menu_id)
-    # return render_template('editMenuItem.html', restaurant=restaurants[restaurant_id - 1], item=items[menu_id - 1])
     itemToEdit = session.query(MenuItem).filter_by(id=menu_id).one()
     if request.method == 'POST':
         itemToEdit.name=request.form['name']
@@ -123,8 +109,6 @@ def editMenuItem(restaurant_id, menu_id):
 
 @app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/delete', methods=['GET', 'POST'])
 def deleteMenuItem(restaurant_id, menu_id):
-    # return "This page is for deleting menu item {0}.".format(menu_id)
-    # return render_template('deleteMenuItem.html', restaurant=restaurants[restaurant_id -1], item=items[menu_id - 1])
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
     itemToDelete = session.query(MenuItem).filter_by(id=menu_id).one()
     if request.method == 'POST':
@@ -135,6 +119,24 @@ def deleteMenuItem(restaurant_id, menu_id):
     else:
         return render_template(
             'deleteMenuItem.html', restaurant_id=restaurant_id, item=itemToDelete)
+
+# API Endpoints
+@app.route('/restaurants/JSON')
+def restaurantsJSON():
+    restaurants = session.query(Restaurant).all()
+    return jsonify(restaurants=[r.serialize for r in restaurants])
+
+@app.route('/restaurants/<int:restaurant_id>/menu/JSON')
+def restaurantMenuJSON(restaurant_id):
+    restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
+    items = session.query(MenuItem).filter_by(restaurant_id=restaurant_id).all()
+    return jsonify(MenuItems=[i.serialize for i in items])
+
+@app.route('/restaurants/<int:restaurant_id>/menu/<int:menu_id>/JSON')
+def restaurantMenuItemJSON(restaurant_id, menu_id):
+    restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
+    item = session.query(MenuItem).filter_by(id=menu_id).one()
+    return jsonify(items=[item.serialize])
 
 if __name__ == '__main__':
     app.secret_key = 'super_secret_key'

@@ -1,3 +1,22 @@
+<!--<html>-->
+    <!--<head>-->
+        <!--<link rel=stylesheet type=text/css href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+        <!--<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">-->
+    <!--</head>-->
+    <!--<body>-->
+        <!--<div class="container">-->
+            <!--<span>Are you sure you want to delete {{restaurant.name}}?</span>-->
+            <!--<form action="{{ url_for('deleteRestaurant', restaurant_id = restaurant.id) }}" method = 'post'>-->
+                <!--<input type="submit", value = 'Delete'>-->
+            <!--</form>-->
+            <!--<a href = "/"> Cancel </a>-->
+        <!--</div>-->
+    <!--</body>-->
+<!--</html>-->
+
+
+
+
 <html>
     <head>
         <link rel=stylesheet type=text/css href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -5,13 +24,26 @@
     </head>
     <body>
         <div class="container">
-            <span>Are you sure you want to delete {{restaurant.name}}?</span>
-            <form action="{{ url_for('deleteRestaurant', restaurant_id = restaurant.id) }}" method = 'post'>
-                <input type="submit", value = 'Delete'>
-            </form>
-            <a href = "/"> Cancel </a>
+            <div class="form-wrapper">
+                <div class="form-heading">
+                    <h1>Delete Restaurant</h1>
+                </div>
+                <form action="{{ url_for('deleteRestaurant', restaurant_id = restaurant.id) }}" method="post">
+                    <label>Name</label>
+                    <div class="item-value">
+                        <span>{{restaurant.name}}</span>
+                    </div>
+                    <div>
+                        <input class="input-delete" type="submit" value="Delete">
+                        <a class="cancel" href="{{ url_for('showMenu', restaurant_id = restaurant.id) }}">Cancel</a>
+                    </div>
+                </form>
+            </div>
         </div>
     </body>
+    </body>
 </html>
+
+
 
 

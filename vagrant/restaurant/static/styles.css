@@ -1,4 +1,4 @@
-.blink_me {
+.blink {
   animation: blinker 1s linear 9;
 }
 
@@ -301,6 +301,10 @@ form .required{
     color:red;
 }
 
+label {
+    margin-top:10px;
+}
+
 option {
     font-weight: normal;
     display: block;
@@ -321,6 +325,9 @@ input[type=text],
 select,
 textarea,
 .item-value {
+    color: black;
+    background: #edfbea;
+    font-weight: 600;
     width: 100%;
     padding: 12px 10px;
     margin: 8px 0;

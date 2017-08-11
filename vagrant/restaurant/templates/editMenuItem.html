@@ -12,7 +12,7 @@
                 <form class="edit-form" action="{{ url_for('editMenuItem', restaurant_id=restaurant_id, menu_id=item.id) }}" method="post">
                     <label>Name <span class="required">*</span></label>
                     <div>
-                        <input size="80" name="name" placeholder="{{item.name}}" required>
+                        <input size="80" type="text" name="name" placeholder="{{item.name}}" required>
                     </div>
                     <label>Description <span class="required">*</span></label>
                     <div>
@@ -20,7 +20,7 @@
                     </div>
                     <label>Price <span class="required">*</span></label>
                     <div>
-                        <input size="8" name="price" placeholder="{{item.price}}" required><br>
+                        <input size="8" type="text" name="price" placeholder="{{item.price}}" required><br>
                     </div>
                     <label>Course <span class="required">*</span></label>
                     <div>
