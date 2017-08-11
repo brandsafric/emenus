@@ -22,6 +22,22 @@ body {
     color: #edfbea;
 }
 
+.navbar-default {
+    background: #36120d;
+    border-color: #895048;
+}
+
+.navbar-brand span{
+    color: #edfbea;
+    font-weight: 600;
+    letter-spacing: 3px;
+}
+
+.navbar-brand span span {
+    color: #4fb840;
+    letter-spacing: 1px;
+}
+
 container {
     width: 100%;
 }
@@ -122,7 +138,7 @@ container {
 
 .restaurant-card:hover {
     background: #895048;
-    border: 1px solid hsla(360, 100%, 100%, 0.69);
+    border: 1px solid #f7dad6;
 }
 
 .restaurant-list-item:hover .icon-edit,
@@ -251,10 +267,19 @@ container {
 
 footer {
     margin: 0 auto 2em 0;
+    color: #4fb840;
 }
 
 footer div {
     text-align: center;
+}
+
+footer div a {
+    color: #4fb840;
+}
+
+footer div a:hover {
+    color: #3b8a30;
 }
 
 /*forms*/
@@ -287,7 +312,7 @@ label {
 }
 
 option {
-    font-weight: normal;
+    font-weight: 600;
     display: block;
     white-space: pre;
     min-height: 1.2em;
@@ -295,7 +320,8 @@ option {
 }
 select {
     border-radius: 0px;
-    border-color: rgb(169, 169, 169);
+    border-color: #f7dad6;
+    font-weight: 600;
 }
 
 select:not(:-internal-list-box) {
@@ -308,12 +334,12 @@ textarea,
 .item-value {
     color: black;
     background: #edfbea;
-    font-weight: 600;
+    /*font-weight: 600;*/
     width: 100%;
     padding: 12px 10px;
     margin: 8px 0;
     display: inline-block;
-    border: 1px solid #ccc;
+    border: 1px solid #f7dad6;
     border-radius: 4px;
     box-sizing: border-box;
 }
