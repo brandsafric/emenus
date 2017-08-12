@@ -45,7 +45,7 @@ $(function () {
             });
         };
 
-        console.log('here');
+        // console.log('here');
 
         // var sortListDir = function() {
         //   var list, i, switching, b, shouldSwitch, dir, switchcount = 0, t;
