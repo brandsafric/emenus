@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, redirect, url_for, flash, jso
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from database_setup import Base, Restaurant, MenuItem
+from flask import session as login_session
+import random, string
 
 app = Flask(__name__)
 
@@ -137,6 +139,15 @@ def restaurantMenuItemJSON(restaurant_id, menu_id):
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
     item = session.query(MenuItem).filter_by(id=menu_id).one()
     return jsonify(items=[item.serialize])
+
+# Create anti-forgery state token
+@app.route('/login')
+def showLogin():
+    state = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in xrange(32))
+    login_session['state'] = state
+    # return "The current session stat6e is {0}".format(login_session['state'])
+    return render_template('login.html')
+
 
 if __name__ == '__main__':
     app.secret_key = 'super_secret_key'
