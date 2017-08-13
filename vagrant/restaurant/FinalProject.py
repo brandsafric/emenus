@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, asc
 from sqlalchemy.orm import sessionmaker
-from database_setup import Base, Restaurant, MenuItem
+from database_setup import Base, Restaurant, MenuItem, User
 from flask import session as login_session
 import random, string
 from oauth2client.client import flow_from_clientsecrets
@@ -17,7 +17,7 @@ CLIENT_ID = json.loads(
     open('client_secrets.json', 'r').read())['web']['client_id']
 APPLICATION_NAME = "Restaurant Menu Application"
 
-engine = create_engine('sqlite:///restaurantmenu.db')
+engine = create_engine('sqlite:///restaurantmenuwithusers.db')
 Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)
@@ -36,8 +36,11 @@ session = DBSession()
 @app.route('/')
 @app.route('/restaurants/')
 def showRestaurants():
-    restaurants = session.query(Restaurant).all()
-    return render_template('restaurant.html', restaurants=restaurants)
+    restaurants = session.query(Restaurant).order_by(asc(Restaurant.name))
+    if 'username' not in login_session:
+        return render_template('publicrestaurants.html', restaurants=restaurants)
+    else:
+        return render_template('restaurants.html', restaurants=restaurants)
 
 @app.route('/restaurants/new', methods=['GET', 'POST'])
 def newRestaurant():
@@ -73,10 +76,12 @@ def editRestaurant(restaurant_id):
 
 @app.route('/restaurant/<int:restaurant_id>/delete', methods=['GET', 'POST'])
 def deleteRestaurant(restaurant_id):
+    restaurantToDelete = session.query(Restaurant).filter_by(id=restaurant_id).one()
     if 'username' not in login_session:
         return redirect('/login')
-
-    restaurantToDelete = session.query(Restaurant).filter_by(id=restaurant_id).one()
+    if restaurantToDelete.user_id != login_session['user_id']:
+        return "<script>function myFunction() { alert('You are not authorized to delete this restauant." \
+               "Please create your own restaurant in order to delete.');}</script></body onload='myFunction()''>"
     if request.method == 'POST':
         print 'here'
         session.delete(restaurantToDelete)
@@ -91,11 +96,15 @@ def deleteRestaurant(restaurant_id):
 @app.route('/restaurant/<int:restaurant_id>/menu')
 def showMenu(restaurant_id):
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
+    creator = getUserInfo(restaurant.user_id)
     appetizers = session.query(MenuItem).filter_by(restaurant_id=restaurant_id, course="Appetizer").all()
     entrees = session.query(MenuItem).filter_by(restaurant_id=restaurant_id, course="Entree").all()
     desserts = session.query(MenuItem).filter_by(restaurant_id=restaurant_id, course="Dessert").all()
     beverages = session.query(MenuItem).filter_by(restaurant_id=restaurant_id, course="Beverage").all()
-    return render_template('showMenu.html', restaurant=restaurant, appetizers=appetizers, entrees=entrees, desserts=desserts, beverages=beverages)
+    if 'username' not in login_session or creator.id != login_session['user_id']:
+        return render_template('publicmenu.html', appetizers=appetizers, entrees=entrees, desserts=desserts, beverages=beverages, restaurant=restaurant, creator=creator)
+    else:
+        return render_template('showMenu.html', restaurant=restaurant, appetizers=appetizers, entrees=entrees, desserts=desserts, beverages=beverages, creator=creator)
     # return render_template('showMenu.html', restaurant=restaurant, items=items, restaurant_id=restaurant_id)
 
 @app.route('/restaurant/<int:restaurant_id>/menu/new', methods=['GET', 'POST'])
@@ -241,6 +250,12 @@ def gconnect():
     login_session['picture'] = data["picture"]
     login_session['email'] = data["email"]
 
+    # See if user exists, if not create a new one
+    user_id = getUserID(login_session['email'])
+    if not user_id:
+        user_id = createUser(login_session)
+    login_session['user_id'] = user_id
+
     output = ''
     output += '<h1>Welcome, '
     output += login_session['username']
@@ -287,6 +302,26 @@ def gdisconnect():
         response = make_response(json.dumps('Failed to revoke token for given user.', 400))
         response.headers['Content-Type'] = 'application/json'
         return response
+
+# User Helper functions
+
+def getUserID(email):
+    try:
+        user = session.query(User).filter_by(email=email).one()
+        return user.id
+    except:
+        return None
+
+def getUserInfo(user_id):
+    user = session.query(User).filter_by(id=user_id).one()
+    return user
+
+def createUser(login_session):
+    newUser = User(name = login_session['username'], email=login_session['email'], picture=login_session['picture'])
+    session.add(newUser)
+    session.commit()
+    user = session.query(User).filter_by(email=login_session['email']).one()
+    return user.id
 
 if __name__ == '__main__':
     app.secret_key = 'super_secret_key'
