@@ -1,0 +1,94 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+
+	<div class="row divider green">
+		<div class="col-md-12"></div>
+	</div>
+	<div class="row banner menu">
+		<div class="col-md-11 col-md-offset-1 padding-none">
+			<h1>{{ restaurant.name }}
+			<figure class="creator">
+				<img src="{{ creator.picture}}">
+				<figcaption>{{ creator.name }}</figcaption>
+			</figure>
+			</h1>
+
+		</div>
+	</div>
+	<div class="row padding-top padding-bottom">
+		<div class="col-md-1"></div>
+		<div class="col-md-11 padding-none">
+
+		</div>
+		<div class="col-md-7"></div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			{% with messages = get_flashed_messages() %}
+				{% if messages %}
+					<ul>
+						{% for message in messages %}
+							 <li> <strong> {{ message }} </strong> </li>
+						{% endfor %}
+					</ul>
+				{% endif %}
+			{% endwith %}
+		</div>
+	</div>
+	{% if items !=[] %}
+		<div class="row">
+			<div class="col-md-1"></div>
+			{% if appetizers %}
+			<div class="col-md-3">
+                <h2>Appetizers</h2>
+					{% for a in appetizers %}
+                        <div class="menu-item">
+                            <h3>{{a.name}}</h3>
+                            <p>{{a.description}}</p>
+                            <p class="menu-price">{{a.price}}</p>
+                        </div>
+					{% endfor %}
+			</div>
+			{% endif %}
+			{% if entrees %}
+			<div class="col-md-4">
+				<h2>Entrees</h2>
+					{% for e in entrees %}
+						<div class="menu-item">
+							<h3>{{e.name}}</h3>
+							<p>{{e.description}}</p>
+							<p class="menu-price">{{e.price}}</p>
+						</div>
+					{% endfor %}
+			</div>
+			{% endif %}
+			{% if desserts %}
+			<div class="col-md-3">
+				<h2>Desserts</h2>
+					{% for d in desserts %}
+						<div class="menu-item">
+							<h3>{{d.name}}</h3>
+							<p>{{d.description}}</p>
+							<p class="menu-price">{{d.price}}</p>
+						</div>
+					{% endfor %}
+			</div>
+			{% endif %}
+			{% if beverages %}
+			<div class="col-md-3">
+				<h2>Beverages</h2>
+					{% for b in beverages %}
+						<div class="menu-item">
+							<h3>{{b.name}}</h3>
+							<p>{{b.description}}</p>
+							<p class="menu-price">{{b.price}}</p>
+
+						</div>
+					{% endfor %}
+			</div>
+			{% endif %}
+			<div class="col-md-1"></div>
+		</div>
+	{% endif %}
+{% endblock %}
