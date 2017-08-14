@@ -97,6 +97,7 @@ def gconnect():
         return response
 
     # Store the access token in the session for later user.
+    login_session['provider'] = 'google'
     login_session['access_token'] = credentials.access_token
     login_session['gplus_id'] = gplus_id
 
@@ -117,6 +118,9 @@ def gconnect():
         user_id = createUser(login_session)
     login_session['user_id'] = user_id
 
+    return userLoginMessage()
+
+def userLoginMessage():
     output = ''
     output += '<h1>Welcome, '
     output += login_session['username']
@@ -128,8 +132,7 @@ def gconnect():
     flash("you are now loggin in as {0}".format(login_session['username']))
     return output
 
-#DISCONNECT - Revoke a current user's token and reset their login session.
-@app.route("/gdisconnect")
+
 def gdisconnect():
     # Only disconnect a connected user.
     access_token = login_session.get('access_token')
@@ -166,6 +169,29 @@ def gdisconnect():
 
 # End Google Login/Logout
 
+#DISCONNECT - Revoke a current user's token and reset their login session.
+@app.route("/disconnect")
+def disconnect():
+    if 'provider' in login_session:
+        if login_session['provider'] == 'google':
+            gdisconnect()
+            del login_session['gplus_id']
+            del login_session['credentials']
+        if login_session['provider'] == 'facebook':
+            fbdisconnect()
+            del login_session['facebook_id']
+
+        del login_session['username']
+        del login_session['email']
+        del login_session['picture']
+        del login_session['user_id']
+        del login_session['provider']
+        flash("You have been successfully logged out.")
+        return redirect(url_for('showRestaurants'))
+    else:
+        flash("You were not logged in to begin with!")
+        return redirect(url_for('showRestaurants'))
+
 # Facebook Login section
 
 @app.route('/fbconnect', methods=['POST'])
@@ -195,9 +221,9 @@ def fbconnect():
     result = h.request(url, 'GET')[1]
     data = json.loads(result)
     # sys.stdout = open('output.logs', 'w')
-    # print (data["name"]) # Nothing appears below
-    # print (data["email"]) # Nothing appears below
-    # print (data["id"]) # Nothing appears below
+    print (data["name"]) # Nothing appears below
+    print (data["email"]) # Nothing appears below
+    print (data["id"]) # Nothing appears below
     # sys.stdout = sys.__stdout__ # Reset to the standard output
     # open('output.logs', 'r').read()
     # return "OK"
@@ -223,7 +249,22 @@ def fbconnect():
         user_id = createUser(login_session)
     login_session['user_id'] = user_id
 
-    return "Ok"
+    print "Ok"
+    return userLoginMessage()
+
+
+@app.route('/fbdisconnect')
+def fbdisconnect():
+    facebook_id = login_session['facebook_id']
+    url = 'https://graph.facebook.com/{0}/permissions'.format(facebook_id)
+    h = httplib2.Http()
+    result = h.request(url, 'DELETE')[1]
+    del login_session['username']
+    del login_session['email']
+    del login_session['picture']
+    del login_session['user_id']
+    del login_session['facebook_id']
+    return "you have been logged out"
 
 # End Facebook Login Section
 
@@ -255,6 +296,7 @@ def createUser(login_session):
 def showRestaurants():
     restaurants = session.query(Restaurant).order_by(asc(Restaurant.name))
     if 'username' not in login_session:
+        print "no username is session. rendering public."
         return render_template('publicrestaurants.html', restaurants=restaurants)
     else:
         return render_template('restaurants.html', restaurants=restaurants)
