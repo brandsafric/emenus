@@ -43,6 +43,9 @@
             </div>
         </nav>
 		<div class="container">
+            {% extends "main.html" %}
+            {% block content %}
+            {% include "header.html" %}
 			<header>
 			</header>
             <div class="flash blink">
@@ -87,6 +90,7 @@
                     {% endfor %}
                 </ul>
 			</div>
+            {% endblock %}
 			<footer>
 
 			</footer>
