@@ -1,36 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta http-equiv="Content-Language" content="en">
-        <meta name="google" content="notranslate">
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
-        <meta name="description" content="Page for creating menu restaurants">
-        <meta name="author" content="Phillip Stafford">
-        <script src="https://use.fontawesome.com/d530985332.js"></script>
-		<link rel=stylesheet type=text/css href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-		<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
-		<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
-        <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+{% extends "main.html" %}
+{% block content %}
         <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>
-		<title>EMenus</title>
-	</head>
-	<body>
+        <div class="top-banner"></div>
+        <div class="login-container">
 
-    <!--Google Plus Sign in-->
-        <div id="signinButton">
-            <span class="g-signin"
-                  data-scope="openid email"
-                  data-clientid="215519493768-8jtog0odl8i5ap5dg3shcs8uic37emfh.apps.googleusercontent.com"
-                  data-redirecturi="postmessage"
-                  data-accesstype="offline"
-                  data-cookiepolicy="single_host_origin"
-                  data-callback="signInCallback"
-                  data-approvalprompt="force">
-            </span>
+            <div class="login-box">
+                <div class="text-container">
+                    <span>
+                        Sign in with
+                    </span>
+
+                </div>
+                <!--Google Plus Sign in-->
+                <div id="signinButton">
+                    <span class="g-signin"
+                          data-scope="openid email"
+                          data-clientid="215519493768-8jtog0odl8i5ap5dg3shcs8uic37emfh.apps.googleusercontent.com"
+                          data-redirecturi="postmessage"
+                          data-accesstype="offline"
+                          data-cookiepolicy="single_host_origin"
+                          data-callback="signInCallback"
+                          data-approvalprompt="force">
+                    </span>
+                </div>
+                <!--Facebook signin button-->
+                <button>
+                    <fb:login-button scope="public_profile,email" onlogin="sendTokenToServer();">
+                        <a href='javascript:sendTokenToServer()'>Facebook</a>
+                    </fb:login-button>
+                </button>
+                <div id="status"></div>
+
+                <div id="result"></div>
+            </div>
         </div>
-        <div id="result"></div>
+
         <script>
             function signInCallback(authResult) {
                 if (authResult['code']) {
@@ -114,196 +118,5 @@
           }
         </script>
 
-
-        <!--<script>-->
-            <!--window.fbAsyncInit = function() {-->
-              <!--FB.init({-->
-                <!--appId      : '121197365194785',-->
-                <!--cookie     : true,  // enable cookies to allow the server to access-->
-                                    <!--// the session-->
-                <!--xfbml      : true,  // parse social plugins on this page-->
-                <!--version    : 'v2.8' // use graph api version 2.8-->
-              <!--});-->
-
-              <!--// Now that we've initialized the JavaScript SDK, we call-->
-              <!--// FB.getLoginStatus().  This function gets the state of the-->
-              <!--// person visiting this page and can return one of three states to-->
-              <!--// the callback you provide.  They can be:-->
-              <!--//-->
-              <!--// 1. Logged into your app ('connected')-->
-              <!--// 2. Logged into Facebook, but not your app ('not_authorized')-->
-              <!--// 3. Not logged into Facebook and can't tell if they are logged into-->
-              <!--//    your app or not.-->
-              <!--//-->
-              <!--// These three cases are handled in the callback function.-->
-
-              <!--FB.getLoginStatus(function(response) {-->
-                <!--statusChangeCallback(response);-->
-              <!--});-->
-
-              <!--};-->
-              <!--// This is called with the results from from FB.getLoginStatus().-->
-              <!--function statusChangeCallback(response) {-->
-                <!--console.log('statusChangeCallback');-->
-                <!--console.log(response);-->
-                <!--// The response object is returned with a status field that lets the-->
-                <!--// app know the current login status of the person.-->
-                <!--// Full docs on the response object can be found in the documentation-->
-                <!--// for FB.getLoginStatus().-->
-                <!--if (response.status === 'connected') {-->
-                  <!--// Logged into your app and Facebook.-->
-                  <!--testAPI();-->
-                <!--} else {-->
-                  <!--// The person is not logged into your app or we are unable to tell.-->
-                  <!--document.getElementById('status').innerHTML = 'Please log ' +-->
-                    <!--'into this app.';-->
-                <!--}-->
-              <!--}-->
-
-              <!--// This function is called when someone finishes with the Login-->
-              <!--// Button.  See the onlogin handler attached to it in the sample-->
-              <!--// code below.-->
-              <!--function checkLoginState() {-->
-                <!--FB.getLoginStatus(function(response) {-->
-                  <!--statusChangeCallback(response);-->
-                <!--});-->
-              <!--}-->
-
-
-
-              <!--// Load the SDK asynchronously-->
-              <!--(function(d, s, id) {-->
-                <!--var js, fjs = d.getElementsByTagName(s)[0];-->
-                <!--if (d.getElementById(id)) return;-->
-                <!--js = d.createElement(s); js.id = id;-->
-                <!--js.src = "//connect.facebook.net/en_US/sdk.js";-->
-                <!--fjs.parentNode.insertBefore(js, fjs);-->
-              <!--}(document, 'script', 'facebook-jssdk'));-->
-
-              <!--// Here we run a very simple test of the Graph API after login is-->
-              <!--// successful.  See statusChangeCallback() for when this call is made.-->
-              <!--function testAPI() {-->
-                <!--console.log('Welcome!  Fetching your information.... ');-->
-                <!--FB.api('/me', function(response) {-->
-                  <!--console.log('Successful login for: ' + response.name);-->
-                  <!--document.getElementById('status').innerHTML =-->
-                    <!--'Thanks for logging in, ' + response.name + '!';-->
-                <!--});-->
-
-                <!--setTimeout(function() {-->
-                    <!--window.location.href="/restaurants";-->
-                    <!--}, 4000);-->
-                <!--}-->
-        <!--</script>-->
-
-        <!--<script>-->
-          <!--window.fbAsyncInit = function() {-->
-            <!--FB.init({-->
-              <!--appId      : '121197365194785',-->
-              <!--xfbml      : true,-->
-              <!--version    : 'v2.10'-->
-            <!--});-->
-            <!--FB.AppEvents.logPageView();-->
-          <!--};-->
-
-          <!--(function(d, s, id){-->
-             <!--var js, fjs = d.getElementsByTagName(s)[0];-->
-             <!--if (d.getElementById(id)) {return;}-->
-             <!--js = d.createElement(s); js.id = id;-->
-             <!--js.src = "//connect.facebook.net/en_US/sdk.js";-->
-             <!--fjs.parentNode.insertBefore(js, fjs);-->
-           <!--}(document, 'script', 'facebook-jssdk'));-->
-
-          <!--function sendTokenToServer() {-->
-              <!--var access_token = FB.getAuthResponse()['accessToken'];-->
-              <!--console.log('Welcome! Fetching your information...');-->
-              <!--console.log(access_token);-->
-              <!--FB.api('/me', function(response) {-->
-                  <!--console.log('Successful login for: ' + response.name);-->
-                  <!--$.ajax({-->
-                      <!--type: 'POST',-->
-                      <!--url: '/fbconnect?state=[{STATE}]',-->
-                      <!--processData: false,-->
-                      <!--data: access_token,-->
-                      <!--contentType: 'application/octet-stream; charset=utf-8',-->
-                      <!--success: function(result) {-->
-                          <!--// Handle of verify the server response if necessary.-->
-                          <!--if (result) {-->
-                              <!--$('#result').html('Login Successful!<br>' + result + '<br>Redirecting...')-->
-                              <!--setTimeout(function() {-->
-                                  <!--window.location.href = "/restaurants";-->
-                              <!--}, 4000);-->
-                          <!--}-->
-                          <!--else {-->
-                             <!--$('#result').html('Failed to make a server-side call. Check your configuration and console.');-->
-                          <!--}-->
-                      <!--}-->
-                  <!--})-->
-              <!--})-->
-          <!--}-->
-        <!--</script>-->
-
-    <!--End Facebook Signin-->
-
-
-         <!--Navigation-->
-        <nav class="navbar navbar-custom navbar-fixed-top navbar-default" role="navigation">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
-                        <i class="fa fa-bars"></i>
-                    </button>
-                    <a class="navbar-brand" href="/">
-                        <span><span>EM</span>enus</span>
-                    </a>
-                </div>
-                <!--<div class="collapse navbar-collapse navbar-right navbar-main-collapse">-->
-                    <!--<ul class="nav navbar-nav">-->
-                        <!--<li class="hidden">-->
-                            <!--<a href="#"></a>-->
-                        <!--</li>-->
-                        <!--<li>-->
-                            <!--<a class="page-scroll" href="#/">Menus</a>-->
-                        <!--</li>-->
-
-                    <!--</ul>-->
-                <!--</div>-->
-            </div>
-        </nav>
-        <!--End Navigation-->
-
-		<div class="container">
-			<header>
-			</header>
-            <!--FACEBOOK SIGN IN -->
-
-
-        <button>
-            <fb:login-button scope="public_profile,email" onlogin="sendTokenToServer();">
-                <a href='javascript:sendTokenToServer()'>Login with Facebook</a>
-            </fb:login-button>
-        </button>
 <!--END FACEBOOK SIGN IN -->
-
-            <!--Facebook Login Button-->
-            <!--<fb:login-button scope="public_profile,email"onlogin="checkLoginState();"></fb:login-button>-->
-
-
-            <!--<div id="status">-->
-            <!--</div>-->
-
-
-            <!--<button class="btn btn-default">-->
-                <!--<fb:login-button scope="public_profile,email" onlogin="sendTokenToServer();">-->
-                    <!--<a href='javascript:sendTokenToServer()'>Login with Facebook</a>-->
-                <!--</fb:login-button>-->
-            <!--</button>-->
-
-            <!--End Facebook Login Button-->
-
-			<footer>
-			</footer>
-        </div>
-	</body>
-    <script src="{{ url_for('static', filename='app.js') }}"></script>
-</html>
+{% endblock %}
