@@ -108,13 +108,19 @@ def gconnect():
 
     data = answer.json()
 
+    print data
+    print "line 112"
+
     login_session['username'] = data["name"]
     login_session['picture'] = data["picture"]
     login_session['email'] = data["email"]
 
+    print login_session['username']
+
     # See if user exists, if not create a new one
     user_id = getUserID(login_session['email'])
     if not user_id:
+        print 'creating user'
         user_id = createUser(login_session)
     login_session['user_id'] = user_id
 
@@ -152,6 +158,7 @@ def gdisconnect():
     print result
 
     if result['status'] == '200':
+        print 'in status == 200 line 155'
         # Reset the user's session
         del login_session['access_token']
         del login_session['gplus_id']
@@ -174,17 +181,18 @@ def gdisconnect():
 def disconnect():
     if 'provider' in login_session:
         if login_session['provider'] == 'google':
+            print login_session['username']
             gdisconnect()
-            del login_session['gplus_id']
-            del login_session['credentials']
+            # del login_session['gplus_id']
+            # del login_session['credentials']
         if login_session['provider'] == 'facebook':
             fbdisconnect()
             del login_session['facebook_id']
 
-        del login_session['username']
-        del login_session['email']
-        del login_session['picture']
-        del login_session['user_id']
+        # del login_session['username']
+        # del login_session['email']
+        # del login_session['picture']
+        # del login_session['user_id']
         del login_session['provider']
         flash("You have been successfully logged out.")
         return redirect(url_for('showRestaurants'))
@@ -294,11 +302,13 @@ def createUser(login_session):
 @app.route('/')
 @app.route('/restaurants/')
 def showRestaurants():
-    restaurants = session.query(Restaurant).order_by(asc(Restaurant.name))
+    restaurants = session.query(Restaurant).order_by(asc(Restaurant.name)).all()
     if 'username' not in login_session:
         print "no username is session. rendering public."
         return render_template('publicrestaurants.html', restaurants=restaurants)
     else:
+        print "username in session. rendering private"
+        print restaurants
         return render_template('restaurants.html', restaurants=restaurants)
 
 @app.route('/restaurants/new', methods=['GET', 'POST'])
@@ -307,7 +317,7 @@ def newRestaurant():
         return redirect('/login')
 
     if request.method == 'POST':
-        newRestaurant = Restaurant(name=request.form['name'])
+        newRestaurant = Restaurant(name=request.form['name'], user_id=login_session['user_id'])
         session.add(newRestaurant)
         session.commit()
         flash("New Restaurant created!")
@@ -336,6 +346,9 @@ def editRestaurant(restaurant_id):
 @app.route('/restaurant/<int:restaurant_id>/delete', methods=['GET', 'POST'])
 def deleteRestaurant(restaurant_id):
     restaurantToDelete = session.query(Restaurant).filter_by(id=restaurant_id).one()
+    # items = session.query(MenuItem).filter_by(restaurant_id=restaurant_id).all()
+    appetizers = session.query(MenuItem).filter_by(restaurant_id=restaurant_id, course="Entree").all()
+
     if 'username' not in login_session:
         return redirect('/login')
     if restaurantToDelete.user_id != login_session['user_id']:
@@ -343,13 +356,14 @@ def deleteRestaurant(restaurant_id):
                "Please create your own restaurant in order to delete.');}</script></body onload='myFunction()''>"
     if request.method == 'POST':
         print 'here'
+        session.delete(items)
         session.delete(restaurantToDelete)
         session.commit()
         flash("Restaurant has been deleted")
         return redirect(url_for('showRestaurants'))
     else:
         print 'not POST'
-        return render_template('deleteRestaurant.html', restaurant=restaurantToDelete)
+        return render_template('deleteRestaurant.html', restaurant=restaurantToDelete, items=appetizers)
 
 @app.route('/restaurant/<int:restaurant_id>')
 @app.route('/restaurant/<int:restaurant_id>/menu')
@@ -360,9 +374,13 @@ def showMenu(restaurant_id):
     entrees = session.query(MenuItem).filter_by(restaurant_id=restaurant_id, course="Entree").all()
     desserts = session.query(MenuItem).filter_by(restaurant_id=restaurant_id, course="Dessert").all()
     beverages = session.query(MenuItem).filter_by(restaurant_id=restaurant_id, course="Beverage").all()
+    print creator.id
+    print login_session['user_id']
     if 'username' not in login_session or creator.id != login_session['user_id']:
+        print "public menu"
         return render_template('publicmenu.html', appetizers=appetizers, entrees=entrees, desserts=desserts, beverages=beverages, restaurant=restaurant, creator=creator)
     else:
+        print "private menu"
         return render_template('showMenu.html', restaurant=restaurant, appetizers=appetizers, entrees=entrees, desserts=desserts, beverages=beverages, creator=creator)
     # return render_template('showMenu.html', restaurant=restaurant, items=items, restaurant_id=restaurant_id)
 
