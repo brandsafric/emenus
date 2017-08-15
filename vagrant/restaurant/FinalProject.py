@@ -346,8 +346,7 @@ def editRestaurant(restaurant_id):
 @app.route('/restaurant/<int:restaurant_id>/delete', methods=['GET', 'POST'])
 def deleteRestaurant(restaurant_id):
     restaurantToDelete = session.query(Restaurant).filter_by(id=restaurant_id).one()
-    items = session.query(MenuItem).filter_by(restaurant_id=restaurant_id)
-
+    itemsToDelete = session.query(MenuItem).filter_by(restaurant_id=restaurant_id).all()
     if 'username' not in login_session:
         return redirect('/login')
     if restaurantToDelete.user_id != login_session['user_id']:
@@ -355,14 +354,15 @@ def deleteRestaurant(restaurant_id):
                "Please create your own restaurant in order to delete.');}</script></body onload='myFunction()''>"
     if request.method == 'POST':
         print 'here'
-        session.delete(items)
+        for i in itemsToDelete:
+            session.delete(i)
         session.delete(restaurantToDelete)
         session.commit()
         flash("Restaurant has been deleted")
         return redirect(url_for('showRestaurants'))
     else:
         print 'not POST'
-        return render_template('deleteRestaurant.html', restaurant=restaurantToDelete, items=items)
+        return render_template('deleteRestaurant.html', restaurant=restaurantToDelete, items=itemsToDelete)
 
 @app.route('/restaurant/<int:restaurant_id>')
 @app.route('/restaurant/<int:restaurant_id>/menu')
