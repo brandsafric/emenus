@@ -1,39 +1,76 @@
 {% extends "main.html" %}
 {% block content %}
-        <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>
-        <div class="top-banner"></div>
-        <div class="login-container">
+    <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <!-- Button trigger modal -->
 
-            <div class="login-box">
-                <div class="text-container">
-                    <span>
-                        Sign in with
-                    </span>
+	<div class="row top-menu">
+		<div class="col-md-10"></div>
+		<div class="col-md-2 text-right">
+			<a href="{{url_for('showLogin')}}">Click Here to Log in </a>
+		</div>
+	</div>
+    <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">-->
+      <!--Launch demo modal-->
+    <!--</button>-->
 
-                </div>
-                <!--Google Plus Sign in-->
-                <div id="signinButton">
-                    <span class="g-signin"
-                          data-scope="openid email"
-                          data-clientid="215519493768-8jtog0odl8i5ap5dg3shcs8uic37emfh.apps.googleusercontent.com"
-                          data-redirecturi="postmessage"
-                          data-accesstype="offline"
-                          data-cookiepolicy="single_host_origin"
-                          data-callback="signInCallback"
-                          data-approvalprompt="force">
-                    </span>
-                </div>
-                <!--Facebook signin button-->
-                <button>
-                    <fb:login-button scope="public_profile,email" onlogin="sendTokenToServer();">
-                        <a href='javascript:sendTokenToServer()'>Facebook</a>
-                    </fb:login-button>
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Sign in to continue</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
                 </button>
-                <div id="status"></div>
+              </div>
+              <div class="modal-body">
+                  <div class="login-container">
+                    <div class="login-box">
+                        <div class="text-container">
+                            <span>
+                                Sign in with
+                            </span>
 
-                <div id="result"></div>
+                        </div>
+                        <!--Google Plus Sign in-->
+                        <div id="signinButton">
+                            <span class="g-signin"
+                                  data-scope="openid email"
+                                  data-clientid="215519493768-8jtog0odl8i5ap5dg3shcs8uic37emfh.apps.googleusercontent.com"
+                                  data-redirecturi="postmessage"
+                                  data-accesstype="offline"
+                                  data-cookiepolicy="single_host_origin"
+                                  data-callback="signInCallback"
+                                  data-approvalprompt="force">
+                            </span>
+                        </div>
+                        <!--Facebook signin button-->
+                        <button>
+                            <fb:login-button scope="public_profile,email" onlogin="sendTokenToServer();">
+                                <a href='javascript:sendTokenToServer()'>Facebook</a>
+                            </fb:login-button>
+                        </button>
+                        <div id="status"></div>
+
+                        <div id="result"></div>
+                    </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+              </div>
             </div>
+          </div>
         </div>
+        <div class="row justify-content-center">
+            <div class="col-md-6"><p>Welcome to EMenus!   Please login to modify, create and edit entries.  Click the EMenus logo to return  to the public page. </p></div>
+        </div>
+
+
+
+
+
 
         <script>
             function signInCallback(authResult) {
@@ -119,4 +156,17 @@
         </script>
 
 <!--END FACEBOOK SIGN IN -->
+
+<!-- JS code -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+<!--JS below-->
+<script>
+  $(document).ready(function() {
+    $("#myModal").modal();
+  });
+</script>
+
+
 {% endblock %}
