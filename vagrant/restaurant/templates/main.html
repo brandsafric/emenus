@@ -9,7 +9,8 @@
         <meta name="description" content="Page for creating menu restaurants">
         <meta name="author" content="Phillip Stafford">
         <script src="https://use.fontawesome.com/d530985332.js"></script>
-		<link rel=stylesheet type=text/css href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+		<link rel=stylesheet type=text/css href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
 		<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
 		<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 		<title>EMenus</title>
@@ -19,9 +20,9 @@
         <nav class="navbar navbar-custom navbar-fixed-top navbar-default" role="navigation">
             <div class="container">
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
-                        <i class="fa fa-bars"></i>
-                    </button>
+                    <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">-->
+                        <!--<i class="fa fa-bars"></i>-->
+                    <!--</button>-->
                     <a class="navbar-brand" href="/">
                         <span><span>EM</span>enus</span>
                     </a>
@@ -44,6 +45,5 @@
 			{% endblock %}
 		</div>
 	</body>
-    <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="{{ url_for('static', filename='app.js') }}"></script>
 </html>
