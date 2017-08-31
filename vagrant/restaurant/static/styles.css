@@ -16,7 +16,7 @@ ul {
 }
 
 body {
-    margin-top: 6em;
+    /*margin-top: 6em;*/
     font-family: 'Lato', sans-serif;
     background: #1b0907;
     color: #edfbea;
@@ -42,6 +42,10 @@ body {
     margin-top: 200px;
 }
 
+.modal-content {
+    background: #2c6824;
+}
+
 
 .login-container {
     margin: 0 auto;
@@ -49,8 +53,12 @@ body {
 }
 
 .login-box {
-    border: 10px solid green;
+    /*border: 10px solid green;*/
     padding: 10px;
+}
+
+.close {
+    color: white;
 }
 
 .text-container {
