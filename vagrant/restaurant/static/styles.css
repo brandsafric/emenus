@@ -55,6 +55,20 @@ body {
     /*width: 90%;*/
 }
 
+.g-signin-container,
+.f-signin-container{
+    display: inline-block;
+    margin-right: 20px;
+}
+
+.g-signin-container {
+    float: left;
+    height: 30px;
+    overflow: hidden;
+}
+
+
+
 .loginprofilecontainer {
     overflow: hidden;
 }

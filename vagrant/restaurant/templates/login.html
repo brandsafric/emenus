@@ -1,6 +1,9 @@
 {% extends "main.html" %}
 {% block content %}
-    <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>
+<meta name="google-signin-client_id" content="215519493768-8jtog0odl8i5ap5dg3shcs8uic37emfh.apps.googleusercontent.com">
+    <!--<script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>-->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
     <!-- Button trigger modal -->
 
@@ -10,150 +13,151 @@
 			<a href="{{url_for('showLogin')}}">Click Here to Log in </a>
 		</div>
 	</div>
-    <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">-->
-      <!--Launch demo modal-->
-    <!--</button>-->
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <div class="login-container" id="logincontainer">
+                <div class="login-box" id="loginbox">
+                    <div class="text-container">
+                        <span>
+                            Sign in with
+                        </span>
 
-        <!-- Modal -->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Login</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                  <div class="login-container" id="logincontainer">
-                    <div class="login-box" id="loginbox">
-                        <div class="text-container">
-                            <span>
-                                Sign in with
-                            </span>
-
-                        </div>
-                        <!--Google Plus Sign in-->
-                        <div id="signinButton">
-                            <span class="g-signin"
-                                  data-scope="openid email"
-                                  data-clientid="215519493768-8jtog0odl8i5ap5dg3shcs8uic37emfh.apps.googleusercontent.com"
-                                  data-redirecturi="postmessage"
-                                  data-accesstype="offline"
-                                  data-cookiepolicy="single_host_origin"
-                                  data-callback="signInCallback"
-                                  data-approvalprompt="force">
-                            </span>
-                        </div>
-                        <!--Facebook signin button-->
-                        <button>
-                            <fb:login-button scope="public_profile,email" onlogin="sendTokenToServer();">
-                                <a href='javascript:sendTokenToServer()'>Facebook</a>
-                            </fb:login-button>
-                        </button>
                     </div>
+                    <!--Google Plus Sign in-->
+                    <div class="g-signin-container">
+                    <div class="g-signin2" data-onsuccess="onSignIn" data-toggle="tooltip" data-placement="top" title="Sign in with Google"></div></div>
+                    <!--Facebook signin button-->
+                    <div class="f-signin-container">
+                    <button>
+                        <fb:login-button scope="public_profile,email" title="Sign in with Facebook" data-toggle="tooltip" data-width="120px" data-max-rows="1" data-size="small" data-button-type="continue_with" dara-use-continue-as="false" onlogin="sendTokenToServer();">
+                            <a  data-placement="top" href='javascript:sendTokenToServer()'>Facebook</a>
+                        </fb:login-button>
+                    </button>
+                    </div>
+
+                    <!--<div class="fb-login-button" data-width="120px" data-max-rows="1" data-size="small" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false" onlogin="checkLoginState();></div>-->
                 </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-              </div>
             </div>
           </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          </div>
         </div>
-        <div class="row justify-content-center top-margin">
-            <div class="col-md-6"><p>Welcome to EMenus!   Please login to modify, create and edit entries.  Click the EMenus logo to return  to the public page. </p></div>
-        </div>
-
-        <script>
-            function signInCallback(authResult) {
-                if (authResult['code']) {
-                    // Hide the sign-in button now that the user is authorized.
-                    $('#signinButton').attr('style', 'display: none');
-                    // Send one-time code to server
-                    $.ajax({
-                        type: 'POST',
-                        url: '/gconnect?state={{STATE}}',
-                        processData: false,
-                        data: authResult['code'],
-                        contentType: 'application/octet-stream; charset=utf-8',
-                        success: function(result) {
-                            if (result) {
-                                $('#loginbox').css('opacity', '0');
-                                setTimeout(function() {
-                                  $('#logincontainer').html('<div class="loginMsg">Login Successful</div>' + result + '<div class="redirectmsg">Redirecting...</div>');
-                                }, 250)
-                                setTimeout(function() {
-                                    window.location.href="/restaurants";
-                                }, 4000);
-                            } else if (authResult['error']) {
-                                console.log("There was an error: " + authResult['error']);
-                            } else {
-                                $('#result').html('Failed to make a server-side call. Check your configuration and console.');
-                            }
-                        }
-                    })
-                }
-            }
-        </script>
+      </div>
+    </div>
+    <div class="row justify-content-center top-margin">
+        <div class="col-md-6"><p>Welcome to EMenus!   Please login to modify, create and edit entries.  Click the EMenus logo to return  to the public page. </p></div>
+    </div>
 
 
-    <!--End Google Plus Sign-in-->
+    <script>
+        // Google Sign in
+          function onSignIn(googleUser) {
+            // Useful data for your client-side scripts:
+            var profile = googleUser.getBasicProfile();
+            console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+            console.log('Full Name: ' + profile.getName());
+            console.log('Given Name: ' + profile.getGivenName());
+            console.log('Family Name: ' + profile.getFamilyName());
+            console.log("Image URL: " + profile.getImageUrl());
+            console.log("Email: " + profile.getEmail());
 
-    <!--Facebook Sign-in-->
-            <script>
-          window.fbAsyncInit = function() {
-          FB.init({
-            appId      : '121197365194785',
-            cookie     : true,  // enable cookies to allow the server to access
-                                // the session
-            xfbml      : true,  // parse social plugins on this page
-            version    : 'v2.8' // use version 2.8
-          });
+            // The ID token you need to pass to your backend:
+            var id_token = googleUser.getAuthResponse().id_token;
+            console.log("ID Token: " + id_token);
           };
-          // Load the SDK asynchronously
-          (function(d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
-            js = d.createElement(s); js.id = id;
-            js.src = "//connect.facebook.net/en_US/sdk.js";
-            fjs.parentNode.insertBefore(js, fjs);
-          }(document, 'script', 'facebook-jssdk'));
-          // Here we run a very simple test of the Graph API after login is
-          // successful.  See statusChangeCallback() for when this call is made.
-          function sendTokenToServer() {
-            var access_token = FB.getAuthResponse()['accessToken'];
-            console.log(access_token)
-            console.log('Welcome!  Fetching your information.... ');
-            FB.api('/me', function(response) {
-              console.log('Successful login for: ' + response.name);
-             $.ajax({
-              type: 'POST',
-              url: '/fbconnect?state={{STATE}}',
-              processData: false,
-              data: access_token,
-              contentType: 'application/octet-stream; charset=utf-8',
-              success: function(result) {
-                // Handle or verify the server response if necessary.
-                if (result) {
-                    $('#loginbox').css('opacity', '0');
-                        setTimeout(function() {
-                          $('#logincontainer').html('<div class="loginMsg">Login Successful</div>' + result + '<div class="redirectmsg">Redirecting...</div>');
-                        }, 250)
-                 setTimeout(function() {
-                  window.location.href = "/restaurants";
-                 }, 4000);
+        function signInCallback(authResult) {
+            if (authResult['code']) {
+                // Hide the sign-in button now that the user is authorized.
+                $('#signinButton').attr('style', 'display: none');
+                // Send one-time code to server
+                $.ajax({
+                    type: 'POST',
+                    url: '/gconnect?state={{STATE}}',
+                    processData: false,
+                    data: authResult['code'],
+                    contentType: 'application/octet-stream; charset=utf-8',
+                    success: function(result) {
+                        if (result) {
+                            $('#loginbox').css('opacity', '0');
+                            setTimeout(function() {
+                              $('#logincontainer').html('<div class="loginMsg">Login Successful</div>' + result + '<div class="redirectmsg">Redirecting...</div>');
+                            }, 250)
+                            setTimeout(function() {
+                                window.location.href="/restaurants";
+                            }, 4000);
+                        } else if (authResult['error']) {
+                            console.log("There was an error: " + authResult['error']);
+                        } else {
+                            $('#result').html('Failed to make a server-side call. Check your configuration and console.');
+                        }
+                    }
+                })
+            }
+        }
 
-              } else {
-                $('#result').html('Failed to make a server-side call. Check your configuration and console.');
-                 }
-              }
+        // Facebook Sign in
+                  window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '121197365194785',
+        cookie     : true,  // enable cookies to allow the server to access
+                            // the session
+        xfbml      : true,  // parse social plugins on this page
+        version    : 'v2.8' // use version 2.8
+      });
+      };
+      // Load the SDK asynchronously
+      (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+      // Here we run a very simple test of the Graph API after login is
+      // successful.  See statusChangeCallback() for when this call is made.
+      function sendTokenToServer() {
+        var access_token = FB.getAuthResponse()['accessToken'];
+        console.log(access_token)
+        console.log('Welcome!  Fetching your information.... ');
+        FB.api('/me', function(response) {
+          console.log('Successful login for: ' + response.name);
+         $.ajax({
+          type: 'POST',
+          url: '/fbconnect?state={{STATE}}',
+          processData: false,
+          data: access_token,
+          contentType: 'application/octet-stream; charset=utf-8',
+          success: function(result) {
+            // Handle or verify the server response if necessary.
+            if (result) {
+                $('#loginbox').css('opacity', '0');
+                    setTimeout(function() {
+                      $('#logincontainer').html('<div class="loginMsg">Login Successful</div>' + result + '<div class="redirectmsg">Redirecting...</div>');
+                    }, 250)
+             setTimeout(function() {
+              window.location.href = "/restaurants";
+             }, 4000);
 
-          });
-            });
+          } else {
+            $('#result').html('Failed to make a server-side call. Check your configuration and console.');
+             }
           }
-        </script>
 
-<!--END FACEBOOK SIGN IN -->
+      });
+        });
+      }
+    </script>
+
 
 <!-- JS code -->
 
