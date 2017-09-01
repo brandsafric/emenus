@@ -52,12 +52,30 @@ body {
 
 .login-container {
     margin: 0 auto;
-    width: 500px;
+    /*width: 90%;*/
+}
+
+.loginprofilecontainer {
+    overflow: hidden;
+}
+
+.welcomeMsg {
+    padding-top: 25px;
+}
+
+.profileImg {
+    width: 32%;
+    float: left;
 }
 
 .login-box {
     transition: opacity .25s;
     padding: 10px;
+}
+
+.loginMsg {
+    text-align: center;
+    font-size: 1.75em;
 }
 
 .top-margin {
