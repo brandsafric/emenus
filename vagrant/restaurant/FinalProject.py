@@ -136,7 +136,7 @@ def userLoginMessage():
     output += login_session['username']
     output += '!</div>'
 
-    flash("you are now loggin in as {0}".format(login_session['username']))
+    flash("you are now logged in in as {0}".format(login_session['username']))
     print output
     return output
 
@@ -309,11 +309,11 @@ def showRestaurants():
     restaurants = session.query(Restaurant).order_by(asc(Restaurant.name)).all()
     if 'username' not in login_session:
         print "no username is session. rendering public."
-        return render_template('publicrestaurants.html', restaurants=restaurants)
+        return render_template('publicrestaurants.html', restaurants=restaurants),
     else:
         print "username in session. rendering private"
         print restaurants
-        return render_template('restaurants.html', restaurants=restaurants)
+        return render_template('restaurants.html', restaurants=restaurants, picture=login_session['picture'])
 
 @app.route('/restaurants/new', methods=['GET', 'POST'])
 def newRestaurant():

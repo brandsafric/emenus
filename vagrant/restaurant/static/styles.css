@@ -42,6 +42,12 @@ body {
     margin-top: 200px;
 }
 
+.user_picture {
+    height: 50px;
+    border-radius: 20px;
+}
+
+
 .modal-content {
     background: #2c6824;
 }
