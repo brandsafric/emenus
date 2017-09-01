@@ -111,9 +111,9 @@ def gconnect():
     print data
     print "line 112"
 
-    login_session['username'] = data["name"]
-    login_session['picture'] = data["picture"]
-    login_session['email'] = data["email"]
+    login_session['username'] = data['name']
+    login_session['picture'] = data['picture']
+    login_session['email'] = data['email']
 
     print login_session['username']
 
@@ -128,14 +128,14 @@ def gconnect():
 
 def userLoginMessage():
     output = ''
-    output += '<h1>Welcome, '
+    output += 'Welcome, '
     output += login_session['username']
-
-    output += '!</h1>'
-    output += '<img scr="'
+    output += '!'
+    output += '<img src="'
     output += login_session['picture']
-    output +=' " style = "width: 300px; height: 300px; border-radius: 150px; -webkit-border-radius: 150px; -moz-border-radius: 150px;'
+    output += ' " style = "width: 300px; height: 300px;border-radius: 150px;-webkit-border-radius: 150px;-moz-border-radius: 150px;"> '
     flash("you are now loggin in as {0}".format(login_session['username']))
+    print output
     return output
 
 
