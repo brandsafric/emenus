@@ -24,9 +24,20 @@
                         <!--<i class="fa fa-bars"></i>-->
                     <!--</button>-->
                     <a class="navbar-brand" href="/">
-                        <span><span>EM</span>enus</span>
+                        <span>
+							<span>EM</span>enus
+						</span>
                     </a>
+					<span class="user-status">
+						{%if 'username' not in session %}
+						<a href="{{url_for('showLogin')}}">Click Here to Login </a>
+						{% else %}
+						<img class="user_picture" src="{{picture}}"/ >
+						<a href="{{url_for('disconnect')}}">Logout </a>
+						{% endif %}
+					</span>
                 </div>
+
                 <!--<div class="collapse navbar-collapse navbar-right navbar-main-collapse">-->
                     <!--<ul class="nav navbar-nav">-->
                         <!--<li class="hidden">-->

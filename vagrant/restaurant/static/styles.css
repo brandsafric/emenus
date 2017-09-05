@@ -38,12 +38,17 @@ body {
     letter-spacing: 1px;
 }
 
+.user-status {
+    float: right;
+    padding: 4px 0 4px 0;
+}
+
 .top-banner {
     margin-top: 200px;
 }
 
 .user_picture {
-    height: 50px;
+    height: 25px;
     border-radius: 20px;
 }
 
