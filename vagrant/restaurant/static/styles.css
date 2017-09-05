@@ -43,6 +43,10 @@ body {
     padding: 4px 0 4px 0;
 }
 
+.top-buffer {
+    margin-top: 20px;
+}
+
 .top-banner {
     margin-top: 200px;
 }
