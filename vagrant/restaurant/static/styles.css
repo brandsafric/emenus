@@ -96,7 +96,8 @@ body {
     width: 20%;
 }
 
-.text-container, #signinButton {
+.text-container,
+#signinButton {
     float: left;
 }
 
@@ -150,6 +151,7 @@ container {
 .restaurant-name {
     text-align: center;
     padding: 3px;
+    line-height: 110%;
 }
 
 .icon-edit,
@@ -170,6 +172,7 @@ container {
     font-size: 45px;
     color: #4fb840;
     transition: transform .5s;
+    transform-origin: center top;
 }
 
 .icon-add:hover,
