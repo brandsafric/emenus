@@ -111,7 +111,7 @@ def gconnect():
     print data
     print "line 112"
 
-    login_session['username'] = data['name']
+    login_session['username'] = data['name'].title()
     login_session['picture'] = data['picture']
     login_session['email'] = data['email']
 
@@ -136,7 +136,7 @@ def userLoginMessage():
     output += login_session['username']
     output += '!</div>'
 
-    flash("you are now logged in in as {0}".format(login_session['username']))
+    flash("You are now logged in in as {0}.".format(login_session['username']))
     print output
     return output
 
@@ -240,7 +240,7 @@ def fbconnect():
     # open('output.logs', 'r').read()
     # return "OK"
     login_session['provider'] = 'facebook'
-    login_session['username'] = data["name"]
+    login_session['username'] = data["name"].title()
     login_session['email'] = data["email"]
     login_session['facebook_id'] = data["id"]
 
@@ -324,7 +324,7 @@ def newRestaurant():
         newRestaurant = Restaurant(name=request.form['name'], user_id=login_session['user_id'])
         session.add(newRestaurant)
         session.commit()
-        flash("New Restaurant created!")
+        flash("New Restaurant created by {0}!".format(login_session['username']))
         return redirect(url_for('showRestaurants'))
     else:
         return render_template('newRestaurant.html')
@@ -340,7 +340,7 @@ def editRestaurant(restaurant_id):
         if request.form['name']:
             restaurantToEdit.name = request.form['name']
         session.add(restaurantToEdit)
-        flash("Restaurant has been edited")
+        flash("Restaurant has been edited by {0}.".format(login_session['username']))
         session.commit()
         return redirect(url_for('showRestaurants'))
     else:
@@ -362,7 +362,7 @@ def deleteRestaurant(restaurant_id):
             session.delete(i)
         session.delete(restaurantToDelete)
         session.commit()
-        flash("Restaurant has been deleted")
+        flash("Restaurant has been deleted by {0}".format(login_session['username']))
         return redirect(url_for('showRestaurants'))
     else:
         print 'not POST'
@@ -397,7 +397,7 @@ def newMenuItem(restaurant_id):
         newItem = MenuItem(name=request.form['name'], description=request.form['description'], price=request.form['price'], course=request.form['course'], restaurant_id=restaurant_id, user_id=restaurant.user_id)
         session.add(newItem)
         session.commit()
-        flash("New Item created!")
+        flash("New Item created by {0}!".format(login_session['username']))
         return redirect(url_for('showMenu', restaurant_id=restaurant_id))
     else:
         return render_template('newMenuItem.html', restaurant=restaurant)
@@ -416,7 +416,7 @@ def editMenuItem(restaurant_id, menu_id):
         itemToEdit.price=request.form['price']
         itemToEdit.course=request.form['course']
         session.add(itemToEdit)
-        flash("Menu Item has been edited")
+        flash("Menu Item has been edited by {0}.".format(login_session['username']))
         session.commit()
         return redirect(url_for('showMenu', restaurant_id=restaurant_id))
     else:
@@ -433,7 +433,7 @@ def deleteMenuItem(restaurant_id, menu_id):
     if request.method == 'POST':
         session.delete(itemToDelete)
         session.commit()
-        flash("Item has been deleted")
+        flash("Item has been deleted by {0}.".format(login_session['username']))
         return redirect(url_for('showMenu', restaurant_id=restaurant_id))
     else:
         return render_template(
