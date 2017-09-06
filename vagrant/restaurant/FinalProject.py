@@ -83,7 +83,7 @@ def gconnect():
     if result['issued_to'] != CLIENT_ID:
         response = make_response(
             json.dumps("Token's client ID does not match app's."), 401)
-        print "Token's client ID does not match app's."
+        # print "Token's client ID does not match app's."
         response.headers['Content-Type'] = 'application/json'
         return response
 
@@ -108,19 +108,14 @@ def gconnect():
 
     data = answer.json()
 
-    print data
-    print "line 112"
-
     login_session['username'] = data['name'].title()
     login_session['picture'] = data['picture']
     login_session['email'] = data['email']
 
-    print login_session['username']
-
     # See if user exists, if not create a new one
     user_id = getUserID(login_session['email'])
     if not user_id:
-        print 'creating user'
+        # print 'creating user'
         user_id = createUser(login_session)
     login_session['user_id'] = user_id
 
@@ -137,7 +132,7 @@ def userLoginMessage():
     output += '!</div>'
 
     flash("You are now logged in in as {0}.".format(login_session['username']))
-    print output
+    # print output
     return output
 
 
@@ -150,17 +145,17 @@ def gdisconnect():
         response.headers['Content-Type'] = 'application/json'
         return response
     # Execute HTTP GET request to revoke current token.
-    print 'In gdisconnect access token is {0}'.format(access_token)
-    print 'User name is: '
-    print login_session['username']
+    # print 'In gdisconnect access token is {0}'.format(access_token)
+    # print 'User name is: '
+    # print login_session['username']
     url = 'https://accounts.google.com/o/oauth2/revoke?token={0}'.format(access_token)
     h = httplib2.Http()
     result = h.request(url, 'GET')[0]
-    print 'result is '
-    print result
+    # print 'result is '
+    # print result
 
     if result['status'] == '200':
-        print 'in status == 200 line 155'
+        # print 'in status == 200 line 155'
         # Reset the user's session
         del login_session['access_token']
         del login_session['gplus_id']
@@ -183,7 +178,7 @@ def gdisconnect():
 def disconnect():
     if 'provider' in login_session:
         if login_session['provider'] == 'google':
-            print login_session['username']
+            # print login_session['username']
             gdisconnect()
             # del login_session['gplus_id']
             # del login_session['credentials']
@@ -233,9 +228,9 @@ def fbconnect():
     result = h.request(url, 'GET')[1]
     data = json.loads(result)
     # sys.stdout = open('output.logs', 'w')
-    print (data["name"]) # Nothing appears below
-    print (data["email"]) # Nothing appears below
-    print (data["id"]) # Nothing appears below
+    # print (data["name"]) # Nothing appears below
+    # print (data["email"]) # Nothing appears below
+    # print (data["id"]) # Nothing appears below
     # sys.stdout = sys.__stdout__ # Reset to the standard output
     # open('output.logs', 'r').read()
     # return "OK"
@@ -261,7 +256,7 @@ def fbconnect():
         user_id = createUser(login_session)
     login_session['user_id'] = user_id
 
-    print "Ok"
+    # print "Ok"
     return userLoginMessage()
 
 
@@ -308,11 +303,11 @@ def createUser(login_session):
 def showRestaurants():
     restaurants = session.query(Restaurant).order_by(asc(Restaurant.name)).all()
     if 'username' not in login_session:
-        print "no username is session. rendering public."
+        # print "no username is session. rendering public."
         return render_template('publicrestaurants.html', restaurants=restaurants),
     else:
-        print "username in session. rendering private"
-        print restaurants
+        # print "username in session. rendering private"
+        # print restaurants
         return render_template('restaurants.html', restaurants=restaurants, picture=login_session['picture'])
 
 @app.route('/restaurants/new', methods=['GET', 'POST'])
@@ -357,7 +352,7 @@ def deleteRestaurant(restaurant_id):
     if restaurantToDelete.user_id != login_session['user_id']:
         return "<script>function myFunction() {alert('You are not authorized to delete this restaurant. Please create your own restaurant in order to delete.');window.location.href = '/restaurants';}</script><body onload='myFunction()''>"
     if request.method == 'POST':
-        print 'here'
+        # print 'here'
         for i in itemsToDelete:
             session.delete(i)
         session.delete(restaurantToDelete)
@@ -365,7 +360,7 @@ def deleteRestaurant(restaurant_id):
         flash("Restaurant has been deleted by {0}".format(login_session['username']))
         return redirect(url_for('showRestaurants'))
     else:
-        print 'not POST'
+        # print 'not POST'
         return render_template('deleteRestaurant.html', restaurant=restaurantToDelete, items=itemsToDelete)
 
 @app.route('/restaurant/<int:restaurant_id>')
@@ -377,12 +372,12 @@ def showMenu(restaurant_id):
     entrees = session.query(MenuItem).filter_by(restaurant_id=restaurant_id, course="Entree").all()
     desserts = session.query(MenuItem).filter_by(restaurant_id=restaurant_id, course="Dessert").all()
     beverages = session.query(MenuItem).filter_by(restaurant_id=restaurant_id, course="Beverage").all()
-    print creator.id
+    # print creator.id
     if 'username' not in login_session or creator.id != login_session['user_id']:
-        print "public menu"
+        # print "public menu"
         return render_template('publicmenu.html', appetizers=appetizers, entrees=entrees, desserts=desserts, beverages=beverages, restaurant=restaurant, creator=creator)
     else:
-        print "private menu"
+        # print "private menu"
         return render_template('showMenu.html', restaurant=restaurant, appetizers=appetizers, entrees=entrees, desserts=desserts, beverages=beverages, creator=creator)
     # return render_template('showMenu.html', restaurant=restaurant, items=items, restaurant_id=restaurant_id)
 
