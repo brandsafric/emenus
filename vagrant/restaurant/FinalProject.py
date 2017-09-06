@@ -122,14 +122,26 @@ def gconnect():
     return userLoginMessage()
 
 def userLoginMessage():
-    output = '<div class="loginprofilecontainer">'
-    output += '<div class="profileImg"><img src="'
+    # output = '<div class="loginprofilecontainer">'
+    # output += '<div class="profileImg"><img src="'
+    # output += login_session['picture']
+    # output += ' " style = "height: 100px;margin-left: 30px;border-radius: 150px;-webkit-border-radius: 150px;-moz-border-radius: 150px;"></div> '
+    # output += '<div class="welcomeMsg">'
+    # output += 'Welcome, '
+    # output += login_session['username']
+    # output += '!</div>'
+    #
+    # flash("You are now logged in in as {0}.".format(login_session['username']))
+    # # print output
+    # return output
+
+    output = '<div class="profileImg"><img src="'
     output += login_session['picture']
-    output += ' " style = "height: 100px;margin-left: 30px;border-radius: 150px;-webkit-border-radius: 150px;-moz-border-radius: 150px;"></div> '
+    output += ' "></div> '
     output += '<div class="welcomeMsg">'
     output += 'Welcome, '
     output += login_session['username']
-    output += '!</div>'
+    output += '!'
 
     flash("You are now logged in in as {0}.".format(login_session['username']))
     # print output

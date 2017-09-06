@@ -78,6 +78,14 @@ body {
     float: left;
 }
 
+.profileImg img {
+    height: 100px;
+    margin-left: 30px;
+    border-radius: 50px;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+}
+
 .login-box {
     transition: opacity .25s;
     padding: 10px;
@@ -533,6 +541,33 @@ input[type=submit]:hover {
         height: 50%;
     }
 
+    .login-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .profileImg {
+        width: auto;
+        margin: 5px 0 5px;
+    }
+
+    .profileImg img {
+        height: 100px;
+        margin-left: 0;
+        border-radius: 50px;
+        -webkit-border-radius: 50px;
+        -moz-border-radius: 50px;
+    }
+
+    .text-container {
+        width: 40%;
+        height: 100%;
+    }
+    .welcomeMsg {
+        text-align: center;
+    }
+
 
 }
 
@@ -542,5 +577,17 @@ input[type=submit]:hover {
 
     .restaurant-list {
         width: 300px;
+    }
+}
+
+/*desktops*/
+
+@media only screen and (min-width: 769px) {
+    .login-container {
+        display: block;
+    }
+
+    .text-container {
+        width: 20%;
     }
 }
