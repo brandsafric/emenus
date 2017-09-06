@@ -31,7 +31,7 @@
 						{%if 'username' not in session %}
 						<a href="{{url_for('showLogin')}}">Login</a>
 						{% else %}
-						<img class="user_picture" src="{{picture}}"/ >
+						<img class="user_picture" src="{{picture}}" />
 						<a href="{{url_for('disconnect')}}">Logout </a>
 						{% endif %}
 					</span>

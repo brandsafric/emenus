@@ -33,6 +33,17 @@
 			Restaurant
 		</h4>
 	</div>
+	<div class="button-mobile">
+			<div class="button-nav button-restaurant col-sm-3">
+				<div>
+					<i class="fa fa-pencil icon-edit-r" aria-hidden="true" onclick="location.href = '{{ url_for('editRestaurant', restaurant_id = restaurant.id) }}'"></i>
+				</div>
+				<div>
+					<i class="fa fa-trash icon-delete-r" aria-hidden="true" onclick="location.href = '{{ url_for('deleteRestaurant', restaurant_id = restaurant.id) }}'"></i>
+				</div>
+			</div>
+		<div class="clearfix"></div>
+	</div>
 
 		<div class="menu-section">
 			<i class="fa fa-plus icon-add-r" aria-hidden="true" onclick="location.href = '{{ url_for('newMenuItem', restaurant_id = restaurant.id) }}'"></i>

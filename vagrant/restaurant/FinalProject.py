@@ -334,7 +334,7 @@ def newRestaurant():
         flash("New Restaurant created by {0}!".format(login_session['username']))
         return redirect(url_for('showRestaurants'))
     else:
-        return render_template('newRestaurant.html')
+        return render_template('newRestaurant.html', picture=login_session['picture'])
 
 @app.route('/restaurant/<int:restaurant_id>/edit', methods=['GET', 'POST'])
 def editRestaurant(restaurant_id):
@@ -349,7 +349,7 @@ def editRestaurant(restaurant_id):
         session.add(restaurantToEdit)
         flash("Restaurant has been edited by {0}.".format(login_session['username']))
         session.commit()
-        return redirect(url_for('showRestaurants'))
+        return redirect(url_for('showMenu'))
     else:
         return render_template(
             'editRestaurant.html', restaurant_id=restaurant_id, restaurant=restaurantToEdit)
@@ -370,7 +370,7 @@ def deleteRestaurant(restaurant_id):
         session.delete(restaurantToDelete)
         session.commit()
         flash("Restaurant has been deleted by {0}".format(login_session['username']))
-        return redirect(url_for('showRestaurants'))
+        return redirect(url_for('showMenu'))
     else:
         # print 'not POST'
         return render_template('deleteRestaurant.html', restaurant=restaurantToDelete, items=itemsToDelete)
@@ -386,10 +386,10 @@ def showMenu(restaurant_id):
     beverages = session.query(MenuItem).filter_by(restaurant_id=restaurant_id, course="Beverage").all()
     # print creator.id
     if 'username' not in login_session or creator.id != login_session['user_id']:
-        # print "public menu"
+        print "public menu"
         return render_template('publicmenu.html', appetizers=appetizers, entrees=entrees, desserts=desserts, beverages=beverages, restaurant=restaurant, creator=creator)
     else:
-        # print "private menu"
+        print "private menu"
         return render_template('showMenu.html', restaurant=restaurant, appetizers=appetizers, entrees=entrees, desserts=desserts, beverages=beverages, creator=creator)
     # return render_template('showMenu.html', restaurant=restaurant, items=items, restaurant_id=restaurant_id)
 

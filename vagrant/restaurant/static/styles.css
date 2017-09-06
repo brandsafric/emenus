@@ -332,6 +332,10 @@ figcaption {
     text-align: center;
 }
 
+.button-mobile {
+    display: none;
+}
+
 
 .button-nav div {
     margin-bottom: 5px;
@@ -504,7 +508,8 @@ input[type=submit]:hover {
     }
 
     .icon-delete,
-    .icon-edit {
+    .icon-edit,
+    .menu-header {
         display: none;
     }
 
@@ -531,14 +536,21 @@ input[type=submit]:hover {
         -webkit-column-count: 2;
     }
 
+    .restaurant-list-item:hover .icon-menu {
+        transform: none;
+    }
+
     .restaurant-card {
         width: 100px;
-        height: 125px;
+        height: 155px;
         margin-bottom: 65px;
     }
 
+    .restaurant-list-item {
+        height: 65%;
+    }
     .restaurant-footer {
-        height: 50%;
+        height: 35%;
     }
 
     .login-container {
@@ -568,8 +580,67 @@ input[type=submit]:hover {
         text-align: center;
     }
 
+    .user-status {
+        padding: 4px;
+    }
 
+    .user_picture {
+        height: 30px;
+    }
+
+    .icon-add {
+        left: 40px;
+        top: 0;
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    h4 {
+        font-size: 1.15em;
+    }
+
+    input[type=submit],
+    .cancel {
+        padding: 7px 10px;
+    }
+
+    .creator img {
+        width: 30px;
+    }
+
+    .item-price {
+        width: auto;
+        margin: 0 auto;
+    }
+
+    .icon-edit-r,
+    .icon-delete-r {
+        font-size: 40px;
+    }
+
+    .icon-edit-r {
+        float: left;
+        margin-left: 10px;
+    }
+
+    .icon-delete-r {
+        float: right;
+        margin-right: 10px;
+    }
+
+    .button-nav {
+        margin-bottom: 15px;
+    }
+
+    .button-mobile {
+        display: block;
+        margin-bottom: 40px;
+    }
 }
+
+
 
 /*iphone 5 LS*/
 
@@ -589,5 +660,9 @@ input[type=submit]:hover {
 
     .text-container {
         width: 20%;
+    }
+
+    .button-mobile {
+        display: none;
     }
 }
