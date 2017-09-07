@@ -180,6 +180,7 @@ def gdisconnect():
         response.headers['Content-Type'] = 'application/json'
         return response
     else:
+        print 'failed to revoke token.'
         response = make_response(json.dumps('Failed to revoke token for given user.', 400))
         response.headers['Content-Type'] = 'application/json'
         return response
@@ -203,7 +204,7 @@ def disconnect():
             # try:
             #     del login_session['facebook_id']
             # except:
-            #     print "no facebook_id value"
+            #     print "no fa6cebook_id value"
         # del login_session['username']
         # del login_session['email']
         # del login_session['picture']
@@ -327,6 +328,8 @@ def showRestaurants():
         return render_template('publicrestaurants.html', restaurants=restaurants),
     else:
         print "username in session. rendering private"
+        print login_session
+        print login_session['provider']
         # print restaurants
         return render_template('restaurants.html', restaurants=restaurants, picture=login_session['picture'])
 
@@ -360,10 +363,10 @@ def editRestaurant(restaurant_id):
         session.add(restaurantToEdit)
         flash("Restaurant has been edited by {0}.".format(login_session['username']))
         session.commit()
-        return redirect(url_for('showMenu', restaurant_id=restaurant_id))
+        return redirect(url_for('showMenu', restaurant_id=restaurant_id, picture=login_session['picture']))
     else:
         return render_template(
-            'editRestaurant.html', restaurant_id=restaurant_id, restaurant=restaurantToEdit)
+            'editRestaurant.html', restaurant_id=restaurant_id, restaurant=restaurantToEdit, picture=login_session['picture'])
 
 
 @app.route('/restaurant/<int:restaurant_id>/delete', methods=['GET', 'POST'])
@@ -381,10 +384,10 @@ def deleteRestaurant(restaurant_id):
         session.delete(restaurantToDelete)
         session.commit()
         flash("Restaurant has been deleted by {0}".format(login_session['username']))
-        return redirect(url_for('showMenu', restaurant_id=restaurant_id))
+        return redirect(url_for('showMenu', restaurant_id=restaurant_id, picture=login_session['picture']))
     else:
         # print 'not POST'
-        return render_template('deleteRestaurant.html', restaurant=restaurantToDelete, items=itemsToDelete)
+        return render_template('deleteRestaurant.html', restaurant=restaurantToDelete, items=itemsToDelete, picture=login_session['picture'])
 
 @app.route('/restaurant/<int:restaurant_id>')
 @app.route('/restaurant/<int:restaurant_id>/menu')
@@ -398,10 +401,10 @@ def showMenu(restaurant_id):
     # print creator.id
     if 'username' not in login_session or creator.id != login_session['user_id']:
         print "public menu"
-        return render_template('publicmenu.html', appetizers=appetizers, entrees=entrees, desserts=desserts, beverages=beverages, restaurant=restaurant, creator=creator)
+        return render_template('publicmenu.html', appetizers=appetizers, entrees=entrees, desserts=desserts, beverages=beverages, restaurant=restaurant, creator=creator, picture=login_session['picture'])
     else:
         print "private menu"
-        return render_template('showMenu.html', restaurant=restaurant, appetizers=appetizers, entrees=entrees, desserts=desserts, beverages=beverages, creator=creator)
+        return render_template('showMenu.html', restaurant=restaurant, appetizers=appetizers, entrees=entrees, desserts=desserts, beverages=beverages, creator=creator, picture=login_session['picture'])
     # return render_template('showMenu.html', restaurant=restaurant, items=items, restaurant_id=restaurant_id)
 
 @app.route('/restaurant/<int:restaurant_id>/menu/new', methods=['GET', 'POST'])
@@ -416,9 +419,9 @@ def newMenuItem(restaurant_id):
         session.add(newItem)
         session.commit()
         flash("New Item created by {0}!".format(login_session['username']))
-        return redirect(url_for('showMenu', restaurant_id=restaurant_id))
+        return redirect(url_for('showMenu', restaurant_id=restaurant_id, picture=login_session['picture']))
     else:
-        return render_template('newMenuItem.html', restaurant=restaurant)
+        return render_template('newMenuItem.html', restaurant=restaurant, picture=login_session['picture'])
 
 @app.route('/restaurant/<int:restaurant_id>/<int:menu_id>/edit', methods=['GET', 'POST'])
 def editMenuItem(restaurant_id, menu_id):
@@ -436,9 +439,9 @@ def editMenuItem(restaurant_id, menu_id):
         session.add(itemToEdit)
         flash("Menu Item has been edited by {0}.".format(login_session['username']))
         session.commit()
-        return redirect(url_for('showMenu', restaurant_id=restaurant_id))
+        return redirect(url_for('showMenu', restaurant_id=restaurant_id, picture=login_session['picture']))
     else:
-        return render_template('editMenuItem.html', restaurant_id=restaurant_id, item=itemToEdit)
+        return render_template('editMenuItem.html', restaurant_id=restaurant_id, item=itemToEdit, picture=login_session['picture'])
 
 @app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/delete', methods=['GET', 'POST'])
 def deleteMenuItem(restaurant_id, menu_id):
@@ -452,10 +455,10 @@ def deleteMenuItem(restaurant_id, menu_id):
         session.delete(itemToDelete)
         session.commit()
         flash("Item has been deleted by {0}.".format(login_session['username']))
-        return redirect(url_for('showMenu', restaurant_id=restaurant_id))
+        return redirect(url_for('showMenu', restaurant_id=restaurant_id, picture=login_session['picture']))
     else:
         return render_template(
-            'deleteMenuItem.html', restaurant_id=restaurant_id, item=itemToDelete)
+            'deleteMenuItem.html', restaurant_id=restaurant_id, item=itemToDelete, picture=login_session['picture'])
 
 # API Endpoints
 @app.route('/restaurants/JSON')
