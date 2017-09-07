@@ -50,7 +50,6 @@ def gconnect():
         response.headers['Content-Type'] = 'application/json'
         return response
     code = request.data
-
     try:
         # Upgrade the authorization code into a credential object
         oauth_flow = flow_from_clientsecrets('client_secrets.json', scope='')
@@ -332,7 +331,6 @@ def showRestaurants():
     else:
         print "username in session. rendering private"
         print login_session
-        print login_session['provider']
         # print restaurants
         return render_template('restaurants.html', restaurants=restaurants, picture=login_session['picture'])
 
