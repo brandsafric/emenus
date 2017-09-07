@@ -668,6 +668,18 @@ input[type=submit]:hover {
     .icon-add-r {
         left: 30px;
     }
+
+    .login-container {
+        flex-direction: column;
+    }
+
+    .text-container {
+        width: 25%;
+    }
+
+    .profileImg {
+        margin: 0 auto;
+    }
 }
 
 /*desktops*/
