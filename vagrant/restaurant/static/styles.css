@@ -682,6 +682,32 @@ input[type=submit]:hover {
     }
 }
 
+
+/*iPhone 6 Portrait*/
+/*@media only screen and (min-width: 375px) and (orientation: portrait) {*/
+
+@media only screen and (min-width: 375px)  {
+
+    .text-container {
+        height: 90px;
+    }
+    .login-container {
+        flex-direction: column;
+    }
+
+    .profileImg {
+        margin: 0 auto;
+    }
+}
+
+/*iPhone 6 LS*/
+/*@media only screen and (min-width: 375px) and (orientation: landscape) {*/
+@media only screen and (min-width: 375px)  {
+
+
+
+}
+
 /*desktops*/
 
 @media only screen and (min-width: 769px) {
