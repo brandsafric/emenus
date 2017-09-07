@@ -500,7 +500,8 @@ input[type=submit]:hover {
     background: #d06f62 !important;
 }
 
-
+/*iPhone 5 Portrait*/
+/*@media only screen and (min-width: 320px) and (orientation: portrait) */
 @media only screen and (min-width: 320px)  {
 
     .user-status {
@@ -645,13 +646,27 @@ input[type=submit]:hover {
 }
 
 
-
 /*iphone 5 LS*/
-
-@media only screen and (min-width: 568px) and (orientation: landscape) {
+/*@media only screen and (min-width: 568px) and (orientation: landscape) */
+@media only screen and (min-width: 568px)  {
 
     .restaurant-list {
         width: 300px;
+        padding-left: 0;
+    }
+
+    .icon-edit-r {
+        float: left;
+        margin-left: 30px;
+    }
+
+    .icon-delete-r {
+        float: right;
+        margin-right: 30px;
+    }
+
+    .icon-add-r {
+        left: 30px;
     }
 }
 
