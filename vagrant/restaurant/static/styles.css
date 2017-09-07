@@ -760,7 +760,16 @@ input[type=submit]:hover {
 
 /*iPhone 6+ LS */
 
-@media only screen and (min-width: 735px) and (orientation: landscape) {
+@media only screen and (min-width: 735px) {
+/*@media only screen and (min-width: 735px) and (orientation: landscape) {*/
+
+    .restaurant-list {
+        width: 500px;
+    }
+
+    .user-status {
+    padding: 0.5rem;
+}
 
 }
 
