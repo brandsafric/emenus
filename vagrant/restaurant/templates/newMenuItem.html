@@ -1,37 +1,9 @@
-<html>
-    <head>
-        <link rel=stylesheet type=text/css href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
-    </head>
-    <body>
-         <!--Navigation-->
-        <nav class="navbar navbar-custom navbar-fixed-top navbar-default" role="navigation">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
-                        <i class="fa fa-bars"></i>
-                    </button>
-                    <a class="navbar-brand" href="/">
-                        <span><span>EM</span>enus</span>
-                    </a>
-                </div>
-                <!--<div class="collapse navbar-collapse navbar-right navbar-main-collapse">-->
-                    <!--<ul class="nav navbar-nav">-->
-                        <!--<li class="hidden">-->
-                            <!--<a href="#"></a>-->
-                        <!--</li>-->
-                        <!--<li>-->
-                            <!--<a class="page-scroll" href="#/">Menus</a>-->
-                        <!--</li>-->
-
-                    <!--</ul>-->
-                <!--</div>-->
-            </div>
-        </nav>
-        <div class="container">
+            {% extends "main.html" %}
+            {% block content %}
+            {% include "header.html" %}
             <div class="form-wrapper">
                 <div class="form-heading">
-                    <h1 class="title-new-item">New Menu Item</h1>
+                    <h1 class="title-new-item">New Menu Item</h1><br>
                     <h2>({{ restaurant.name }})</h2>
                 </div>
                 <form action="{{ url_for('newMenuItem', restaurant_id=restaurant.id) }}" method="post">
@@ -61,7 +33,4 @@
                         <a class="cancel" href="{{ url_for('showMenu', restaurant_id = restaurant.id) }}">Cancel</a>
                     </div>
                 </form>
-            </div>
-        </div>
-    </body>
-</html>
+{% endblock %}
