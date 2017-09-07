@@ -710,6 +710,10 @@ input[type=submit]:hover {
         /*margin-left: 0;*/
     /*}*/
 
+    .creator {
+        margin-right: 10px;
+    }
+
     .restaurant-list {
         width: 245px;
     }
