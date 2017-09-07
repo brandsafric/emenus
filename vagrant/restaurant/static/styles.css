@@ -525,8 +525,6 @@ input[type=submit]:hover {
         left: calc((100px - 39px) / 2);
     }
 
-
-
     .menu-header {
         opacity: 0;
     }
@@ -647,6 +645,14 @@ input[type=submit]:hover {
         display: block;
         margin-bottom: 40px;
     }
+
+    .button-mobile .icon-edit-r {
+        margin-left: 60px;
+    }
+
+    .button-mobile .icon-delete-r {
+        margin-right: 60px;
+    }
 }
 
 
@@ -671,10 +677,10 @@ input[type=submit]:hover {
         margin-right: 30px;
     }
 
-    .button-restaurant .icon-edit-r {
+    .button-mobile .icon-edit-r {
         margin-left: 125px;
     }
-    .button-restaurant .icon-delete-r {
+    .button-mobile .icon-delete-r {
         margin-right: 125px;
     }
     .icon-add-r {
