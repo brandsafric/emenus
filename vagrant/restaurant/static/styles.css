@@ -724,6 +724,13 @@ input[type=submit]:hover {
 /*@media only screen and (min-width: 375px) and (orientation: landscape) {*/
 @media only screen and (min-width: 375px)  {
 
+    .banner-main {
+        margin-top: 10px;
+    }
+    .restaurant-list {
+        width: 450px;
+    }
+
 
 
 }
