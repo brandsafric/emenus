@@ -349,7 +349,7 @@ def editRestaurant(restaurant_id):
         session.add(restaurantToEdit)
         flash("Restaurant has been edited by {0}.".format(login_session['username']))
         session.commit()
-        return redirect(url_for('showMenu'))
+        return redirect(url_for('showMenu', restaurant_id=restaurant_id))
     else:
         return render_template(
             'editRestaurant.html', restaurant_id=restaurant_id, restaurant=restaurantToEdit)
@@ -370,7 +370,7 @@ def deleteRestaurant(restaurant_id):
         session.delete(restaurantToDelete)
         session.commit()
         flash("Restaurant has been deleted by {0}".format(login_session['username']))
-        return redirect(url_for('showMenu'))
+        return redirect(url_for('showMenu', restaurant_id=restaurant_id))
     else:
         # print 'not POST'
         return render_template('deleteRestaurant.html', restaurant=restaurantToDelete, items=itemsToDelete)
