@@ -180,9 +180,9 @@ container {
 
 .icon-add,
 .icon-add-r {
-    position: relative;
-    left: 175px;
-    top: 42px;
+    /*position: relative;*/
+    /*left: 175px;*/
+    /*top: 42px;*/
     font-size: 45px;
     color: #4fb840;
     transition: transform .5s;
@@ -504,6 +504,10 @@ input[type=submit]:hover {
 /*@media only screen and (min-width: 320px) and (orientation: portrait) */
 @media only screen and (min-width: 320px)  {
 
+    .icon-add-restaurant {
+        margin-bottom: 10px;
+    }
+
     .user-status {
         float: right;
     }
@@ -532,7 +536,8 @@ input[type=submit]:hover {
     }
 
     .restaurant-list {
-        width: 300px;
+        padding-left: 0;
+        width: 234px;
         column-count: 2;
         -webkit-column-count: 2;
     }
@@ -544,7 +549,7 @@ input[type=submit]:hover {
     .restaurant-card {
         width: 100px;
         height: 155px;
-        margin-bottom: 65px;
+        margin-bottom: 30px;
     }
 
     .restaurant-list-item {
@@ -589,10 +594,9 @@ input[type=submit]:hover {
         height: 30px;
     }
 
-    .icon-add {
-        left: 40px;
-        top: 0;
-    }
+    /*.icon-add {*/
+        /*margin-left: 10px;*/
+    /*}*/
 
     h1 {
         font-size: 2em;
@@ -651,8 +655,10 @@ input[type=submit]:hover {
 @media only screen and (min-width: 568px)  {
 
     .restaurant-list {
-        width: 300px;
+        width: 390px;
         padding-left: 0;
+        column-count: 3;
+        -webkit-column-count: 3;
     }
 
     .icon-edit-r {
@@ -665,6 +671,12 @@ input[type=submit]:hover {
         margin-right: 30px;
     }
 
+    .button-restaurant .icon-edit-r {
+        margin-left: 125px;
+    }
+    .button-restaurant .icon-delete-r {
+        margin-right: 125px;
+    }
     .icon-add-r {
         left: 30px;
     }
@@ -687,6 +699,14 @@ input[type=submit]:hover {
 /*@media only screen and (min-width: 375px) and (orientation: portrait) {*/
 
 @media only screen and (min-width: 375px)  {
+
+    /*.icon-add {*/
+        /*margin-left: 0;*/
+    /*}*/
+
+    .restaurant-list {
+        width: 245px;
+    }
 
     .text-container {
         height: 90px;
