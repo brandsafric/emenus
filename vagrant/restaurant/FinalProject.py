@@ -169,6 +169,7 @@ def gdisconnect():
     if result['status'] == '200':
         # print 'in status == 200 line 155'
         # Reset the user's session
+        print 'deleting login_session data for google.'
         del login_session['access_token']
         del login_session['gplus_id']
         del login_session['username']
@@ -189,12 +190,15 @@ def gdisconnect():
 @app.route("/disconnect")
 def disconnect():
     if 'provider' in login_session:
+        print 'provider in login session'
         if login_session['provider'] == 'google':
+            print 'going to gdisconnect'
             # print login_session['username']
             gdisconnect()
             # del login_session['gplus_id']
             # del login_session['credentials']
         if login_session['provider'] == 'facebook':
+            print 'going to fbisconnect'
             fbdisconnect()
             # try:
             #     del login_session['facebook_id']
@@ -208,6 +212,9 @@ def disconnect():
         flash("You have been successfully logged out.")
         return redirect(url_for('showRestaurants'))
     else:
+        print 'no provider in login session'
+        print login_session
+        # del login_session['username']
         flash("You were not logged in to begin with!")
         return redirect(url_for('showRestaurants'))
 
@@ -278,6 +285,7 @@ def fbdisconnect():
     url = 'https://graph.facebook.com/{0}/permissions'.format(facebook_id)
     h = httplib2.Http()
     result = h.request(url, 'DELETE')[1]
+    print 'deleting login_session data for facebook.'
     del login_session['username']
     del login_session['email']
     del login_session['picture']
@@ -315,10 +323,10 @@ def createUser(login_session):
 def showRestaurants():
     restaurants = session.query(Restaurant).order_by(asc(Restaurant.name)).all()
     if 'username' not in login_session:
-        # print "no username is session. rendering public."
+        print "no username is session. rendering public."
         return render_template('publicrestaurants.html', restaurants=restaurants),
     else:
-        # print "username in session. rendering private"
+        print "username in session. rendering private"
         # print restaurants
         return render_template('restaurants.html', restaurants=restaurants, picture=login_session['picture'])
 
