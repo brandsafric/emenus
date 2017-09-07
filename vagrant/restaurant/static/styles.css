@@ -741,6 +741,38 @@ input[type=submit]:hover {
 
 }
 
+
+/*iPhone 6+ P */
+
+/*@media only screen and (min-width: 414px) and (orientation: portrait) {*/
+@media only screen and (min-width: 414px) {
+
+    .restaurant-list {
+        width: 300px;
+        column-gap: 100px;
+    }
+
+}
+
+/*iPhone 6+ LS */
+
+@media only screen and (min-width: 735px) and (orientation: landscape) {
+
+}
+
+/*iPad P */
+
+@media only screen and (min-width: 768px) and (orientation: portrait) {
+
+
+}
+
+/*iPad LS */
+
+@media only screen and (min-width: 768px) and (orientation: landscape) {
+
+}
+
 /*desktops*/
 
 @media only screen and (min-width: 769px) {
