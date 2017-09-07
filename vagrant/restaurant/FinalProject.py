@@ -150,7 +150,9 @@ def userLoginMessage():
 
 def gdisconnect():
     # Only disconnect a connected user.
+    print 'in gdisoonnect'
     access_token = login_session.get('access_token')
+    print access_token
     if access_token is None:
         print "Access Token is none"
         response = make_response(json.dumps("Current user not connected."), 401)
@@ -163,6 +165,7 @@ def gdisconnect():
     url = 'https://accounts.google.com/o/oauth2/revoke?token={0}'.format(access_token)
     h = httplib2.Http()
     result = h.request(url, 'GET')[0]
+    print 'sent out request'
     # print 'result is '
     # print result
 
