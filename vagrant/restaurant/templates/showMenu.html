@@ -37,22 +37,22 @@
 					<i class="fa fa-trash icon-delete-r" aria-hidden="true" onclick="location.href = '{{ url_for('deleteRestaurant', restaurant_id = restaurant.id) }}'"></i>
 				<div class="clearfix"></div>
 			</div>
-			<div class="menu-section">
+		<div class="menu-section">
 			<i class="fa fa-plus icon-add-r" aria-hidden="true" onclick="location.href = '{{ url_for('newMenuItem', restaurant_id = restaurant.id) }}'"></i>
 			{% if appetizers %}
 			<h4 class="section-title" id="appetizer-section">Appetizers<i class="fa fa-chevron-down" id="appetizer-toggle" aria-hidden="true"></i></h4>
 			<div class="row" id="appetizer-row">
 				{% for a in appetizers %}
-				<div class="item-list col-8 offset-1 col-sm-8 offset-sm-1">
+				<div class="item-list col-8 offset-1 col-sm-8 offset-sm-1 col-md-8 offset-md-1">
 					<div class="itemName">
 						<div class="item-name">{{a.name}}</div>
 						<i>{{a.description}}</i><br>
 					</div>
 				</div>
-				<div class="item-price col-2 col-sm-2">
+				<div class="item-price col-2 col-sm-2 col-md-1">
 					{{a.price}}
 				</div>
-				<div class="button-nav col-12 col-sm-12">
+				<div class="button-nav col-12 col-sm-12 col-lg-1">
 						<i class="fa fa-pencil icon-edit-r" aria-hidden="true" onclick="location.href = '{{ url_for('editMenuItem', restaurant_id = restaurant.id, menu_id = a.id) }}'"></i>
 						<i class="fa fa-trash icon-delete-r" aria-hidden="true" onclick="location.href = '{{ url_for('deleteMenuItem', restaurant_id = restaurant.id, menu_id = a.id) }}'"></i>
 				</div>
@@ -63,7 +63,7 @@
 			<h4 class="section-title" id="entree-section">Entrees<i class="fa fa-chevron-down" id="entree-toggle" aria-hidden="true"></i></h4>
 			<div class="row" id="entree-row">
 				{% for e in entrees %}
-				<div class="item-list col-8 offset-1 col-sm-8 offset-sm-1">
+				<div class="item-list col-8 offset-1 col-sm-8 offset-sm-1 col-md-8 offset-md-1">
 					<div class="itemName">
 						<p>
 							<div class="item-name">{{e.name}}</div>
@@ -71,10 +71,10 @@
 						</p>
 					</div>
 				</div>
-				<div class="item-price col-sm-1">
+				<div class="item-price col-2 col-sm-2 col-md-1">
 					{{e.price}}
 				</div>
-				<div class="button-nav col-12 col-sm-12">
+				<div class="button-nav col-12 col-sm-12 col-lg-1">
 						<i class="fa fa-pencil icon-edit-r" aria-hidden="true" onclick="location.href = '{{ url_for('editMenuItem', restaurant_id = restaurant.id, menu_id = e.id) }}'"></i>
 						<i class="fa fa-trash icon-delete-r" aria-hidden="true" onclick="location.href = '{{ url_for('deleteMenuItem', restaurant_id = restaurant.id, menu_id = e.id) }}'"></i>
 				</div>
@@ -85,7 +85,7 @@
 			<h4 class="section-title" id="dessert-section">Desserts<i class="fa fa-chevron-down" id="dessert-toggle" aria-hidden="true"></i></h4>
 			<div class="row" id="dessert-row">
 				{% for d in desserts %}
-				<div class="item-list col-8 offset-1 col-sm-8 offset-sm-1">
+				<div class="item-list col-8 offset-1 col-sm-8 offset-sm-1 col-md-8 offset-md-1">
 					<div class="itemName">
 						<p>
 							<div class="item-name">{{d.name}}</div>
@@ -93,10 +93,10 @@
 						</p>
 					</div>
 				</div>
-				<div class="item-price col-sm-1">
+				<div class="item-price col-2 col-sm-2 col-md-1">
 						{{d.price}}
 				</div>
-				<div class="button-nav col-12 col-sm-12">
+				<div class="button-nav col-12 col-sm-12 col-lg-1">
 						<i class="fa fa-pencil icon-edit-r" aria-hidden="true" onclick="location.href = '{{ url_for('editMenuItem', restaurant_id = restaurant.id, menu_id = d.id) }}'"></i>
 						<i class="fa fa-trash icon-delete-r" aria-hidden="true" onclick="location.href = '{{ url_for('deleteMenuItem', restaurant_id = restaurant.id, menu_id = d.id) }}'"></i>
 				</div>
@@ -107,7 +107,7 @@
 			<h4 class="section-title" id="beverage-section">Beverages<i class="fa fa-chevron-down" id="beverage-toggle" aria-hidden="true"></i></h4>
 			<div class="row" id="beverage-row">
 				{% for b in beverages %}
-				<div class="item-list col-8 offset-1 col-sm-8 offset-sm-1">
+				<div class="item-list col-8 offset-1 col-sm-8 offset-sm-1 col-md-8 offset-md-1">
 					<div class="itemName">
 						<p>
 							<div class="item-name">{{b.name}}</div>
@@ -115,10 +115,10 @@
 						</p>
 					</div>
 				</div>
-				<div class="item-price col-sm-1">
+				<div class="item-price col-2 col-sm-2 col-md-1">
 						{{b.price}}
 				</div>
-				<div class="button-nav col-12 col-sm-12">
+				<div class="button-nav col-12 col-sm-12 col-lg-1">
 						<i class="fa fa-pencil icon-edit-r" aria-hidden="true" onclick="location.href = '{{ url_for('editMenuItem', restaurant_id = restaurant.id, menu_id = b.id) }}'"></i>
 						<i class="fa fa-trash icon-delete-r" aria-hidden="true" onclick="location.href = '{{ url_for('deleteMenuItem', restaurant_id = restaurant.id, menu_id = b.id) }}'"></i>
 				</div>
