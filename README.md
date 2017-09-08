@@ -13,10 +13,10 @@ Utilizes:
 
 Prerequisites:
 * [Python 2.7](https://www.python.org/)
-* [VirtualBox] (https://www.virtualbox.org/wiki/VirtualBox)
+* [VirtualBox](https://www.virtualbox.org/wiki/VirtualBox)
 VirtualBox is the software that actually runs the VM. You can download it from virtualbox.org, here. Install the platform package for your operating system. You do not need the extension pack or the SDK. You do not need to launch VirtualBox after installing it.
 Ubuntu 14.04 Note: If you are running Ubuntu 14.04, install VirtualBox using the [Ubuntu Software Center](https://apps.ubuntu.com/cat/applications/quantal/virtualbox-qt/), not the virtualbox.org web site. Due to a reported bug, installing VirtualBox from the site may uninstall other software you need.
-* [Vagrant] (https://www.vagrantup.com/)
+* [Vagrant](https://www.vagrantup.com/)
 Vagrant is the software that configures the VM and lets you share files between your host computer and the VM's filesystem. You can download it from vagrantup.com. Install the version for your operating system.
 Windows Note: The Installer may ask you to grant network permissions to Vagrant or make a firewall exception. Be sure to allow this.
 
