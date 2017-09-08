@@ -1,36 +1,37 @@
-            {% extends "main.html" %}
-            {% block content %}
-            {% include "header.html" %}
-            <div class="form-wrapper">
-                <div class="form-heading">
-                    <h1 class="title-new-item">New Menu Item</h1><br>
-                    <h2>({{ restaurant.name }})</h2>
-                </div>
-                <form action="{{ url_for('newMenuItem', restaurant_id=restaurant.id) }}" method="post">
-                    <label>Name <span class="required">*</span></label>
-                    <div>
-                        <input type="text" size="80" name="name" placeholder="Name" required>
-                    </div>
-                    <label>Description <span class="required">*</span></label>
-                    <div>
-                        <textarea class="input input-desc" type="text" size="250" name="description" placeholder="Description" required></textarea>
-                    </div>
-                    <label>Price <span class="required">*</span></label>
-                    <div>
-                        <input type="text" size="8" name="price" placeholder="$0.00" required><br>
-                    </div>
-                    <label>Course <span class="required">*</span></label>
-                    <div>
-                        <select name="course">
-                            <option value="Appetizer">Appetizer</option>
-                            <option value="Entree">Entree</option>
-                            <option value="Dessert">Dessert</option>
-                            <option value="Beverage">Beverage</option>
-                        </select>
-                    </div>
-                    <div>
-                        <input type="submit" value="Create">
-                        <a class="cancel" href="{{ url_for('showMenu', restaurant_id = restaurant.id) }}">Cancel</a>
-                    </div>
-                </form>
-{% endblock %}
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+<div class="form-wrapper">
+    <div class="form-heading">
+        <h1 class="title-new-item">New Menu Item</h1><br>
+        <h2>({{ restaurant.name }})</h2>
+    </div>
+    <form action="{{ url_for('newMenuItem', restaurant_id=restaurant.id) }}" method="post">
+        <label>Name <span class="required">*</span></label>
+        <div>
+            <input type="text" size="80" name="name" placeholder="Name" required>
+        </div>
+        <label>Description <span class="required">*</span></label>
+        <div>
+            <textarea class="input input-desc" type="text" size="250" name="description" placeholder="Description"
+                      required></textarea>
+        </div>
+        <label>Price <span class="required">*</span></label>
+        <div>
+            <input type="text" size="8" name="price" placeholder="$0.00" required><br>
+        </div>
+        <label>Course <span class="required">*</span></label>
+        <div>
+            <select name="course">
+                <option value="Appetizer">Appetizer</option>
+                <option value="Entree">Entree</option>
+                <option value="Dessert">Dessert</option>
+                <option value="Beverage">Beverage</option>
+            </select>
+        </div>
+        <div>
+            <input type="submit" value="Create">
+            <a class="cancel" href="{{ url_for('showMenu', restaurant_id = restaurant.id) }}">Cancel</a>
+        </div>
+    </form>
+    {% endblock %}

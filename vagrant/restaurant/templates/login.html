@@ -1,25 +1,19 @@
 {% extends "main.html" %}
 {% block content %}
-    <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-    <!-- Button trigger modal -->
-
-    <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">-->
-      <!--Launch demo modal-->
-    <!--</button>-->
-
-        <!-- Modal -->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
+<script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Login</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true">&times;</span>
                 </button>
-              </div>
-              <div class="modal-body">
-                  <div class="login-container" id="logincontainer">
+            </div>
+            <div class="modal-body">
+                <div class="login-container" id="logincontainer">
                     <div class="login-box" id="loginbox">
                         <div class="text-container">
                             <span>
@@ -46,120 +40,121 @@
                         </button>
                     </div>
                 </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-              </div>
             </div>
-          </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
         </div>
-        <div class="row justify-content-center top-margin">
-            <div class="col-md-6"><p>Welcome to EMenus!<br>
-                <div class="login-body">Please login to modify, create and edit entries or click the EMenus logo to return.</div> </p>
+    </div>
+</div>
+<div class="row justify-content-center top-margin">
+    <div class="col-md-6"><p>Welcome to EMenus!<br>
+        <div class="login-body">Please login to modify, create and edit entries or click the EMenus logo to return.
         </div>
+        </p>
+    </div>
 
-        <script>
-            function signInCallback(authResult) {
-                if (authResult['code']) {
-                    // Hide the sign-in button now that the user is authorized.
-//                    $('#signinButton').attr('style', 'display: none');
-                    // Send one-time code to server
-                    $.ajax({
-                        type: 'POST',
-                        url: '/gconnect?state={{STATE}}',
-                        processData: false,
-                        data: authResult['code'],
-                        contentType: 'application/octet-stream; charset=utf-8',
-                        success: function(result) {
-                            if (result) {
-                                $('#loginbox').css('opacity', '0');
-                                console.log('here')
-                                setTimeout(function() {
-                                  $('#logincontainer').html('<div class="loginMsg">Login Successful</div>' + result + '<div class="redirectmsg">Redirecting...</div>');
-                                }, 250)
-                                setTimeout(function() {
-                                    window.location.href="/restaurants";
-                                }, 4000);
-                            } else if (authResult['error']) {
-                                console.log("There was an error: " + authResult['error']);
-                            } else {
-                                $('#logincontainer').html('Failed to make a server-side call. Check your configuration and console.');
-                            }
+    <script>
+        function signInCallback(authResult) {
+            if (authResult['code']) {
+                // Send one-time code to server
+                $.ajax({
+                    type: 'POST',
+                    url: '/gconnect?state={{STATE}}',
+                    processData: false,
+                    data: authResult['code'],
+                    contentType: 'application/octet-stream; charset=utf-8',
+                    success: function (result) {
+                        if (result) {
+                            $('#loginbox').css('opacity', '0');
+                            console.log('here')
+                            setTimeout(function () {
+                                $('#logincontainer').html('<div class="loginMsg">Login Successful</div>' + result + '<div class="redirectmsg">Redirecting...</div>');
+                            }, 250)
+                            setTimeout(function () {
+                                window.location.href = "/restaurants";
+                            }, 4000);
+                        } else if (authResult['error']) {
+                            console.log("There was an error: " + authResult['error']);
+                        } else {
+                            $('#logincontainer').html('Failed to make a server-side call. Check your configuration and console.');
                         }
-                    })
-                }
+                    }
+                })
             }
-        </script>
+        }
+    </script>
 
 
     <!--End Google Plus Sign-in-->
 
     <!--Facebook Sign-in-->
-            <script>
-          window.fbAsyncInit = function() {
-          FB.init({
-            appId      : '121197365194785',
-            cookie     : true,  // enable cookies to allow the server to access
-                                // the session
-            xfbml      : true,  // parse social plugins on this page
-            version    : 'v2.8' // use version 2.8
-          });
-          };
-          // Load the SDK asynchronously
-          (function(d, s, id) {
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '121197365194785',
+                cookie: true,  // enable cookies to allow the server to access
+                               // the session
+                xfbml: true,  // parse social plugins on this page
+                version: 'v2.8' // use version 2.8
+            });
+        };
+        // Load the SDK asynchronously
+        (function (d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0];
             if (d.getElementById(id)) return;
-            js = d.createElement(s); js.id = id;
+            js = d.createElement(s);
+            js.id = id;
             js.src = "//connect.facebook.net/en_US/sdk.js";
             fjs.parentNode.insertBefore(js, fjs);
-          }(document, 'script', 'facebook-jssdk'));
-          // Here we run a very simple test of the Graph API after login is
-          // successful.  See statusChangeCallback() for when this call is made.
-          function sendTokenToServer() {
+        }(document, 'script', 'facebook-jssdk'));
+        // Here we run a very simple test of the Graph API after login is
+        // successful.  See statusChangeCallback() for when this call is made.
+        function sendTokenToServer() {
             var access_token = FB.getAuthResponse()['accessToken'];
             console.log(access_token)
             console.log('Welcome!  Fetching your information.... ');
-            FB.api('/me', function(response) {
-              console.log('Successful login for: ' + response.name);
-             $.ajax({
-              type: 'POST',
-              url: '/fbconnect?state={{STATE}}',
-              processData: false,
-              data: access_token,
-              contentType: 'application/octet-stream; charset=utf-8',
-              success: function(result) {
-                // Handle or verify the server response if necessary.
-                if (result) {
-                    $('#loginbox').css('opacity', '0');
-                        setTimeout(function() {
-                          $('#logincontainer').html('<div class="loginMsg">Login Successful</div>' + result + '<div class="redirectmsg">Redirecting...</div>');
-                        }, 250)
-                 setTimeout(function() {
-                  window.location.href = "/restaurants";
-                 }, 4000);
+            FB.api('/me', function (response) {
+                console.log('Successful login for: ' + response.name);
+                $.ajax({
+                    type: 'POST',
+                    url: '/fbconnect?state={{STATE}}',
+                    processData: false,
+                    data: access_token,
+                    contentType: 'application/octet-stream; charset=utf-8',
+                    success: function (result) {
+                        // Handle or verify the server response if necessary.
+                        if (result) {
+                            $('#loginbox').css('opacity', '0');
+                            setTimeout(function () {
+                                $('#logincontainer').html('<div class="loginMsg">Login Successful</div>' + result + '<div class="redirectmsg">Redirecting...</div>');
+                            }, 250)
+                            setTimeout(function () {
+                                window.location.href = "/restaurants";
+                            }, 4000);
 
-              } else {
-                $('#logincontainer').html('Failed to make a server-side call. Check your configuration and console.');
-                 }
-              }
+                        } else {
+                            $('#logincontainer').html('Failed to make a server-side call. Check your configuration and console.');
+                        }
+                    }
 
-          });
+                });
             });
-          }
-        </script>
+        }
+    </script>
 
-<!--END FACEBOOK SIGN IN -->
+    <!--END FACEBOOK SIGN IN -->
 
-<!-- JS code -->
+    <!-- JS code -->
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
-<!--JS below-->
-<script>
-  $(document).ready(function() {
-    $("#myModal").modal();
-  });
-</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+    <!--JS below-->
+    <script>
+        $(document).ready(function () {
+            $("#myModal").modal();
+        });
+    </script>
 
 
-{% endblock %}
+    {% endblock %}

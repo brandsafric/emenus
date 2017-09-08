@@ -1,22 +1,22 @@
-            {% extends "main.html" %}
-            {% block content %}
-            {% include "header.html" %}
-            <div class="form-wrapper">
-                <div class="form-heading">
-                    <h1>Delete Restaurant</h1>
-                </div>
-                <form action="{{ url_for('deleteRestaurant', restaurant_id = restaurant.id) }}" method="post">
-                    <label>Name</label>
-                    <div class="item-value">
-                        <span>{{restaurant.name}}</span>
-                    </div>
-                    <div>
-                        <input class="input-delete" type="submit" value="Delete">
-                        <a class="cancel" href="{{ url_for('showMenu', restaurant_id = restaurant.id) }}">Cancel</a>
-                    </div>
-                </form>
-            </div>
-            {% endblock %}
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+<div class="form-wrapper">
+    <div class="form-heading">
+        <h1>Delete Restaurant</h1>
+    </div>
+    <form action="{{ url_for('deleteRestaurant', restaurant_id = restaurant.id) }}" method="post">
+        <label>Name</label>
+        <div class="item-value">
+            <span>{{restaurant.name}}</span>
+        </div>
+        <div>
+            <input class="input-delete" type="submit" value="Delete">
+            <a class="cancel" href="{{ url_for('showMenu', restaurant_id = restaurant.id) }}">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
 
 
 

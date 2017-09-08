@@ -1,49 +1,53 @@
-            {% extends "main.html" %}
-            {% block content %}
-            {% include "header.html" %}
-            <div class="flash blink">
-				{% with messages = get_flashed_messages() %}
-					{% if messages %}
-				<ul>
-					{% for message in messages %}
-					<li> <strong> {{ message }} </strong> </li>
-					{% endfor %}
-				</ul>
-					{% endif %}
-				{% endwith %}
-			</div>
-			<div class="clearfix"></div>
-			<div class="row banner-main">
-			<div class="col-4 offset-1 col-sm-4 offset-sm-0">
-				<h1>
-					Menus
-				</h1>
-			</div>
-            </div>
-            <div class="row">
-                <div class="col-9 offset-1 col-sm-9 offset-sm-0 col-lg-9 offset-lg-1 icon-add-restaurant">
-                    <i class="fa fa-plus icon-add" aria-hidden="true" onclick="location.href = '{{ url_for('newRestaurant') }}'"></i>
-            </div>
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+<div class="flash blink">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li><strong> {{ message }} </strong></li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+</div>
+<div class="clearfix"></div>
+<div class="row banner-main">
+    <div class="col-4 offset-1 col-sm-4 offset-sm-0">
+        <h1>
+            Menus
+        </h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-9 offset-1 col-sm-9 offset-sm-0 col-lg-9 offset-lg-1 icon-add-restaurant">
+        <i class="fa fa-plus icon-add" aria-hidden="true"
+           onclick="location.href = '{{ url_for('newRestaurant') }}'"></i>
+    </div>
 
-                <!--<i class="fa fa-sort-alpha-asc icon-sort" id="icon-sort" aria-hidden="true"></i>-->
-                <ul class="restaurant-list" id="restaurant-list">
-                    {% for r in restaurants %}
-                    <div class="restaurant-card">
-                       <li class="restaurant-list-item">
-                           <i class="fa fa-pencil icon-edit" aria-hidden="true" onclick="location.href = '{{ url_for('editRestaurant', restaurant_id = r.id) }}'"></i>
-                           <i class="fa fa-trash icon-delete" aria-hidden="true" onclick="location.href = '{{ url_for('deleteRestaurant', restaurant_id = r.id) }}'"></i>
-                           <i class="fa fa-file icon-menu" aria-hidden="true" onclick="location.href = '{{ url_for('showMenu', restaurant_id = r.id) }}'"></i>
-                           <div class="menu-header" onclick="location.href = '{{ url_for('showMenu', restaurant_id = r.id) }}'">
-                               Menu
-                           </div>
-                       </li>
-                       <div class="restaurant-footer">
-                           <div class="restaurant-name">
-                               {{r.name|truncate(20, True) }}
-                            </div>
-                       </div>
-                    </div>
-                    {% endfor %}
-                </ul>
-			</div>
-            {% endblock %}
+    <!--<i class="fa fa-sort-alpha-asc icon-sort" id="icon-sort" aria-hidden="true"></i>-->
+    <ul class="restaurant-list" id="restaurant-list">
+        {% for r in restaurants %}
+        <div class="restaurant-card">
+            <li class="restaurant-list-item">
+                <i class="fa fa-pencil icon-edit" aria-hidden="true"
+                   onclick="location.href = '{{ url_for('editRestaurant', restaurant_id = r.id) }}'"></i>
+                <i class="fa fa-trash icon-delete" aria-hidden="true"
+                   onclick="location.href = '{{ url_for('deleteRestaurant', restaurant_id = r.id) }}'"></i>
+                <i class="fa fa-file icon-menu" aria-hidden="true"
+                   onclick="location.href = '{{ url_for('showMenu', restaurant_id = r.id) }}'"></i>
+                <div class="menu-header" onclick="location.href = '{{ url_for('showMenu', restaurant_id = r.id) }}'">
+                    Menu
+                </div>
+            </li>
+            <div class="restaurant-footer">
+                <div class="restaurant-name">
+                    {{r.name|truncate(20, True) }}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
