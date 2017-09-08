@@ -62,7 +62,6 @@ body {
 
 .login-container {
     margin: 0 auto;
-    /*width: 90%;*/
 }
 
 .loginprofilecontainer {
@@ -148,7 +147,6 @@ container {
     background: #6b241b;
     color: white;
     transition: background .25s;
-
 }
 
 .restaurant-footer {
@@ -176,9 +174,6 @@ container {
 
 .icon-add,
 .icon-add-r {
-    /*position: relative;*/
-    /*left: 175px;*/
-    /*top: 42px;*/
     font-size: 45px;
     color: #4fb840;
     transition: transform .5s;
@@ -189,16 +184,6 @@ container {
     transform: scale(1.2);
     color: #72c666;
 }
-
-/*.icon-edit  {*/
-    /*left: 128px;*/
-    /*top: 114px;*/
-/*}*/
-
-/*.icon-delete {*/
-    /*top: -1px;      !*4 pixels from top*!*/
-    /*left: -17px;*/
-/*}*/
 
 .icon-menu {
     top: 45px;
@@ -219,30 +204,6 @@ container {
     border: 1px solid #f7dad6;
 }
 
-/*.restaurant-list-item:hover .icon-edit,*/
-/*.restaurant-list-item:hover .icon-delete,*/
-/*.restaurant-list-item:hover .icon-menu,*/
-/*.restaurant-list-item:hover .menu-header {*/
-    /*opacity: 1;*/
-/*}*/
-
-/*.restaurant-list-item:hover .icon-edit {*/
-    /*transform: translateY(-5px);*/
-/*}*/
-
-/*.restaurant-list-item:hover .icon-delete {*/
-    /*transform: translateY(3px);*/
-/*}*/
-
-/*.restaurant-list-item:hover .icon-menu {*/
-    /*transform: translateY(10px) scale(2.2);*/
-/*}*/
-
-
-/*.restaurant-list-item:hover .menu-header {*/
-    /*transform: translateY(30px);*/
-/*}*/
-
 .icon-edit:hover,
 .icon-delete:hover,
 .icon-menu:hover,
@@ -259,9 +220,6 @@ container {
     text-align: center;
 }
 
-.item-list {
-    /*margin-left: 2em;*/
-}
 
 .flash {
     float: right;
@@ -309,10 +267,6 @@ figcaption {
     float: right;
 }
 
-.icon-add-r {
-    /*left: 14px;*/
-    /*top: -11px;*/
-}
 
 .item-name {
     color: #fbecea;
@@ -331,7 +285,6 @@ figcaption {
 .button-mobile {
     display: none;
 }
-
 
 .button-nav div {
     margin-bottom: 5px;
@@ -432,7 +385,6 @@ textarea,
 .item-value {
     color: black;
     background: #edfbea;
-    /*font-weight: 600;*/
     width: 100%;
     padding: 12px 10px;
     margin: 8px 0;
@@ -451,7 +403,6 @@ textarea:focus{
 
 input[type=submit],
 .cancel {
-    /*width: 100%;*/
     background-color: #4fb840;
     color: white;
     padding: 14px 20px;
@@ -514,13 +465,6 @@ input[type=submit]:hover {
         display: none;
     }
 
-    /*.icon-menu {*/
-        /*font-size: 45px !important;*/
-        /*opacity: 1;*/
-        /*top: calc(((125px * .75) - 45px) / 2);*/
-        /*left: calc((100px - 39px) / 2);*/
-    /*}*/
-
     .menu-header {
         opacity: 0;
     }
@@ -549,10 +493,6 @@ input[type=submit]:hover {
     .restaurant-list-item {
         height: 65%;
     }
-
-    /*.restaurant-footer {*/
-        /*height: 35%;*/
-    /*}*/
 
     .login-container {
         display: flex;
@@ -588,10 +528,6 @@ input[type=submit]:hover {
     .user_picture {
         height: 30px;
     }
-
-    /*.icon-add {*/
-        /*margin-left: 10px;*/
-    /*}*/
 
     h1 {
         font-size: 2em;
@@ -700,12 +636,8 @@ input[type=submit]:hover {
 
 /*iPhone 6 Portrait*/
 @media only screen and (min-width: 375px) and (orientation: portrait) {
-
 /*@media only screen and (min-width: 375px)  {*/
 
-    /*.icon-add {*/
-        /*margin-left: 0;*/
-    /*}*/
 
     .creator {
         margin-right: 10px;
@@ -737,9 +669,6 @@ input[type=submit]:hover {
     .restaurant-list {
         width: 450px;
     }
-
-
-
 }
 
 
@@ -790,7 +719,6 @@ input[type=submit]:hover {
     .button-mobile .icon-delete-r {
         margin-right: 200px;
     }
-
 }
 
 /*iPad LS */
@@ -816,10 +744,7 @@ input[type=submit]:hover {
     .button-mobile .icon-delete-r {
         margin-right: 300px;
     }
-
-    .
 }
-
 
 /*desktops*/
 
@@ -877,7 +802,6 @@ input[type=submit]:hover {
         font-size: 45px !important;
         opacity: 1;
         top: -6px;
-        /*top: calc(((180px * .75) - 45px) / 2);*/
         left: calc((150px - 39px) / 2);
     }
 
