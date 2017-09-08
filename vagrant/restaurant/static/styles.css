@@ -768,9 +768,9 @@ input[type=submit]:hover {
     }
 
     .restaurant-list {
-        width: 600px;
-        column-count: 3;
-        -webkit-column-count: 3;
+        width: 800px;
+        column-count: 4;
+        -webkit-column-count: 4;
     }
 
     .restaurant-list-item {
