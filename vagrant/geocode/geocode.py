@@ -7,7 +7,8 @@ def getGeoCodeLocation(inputString):
     url = "https://maps.googleapis.com/maps/api/geocode/json?" \
         "address={0}&key={1}".format(locationString, google_api_key)
     h = httplib2.Http()
-    response, content = h.request(url,'GET')
-    result = json.loads(content)
-    print "response header: {0} \n \n".format(response)
-    return result
+    result = json.loads(h.request(url,'GET')[1])
+    latitude = result['results'][0]['geometry']['location']['lat']
+    longitude = result['results'][0]['geometry']['location']['lng']
+    return (latitude,longitude)
+    # print "response header: {0} \n \n".format(response)
