@@ -8,8 +8,8 @@ import codecs
 sys.stdout = codecs.getwriter('utf8')(sys.stdout)
 sys.stderr = codecs.getwriter('utf8')(sys.stderr)
 
-foursquare_client_id = "PASTE_YOUR_ID_HERE"
-foursquare_client_secret = "YOUR_SECRET_HERE"
+foursquare_client_id = "ZUPJOALYACXTHW3ZLE2I0RF2IWBOLFQPORW5LBUFHL2KEFTA"
+foursquare_client_secret = "S4M2PBBKJVQP3HM3SCKEZIIEJARLZ5ITP1KUKN4IXT03CXTM"
 
 
 def findARestaurant(mealType, location):
@@ -17,6 +17,7 @@ def findARestaurant(mealType, location):
 
 # 1. Use getGeocodeLocation to get the latitude and longitude coordinates of
 #  the location string.
+
 
 # 2.  Use foursquare API to find a nearby restaurant with the latitude,
 # longitude, and mealType strings.
