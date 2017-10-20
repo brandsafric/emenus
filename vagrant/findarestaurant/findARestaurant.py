@@ -16,12 +16,10 @@ foursquare_v = "20130815"
 def findARestaurant(mealType, location):
 
 
-# 1. Use getGeocodeLocation to get the latitude and longitude coordinates of
-#  the location string.
+    # 1. Use getGeocodeLocation to get the latitude and longitude coordinates of
+    #  the location string.
 
     coord = getGeocodeLocation(location)
-    # print coord[0], coord[1]
-
 
     # 2.  Use foursquare API to find a nearby restaurant with the latitude,
     # longitude, and mealType strings.
@@ -29,7 +27,6 @@ def findARestaurant(mealType, location):
     # https://api.foursquare.com/v2/venues/search?client_id=CLIENT_ID
     # &client_secret=CLIENT_SECRET&v=20130815&ll=40.7,-74&query=sushi
 
-    # coordString = coord.replace(" ", "+")
     url = "https://api.foursquare.com/v2/venues/search?" \
           "client_id={0}&client_secret={1}&v={2}&ll={3},{4}&query={5}".format(
         foursquare_client_id, foursquare_client_secret, foursquare_v, coord[0],
@@ -57,33 +54,25 @@ def findARestaurant(mealType, location):
 
     result_photo = json.loads(h_photo.request(url, 'GET')[1])
 
-    print ("Name: " + restaurant['name'])
+    r_name = restaurant['name']
     try:
-        print ('Address: ' + restaurant['location']['address'])
-        restaurant_address = restaurant['location']['address']
+        r_address = restaurant['location']['address']
     except:
-        print('no Address listed')
-        # print (restaurant)
-        # print('Rest ID: ' + restaurant['id'])
-        # print('ll: ' + str(coord[0]) + ',' + str(coord[1]))
-        restaurant_address = "Unknown"
-    print ('ID: ' + restaurant['id'])
-
+        r_address = "Unknown"
 
     # 6. If no image is available, insert default a image url
+
     try:
         prefix = (result_photo['response']['photos']['items'][0]['prefix'])
         suffix = (result_photo['response']['photos']['items'][0]['suffix'])
-        photo_url = prefix + '300x300' + suffix
+        r_img = prefix + '300x300' + suffix
     except:
-        photo_url = 'Default Image URL'
-
-    print ('Img: ' + photo_url)
+        r_img = 'Default Image URL'
 
     # 7. Return a dictionary containing the restaurant name, address, and image
     # url
 
-
+    return {'name': r_name, 'address': r_address, 'image': r_img}
 
 
 if __name__ == '__main__':
