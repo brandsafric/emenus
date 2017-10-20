@@ -20,14 +20,14 @@ def findARestaurant(mealType, location):
 #  the location string.
 
     coord = getGeocodeLocation(location)
-    print coord[0], coord[1]
+    # print coord[0], coord[1]
 
 
-# 2.  Use foursquare API to find a nearby restaurant with the latitude,
-# longitude, and mealType strings.
-# HINT: format for url will be something like
-# https://api.foursquare.com/v2/venues/search?client_id=CLIENT_ID
-# &client_secret=CLIENT_SECRET&v=20130815&ll=40.7,-74&query=sushi
+    # 2.  Use foursquare API to find a nearby restaurant with the latitude,
+    # longitude, and mealType strings.
+    # HINT: format for url will be something like
+    # https://api.foursquare.com/v2/venues/search?client_id=CLIENT_ID
+    # &client_secret=CLIENT_SECRET&v=20130815&ll=40.7,-74&query=sushi
 
     # coordString = coord.replace(" ", "+")
     url = "https://api.foursquare.com/v2/venues/search?" \
@@ -39,18 +39,45 @@ def findARestaurant(mealType, location):
     # print(result['response']['venues'][0])
 
 
-# 3. Grab the first restaurant
+    # 3. Grab the first restaurant
 
-    name = (result['response']['venues'][0]['name'])
-    print name
+    restaurant = (result['response']['venues'][0])
+    # print(restaurant['id'])
+    # print restaurant
 
-# 4. Get a  300x300 picture of the restaurant using the venue_id (you can
-# change this by altering the 300x300 value in the URL or replacing it with
-# 'orginal' to get the original picture
-# 5. Grab the first image
-# 6. If no image is available, insert default a image url
-# 7. Return a dictionary containing the restaurant name, address, and image
-# url
+    # 4. Get a  300x300 picture of the restaurant using the venue_id (you can
+    # change this by altering the 300x300 value in the URL or replacing it with
+    # 'orginal' to get the original picture
+
+    url = "https://api.foursquare.com/v2/venues/{0}/photos?client_id={1}&client_secret={2}&v={3}".format(
+        restaurant['id'], foursquare_client_id, foursquare_client_secret, foursquare_v)
+    # print url
+    h_photo = httplib2.Http()
+    result_photo = json.loads(h.request(url, 'GET')[1])
+
+    try:
+        photo = (result_photo['response']['photos']['items'][0])
+        # print (photo)
+    except:
+        print('There was no photo.')
+
+
+
+
+    # 5. Grab the first image
+    # 6. If no image is available, insert default a image url
+    # 7. Return a dictionary containing the restaurant name, address, and image
+    # url
+    #     return restaurant['name']
+    print restaurant['name']
+    # print restaurant['location']['formattedAddress'][1]
+    # print restaurant['location']['formattedAddress'][2]
+    try:
+        print restaurant['location']['address']
+    except:
+        print('no Address listed')
+
+
 if __name__ == '__main__':
     findARestaurant("Pizza", "Tokyo, Japan")
     findARestaurant("Tacos", "Jakarta, Indonesia")
