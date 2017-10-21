@@ -55,8 +55,12 @@ def findARestaurant(mealType, location):
     result_photo = json.loads(h_photo.request(url, 'GET')[1])
 
     r_name = restaurant['name']
+    r_address = ''
     try:
-        r_address = restaurant['location']['address']
+        lines = restaurant['location']['formattedAddress']
+        for l in lines:
+            r_address += l + ' '
+
     except:
         r_address = "Unknown"
 
@@ -67,12 +71,17 @@ def findARestaurant(mealType, location):
         suffix = (result_photo['response']['photos']['items'][0]['suffix'])
         r_img = prefix + '300x300' + suffix
     except:
-        r_img = 'Default Image URL'
+        r_img = "http://pixabay.com/get/8926af5eb597ca51ca4c" \
+                   "/1433440765/cheeseburger-34314_1280.png?direct"
 
     # 7. Return a dictionary containing the restaurant name, address, and image
     # url
-
+    print ('Name: ' + r_name)
+    print ('Address: ' + r_address)
+    print ('Image: ' + r_img)
     return {'name': r_name, 'address': r_address, 'image': r_img}
+
+
 
 
 if __name__ == '__main__':
