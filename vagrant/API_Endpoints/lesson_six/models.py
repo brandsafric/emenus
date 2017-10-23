@@ -26,6 +26,6 @@ class Restaurant(Base):
         }
 
 
-engine = create_engine('sqlite:///restaruants.db')
+engine = create_engine('sqlite:///restaurants.db')
 
 Base.metadata.create_all(engine)
