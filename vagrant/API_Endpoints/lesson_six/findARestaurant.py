@@ -16,6 +16,7 @@ google_api_key = 'AIzaSyBsS-NTBxj2B291bJL-Tig9CrJo-OWmpMo'
 def getGeocodeLocation(inputString):
     # Replace Spaces with '+' in URL
     locationString = inputString.replace(" ", "+")
+    print (locationString)
     url = (
     'https://maps.googleapis.com/maps/api/geocode/json?address=%s&key=%s' % (
     locationString, google_api_key))
@@ -29,7 +30,8 @@ def getGeocodeLocation(inputString):
 
 # This function takes in a string representation of a location and cuisine type, geocodes the location, and then pass in the latitude and longitude coordinates to the Foursquare API
 def findARestaurant(mealType, location):
-    latitude, longitude = getGeocodeLocation(location)
+    # latitude, longitude = getGeocodeLocation(location)
+
     url = (
     'https://api.foursquare.com/v2/venues/search?client_id=%s&client_secret=%s&v=20130815&ll=%s,%s&query=%s' % (
     foursquare_client_id, foursquare_client_secret, latitude, longitude,
