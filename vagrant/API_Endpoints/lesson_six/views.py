@@ -37,12 +37,17 @@ def all_restaurants_handler():
         return getAllRestaurants()
     elif request.method == 'POST':
         # Call the method to look up a new restaurant
-        print "Looking up a New restaurant"
+        print "Creating new restaurant"
         location = request.args.get('location', '')
         mealType = request.args.get('mealType', '')
-        print location
-        print mealType
-        return findARestaurant(mealType, location)
+        newRestaurant = findARestaurant(mealType, location)
+        print (newRestaurant)
+        restaurant = Restaurant(restaurant_name=newRestaurant['name'], restaurant_address=newRestaurant['address'], restaurant_image=newRestaurant['image'])
+        print restaurant
+        session.add(restaurant)
+        session.commit()
+        return jsonify(Restaurant=restaurant.serialize)
+
 
 
 def getAllRestaurants():
@@ -71,6 +76,7 @@ def restaurant_handler(id):
             print (newRestaurant)
             session.add(newRestaurant)
             session.commit()
+            return newRestaurant
         except:
             print ("error in update.")
             restaurant = "error in update."
@@ -79,6 +85,7 @@ def restaurant_handler(id):
         session.delete(restaurant)
         session.commit()
         print "restaurant deleted"
+        return restaurant
 
 if __name__ == '__main__':
     app.debug = True
