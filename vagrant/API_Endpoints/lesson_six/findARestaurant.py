@@ -22,20 +22,25 @@ def getGeocodeLocation(inputString):
     locationString, google_api_key))
     h = httplib2.Http()
     result = json.loads(h.request(url, 'GET')[1])
+    print (url)
+    print (result)
     # print response
     latitude = result['results'][0]['geometry']['location']['lat']
     longitude = result['results'][0]['geometry']['location']['lng']
+
+    print (latitude)
+    print (longitude)
     return (latitude, longitude)
 
 
 # This function takes in a string representation of a location and cuisine type, geocodes the location, and then pass in the latitude and longitude coordinates to the Foursquare API
 def findARestaurant(mealType, location):
-    # latitude, longitude = getGeocodeLocation(location)
-
+    latitude, longitude = getGeocodeLocation(location)
     url = (
-    'https://api.foursquare.com/v2/venues/search?client_id=%s&client_secret=%s&v=20130815&ll=%s,%s&query=%s' % (
-    foursquare_client_id, foursquare_client_secret, latitude, longitude,
-    mealType))
+    'https://api.foursquare.com/v2/venues/search?client_id=%s&client_secret='
+    '%s&v=20130815&ll=%s,%s&query=%s' % (foursquare_client_id,
+                                         foursquare_client_secret, latitude,
+                                         longitude, mealType))
     h = httplib2.Http()
     result = json.loads(h.request(url, 'GET')[1])
     if result['response']['venues']:
@@ -67,9 +72,11 @@ def findARestaurant(mealType, location):
 
         restaurantInfo = {'name': restaurant_name,
                           'address': restaurant_address, 'image': imageURL}
-        # print "Restaurant Name: %s " % restaurantInfo['name']
-        # print "Restaurant Address: %s " % restaurantInfo['address']
-        # print "Image: %s \n " % restaurantInfo['image']
+
+        print "Restaurant Name: %s " % restaurantInfo['name']
+        print "Restaurant Address: %s " % restaurantInfo['address']
+        print "Image: %s \n " % restaurantInfo['image']
+        print (restaurantInfo)
         return restaurantInfo
     else:
         # print "No Restaurants Found for %s" % location
