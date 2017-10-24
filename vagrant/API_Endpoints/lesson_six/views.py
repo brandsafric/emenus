@@ -45,19 +45,40 @@ def all_restaurants_handler():
         return findARestaurant(mealType, location)
 
 
-# YOUR CODE HERE
-
 def getAllRestaurants():
     restaurants = session.query(Restaurant).all()
     return jsonify(Restaurants=[i.serialize for i in restaurants])
 
-@app.route('/restaurants/<int:id>', methods=['GET', 'PUT', 'DELETE'])
+@app.route('/restaurants/<int:id>', methods=['GET', 'UPDATE', 'DELETE'])
 def restaurant_handler(id):
-    if id:
-        return 'none'
-
-
-# YOUR CODE HERE
+    try:
+        restaurant = session.query(Restaurant).filter_by(id=id).one()
+    except:
+        print "no such restaurant"
+        restaurant = "no such restaurant"
+    if request.method == 'GET':
+        print (restaurant)
+        return restaurant
+    elif request.method == 'UPDATE':
+        try:
+            # name = request.args.get('name', '')
+            # location = request.args.get('location', '')
+            # image = request.args.get('image', '')
+            print ('restaurant updated')
+            newRestaurant = Restaurant(name=request.args.get('name', ''),
+                                       location=request.args.get('location','')
+                                       , image=request.args.get('image', ''))
+            print (newRestaurant)
+            session.add(newRestaurant)
+            session.commit()
+        except:
+            print ("error in update.")
+            restaurant = "error in update."
+            print (restaurant)
+    elif request.method == 'DELETE':
+        session.delete(restaurant)
+        session.commit()
+        print "restaurant deleted"
 
 if __name__ == '__main__':
     app.debug = True
