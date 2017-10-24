@@ -22,14 +22,14 @@ def getGeocodeLocation(inputString):
     locationString, google_api_key))
     h = httplib2.Http()
     result = json.loads(h.request(url, 'GET')[1])
-    print (url)
-    print (result)
+    # print (url)
+    # print (result)
     # print response
     latitude = result['results'][0]['geometry']['location']['lat']
     longitude = result['results'][0]['geometry']['location']['lng']
 
-    print (latitude)
-    print (longitude)
+    # print (latitude)
+    # print (longitude)
     return (latitude, longitude)
 
 
@@ -73,10 +73,11 @@ def findARestaurant(mealType, location):
         restaurantInfo = {'name': restaurant_name,
                           'address': restaurant_address, 'image': imageURL}
 
-        print "Restaurant Name: %s " % restaurantInfo['name']
-        print "Restaurant Address: %s " % restaurantInfo['address']
-        print "Image: %s \n " % restaurantInfo['image']
-        print (restaurantInfo)
+        # print (restaurantInfo)
+        # print "Restaurant Name: %s " % restaurantInfo['name']
+        # print "Restaurant Address: %s " % restaurantInfo['address']
+        # print "Image: %s \n " % restaurantInfo['image']
+
         return restaurantInfo
     else:
         # print "No Restaurants Found for %s" % location
