@@ -42,10 +42,7 @@ def all_restaurants_handler():
         mealType = request.args.get('mealType', '')
         print location
         print mealType
-        geolocation = getGeocodeLocation(location)
-        print geolocation
-
-        return findARestaurant(mealType, geolocation)
+        return findARestaurant(mealType, location)
 
 
 # YOUR CODE HERE
