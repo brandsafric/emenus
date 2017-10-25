@@ -41,9 +41,9 @@ def all_restaurants_handler():
         location = request.args.get('location', '')
         mealType = request.args.get('mealType', '')
         newRestaurant = findARestaurant(mealType, location)
-        print (newRestaurant)
+        # print (newRestaurant)
         restaurant = Restaurant(restaurant_name=newRestaurant['name'], restaurant_address=newRestaurant['address'], restaurant_image=newRestaurant['image'])
-        print restaurant
+        # print restaurant
         session.add(restaurant)
         session.commit()
         return jsonify(Restaurant=restaurant.serialize)
@@ -54,7 +54,7 @@ def getAllRestaurants():
     restaurants = session.query(Restaurant).all()
     return jsonify(Restaurants=[i.serialize for i in restaurants])
 
-@app.route('/restaurants/<int:id>', methods=['GET', 'UPDATE', 'DELETE'])
+@app.route('/restaurants/<int:id>', methods=['GET', 'PUT', 'DELETE'])
 def restaurant_handler(id):
     try:
         restaurant = session.query(Restaurant).filter_by(id=id).one()
@@ -63,29 +63,30 @@ def restaurant_handler(id):
         restaurant = "no such restaurant"
     if request.method == 'GET':
         print (restaurant)
-        return restaurant
-    elif request.method == 'UPDATE':
+        # return restaurant
+        print(jsonify(Restaurant=restaurant.serialize))
+        return jsonify(Restaurant=restaurant.serialize)
+    elif request.method == 'PUT':
         try:
             # name = request.args.get('name', '')
             # location = request.args.get('location', '')
             # image = request.args.get('image', '')
             print ('restaurant updated')
-            newRestaurant = Restaurant(name=request.args.get('name', ''),
-                                       location=request.args.get('location','')
-                                       , image=request.args.get('image', ''))
+            newRestaurant = Restaurant(restaurant_name=request.args.get('name', ''),
+                                       restaurant_address=request.args.get('location', '')
+                                       , restaurant_image=request.args.get('image', ''))
             print (newRestaurant)
             session.add(newRestaurant)
             session.commit()
-            return newRestaurant
+            # return newRestaurant
+            return jsonify(Restaurant=newRestaurant.serialize)
         except:
             print ("error in update.")
-            restaurant = "error in update."
-            print (restaurant)
     elif request.method == 'DELETE':
         session.delete(restaurant)
         session.commit()
         print "restaurant deleted"
-        return restaurant
+        return jsonify(Restaurant=restaurant.serialize)
 
 if __name__ == '__main__':
     app.debug = True
