@@ -23,27 +23,27 @@ def reportTopArticles(amount):
     return rows
 
 
-SELECT hits.total_hits, hits.slug, articles.title
-FROM (
-SELECT COUNT(log.path) as total_hits, SUBSTRING(log.path, 10) as slug
-FROM log
-WHERE NOT path = '/'
-GROUP BY slug
-ORDER BY total_hits DESC
-) AS hits
-LEFT JOIN articles ON
-hits.slug = articles.slug
-GROUP BY hits.total_hits, hits.slug, articles.title
-
-
-
-
-SELECT COUNT(path) as total_hits, SUBSTRING(path, 10) as slug
-FROM log
-WHERE NOT path = '/'
-GROUP BY slug
-ORDER BY total_hits DESC
-limit 3;
+# SELECT hits.total_hits, hits.slug, articles.title
+# FROM (
+# SELECT COUNT(log.path) as total_hits, SUBSTRING(log.path, 10) as slug
+# FROM log
+# WHERE NOT path = '/'
+# GROUP BY slug
+# ORDER BY total_hits DESC
+# ) AS hits
+# LEFT JOIN articles ON
+# hits.slug = articles.slug
+# GROUP BY hits.total_hits, hits.slug, articles.title
+#
+#
+#
+#
+# SELECT COUNT(path) as total_hits, SUBSTRING(path, 10) as slug
+# FROM log
+# WHERE NOT path = '/'
+# GROUP BY slug
+# ORDER BY total_hits DESC
+# limit 3;
 
 def reportTopAuthors():
     query = "SELECT COUNT(path) as total_hits, SUBSTRING(path, 10) as article " \
@@ -56,14 +56,14 @@ def reportTopAuthors():
     print rows
     return rows
 
-SELECT author, slug FROM articles
-
-
-SELECT COUNT(path) as total_hits, SUBSTRING(path, 10) as article
-FROM log
-WHERE NOT path = '/'
-GROUP BY article
-ORDER BY total_hits DESC
+# SELECT author, slug FROM articles
+#
+#
+# SELECT COUNT(path) as total_hits, SUBSTRING(path, 10) as article
+# FROM log
+# WHERE NOT path = '/'
+# GROUP BY article
+# ORDER BY total_hits DESC
 
 
 
