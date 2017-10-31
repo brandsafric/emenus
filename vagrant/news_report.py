@@ -12,18 +12,26 @@ def reportTopArticles(amount):
     """
 
     query = \
-        "SELECT COUNT(path) as total_hits, SUBSTRING(path, 10) as article " \
+        "SELECT articles.title, hits.total_hits " \
+        "FROM (" \
+        "SELECT COUNT(log.path) as total_hits, SUBSTRING(log.path, 10) as slug " \
         "FROM log " \
         "WHERE NOT path = '/' " \
-        "GROUP BY article " \
-        "ORDER BY total_hits DESC LIMIT {0}".format(amount)
+        "GROUP BY slug " \
+        "ORDER BY total_hits DESC" \
+        ") AS hits " \
+        "RIGHT JOIN articles ON " \
+        "hits.slug = articles.slug " \
+        "GROUP BY articles.title, hits.total_hits " \
+        "ORDER BY hits.total_hits DESC LIMIT {0}".format(amount)
     c.execute(query)
     rows = c.fetchall()
     print rows
     return rows
 
-
-# SELECT hits.total_hits, hits.slug, articles.title
+# SELECT hits.total_hits as ttl_hits, articles.title as a_title
+# FROM (
+# SELECT articles.title, hits.total_hits
 # FROM (
 # SELECT COUNT(log.path) as total_hits, SUBSTRING(log.path, 10) as slug
 # FROM log
@@ -31,9 +39,12 @@ def reportTopArticles(amount):
 # GROUP BY slug
 # ORDER BY total_hits DESC
 # ) AS hits
-# LEFT JOIN articles ON
+# RIGHT JOIN articles ON
 # hits.slug = articles.slug
-# GROUP BY hits.total_hits, hits.slug, articles.title
+# GROUP BY articles.title, hits.total_hits
+# ORDER BY hits.total_hits DESC
+# ) AS combined_hits
+
 #
 #
 #
