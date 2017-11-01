@@ -52,10 +52,28 @@ def reportTopAuthors():
     rows = c.fetchall()
     print rows
     return rows
-#
+
+
+# SELECT code, time
+# FROM (
 # SELECT SUBSTRING(status, 1, 4) as code, time
+# FROM log) as codes_times
+# WHERE code > '200'
+# LIMIT 20
+#
+# SELECT error_times.myd, error_times.code_times.time
+# FROM (
+# SELECT COUNT(status), DATE(time) as myd
+# FROM (
+# SELECT status, time
 # FROM log
-# WHERE NOT SUBSTRING(status, 1, 4) = '200'
+# WHERE status <> '200 OK'
+# GROUP BY status, time) as codes_times
+# GROUP BY codes_times.time, myd) as error_times
+# GROUP BY error_times.myd
+
+
+
 
 
 
