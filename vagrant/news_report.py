@@ -54,14 +54,8 @@ def reportTopAuthors():
     return rows
 
 
-# SELECT code, time
-# FROM (
-# SELECT SUBSTRING(status, 1, 4) as code, time
-# FROM log) as codes_times
-# WHERE code > '200'
-# LIMIT 20
-#
-# SELECT error_times.myd, error_times.code_times.time
+# errors per day
+# SELECT SUM(error_times.count) errors_per_day, error_times.myd
 # FROM (
 # SELECT COUNT(status), DATE(time) as myd
 # FROM (
@@ -70,43 +64,38 @@ def reportTopAuthors():
 # WHERE status <> '200 OK'
 # GROUP BY status, time) as codes_times
 # GROUP BY codes_times.time, myd) as error_times
-# GROUP BY error_times.myd
+# GROUP BY error_times.myd, error_times.count
 
-
-
-
-
-
-#
-# SELECT  authors.name, SUM(total_standings.total_hits) author_hits
-# FROM (
-# SELECT articles.author, articles.title, hits.total_hits
-# FROM (
-# SELECT COUNT(log.path) as total_hits, SUBSTRING(log.path, 10) as slug
+# requests per day
+# SELECT COUNT(DATE(time)) requests_count, date(time) as requests_per_day
 # FROM log
-# WHERE NOT path = '/'
-# GROUP BY slug
-# ORDER BY total_hits DESC
-# ) as hits
-# RIGHT JOIN articles ON
-# hits.slug = articles.slug
-# GROUP BY articles.author, articles.title, hits.total_hits
-# ORDER BY hits.total_hits DESC ) as total_standings
-# LEFT JOIN authors
-# on authors.id = total_standings.author
-# GROUP BY authors.name
-# ORDER BY author_hits DESC
-#
-#
-# SELECT players.id AS id, COUNT(match_losers.loser) AS total
-# FROM players
-# LEFT JOIN match_losers ON
-# players.id = match_losers.loser
-# GROUP BY players.id
-# ) AS losses
-# on wins.id = losses.id
-# GROUP BY wins.id, wins.name, wins.total, losses.total
-# ORDER BY wins.total DESC, wins.id;
+# GROUP BY requests_per_day
+
+
+
+# SOLUTION QUERY 3
+# SELECT error_count.time as date, ROUND((error_count.errors_per_day / request_count.requests_count), 2) * 100 as error_percentage
+# FROM  (
+# SELECT SUM(error_times.count) errors_per_day, error_times.myd as time
+# FROM (
+# SELECT COUNT(status), DATE(time) as myd
+# FROM (
+# SELECT status, time
+# FROM log
+# WHERE status <> '200 OK'
+# GROUP BY status, time) as codes_times
+# GROUP BY codes_times.time, myd) as error_times
+# GROUP BY error_times.myd, error_times.count) as error_count
+# LEFT JOIN (
+# SELECT COUNT(DATE(time)) requests_count, date(time) as requests_per_day
+# FROM log
+# GROUP BY requests_per_day) as request_count
+# ON error_count.time = request_count.requests_per_day
+# WHERE (error_count.errors_per_day / request_count.requests_count) >= .01
+
+
+
+
 
 
 
