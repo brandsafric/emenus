@@ -74,24 +74,24 @@ def reportTopAuthors():
 
 
 # SOLUTION QUERY 3
-# SELECT error_count.time as date, ROUND((error_count.errors_per_day / request_count.requests_count), 2) * 100 as error_percentage
+# SELECT DailyErrors.time as date, ROUND((DailyErrors.DailyErrorCount / DailyRequestCount.requests_count), 2) * 100 as ErrorPercentage
 # FROM  (
-# SELECT SUM(error_times.count) errors_per_day, error_times.myd as time
+# SELECT SUM(ErrorByDay.count) DailyErrorCount, ErrorByDay.ErrorDate as time
 # FROM (
-# SELECT COUNT(status), DATE(time) as myd
+# SELECT COUNT(status), DATE(time) as ErrorDate
 # FROM (
 # SELECT status, time
 # FROM log
 # WHERE status <> '200 OK'
-# GROUP BY status, time) as codes_times
-# GROUP BY codes_times.time, myd) as error_times
-# GROUP BY error_times.myd, error_times.count) as error_count
+# GROUP BY status, time) as ErrorTimes
+# GROUP BY ErrorTimes.time, ErrorDate) as ErrorByDay
+# GROUP BY ErrorByDay.ErrorDate, ErrorByDay.count) as DailyErrors
 # LEFT JOIN (
-# SELECT COUNT(DATE(time)) requests_count, date(time) as requests_per_day
+# SELECT COUNT(DATE(time)) requests_count, date(time) as ShortDate
 # FROM log
-# GROUP BY requests_per_day) as request_count
-# ON error_count.time = request_count.requests_per_day
-# WHERE (error_count.errors_per_day / request_count.requests_count) >= .01
+# GROUP BY ShortDate) as DailyRequestCount
+# ON DailyErrors.time = DailyRequestCount.ShortDate
+# WHERE (DailyErrors.DailyErrorCount / DailyRequestCount.requests_count) >= .01
 
 
 
