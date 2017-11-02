@@ -54,6 +54,11 @@ def reportTopAuthors():
     return rows
 
 
+
+
+
+
+
 # errors per day
 # SELECT SUM(error_times.count) errors_per_day, error_times.myd
 # FROM (
@@ -74,7 +79,10 @@ def reportTopAuthors():
 
 
 # SOLUTION QUERY 3
-# SELECT DailyErrors.time as date, ROUND((DailyErrors.DailyErrorCount / DailyRequestCount.requests_count), 2) * 100 as ErrorPercentage
+
+# select ErrorPercent.date, concat(SUBSTRING(cast(ErrorPercent.ErrorDecimal as varchar(5)), 1, 3), ' %') as ErrorDecimal
+# FROM (
+# SELECT DailyErrors.time as date, ROUND((DailyErrors.DailyErrorCount / DailyRequestCount.requests_count), 2) * 100  as ErrorDecimal
 # FROM  (
 # SELECT SUM(ErrorByDay.count) DailyErrorCount, ErrorByDay.ErrorDate as time
 # FROM (
@@ -91,7 +99,8 @@ def reportTopAuthors():
 # FROM log
 # GROUP BY ShortDate) as DailyRequestCount
 # ON DailyErrors.time = DailyRequestCount.ShortDate
-# WHERE (DailyErrors.DailyErrorCount / DailyRequestCount.requests_count) >= .01
+# WHERE (DailyErrors.DailyErrorCount / DailyRequestCount.requests_count) >= .01) as ErrorPercent
+
 
 
 
