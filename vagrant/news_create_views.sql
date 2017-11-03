@@ -66,9 +66,9 @@ ORDER BY AuthorHits DESC;
 -- WHERE (DailyErrors.DailyErrorCount / DailyRequestCount.requests_count) >= .01) as ErrorPercent;
 
 CREATE VIEW dailyerrors AS
-SELECT ErrorPercent.date, concat(SUBSTRING(cast(ErrorPercent.ErrorDecimal as varchar(5)), 1, 3), ' %') as ErrorDecimal, ErrorPercent.errorcount, ErrorPercent.errorcount, ErrorPercent.requestcount
+SELECT ErrorPercent.date, concat(SUBSTRING(cast(ErrorPercent.ErrorDecimal as varchar(5)), 1, 3), ' %') as ErrorDecimal, ErrorPercent.errorcount, ErrorPercent.requestcount
 FROM (
-SELECT DailyErrors.dailyerrorcount as errorcount, DailyErrors.requests_count as requestcount, DailyErrors.time as date, ROUND((DailyErrors.DailyErrorCount / DailyRequestCount.requests_count), 2) * 100  as ErrorDecimal
+SELECT DailyErrors.dailyerrorcount as errorcount, DailyRequestCount.requests_count as requestcount, DailyErrors.time as date, ROUND((DailyErrors.DailyErrorCount / DailyRequestCount.requests_count), 2) * 100  as ErrorDecimal
 FROM  (
 SELECT SUM(ErrorByDay.count) DailyErrorCount, ErrorByDay.ErrorDate as time
 FROM (
