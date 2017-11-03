@@ -80,7 +80,7 @@ def reportDailyErrors():
     #         "ON DailyErrors.time = DailyRequestCount.ShortDate " \
     #         "WHERE (DailyErrors.DailyErrorCount / DailyRequestCount.requests_count) >= .01) as ErrorPercent"
     query = "SELECT * from dailyerrors " \
-            "WHERE (errorcount / DailyRequestCount.requests_count) >= .01) as ErrorPercent;"
+            "WHERE (errorcount / requestcount >= .01)"
     c.execute(query)
     rows = c.fetchall()
     print rows
@@ -111,4 +111,4 @@ DB = connect()
 c = DB.cursor()
 reportTopArticles(3)
 reportTopAuthors()
-reportDailyError()
+reportDailyErrors()
