@@ -8,7 +8,7 @@ DROP VIEW IF EXISTS dailyerrors;
 
 -- Create Top Articles View
 --This view reports the top articles of all time based on hits.
-CREATE OR REPLACE VIEW toparticles AS
+CREATE VIEW toparticles AS
 SELECT articles.title, hits.Hits
 FROM (
 SELECT COUNT(log.path) as Hits, SUBSTRING(log.path, 10) as Slug
