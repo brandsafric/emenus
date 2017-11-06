@@ -77,7 +77,7 @@ Note:
       SELECT COUNT(DATE(time)) requests_count, date(time) as ShortDate
       FROM log
       GROUP BY ShortDate) as DailyRequestCount
-      ON DailyErrors.time = DailyRequestCount.ShortDate) As ErrorPercent
+      ON DailyErrors.time = DailyRequestCount.ShortDate) As ErrorPercent;
 
 * Following the report, you will need to manually delete the custom views created. Enter the following at the vm command line.
     * ```psql -d news```
