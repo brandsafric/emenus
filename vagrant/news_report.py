@@ -58,7 +58,25 @@ def reportTopAuthors():
     print rows
     return rows
 
-def reportDailyErrors():
+def reportDailyErrors(percent):
+
+    if percent < 10:
+        FormattedPercent = "0" + str(percent)
+    else:
+        FormattedPercent = str(percent)
+
+    query = "SELECT * from dailyerrors " \
+            "WHERE (errorcount / requestcount >= .{0})".format(FormattedPercent)
+    # query = "SELECT * from dailyerrors " \
+    #         "WHERE (errorcount / requestcount >= .01)"
+    c.execute(query)
+    rows = c.fetchall()
+    print rows
+    return rows
+
+
+
+
     # query = "SELECT ErrorPercent.date, concat(SUBSTRING(cast(ErrorPercent.ErrorDecimal as varchar(5)), 1, 3), ' %') as ErrorDecimal " \
     #         "FROM (" \
     #         "SELECT DailyErrors.time as date, ROUND((DailyErrors.DailyErrorCount / DailyRequestCount.requests_count), 2) * 100  as ErrorDecimal " \
@@ -79,8 +97,8 @@ def reportDailyErrors():
     #         "GROUP BY ShortDate) as DailyRequestCount " \
     #         "ON DailyErrors.time = DailyRequestCount.ShortDate " \
     #         "WHERE (DailyErrors.DailyErrorCount / DailyRequestCount.requests_count) >= .01) as ErrorPercent"
-    query = "SELECT * from dailyerrors " \
-            "WHERE (errorcount / requestcount >= .01)"
+    # query = "SELECT * from dailyerrors " \
+    #         "WHERE (errorcount / requestcount >= .01)"
     c.execute(query)
     rows = c.fetchall()
     print rows
@@ -111,4 +129,4 @@ DB = connect()
 c = DB.cursor()
 reportTopArticles(3)
 reportTopAuthors()
-reportDailyErrors()
+reportDailyErrors(1)
