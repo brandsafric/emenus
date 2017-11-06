@@ -1,8 +1,11 @@
 import psycopg2
 
+
 def connect():
-    """Connect to the PostgreSQL database news.  Returns a database connection."""
+    """Connect to the PostgreSQL database news.  Returns a database
+    connection."""
     return psycopg2.connect("dbname=news")
+
 
 def reportTopArticles(amount):
     """Reports the top articles by visitors from the logs table.
@@ -18,6 +21,7 @@ def reportTopArticles(amount):
     print rows
     return rows
 
+
 def reportTopAuthors():
     """Reports the top authors by visitors added for each of their articles.
     """
@@ -27,22 +31,23 @@ def reportTopAuthors():
     print rows
     return rows
 
-def reportDailyErrors(percent):
+
+def reportDailyErrors(x):
     """Reports the dates in which the logged errors exceed x percent that day
     out of all logged visits.
 
     Args:
-          percent: the percentage of errors reported
+          x: the percentage of errors reported
     """
-
-    if percent < 10:
-        FormattedPercent = "0" + str(percent)
+    # Convert value to string.  Add a leading 0 if less than 10
+    if x < 10:
+        Perc = "0" + str(x)
     else:
-        FormattedPercent = str(percent)
+        Perc = str(x)
 
     query = "SELECT * from dailyerrors " \
             "WHERE (errorcount / requestcount >= .{0})" \
-            .format(FormattedPercent)
+            .format(Perc)
     c.execute(query)
     rows = c.fetchall()
     print rows
