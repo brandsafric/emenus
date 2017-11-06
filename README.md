@@ -38,7 +38,7 @@ Note:
       ORDER BY Hits DESC
       ) AS hits
       RIGHT JOIN articles ON
-      hits.Slug = articles.slug;```
+      hits.Slug = articles.slug;
     * ```CREATE VIEW authorsrank AS
       SELECT  authors.name, SUM(Standings.HitCount) AuthorHits
       FROM (
@@ -57,7 +57,7 @@ Note:
       LEFT JOIN authors
       on authors.id = Standings.author
       GROUP BY authors.name
-      ORDER BY AuthorHits DESC;```
+      ORDER BY AuthorHits DESC;
     * ```CREATE VIEW dailyerrors AS
       SELECT ErrorPercent.date, concat(SUBSTRING(cast(ErrorPercent.ErrorDecimal as varchar(5)), 1, 3), ' %') as ErrorDecimal, ErrorPercent.errorcount, ErrorPercent.requestcount
       FROM (
@@ -77,10 +77,10 @@ Note:
       SELECT COUNT(DATE(time)) requests_count, date(time) as ShortDate
       FROM log
       GROUP BY ShortDate) as DailyRequestCount
-      ON DailyErrors.time = DailyRequestCount.ShortDate) As ErrorPercent```
+      ON DailyErrors.time = DailyRequestCount.ShortDate) As ErrorPercent
 
-* Following the report, you will need to manually delete the custom views created. You can do so by doing the following:
-    * From the vagrant command line, run ```psql -d news``
+* Following the report, you will need to manually delete the custom views created. Enter the following at the vm command line.
+    * ```psql -d news```
     * ```DROP VIEW IF EXISTS toparticles; ```
     * ```DROP VIEW IF EXISTS authorsrank;```
     * ```DROP VIEW IF EXISTS dailyerrors```
