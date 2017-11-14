@@ -23,23 +23,12 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
-# #Fake Restaurants
-# restaurant = {'name': 'The CRUDdy Crab', 'id': '1'}
-#
-# restaurants = [{'name': 'The CRUDdy Crab', 'id': '1'}, {'name':'Blue Burgers', 'id':'2'},{'name':'Taco Hut', 'id':'3'}]
-#
-#
-# #Fake Menu Items
-# items = [ {'name':'Cheese Pizza', 'description':'made with fresh cheese', 'price':'$5.99','course' :'Entree', 'id':'1'}, {'name':'Chocolate Cake','description':'made with Dutch Chocolate', 'price':'$3.99', 'course':'Dessert','id':'2'},{'name':'Caesar Salad', 'description':'with fresh organic vegetables','price':'$5.99', 'course':'Entree','id':'3'},{'name':'Iced Tea', 'description':'with lemon','price':'$.99', 'course':'Beverage','id':'4'},{'name':'Spinach Dip', 'description':'creamy dip with fresh spinach','price':'$1.99', 'course':'Appetizer','id':'5'} ]
-# item =  {'name':'Cheese Pizza','description':'made with fresh cheese','price':'$5.99','course' :'Entree'}
-
 # Login Methods
 # Create anti-forgery state token
 @app.route('/login')
 def showLogin():
     state = ''.join(random.choice(string.ascii_uppercase + string.digits) for x in xrange(32))
     login_session['state'] = state
-    # return "The current session stat6e is {0}".format(login_session['state'])
     return render_template('login.html', STATE=state)
 
 # Google Login/logout
@@ -121,19 +110,6 @@ def gconnect():
     return userLoginMessage()
 
 def userLoginMessage():
-    # output = '<div class="loginprofilecontainer">'
-    # output += '<div class="profileImg"><img src="'
-    # output += login_session['picture']
-    # output += ' " style = "height: 100px;margin-left: 30px;border-radius: 150px;-webkit-border-radius: 150px;-moz-border-radius: 150px;"></div> '
-    # output += '<div class="welcomeMsg">'
-    # output += 'Welcome, '
-    # output += login_session['username']
-    # output += '!</div>'
-    #
-    # flash("You are now logged in in as {0}.".format(login_session['username']))
-    # # print output
-    # return output
-
     output = '<div class="profileImg"><img src="'
     output += login_session['picture']
     output += ' "></div> '
@@ -158,18 +134,12 @@ def gdisconnect():
         response.headers['Content-Type'] = 'application/json'
         return response
     # Execute HTTP GET request to revoke current token.
-    # print 'In gdisconnect access token is {0}'.format(access_token)
-    # print 'User name is: '
-    # print login_session['username']
     url = 'https://accounts.google.com/o/oauth2/revoke?token={0}'.format(access_token)
     h = httplib2.Http()
     result = h.request(url, 'GET')[0]
     print 'sent out request'
-    # print 'result is '
-    # print result
 
     if result['status'] == '200':
-        # print 'in status == 200 line 155'
         # Reset the user's session
         print 'deleting login_session data for google.'
         del login_session['access_token']
@@ -196,28 +166,16 @@ def disconnect():
         print 'provider in login session'
         if login_session['provider'] == 'google':
             print 'going to gdisconnect'
-            # print login_session['username']
             gdisconnect()
-            # del login_session['gplus_id']
-            # del login_session['credentials']
         if login_session['provider'] == 'facebook':
             print 'going to fbisconnect'
             fbdisconnect()
-            # try:
-            #     del login_session['facebook_id']
-            # except:
-            #     print "no fa6cebook_id value"
-        # del login_session['username']
-        # del login_session['email']
-        # del login_session['picture']
-        # del login_session['user_id']
         del login_session['provider']
         flash("You have been successfully logged out.")
         return redirect(url_for('showRestaurants'))
     else:
         print 'no provider in login session'
         print login_session
-        # del login_session['username']
         flash("You were not logged in to begin with!")
         return redirect(url_for('showRestaurants'))
 
@@ -249,13 +207,6 @@ def fbconnect():
     h = httplib2.Http()
     result = h.request(url, 'GET')[1]
     data = json.loads(result)
-    # sys.stdout = open('output.logs', 'w')
-    # print (data["name"]) # Nothing appears below
-    # print (data["email"]) # Nothing appears below
-    # print (data["id"]) # Nothing appears below
-    # sys.stdout = sys.__stdout__ # Reset to the standard output
-    # open('output.logs', 'r').read()
-    # return "OK"
     login_session['provider'] = 'facebook'
     login_session['username'] = data["name"].title()
     login_session['email'] = data["email"]
@@ -331,7 +282,6 @@ def showRestaurants():
     else:
         print "username in session. rendering private"
         print login_session
-        # print restaurants
         return render_template('restaurants.html', restaurants=restaurants, picture=login_session['picture'])
 
 @app.route('/restaurants/new', methods=['GET', 'POST'])
@@ -355,7 +305,6 @@ def editRestaurant(restaurant_id):
     if 'username' not in login_session:
         return redirect('/login')
     if restaurantToEdit.user_id != login_session['user_id']:
-        # return "<script>function myFunction() {alert('You are not authorized to edit this restaurant. Please create your own restaurant in order to edit.');window.location.href = '/restaurants';}</script><body onload='myFunction()''>"
         return "<script>function myFunction() {alert('You are not authorized to edit this restaurant. Please create your own restaurant in order to edit.');window.location.href = '" + request.referrer + "';}</script><body onload='myFunction()''>"
 
     if request.method == 'POST':
@@ -379,7 +328,6 @@ def deleteRestaurant(restaurant_id):
     if restaurantToDelete.user_id != login_session['user_id']:
         return "<script>function myFunction() {alert('You are not authorized to delete this restaurant. Please create your own restaurant in order to delete.');window.location.href = '" + request.referrer + "';}</script><body onload='myFunction()''>"
     if request.method == 'POST':
-        # print 'here'
         for i in itemsToDelete:
             session.delete(i)
         session.delete(restaurantToDelete)
@@ -387,7 +335,6 @@ def deleteRestaurant(restaurant_id):
         flash("Restaurant has been deleted by {0}".format(login_session['username']))
         return redirect(url_for('showMenu', restaurant_id=restaurant_id, picture=login_session['picture']))
     else:
-        # print 'not POST'
         return render_template('deleteRestaurant.html', restaurant=restaurantToDelete, items=itemsToDelete, picture=login_session['picture'])
 
 @app.route('/restaurant/<int:restaurant_id>')
@@ -399,7 +346,6 @@ def showMenu(restaurant_id):
     entrees = session.query(MenuItem).filter_by(restaurant_id=restaurant_id, course="Entree").all()
     desserts = session.query(MenuItem).filter_by(restaurant_id=restaurant_id, course="Dessert").all()
     beverages = session.query(MenuItem).filter_by(restaurant_id=restaurant_id, course="Beverage").all()
-    # print creator.id
     if 'username' not in login_session:
         print "public menu"
         return render_template('publicmenu.html', appetizers=appetizers, entrees=entrees, desserts=desserts, beverages=beverages, restaurant=restaurant, creator=creator)
@@ -409,7 +355,6 @@ def showMenu(restaurant_id):
     else:
         print "private menu"
         return render_template('showMenu.html', restaurant=restaurant, appetizers=appetizers, entrees=entrees, desserts=desserts, beverages=beverages, creator=creator, picture=login_session['picture'])
-    # return render_template('showMenu.html', restaurant=restaurant, items=items, restaurant_id=restaurant_id)
 
 @app.route('/restaurant/<int:restaurant_id>/menu/new', methods=['GET', 'POST'])
 def newMenuItem(restaurant_id):
