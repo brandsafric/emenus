@@ -116,7 +116,7 @@ def gconnect():
     user_id = get_user_id(login_session['email'])
 
     if not user_id:
-        user_id = createUser(login_session)
+        user_id = create_user(login_session)
 
     login_session['user_id'] = user_id
 
@@ -187,12 +187,12 @@ def disconnect():
 
         del login_session['provider']
         flash("You have been successfully logged out.")
-        return redirect(url_for('showRestaurants'))
+        return redirect(url_for('show_restaurants'))
     else:
         print 'no provider in login session'
         print login_session
         flash("You were not logged in to begin with!")
-        return redirect(url_for('showRestaurants'))
+        return redirect(url_for('show_restaurants'))
 
 
 # Facebook Login section
@@ -246,7 +246,7 @@ def fbconnect():
     user_id = get_user_id(login_session['email'])
 
     if not user_id:
-        user_id = createUser(login_session)
+        user_id = create_user(login_session)
 
     login_session['user_id'] = user_id
     # print "Ok"
@@ -284,7 +284,7 @@ def get_user_info(user_id):
     return user
 
 
-def createUser(login_session):
+def create_user(login_session):
     newUser = User(name=login_session['username'],
                    email=login_session['email'],
                    picture=login_session['picture'])
@@ -351,7 +351,7 @@ def edit_restaurant(restaurant_id):
         flash("Restaurant has been edited by {0}."
               .format(login_session['username']))
         session.commit()
-        return redirect(url_for('showMenu', restaurant_id=restaurant_id,
+        return redirect(url_for('show_menu', restaurant_id=restaurant_id,
                                 picture=login_session['picture']))
     else:
         return render_template(
@@ -380,7 +380,7 @@ def delete_restaurant(restaurant_id):
         session.commit()
         flash("Restaurant has been deleted by {0}".
               format(login_session['username']))
-        return redirect(url_for('showMenu', restaurant_id=restaurant_id,
+        return redirect(url_for('show_menu', restaurant_id=restaurant_id,
                                 picture=login_session['picture']))
 
     else:
@@ -392,7 +392,7 @@ def delete_restaurant(restaurant_id):
 
 @app.route('/restaurant/<int:restaurant_id>')
 @app.route('/restaurant/<int:restaurant_id>/menu')
-def showMenu(restaurant_id):
+def show_menu(restaurant_id):
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
     creator = get_user_info(restaurant.user_id)
     appetizers = session.query(MenuItem).filter_by(restaurant_id=restaurant_id,
@@ -449,7 +449,7 @@ def create_menu_item(restaurant_id):
         session.add(newItem)
         session.commit()
         flash("New Item created by {0}!".format(login_session['username']))
-        return redirect(url_for('showMenu', restaurant_id=restaurant_id,
+        return redirect(url_for('show_menu', restaurant_id=restaurant_id,
                                 picture=login_session['picture']))
     else:
         return render_template('newMenuItem.html', restaurant=restaurant,
@@ -481,7 +481,7 @@ def edit_menu_item(restaurant_id, menu_id):
         flash("Menu Item has been edited by {0}.".
               format(login_session['username']))
         session.commit()
-        return redirect(url_for('showMenu', restaurant_id=restaurant_id,
+        return redirect(url_for('show_menu', restaurant_id=restaurant_id,
                                 picture=login_session['picture']))
     else:
         return render_template('editMenuItem.html',
@@ -507,7 +507,7 @@ def delete_menu_item(restaurant_id, menu_id):
         session.commit()
         flash("Item has been deleted by {0}.".
               format(login_session['username']))
-        return redirect(url_for('showMenu', restaurant_id=restaurant_id,
+        return redirect(url_for('show_menu', restaurant_id=restaurant_id,
                                 picture=login_session['picture']))
     else:
         return render_template(
