@@ -187,7 +187,7 @@ def disconnect():
             fbdisconnect()
 
         del login_session['provider']
-        flash("{0} has been successfully logged out.".format(username))
+        flash("{0} has logged out.".format(username))
         return redirect(url_for('show_restaurants'))
     else:
         print 'no provider in login session'
