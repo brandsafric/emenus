@@ -6,7 +6,7 @@
         <h1 class="title-new-item">New Menu Item</h1><br>
         <h2>({{ restaurant.name }})</h2>
     </div>
-    <form action="{{ url_for('newMenuItem', restaurant_id=restaurant.id) }}" method="post">
+    <form action="{{ url_for('create_menu_item', restaurant_id=restaurant.id) }}" method="post">
         <label>Name <span class="required">*</span></label>
         <div>
             <input type="text" size="80" name="name" placeholder="Name" required>
@@ -31,7 +31,7 @@
         </div>
         <div>
             <input type="submit" value="Create">
-            <a class="cancel" href="{{ url_for('showMenu', restaurant_id = restaurant.id) }}">Cancel</a>
+            <a class="cancel" href="{{ url_for('show_menu', restaurant_id = restaurant.id) }}">Cancel</a>
         </div>
     </form>
     {% endblock %}

@@ -5,14 +5,14 @@
     <div class="form-heading">
         <h1>New Restaurant</h1>
     </div>
-    <form action="{{ url_for('newRestaurant') }}" method="post">
+    <form action="{{ url_for('create_restaurant') }}" method="post">
         <label>Name <span class="required">*</span></label>
         <div>
             <input type="text" size="80" name="name" placeholder="Name" required>
         </div>
         <div>
             <input type="submit" value="Create">
-            <a class="cancel" href="{{ url_for('showRestaurants') }}">Cancel</a>
+            <a class="cancel" href="{{ url_for('show_restaurants') }}">Cancel</a>
         </div>
     </form>
 </div>

@@ -34,14 +34,14 @@
 </div>
 <div class="button-mobile row">
     <i class="fa fa-pencil icon-edit-r" aria-hidden="true"
-       onclick="location.href = '{{ url_for('editRestaurant', restaurant_id = restaurant.id) }}'"></i>
+       onclick="location.href = '{{ url_for('edit_restaurant', restaurant_id = restaurant.id) }}'"></i>
     <i class="fa fa-trash icon-delete-r" aria-hidden="true"
-       onclick="location.href = '{{ url_for('deleteRestaurant', restaurant_id = restaurant.id) }}'"></i>
+       onclick="location.href = '{{ url_for('delete_restaurant', restaurant_id = restaurant.id) }}'"></i>
     <div class="clearfix"></div>
 </div>
 <div class="menu-section">
     <i class="fa fa-plus icon-add-r" aria-hidden="true"
-       onclick="location.href = '{{ url_for('newMenuItem', restaurant_id = restaurant.id) }}'"></i>
+       onclick="location.href = '{{ url_for('create_menu_item', restaurant_id = restaurant.id) }}'"></i>
     {% if appetizers %}
     <h4 class="section-title" id="appetizer-section">Appetizers<i class="fa fa-chevron-down" id="appetizer-toggle"
                                                                   aria-hidden="true"></i></h4>
@@ -58,9 +58,9 @@
         </div>
         <div class="button-nav col-12 col-sm-12 col-lg-1">
             <i class="fa fa-pencil icon-edit-r" aria-hidden="true"
-               onclick="location.href = '{{ url_for('editMenuItem', restaurant_id = restaurant.id, menu_id = a.id) }}'"></i>
+               onclick="location.href = '{{ url_for('edit_menu_item', restaurant_id = restaurant.id, menu_id = a.id) }}'"></i>
             <i class="fa fa-trash icon-delete-r" aria-hidden="true"
-               onclick="location.href = '{{ url_for('deleteMenuItem', restaurant_id = restaurant.id, menu_id = a.id) }}'"></i>
+               onclick="location.href = '{{ url_for('delete_menu_item', restaurant_id = restaurant.id, menu_id = a.id) }}'"></i>
         </div>
         {% endfor %}
     </div>
@@ -83,9 +83,9 @@
         </div>
         <div class="button-nav col-12 col-sm-12 col-lg-1">
             <i class="fa fa-pencil icon-edit-r" aria-hidden="true"
-               onclick="location.href = '{{ url_for('editMenuItem', restaurant_id = restaurant.id, menu_id = e.id) }}'"></i>
+               onclick="location.href = '{{ url_for('edit_menu_item', restaurant_id = restaurant.id, menu_id = e.id) }}'"></i>
             <i class="fa fa-trash icon-delete-r" aria-hidden="true"
-               onclick="location.href = '{{ url_for('deleteMenuItem', restaurant_id = restaurant.id, menu_id = e.id) }}'"></i>
+               onclick="location.href = '{{ url_for('delete_menu_item', restaurant_id = restaurant.id, menu_id = e.id) }}'"></i>
         </div>
         {% endfor %}
     </div>
@@ -108,9 +108,9 @@
         </div>
         <div class="button-nav col-12 col-sm-12 col-lg-1">
             <i class="fa fa-pencil icon-edit-r" aria-hidden="true"
-               onclick="location.href = '{{ url_for('editMenuItem', restaurant_id = restaurant.id, menu_id = d.id) }}'"></i>
+               onclick="location.href = '{{ url_for('edit_menu_item', restaurant_id = restaurant.id, menu_id = d.id) }}'"></i>
             <i class="fa fa-trash icon-delete-r" aria-hidden="true"
-               onclick="location.href = '{{ url_for('deleteMenuItem', restaurant_id = restaurant.id, menu_id = d.id) }}'"></i>
+               onclick="location.href = '{{ url_for('delete_menu_item', restaurant_id = restaurant.id, menu_id = d.id) }}'"></i>
         </div>
         {% endfor %}
     </div>
@@ -133,9 +133,9 @@
         </div>
         <div class="button-nav col-12 col-sm-12 col-lg-1">
             <i class="fa fa-pencil icon-edit-r" aria-hidden="true"
-               onclick="location.href = '{{ url_for('editMenuItem', restaurant_id = restaurant.id, menu_id = b.id) }}'"></i>
+               onclick="location.href = '{{ url_for('edit_menu_item', restaurant_id = restaurant.id, menu_id = b.id) }}'"></i>
             <i class="fa fa-trash icon-delete-r" aria-hidden="true"
-               onclick="location.href = '{{ url_for('deleteMenuItem', restaurant_id = restaurant.id, menu_id = b.id) }}'"></i>
+               onclick="location.href = '{{ url_for('delete_menu_item', restaurant_id = restaurant.id, menu_id = b.id) }}'"></i>
         </div>
         {% endfor %}
     </div>
