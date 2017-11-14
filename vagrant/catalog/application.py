@@ -178,6 +178,7 @@ def gdisconnect():
 def disconnect():
     if 'provider' in login_session:
         print 'provider in login session'
+        username = login_session['username']
         if login_session['provider'] == 'google':
             print 'going to gdisconnect'
             gdisconnect()
@@ -186,7 +187,7 @@ def disconnect():
             fbdisconnect()
 
         del login_session['provider']
-        flash("You have been successfully logged out.")
+        flash("{0} has been successfully logged out.".format(username))
         return redirect(url_for('show_restaurants'))
     else:
         print 'no provider in login session'
