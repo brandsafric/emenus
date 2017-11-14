@@ -128,7 +128,7 @@ def user_login_message():
              + ' "></div> ' + '<div class="welcomeMsg">' + 'Welcome, ' + \
              login_session['username'] + '!'
 
-    flash("You are now logged in in as {0}.".format(login_session['username']))
+    flash("{0} has logged in.".format(login_session['username']))
     return output
 
 
