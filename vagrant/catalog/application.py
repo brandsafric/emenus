@@ -448,7 +448,8 @@ def create_menu_item(restaurant_id):
                            user_id=restaurant.user_id)
         session.add(newItem)
         session.commit()
-        flash("New Item created by {0}!".format(login_session['username']))
+        flash("{0} created {1} for {2}!".format(
+            login_session['username'], request.form['name'], restaurant.name))
         return redirect(url_for('show_menu', restaurant_id=restaurant_id,
                                 picture=login_session['picture']))
     else:
