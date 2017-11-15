@@ -12,7 +12,7 @@
     {% endwith %}
 </div>
 <div class="clearfix"></div>
-{%if 'username' not in session %}
+
 <div class="row banner-main">
     <div class="col-4 offset-1 col-sm-4 offset-sm-0">
         <h1>
@@ -20,19 +20,22 @@
         </h1>
     </div>
 </div>
-{%  endif % }
+
 <div class="row">
+    {% if 'username' in session %}
     <div class="col-9 offset-1 col-sm-9 offset-sm-0 col-lg-9 offset-lg-1 icon-add-restaurant">
         <i class="fa fa-plus icon-add" aria-hidden="true"
            onclick="location.href = '{{ url_for('create_restaurant') }}'"></i>
     </div>
+{%  endif %}
     <ul class="restaurant-list" id="restaurant-list">
         {% for r in restaurants %}
             <li class="restaurant-card-circle">
                 <div class="ih-item circle colored effect6 scale_up"><a href="#">
-                <div class="img"><img src="images/assets/5.jpg" alt="img"></div>
+                <link rel=stylesheet type=text/css href="{{ url_for('static', filename='vendor/ihover.min.css') }}">
+                <div class="img"><img src="{{ url_for('static', filename='{{ r.image_url }}') }}" alt="img"></div>
                 <div class="info">
-                  <h3>{{ r.name|truncate(20, True) }}#}</h3>
+                  <h3>{{ r.name|truncate(20, True) }}</h3>
                   <p>Description goes here</p>
                 </div></a></div>
             </li>
