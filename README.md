@@ -25,10 +25,11 @@ To launch, follow these steps:
 * Clone the repo
 * From a command line, change to the directory of the repo and mount the vagrant VM with 'vagrant up'
 * Connect to vagrant the VM by entering 'vagrant ssh'
-* From the command line, type 'cd /vagrant' followed by 'cd restaurant' to change to the target directory.
+* Install requests with 'sudo pip install requests'
+* From the command line, type 'cd /vagrant' followed by 'cd catalog' to change to the target directory.
 * Create the database by entering 'python database_setup.py'
 * Create the sample restaurant menus by entering 'python lotsofmenus.py'
-* Launch the app by typing 'python finalproject.py'
+* Launch the app by typing 'python application.py'
 * From your browser, access the site by going to 'localhost:5000'.
 * Grab beverage of choice.
 * Enjoy in creating restaurant menus complete with sections for appetizers, entrees, and more!
