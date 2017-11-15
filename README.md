@@ -25,7 +25,7 @@ To launch, follow these steps:
 * Clone the repo
 * From a command line, change to the directory of the repo and mount the vagrant VM with 'vagrant up'
 * Connect to vagrant the VM by entering 'vagrant ssh'
-* Install requests with 'sudo pip install requests'
+* Install the requests module with 'sudo pip install requests'
 * From the command line, type 'cd /vagrant' followed by 'cd catalog' to change to the target directory.
 * Create the database by entering 'python database_setup.py'
 * Create the sample restaurant menus by entering 'python lotsofmenus.py'
