@@ -26,7 +26,7 @@ session.add(User1)
 session.commit()
 
 # Menu for UrbanBurger
-restaurant1 = Restaurant(user_id=1, name="Urban Burger")
+restaurant1 = Restaurant(user_id=1, name="Urban Burger", image_url="{{ url_for('static', filename='img/pexels-photo-660282.jpeg') }}")
 
 session.add(restaurant1)
 session.commit()
@@ -88,7 +88,7 @@ session.commit()
 
 
 # Menu for Super Stir Fry
-restaurant2 = Restaurant(user_id=1, name="Super Stir Fry")
+restaurant2 = Restaurant(user_id=1, name="Super Stir Fry",  image_url="{{ url_for('static', filename='img/pexels-photo-76093.jpeg') }}")
 
 session.add(restaurant2)
 session.commit()
@@ -130,9 +130,8 @@ menuItem6 = MenuItem(user_id=1, name="Ramen", description="a Japanese noodle sou
 session.add(menuItem6)
 session.commit()
 
-
 # Menu for Panda Garden
-restaurant1 = Restaurant(user_id=1, name="Panda Garden")
+restaurant1 = Restaurant(user_id=1, name="Panda Garden", image_url="{{ url_for('static', filename='img/thai-food-noodle-fried-noodles-meal-46247.jpeg') }}")
 
 session.add(restaurant1)
 session.commit()
@@ -170,7 +169,7 @@ session.commit()
 
 
 # Menu for Thyme for that
-restaurant1 = Restaurant(user_id=1, name="Thyme for That Vegetarian Cuisine ")
+restaurant1 = Restaurant(user_id=1, name="Thyme for That Vegetarian Cuisine", image_url="{{ url_for('static', filename='img/pexels-photo-568370.jpeg') }}")
 
 session.add(restaurant1)
 session.commit()
@@ -214,7 +213,7 @@ session.commit()
 
 
 # Menu for Tony's Bistro
-restaurant1 = Restaurant(user_id=1, name="Tony\'s Bistro ")
+restaurant1 = Restaurant(user_id=1, name="Tony\'s Bistro", image_url="{{ url_for('static', filename='img/pexels-photo-425008.jpeg') }}")
 
 session.add(restaurant1)
 session.commit()
@@ -252,8 +251,7 @@ session.commit()
 
 
 # Menu for Andala's
-restaurant1 = Restaurant(user_id=1, name="Andala\'s")
-
+restaurant1 = Restaurant(user_id=1, name="Andala\'s", image_url="{{ url_for('static', filename='img/pexels-photo-221143.jpeg') }}")
 session.add(restaurant1)
 session.commit()
 
@@ -288,9 +286,8 @@ menuItem2 = MenuItem(user_id=1, name="Veggie Burger", description="Juicy grilled
 session.add(menuItem2)
 session.commit()
 
-
 # Menu for Auntie Ann's
-restaurant1 = Restaurant(user_id=1, name="Auntie Ann\'s Diner' ")
+restaurant1 = Restaurant(user_id=1, name="Auntie Ann\'s Diner'", image_url="{{ url_for('static', filename='img/water-drink-glass-drinking.jpg') }}")
 
 session.add(restaurant1)
 session.commit()
@@ -340,7 +337,7 @@ session.commit()
 
 
 # Menu for Cocina Y Amor
-restaurant1 = Restaurant(user_id=1, name="Cocina Y Amor ")
+restaurant1 = Restaurant(user_id=1, name="Cocina Y Amor", image_url="{{ url_for('static', filename='img/pexels-photo-461198.jpeg') }}")
 
 session.add(restaurant1)
 session.commit()
@@ -358,8 +355,7 @@ menuItem2 = MenuItem(user_id=1, name="Cachapa", description="Golden brown, corn-
 session.add(menuItem2)
 session.commit()
 
-
-restaurant1 = Restaurant(user_id=1, name="State Bird Provisions")
+restaurant1 = Restaurant(user_id=1, name="State Bird Provisions", image_url="{{ url_for('static', filename='img/pexels-photo-248444.jpeg') }}")
 session.add(restaurant1)
 session.commit()
 
