@@ -33,7 +33,7 @@
             <li class="restaurant-card-circle">
                 <div class="ih-item circle colored effect6 scale_up"><a href="#">
                 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='vendor/ihover.min.css') }}">
-                <div class="img"><img src="{{ url_for('static', filename='{{ r.image_url }}') }}" alt="img"></div>
+                <div class="img"><img src="{{ url_for('static', filename='img/' + r.picture) }}" alt="img"></div>
                 <div class="info">
                   <h3>{{ r.name|truncate(20, True) }}</h3>
                   <p>Description goes here</p>
