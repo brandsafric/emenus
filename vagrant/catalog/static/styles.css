@@ -51,6 +51,10 @@ body {
     border-radius: 20px;
 }
 
+.user-status a {
+    color: #4fb840;
+}
+
 
 .modal-content {
     background: #2c6824;
@@ -169,8 +173,15 @@ container {
     padding: 3px;
 }
 
+.cuisine {
+    font-size: 15px !important;
+}
+
 .name {
     font-size: 21px !important;
+}
+.info-bg {
+    background: hsla(112, 48%, 49%, .45) !important;
 }
 
 .icon-edit,
@@ -480,7 +491,9 @@ input[type=submit]:hover {
         opacity: 0;
     }
 
+
     .top-buffer {
+
         margin-bottom: 10px;
     }
 
