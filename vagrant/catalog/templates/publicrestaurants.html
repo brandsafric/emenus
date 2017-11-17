@@ -31,13 +31,16 @@
     <ul class="restaurant-list" id="restaurant-list">
         {% for r in restaurants %}
             <li class="restaurant-card-circle">
-                <div class="ih-item circle colored effect6 scale_up"><a href="#">
-                <link rel=stylesheet type=text/css href="{{ url_for('static', filename='vendor/ihover.min.css') }}">
-                <div class="img"><img src="{{ url_for('static', filename='img/' + r.picture) }}" alt="img"></div>
-                <div class="info">
-                  <h3 class="name">{{ r.name|truncate(20, True) }}</h3>
-                  <p>{{ r.cuisine }}</p>
-                </div></a></div>
+                <div class="ih-item circle colored effect6 scale_up">
+                    <a href="{{ url_for('show_menu', restaurant_id = r.id) }}">
+                    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='vendor/ihover.min.css') }}">
+                    <div class="img"><img src="{{ url_for('static', filename='img/' + r.picture) }}" alt="img"></div>
+                    <div class="info info-bg">
+                        <h3 class="name">{{ r.name|truncate(20, True) }}</h3>
+                        <p class="cuisine">{{ r.cuisine }}</p>
+                    </div>
+                    </a>
+                </div>
             </li>
 {#        <div class="restaurant-card">#}
 {#            <li class="restaurant-list-item">#}
