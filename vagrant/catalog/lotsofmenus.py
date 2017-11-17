@@ -26,7 +26,7 @@ session.add(User1)
 session.commit()
 
 # Menu for UrbanBurger
-restaurant1 = Restaurant(user_id=1, name="Urban Burger", picture="pexels-photo-660282.jpg")
+restaurant1 = Restaurant(user_id=1, name="Urban Burger", cuisine = "American", picture="pexels-photo-660282.jpg")
 
 session.add(restaurant1)
 session.commit()
@@ -88,7 +88,7 @@ session.commit()
 
 
 # Menu for Super Stir Fry
-restaurant2 = Restaurant(user_id=1, name="Super Stir Fry",  picture="pexels-photo-76093.jpg")
+restaurant2 = Restaurant(user_id=1, name="Super Stir Fry",  cuisine = "Stir Fry", picture="pexels-photo-76093.jpg")
 
 session.add(restaurant2)
 session.commit()
@@ -131,7 +131,7 @@ session.add(menuItem6)
 session.commit()
 
 # Menu for Panda Garden
-restaurant1 = Restaurant(user_id=1, name="Panda Garden", picture="thai-food-noodle-fried-noodles-meal-46247.jpg")
+restaurant1 = Restaurant(user_id=1, name="Panda Garden", cuisine = "Thai", picture="thai-food-noodle-fried-noodles-meal-46247.jpg")
 
 session.add(restaurant1)
 session.commit()
@@ -169,7 +169,7 @@ session.commit()
 
 
 # Menu for Thyme for that
-restaurant1 = Restaurant(user_id=1, name="Thyme for That Vegetarian Cuisine", picture="pexels-photo-568370.jpg")
+restaurant1 = Restaurant(user_id=1, name="Thyme for That Vegetarian Cuisine", cuisine = "Vegetarian", picture="pexels-photo-568370.jpg")
 
 session.add(restaurant1)
 session.commit()
@@ -213,7 +213,7 @@ session.commit()
 
 
 # Menu for Tony's Bistro
-restaurant1 = Restaurant(user_id=1, name="Tony\'s Bistro", picture="pexels-photo-425008.jpg")
+restaurant1 = Restaurant(user_id=1, name="Tony\'s Bistro", cuisine = "American", picture="pexels-photo-425008.jpg")
 
 session.add(restaurant1)
 session.commit()
@@ -251,7 +251,7 @@ session.commit()
 
 
 # Menu for Andala's
-restaurant1 = Restaurant(user_id=1, name="Andala\'s", picture="pexels-photo-221143.jpg")
+restaurant1 = Restaurant(user_id=1, name="Andala\'s", cuisine = "American/Sushi", picture="pexels-photo-221143.jpg")
 session.add(restaurant1)
 session.commit()
 
@@ -287,7 +287,7 @@ session.add(menuItem2)
 session.commit()
 
 # Menu for Auntie Ann's
-restaurant1 = Restaurant(user_id=1, name="Auntie Ann\'s Diner'", picture="water-drink-glass-drinking.jpg")
+restaurant1 = Restaurant(user_id=1, name="Auntie Ann\'s Diner'", cuisine = "American Diner", picture="water-drink-glass-drinking.jpg")
 
 session.add(restaurant1)
 session.commit()
@@ -337,7 +337,7 @@ session.commit()
 
 
 # Menu for Cocina Y Amor
-restaurant1 = Restaurant(user_id=1, name="Cocina Y Amor", picture="pexels-photo-461198.jpg")
+restaurant1 = Restaurant(user_id=1, name="Cocina Y Amor", cuisine = "Mexican", picture="pexels-photo-461198.jpg")
 
 session.add(restaurant1)
 session.commit()
@@ -355,7 +355,7 @@ menuItem2 = MenuItem(user_id=1, name="Cachapa", description="Golden brown, corn-
 session.add(menuItem2)
 session.commit()
 
-restaurant1 = Restaurant(user_id=1, name="State Bird Provisions", picture="pexels-photo-248444.jpg")
+restaurant1 = Restaurant(user_id=1, name="State Bird Provisions", cuisine = "American French Fusion", picture="pexels-photo-248444.jpg")
 session.add(restaurant1)
 session.commit()
 
