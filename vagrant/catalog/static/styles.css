@@ -169,6 +169,10 @@ container {
     padding: 3px;
 }
 
+.name {
+    font-size: 21px !important;
+}
+
 .icon-edit,
 .icon-delete,
 .icon-menu {
