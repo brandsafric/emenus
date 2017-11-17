@@ -274,6 +274,20 @@ container {
 figcaption {
     padding-top: 5px;
 }
+.menu-container {
+    margin: 0 auto;
+    width: 85%;
+}
+
+.picture-container {
+    text-align: center;
+}
+.menu-picture {
+    width: 20%;
+    border-radius: 42px;
+    margin-bottom: 20px;
+}
+
 .section-title {
     text-transform: uppercase;
     color: #a67c76;
@@ -289,6 +303,9 @@ figcaption {
     float: right;
 }
 
+.item-list, .section-title {
+    margin-bottom: 20px;
+}
 
 .item-name {
     color: #fbecea;
