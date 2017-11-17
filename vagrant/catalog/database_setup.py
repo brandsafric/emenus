@@ -21,6 +21,7 @@ class Restaurant(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
     picture = Column(String(250))
+    cuisine = Column(String(250))
     user_id = Column(Integer, ForeignKey('user.id'))
     user = relationship(User)
 
@@ -29,7 +30,9 @@ class Restaurant(Base):
         # Returns object data in easily serializable format
         return {
             'name': self.name,
-            'id' : self.id
+            'id' : self.id,
+            'cuisine': self.cuisine,
+            'picture': self.picture
         }
 
 class MenuItem(Base):
