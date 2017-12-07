@@ -487,7 +487,7 @@ input[type=submit]:hover {
 }
 
 /*iPhone 5 Portrait*/
-@media only screen and (min-width: 320px) and (orientation: portrait)
+@media only screen and (min-width: 320px) and (orientation: portrait) {
 /*@media only screen and (min-width: 320px)  {*/
 
     .icon-add-restaurant {
@@ -631,7 +631,7 @@ input[type=submit]:hover {
 
 
 /*iphone 5 LS*/
-@media only screen and (min-width: 568px) and (orientation: landscape)
+@media only screen and (min-width: 568px) and (orientation: landscape) {
 /*@media only screen and (min-width: 568px)  {*/
 
     .restaurant-list {
