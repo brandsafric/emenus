@@ -309,8 +309,10 @@ def show_restaurants():
     else:
         print "username in session. rendering private"
         print login_session
-        return render_template('restaurants.html', restaurants=restaurants,
-                               picture=login_session['picture'])
+        return render_template('publicrestaurants.html',
+                               restaurants=restaurants),
+        # return render_template('restaurants.html', restaurants=restaurants,
+        #                        picture=login_session['picture'])
 
 
 @app.route('/restaurants/new', methods=['GET', 'POST'])
