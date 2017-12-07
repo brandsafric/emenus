@@ -322,6 +322,7 @@ def create_restaurant():
 
     if request.method == 'POST':
         newRestaurant = Restaurant(name=request.form['name'],
+                                   picture=request.form['picture'],
                                    user_id=login_session['user_id'])
         session.add(newRestaurant)
         session.commit()
