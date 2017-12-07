@@ -32,8 +32,13 @@
         {% for r in restaurants %}
             <li class="restaurant-card-circle">
                 <div class="ih-item circle colored effect6 scale_up">
+                {{ r.image }}
                     <a href="{{ url_for('show_menu', restaurant_id = r.id) }}">
-                    <div class="img"><img src="{{ url_for('static', filename='img/' + r.picture) }}" alt="img"></div>
+                        {%  if r.picture == '' %}
+                            <div class="img"><img src="{{ url_for('static', filename='img/not-available-abbreviation-inside-a-circle_318-33662.jpg') }}" alt=r.picture></div>
+                        {%  else %}
+                            <div class="img"><img src="{{ url_for('static', filename='img/' + r.picture) }}" alt="img"></div>
+                        {%  endif %}
                     <div class="info info-bg">
                         <h3 class="name">{{ r.name|truncate(20, True) }}</h3>
                         <p class="cuisine">{{ r.cuisine }}</p>
