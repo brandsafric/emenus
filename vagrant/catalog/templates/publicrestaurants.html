@@ -27,7 +27,7 @@
         <i class="fa fa-plus icon-add" aria-hidden="true"
            onclick="location.href = '{{ url_for('create_restaurant') }}'"></i>
     </div>
-{%  endif %}
+    {%  endif %}
     <ul class="restaurant-list" id="restaurant-list">
         {% for r in restaurants %}
             <li class="restaurant-card-circle">
