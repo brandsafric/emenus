@@ -422,7 +422,7 @@ def show_menu(restaurant_id):
                                picture=login_session['picture'])
     else:
         print "private menu"
-        return render_template('showMenu.html', restaurant=restaurant,
+        return render_template('publicMenu.html', restaurant=restaurant,
                                appetizers=appetizers, entrees=entrees,
                                desserts=desserts, beverages=beverages,
                                creator=creator,
