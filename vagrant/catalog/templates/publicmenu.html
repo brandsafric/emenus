@@ -13,6 +13,7 @@
     {% endif %}
     {% endwith %}
 </div>
+</div>
 <div class="clearfix"></div>
 <div class="row banner menu">
     <div class="col-8 offset-4 col-sm-8 offset-sm-4">
@@ -23,8 +24,25 @@
         </h1>
     </div>
 </div>
-<div class="picture-container">
-    <img class="menu-picture" src="{{ url_for('static', filename='img/' + restaurant.picture) }}"/>
+{#<div class="picture-container">#}
+{#    <img class="menu-picture" src="{{ url_for('static', filename='img/' + restaurant.picture) }}"/>#}
+{#</div>#}
+<div class="picture-container ih-item circle colored effect13 bottom_to_top">
+    <a href="{{ url_for('edit_restaurant', restaurant_id = restaurant.id) }}">
+    <div class="img">
+        {%  if restaurant.picture == '' %}
+            <img src="{{ url_for('static', filename='img/not-available-abbreviation-inside-a-circle_318-33662.jpg') }}" alt="img">
+        {%  else %}
+            <img src="{{ url_for('static', filename='img/' + restaurant.picture) }}" alt="img">
+        {%  endif %}
+    </div>
+    <div class="info">
+        <div class="info-back">
+            <h3>Modify</h3>
+            <p>Edit / Delete</p>
+        </div>
+    </div>
+    </a>
 </div>
 <div class="title">
     <h1>
@@ -65,15 +83,13 @@
                 {{a.price}}
             </div>
                 {% if 'username' in session %}
-                                <div class="button-nav col-12 col-sm-12 col-lg-1">
-                <i class="fa fa-pencil icon-edit-r" aria-hidden="true"
-                   onclick="location.href = '{{ url_for('edit_menu_item', restaurant_id = restaurant.id, menu_id = a.id) }}'"></i>
-                <i class="fa fa-trash icon-delete-r" aria-hidden="true"
-                   onclick="location.href = '{{ url_for('delete_menu_item', restaurant_id = restaurant.id, menu_id = a.id) }}'"></i>
-            </div>
-
+                <div class="button-nav col-1 col-sm-1 col-lg-1">
+                    <i class="fa fa-pencil icon-edit-r" aria-hidden="true"
+                       onclick="location.href = '{{ url_for('edit_menu_item', restaurant_id = restaurant.id, menu_id = a.id) }}'"></i>
+                    <i class="fa fa-trash icon-delete-r" aria-hidden="true"
+                       onclick="location.href = '{{ url_for('delete_menu_item', restaurant_id = restaurant.id, menu_id = a.id) }}'"></i>
+                </div>
                 {%  endif %}
-
             {% endfor %}
         </div>
         {% endif %}
@@ -82,25 +98,23 @@
                                                                 aria-hidden="true"></i></h4>
         <div class="row" id="entree-row">
             {% for e in entrees %}
-            <div class="item-list col-8 offset-1 col-sm-8 offset-sm-1 col-md-8 offset-md-1">
-                <div class="itemName">
-                    <div class="item-name">{{e.name}}</div>
-                    <i>{{e.description}}</i><br>
+                <div class="item-list col-8 offset-1 col-sm-8 offset-sm-1 col-md-8 offset-md-1">
+                    <div class="itemName">
+                        <div class="item-name">{{e.name}}</div>
+                        <i>{{e.description}}</i><br>
+                    </div>
                 </div>
-            </div>
             <div class="item-price col-2 col-sm-2 col-md-1">
                 {{e.price}}
             </div>
                 {% if 'username' in session %}
-                                <div class="button-nav col-12 col-sm-12 col-lg-1">
-                <i class="fa fa-pencil icon-edit-r" aria-hidden="true"
-                   onclick="location.href = '{{ url_for('edit_menu_item', restaurant_id = restaurant.id, menu_id = e.id) }}'"></i>
-                <i class="fa fa-trash icon-delete-r" aria-hidden="true"
-                   onclick="location.href = '{{ url_for('delete_menu_item', restaurant_id = restaurant.id, menu_id = e.id) }}'"></i>
-            </div>
-
+                    <div class="button-nav col-12 col-sm-12 col-lg-1">
+                        <i class="fa fa-pencil icon-edit-r" aria-hidden="true"
+                           onclick="location.href = '{{ url_for('edit_menu_item', restaurant_id = restaurant.id, menu_id = e.id) }}'"></i>
+                        <i class="fa fa-trash icon-delete-r" aria-hidden="true"
+                           onclick="location.href = '{{ url_for('delete_menu_item', restaurant_id = restaurant.id, menu_id = e.id) }}'"></i>
+                    </div>
                 {%  endif %}
-
             {% endfor %}
         </div>
         {% endif %}
@@ -161,8 +175,5 @@
     <div>
         <a href="/">Return to home</a>
     </div>
-
 </footer>
-
-
 {% endblock %}
