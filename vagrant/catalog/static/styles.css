@@ -53,6 +53,7 @@ body {
 
 .user-status a {
     color: #4fb840;
+    float: right;
 }
 
 
@@ -64,7 +65,7 @@ body {
     transition: opacity .25s;
 }
 
-.login-container {
+.login-container, .picture-container {
     margin: 0 auto;
 }
 
@@ -279,9 +280,9 @@ figcaption {
     width: 85%;
 }
 
-.picture-container {
-    text-align: center;
-}
+/*.picture-container {*/
+    /*!*text-align: center;*!*/
+/*}*/
 .menu-picture {
     width: 20%;
     border-radius: 42px;
@@ -869,7 +870,7 @@ input[type=submit]:hover {
     }
 
     .icon-edit-r {
-        float: right;
+        /*float: right;*/
         margin: 0 0 10px;
     }
 
