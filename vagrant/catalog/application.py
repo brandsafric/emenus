@@ -26,7 +26,7 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
-UPLOAD_FOLDER = os.path.basename('uploads')
+UPLOAD_FOLDER = os.path.relpath('/static/img/uploads')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 app.config['MAX_CONTENT_LENGTH'] = 0.5 * 1024 * 1024
@@ -365,7 +365,7 @@ def edit_restaurant(restaurant_id):
         f = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
         print f
         print 'here'
-        restaurantToEdit.picture = 'uploads/' + file.filename
+        restaurantToEdit.picture = file.filename
         # add your custom code to check that the uploaded file is a valid
         # image and not a malicious file (out-of-scope for this post)
         file.save(f)
