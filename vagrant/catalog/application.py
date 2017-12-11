@@ -12,6 +12,7 @@ import string
 import httplib2
 import json
 import requests
+import os
 
 app = Flask(__name__)
 
@@ -24,6 +25,11 @@ Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
+
+UPLOAD_FOLDER = os.path.basename('uploads')
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
+app.config['MAX_CONTENT_LENGTH'] = 0.5 * 1024 * 1024
 
 
 # Login Methods
@@ -352,6 +358,16 @@ def edit_restaurant(restaurant_id):
         if request.form['name']:
             restaurantToEdit.name = request.form['name']
         restaurantToEdit.picture = request.form['picture']
+
+        file = request.files['image']
+        print file
+        f = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+
+        # add your custom code to check that the uploaded file is a valid
+        # image and not a malicious file (out-of-scope for this post)
+        file.save(f)
+        print "Saved file {0}".format(file.filename)
+
         session.add(restaurantToEdit)
         flash("Restaurant has been edited by {0}."
               .format(login_session['username']))
