@@ -351,6 +351,7 @@ def edit_restaurant(restaurant_id):
     if request.method == 'POST':
         if request.form['name']:
             restaurantToEdit.name = request.form['name']
+        restaurantToEdit.picture = request.form['picture']
         session.add(restaurantToEdit)
         flash("Restaurant has been edited by {0}."
               .format(login_session['username']))
