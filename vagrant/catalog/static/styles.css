@@ -252,7 +252,7 @@ container {
 /*showMenu template*/
 
 .title {
-    margin: 0 auto;
+    margin: 25px auto 0 auto;
 }
 
 .title h1,
