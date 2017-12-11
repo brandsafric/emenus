@@ -357,12 +357,15 @@ def edit_restaurant(restaurant_id):
     if request.method == 'POST':
         if request.form['name']:
             restaurantToEdit.name = request.form['name']
-        restaurantToEdit.picture = request.form['picture']
+        # restaurantToEdit.picture = request.form['picture']
 
         file = request.files['image']
-        print file
+        print file.filename
+        print app.config['UPLOAD_FOLDER']
         f = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
-
+        print f
+        print 'here'
+        restaurantToEdit.picture = 'uploads/' + file.filename
         # add your custom code to check that the uploaded file is a valid
         # image and not a malicious file (out-of-scope for this post)
         file.save(f)
