@@ -257,6 +257,7 @@ def fbconnect():
 
     login_session['user_id'] = user_id
     # print "Ok"
+    print login_session
     return user_login_message()
 
 
@@ -298,6 +299,15 @@ def create_user(login_session):
     session.add(newUser)
     session.commit()
     user = session.query(User).filter_by(email=login_session['email']).one()
+    # create the upload directory for the user if it does not exist
+    if login_session['provider'] == 'google':
+        print "google"
+        directory = 'static/img/uploads/' + login_session['gplus_id']
+    else:
+        print "facebook"
+        directory = 'static/img/uploads/' + login_session['facebook_id']
+    if not os.path.exists(directory):
+        os.makedirs(directory)
     return user.id
 
 # End login methods
@@ -355,6 +365,7 @@ def edit_restaurant(restaurant_id):
                "';}</script><body onload='myFunction()''>"
 
     if request.method == 'POST':
+        print login_session['gplus_id']
         if request.form['name']:
             restaurantToEdit.name = request.form['name']
         # restaurantToEdit.picture = request.form['picture']
@@ -365,7 +376,7 @@ def edit_restaurant(restaurant_id):
         f = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
         print f
         print 'here'
-        restaurantToEdit.picture = 'uploads/' + file.filename
+        # restaurantToEdit.picture = 'uploads/' + login_session{'gplus_id'+ file.filename
         # add your custom code to check that the uploaded file is a valid
         # image and not a malicious file (out-of-scope for this post)
         file.save(f)
