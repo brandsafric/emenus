@@ -368,12 +368,20 @@ def edit_restaurant(restaurant_id):
         print login_session['gplus_id']
         if request.form['name']:
             restaurantToEdit.name = request.form['name']
-        # restaurantToEdit.picture = request.form['picture']
+
 
         file = request.files['image']
         print file.filename
+        if login_session['provider'] == 'google':
+            print "google"
+            path = login_session['gplus_id']
+        else:
+            print "facebook"
+            path = login_session['facebook_id']
         print app.config['UPLOAD_FOLDER']
-        f = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+        print path
+        f = os.path.join(app.config['UPLOAD_FOLDER'], path, file.filename)
+        restaurantToEdit.picture = 'uploads/' + path + '/' + file.filename
         print f
         print 'here'
         # restaurantToEdit.picture = 'uploads/' + login_session{'gplus_id'+ file.filename
