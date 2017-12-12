@@ -293,21 +293,33 @@ def get_user_info(user_id):
 
 
 def create_user(login_session):
-    newUser = User(name=login_session['username'],
-                   email=login_session['email'],
-                   picture=login_session['picture'])
-    session.add(newUser)
-    session.commit()
-    user = session.query(User).filter_by(email=login_session['email']).one()
-    # create the upload directory for the user if it does not exist
+    # Check for the provider used to see if the directory exists
     if login_session['provider'] == 'google':
         print "google"
+        user_id = login_session['gplus_id']
         directory = 'static/img/uploads/' + login_session['gplus_id']
     else:
         print "facebook"
+        user_id = login_session['facebook_id']
         directory = 'static/img/uploads/' + login_session['facebook_id']
     if not os.path.exists(directory):
         os.makedirs(directory)
+    newUser = User(name=login_session['username'],
+                   email=login_session['email'],
+                   picture=login_session['picture'],
+                   path=user_id)
+    session.add(newUser)
+    session.commit()
+    user = session.query(User).filter_by(email=login_session['email']).one()
+    # # create the upload directory for the user if it does not exist
+    # if login_session['provider'] == 'google':
+    #     print "google"
+    #     directory = 'static/img/uploads/' + login_session['gplus_id']
+    # else:
+    #     print "facebook"
+    #     directory = 'static/img/uploads/' + login_session['facebook_id']
+    # if not os.path.exists(directory):
+    #     os.makedirs(directory)
     return user.id
 
 # End login methods
@@ -365,23 +377,16 @@ def edit_restaurant(restaurant_id):
                "';}</script><body onload='myFunction()''>"
 
     if request.method == 'POST':
-        print login_session['gplus_id']
         if request.form['name']:
             restaurantToEdit.name = request.form['name']
-
-
         file = request.files['image']
-        print file.filename
-        if login_session['provider'] == 'google':
-            print "google"
-            path = login_session['gplus_id']
-        else:
-            print "facebook"
-            path = login_session['facebook_id']
-        print app.config['UPLOAD_FOLDER']
+        # Get the path for the user
+        user = get_user_info(restaurantToEdit.user_id)
+        path = user.path
         print path
         f = os.path.join(app.config['UPLOAD_FOLDER'], path, file.filename)
         restaurantToEdit.picture = 'uploads/' + path + '/' + file.filename
+        # restaurantToEdit.picture = path + '/' + file.filename
         print f
         print 'here'
         # restaurantToEdit.picture = 'uploads/' + login_session{'gplus_id'+ file.filename
