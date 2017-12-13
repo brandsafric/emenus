@@ -353,6 +353,26 @@ def create_restaurant():
         newRestaurant = Restaurant(name=request.form['name'],
                                    picture=request.form['picture'],
                                    user_id=login_session['user_id'])
+        user = get_user_info(login_session['user_id'])
+        print user.id
+
+        file = request.files['image']
+        # Get the path for the user
+        # user = login_session['user_id']
+        path = user.path
+        print path
+        f = os.path.join(app.config['UPLOAD_FOLDER'], path, file.filename)
+        newRestaurant.picture = 'uploads/' + path + '/' + file.filename
+        # restaurantToEdit.picture = path + '/' + file.filename
+        print f
+        print 'here'
+        # restaurantToEdit.picture = 'uploads/' + login_session{'gplus_id'+ file.filename
+        # add your custom code to check that the uploaded file is a valid
+        # image and not a malicious file (out-of-scope for this post)
+        file.save(f)
+        print "Saved file {0}".format(file.filename)
+
+
         session.add(newRestaurant)
         session.commit()
         flash("New Restaurant created by {0}!".format(
