@@ -339,7 +339,7 @@ def show_restaurants():
         print login_session
         return render_template('publicrestaurants.html',
                                restaurants=restaurants,
-                               picture = login_session['picture'])
+                               picture=login_session['picture'])
         # return render_template('restaurants.html', restaurants=restaurants,
         #                        picture=login_session['picture'])
 
