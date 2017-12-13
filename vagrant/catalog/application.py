@@ -323,7 +323,7 @@ def create_user(login_session):
     return user.id
 
 # End login methods
-sfsdadas
+
 
 @app.route('/')
 @app.route('/restaurants/')
@@ -338,7 +338,8 @@ def show_restaurants():
         print "username in session. rendering private"
         print login_session
         return render_template('publicrestaurants.html',
-                               restaurants=restaurants),
+                               restaurants=restaurants,
+                               picture = login_session['picture'])
         # return render_template('restaurants.html', restaurants=restaurants,
         #                        picture=login_session['picture'])
 
