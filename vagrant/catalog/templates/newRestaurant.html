@@ -10,9 +10,14 @@
         <div>
             <input type="text" size="80" name="name" placeholder="Name" required>
         </div>
-        <label>Image <span class="required">*</span></label>
+{#        <label>Image <span class="required">*</span></label>#}
+{#        <div>#}
+{#            <input type="text" size="80" name="picture" placeholder="Picture" >#}
+{#        </div>#}
+        <label>Picture <span class="">*</span></label>
         <div>
-            <input type="text" size="80" name="picture" placeholder="Picture" >
+            <input size="80" name="picture" type="text" placeholder="{{restaurant.picture}}" >
+            <span class="btn btn-default btn-file">Upload <input type="file" name="image"></span>
         </div>
         <div>
             <input type="submit" value="Create">
