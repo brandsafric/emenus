@@ -348,13 +348,17 @@ def show_restaurants():
 def create_restaurant():
     if 'username' not in login_session:
         return redirect('/login')
+    # Grab the user ID first
+    user = get_user_info(login_session['user_id'])
+    print user.id
+    print user.path
 
     if request.method == 'POST':
         newRestaurant = Restaurant(name=request.form['name'],
                                    picture=request.form['picture'],
                                    user_id=login_session['user_id'])
-        user = get_user_info(login_session['user_id'])
-        print user.id
+        # user = get_user_info(login_session['user_id'])
+        # print user.id
 
         file = request.files['image']
         # Get the path for the user
@@ -379,8 +383,21 @@ def create_restaurant():
             login_session['username']))
         return redirect(url_for('show_restaurants'))
     else:
+        user_pics=[]
+        user_pics=get_pictures(user.path)
+        print user_pics
         return render_template('newRestaurant.html',
-                               picture=login_session['picture'])
+                               picture=login_session['picture'], user_pics=user_pics)
+
+def get_pictures(path):
+    user_pics=[]
+    full_path = os.path.join(app.config['UPLOAD_FOLDER'], path)
+    print full_path
+    for filename in os.listdir(full_path):
+        print filename
+        user_pics.append('uploads/' + path + '/' + filename)
+    print user_pics
+    return user_pics
 
 
 @app.route('/restaurant/<int:restaurant_id>/edit', methods=['GET', 'POST'])
