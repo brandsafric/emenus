@@ -24,7 +24,9 @@
 {#                {%  endfor %}#}
 {#            </ul>#}
             <select id="image_select">
-                <option value="9" data-imagesrc="{{ url_for('static', filename='img/not-available-abbreviation-inside-a-circle_318-33662.jpg') }}">N/A</option>
+                <option value="9" data-imagesrc="{{ url_for('static',
+                filename='img/not-available-abbreviation-inside-a-circle_318-33662.jpg') }}"
+                 data-description="Not Available"></option>
                 {%  for k,v in user_pics %}
                     <option value="{{ loop.index }}" data-imagesrc="{{ url_for('static', filename='img/' + k) }}"
                     data-description="Description with Facebook">{{ k }}</option>
