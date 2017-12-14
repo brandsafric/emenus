@@ -468,6 +468,11 @@ input[type=submit]:hover {
     color: white;
 }
 
+.dd-desc {
+    color: black !important;
+    font-weight: bold !important;
+}
+
 #course {
     width: 19em;
     padding: 12px 20px;
