@@ -395,7 +395,7 @@ def get_pictures(path):
     print full_path
     for filename in os.listdir(full_path):
         print filename
-        user_pics.append('uploads/' + path + '/' + filename)
+        user_pics.append(['uploads/' + path + '/' + filename, filename])
     print user_pics
     return user_pics
 
