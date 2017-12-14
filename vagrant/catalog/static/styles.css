@@ -487,6 +487,20 @@ input[type=submit]:hover {
     background: #d06f62 !important;
 }
 
+.img_gallery {
+    list-style: none;
+}
+.img_thumbnail {
+    width: 50px;
+    white-space: nowrap;
+    border: 1px solid black;
+    float: left;
+}
+
+.img_thumbnail img{
+    width: 50px;
+}
+
 /*iPhone 5 Portrait*/
 @media only screen and (min-width: 320px) and (orientation: portrait) {
 /*@media only screen and (min-width: 320px)  {*/
