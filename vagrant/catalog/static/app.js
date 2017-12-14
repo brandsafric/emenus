@@ -45,6 +45,11 @@ $(function () {
             });
         };
 
+        $('#image_select').ddslick({
+            onSelected: function(selectedData){
+                //callback function: do something with selectedData;
+            }
+        });
         // console.log('here');
 
         // var sortListDir = function() {
