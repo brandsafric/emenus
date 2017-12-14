@@ -14,9 +14,19 @@
 {#        <div>#}
 {#            <input type="text" size="80" name="picture" placeholder="Picture" >#}
 {#        </div>#}
-        <label>Picture <span class="">*</span></label>
+{#        <label>Picture <span class="">*</span></label>#}
         <div>
-            <input size="80" name="picture" type="text" placeholder="" >
+        <span>Choose an Image</span>
+            <ul class="img_gallery">
+                <li class="img_thumbnail"><img src="{{ url_for('static', filename='img/not-available-abbreviation-inside-a-circle_318-33662.jpg') }}" alt="img"></li>
+                {% for pic in user_pics %}
+                    <li class="img_thumbnail"><img src="{{ url_for('static', filename='img/' + pic) }}" alt="img"></li>
+                {%  endfor %}
+            </ul>
+        </div>
+
+        <div>
+{#            <input size="80" name="picture" type="text" placeholder="" >#}
             <span class="btn btn-default btn-file">Upload <input type="file" name="image"></span>
         </div>
         <div>
