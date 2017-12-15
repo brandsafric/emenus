@@ -356,8 +356,8 @@ def create_restaurant():
     if request.method == 'POST':
         print "here"
         print request.form['name']
-        print request.form['fuck']
-
+        print request.form['picture']
+        print "done printing"
         try:
             newRestaurant = Restaurant(name=request.form['name'],
                                    picture=request.form['picture'],
