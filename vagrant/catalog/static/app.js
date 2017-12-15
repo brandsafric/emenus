@@ -43,6 +43,17 @@ $(function () {
             $("#icon-sort").click(function () {
                 sortListDir();
             });
+            $("#image_select").change(function (e) {
+                var option = $('option:selected', this).attr('status');
+                console.log($('option:selected'));
+                console.log($('option:selected').attr('data-imagesrc'));
+                console.log(option);
+            });
+
+
+
+
+
         };
         $( "select" )
           .change(function () {
@@ -76,11 +87,6 @@ $(function () {
         //         //callback function: do something with selectedData;
         //     }
         // });
-
-        var doThis = function() {
-            var text = value.getAttribute('data-imgsrc');
-            console.log(text);
-        };
 
         // console.log('here');
 
