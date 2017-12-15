@@ -450,27 +450,39 @@ input[type=submit],
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    transition: background .25s, color .25s;
-}
 
-.cancel {
-    background: linear-gradient(#f4f4f4, #e4e4e4);
-    color: gray;
-}
-
-.cancel:hover {
-    background: linear-gradient(#ececec, #dcdcdc);
-    color: gray;
-    text-decoration: none;
-}
-input[type=submit]:hover {
-    background: linear-gradient(#4aad3c, #129100);
-    color: white;
-}
-
-.dd-desc {
     color: black !important;
     font-weight: bold !important;
+}
+
+
+.img_gallery {
+    list-style: none;
+}
+.img_thumbnail {
+    width: 50px;
+    white-space: nowrap;
+    border: 1px solid black;
+    float: left;
+}
+
+.img_thumbnail img{
+    width: 50px;
+}
+
+
+.dd-option-image, .dd-selected-image {
+    height: 40px;
+    margin-right: 10px !important;
+    PADDING: 6px;
+}
+
+.dd-option-image {
+    background: #f7dad6;
+}
+
+.dd-select {
+    width: 210px;
 }
 
 #course {
@@ -492,19 +504,6 @@ input[type=submit]:hover {
     background: #d06f62 !important;
 }
 
-.img_gallery {
-    list-style: none;
-}
-.img_thumbnail {
-    width: 50px;
-    white-space: nowrap;
-    border: 1px solid black;
-    float: left;
-}
-
-.img_thumbnail img{
-    width: 50px;
-}
 
 /*iPhone 5 Portrait*/
 @media only screen and (min-width: 320px) and (orientation: portrait) {
