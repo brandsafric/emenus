@@ -45,9 +45,9 @@ $(function () {
             });
             $("#image_select").change(function (e) {
                 var option = $('option:selected', this).attr('status');
-                console.log($('option:selected'));
-                console.log($('option:selected').attr('data-imagesrc'));
-                console.log(option);
+                var datasrc = ($('option:selected').attr('data-imagesrc'));
+                var image = $('#img_thumbnail').attr('src');
+                $('#img_thumbnail').attr('src', datasrc);
             });
 
 
