@@ -354,27 +354,41 @@ def create_restaurant():
     print user.path
 
     if request.method == 'POST':
-        newRestaurant = Restaurant(name=request.form['name'],
+        print "here"
+        print request.form['name']
+        print request.form['fuck']
+
+        try:
+            newRestaurant = Restaurant(name=request.form['name'],
                                    picture=request.form['picture'],
                                    user_id=login_session['user_id'])
+        except ValueError:
+            print "error"
+
         # user = get_user_info(login_session['user_id'])
         # print user.id
 
         file = request.files['image']
-        # Get the path for the user
-        # user = login_session['user_id']
-        path = user.path
-        print path
-        f = os.path.join(app.config['UPLOAD_FOLDER'], path, file.filename)
-        newRestaurant.picture = 'uploads/' + path + '/' + file.filename
+        if file:
+            # Get the path for the user
+            # user = login_session['user_id']
+            path = user.path
+            print path
+            f = os.path.join(app.config['UPLOAD_FOLDER'], path, file.filename)
+            newRestaurant.picture = 'uploads/' + path + '/' + file.filename
+            print f
+            print 'here'
+            # add your custom code to check that the uploaded file is a valid
+            # image and not a malicious file (out-of-scope for this post)
+            file.save(f)
+            # print "Saved file {0}".format(file.filename)
+        else:
+            f = ""
+            newRestaurant.picture = f
         # restaurantToEdit.picture = path + '/' + file.filename
-        print f
-        print 'here'
+
         # restaurantToEdit.picture = 'uploads/' + login_session{'gplus_id'+ file.filename
-        # add your custom code to check that the uploaded file is a valid
-        # image and not a malicious file (out-of-scope for this post)
-        file.save(f)
-        print "Saved file {0}".format(file.filename)
+
 
 
         session.add(newRestaurant)
