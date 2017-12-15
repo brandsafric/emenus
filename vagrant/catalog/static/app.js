@@ -50,6 +50,12 @@ $(function () {
                 $('#img_thumbnail').attr('src', datasrc);
             });
 
+            $("#upload").change(function(e){
+                     console.log('File has changed.');
+                     console.log(e.target.value);
+                    console.log((e.target.value).slice(12));
+             });
+
 
 
 
