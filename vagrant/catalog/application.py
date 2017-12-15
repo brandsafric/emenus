@@ -358,10 +358,11 @@ def create_restaurant():
         user_pics=get_pictures(user.path)
         print "User Pics:"
         print user_pics
-        z = [x[index] for x,y,z in user_pics]
-        print "Z : " + str(z)
+        z = user_pics[0][index]
+        # z = [x[0][index] for x in user_pics]
+        # img_path = 'uploads/' + path + '/' + file.filename
 
-        new_path = str(user.path) + '/' + str(z)
+        new_path = 'uploads/' + str(user.path) + '/' + str(z)
         print "New Path: " + new_path
 
         try:
@@ -386,9 +387,7 @@ def create_restaurant():
             # image and not a malicious file (out-of-scope for this post)
             file.save(f)
             # print "Saved file {0}".format(file.filename)
-        else:
-            f = ""
-            newRestaurant.picture = f
+
         # restaurantToEdit.picture = path + '/' + file.filename
 
         # restaurantToEdit.picture = 'uploads/' + login_session{'gplus_id'+ file.filename
@@ -414,6 +413,7 @@ def get_pictures(path):
     user_path = 'uploads/' + path + '/';
     for filename in os.listdir(full_path):
         user_pics.append(['uploads/' + path + '/' + filename, filename, user_path + filename])
+    print "User Pics[0] " + str(user_pics[0][1])
     return user_pics
 
 
