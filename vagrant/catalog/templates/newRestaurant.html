@@ -21,12 +21,6 @@
             <li class="img_thumbnail">
                 <img id="img_thumbnail" src="{{ url_for('static', filename='img/not-available-abbreviation-inside-a-circle_318-33662.jpg') }}" alt="img">
             </li>
-{#                {% for k,v in user_pics %}#}
-{#                    <li class="img_thumbnail">#}
-{#                        <input type="checkbox" >#}
-{#                        <img src="{{ url_for('static', filename='img/' + k) }}" alt="img">#}
-{#                    </li>#}
-{#                {%  endfor %}#}
             </ul>
             <input class="target" type="text">
             <select id="image_select" name="picture" class="target">
@@ -43,20 +37,11 @@
 {#                {% endfor %}#}
 {#            </select>#}
         </div>
-{#       <select id="demo-htmlselect">#}
-{#        <option value="0" data-imagesrc="http://i.imgur.com/XkuTj3B.png"#}
-{#            data-description="Description with Facebook">Facebook</option>#}
-{#        <option value="1" data-imagesrc="http://i.imgur.com/8ScLNnk.png"#}
-{#            data-description="Description with Twitter">Twitter</option>#}
-{#        <option value="2" selected="selected" data-imagesrc="http://i.imgur.com/aDNdibj.png"#}
-{#            data-description="Description with LinkedIn">LinkedIn</option>#}
-{#        <option value="3" data-imagesrc="http://i.imgur.com/kFAk2DX.png"#}
-{#            data-description="Description with Foursquare">Foursquare</option>#}
-{#        </select>#}
+
 
         <div>
 {#            <input size="80" name="picture" type="text" placeholder="" >#}
-            <span class="btn btn-default btn-file">Upload <input type="file" name="image"></span>
+            <span class="btn btn-default btn-file">Upload <input type="file" id="upload" name="image"></span>
         </div>
         <div>
             <input type="submit" value="Create">
