@@ -350,17 +350,23 @@ def create_restaurant():
         return redirect('/login')
     # Grab the user ID first
     user = get_user_info(login_session['user_id'])
-    print user.id
-    print user.path
+    print 'User id: ' + str(user.id)
+    print 'User Path: ' + str(user.path)
 
     if request.method == 'POST':
-        print "here"
-        print request.form['name']
-        print request.form['picture']
-        print "done printing"
+        index=int(request.form['picture'])
+        user_pics=get_pictures(user.path)
+        print "User Pics:"
+        print user_pics
+        z = [x[index] for x,y,z in user_pics]
+        print "Z : " + str(z)
+
+        new_path = str(user.path) + '/' + str(z)
+        print "New Path: " + new_path
+
         try:
             newRestaurant = Restaurant(name=request.form['name'],
-                                   picture=request.form['picture'],
+                                   picture=new_path,
                                    user_id=login_session['user_id'])
         except ValueError:
             print "error"
@@ -373,11 +379,9 @@ def create_restaurant():
             # Get the path for the user
             # user = login_session['user_id']
             path = user.path
-            print path
+            print "User Path: " + str(path);
             f = os.path.join(app.config['UPLOAD_FOLDER'], path, file.filename)
             newRestaurant.picture = 'uploads/' + path + '/' + file.filename
-            print f
-            print 'here'
             # add your custom code to check that the uploaded file is a valid
             # image and not a malicious file (out-of-scope for this post)
             file.save(f)
@@ -399,6 +403,7 @@ def create_restaurant():
     else:
         user_pics=[]
         user_pics=get_pictures(user.path)
+        print "User Pics:"
         print user_pics
         return render_template('newRestaurant.html',
                                picture=login_session['picture'], user_pics=user_pics)
@@ -406,11 +411,9 @@ def create_restaurant():
 def get_pictures(path):
     user_pics=[]
     full_path = os.path.join(app.config['UPLOAD_FOLDER'], path)
-    print full_path
+    user_path = 'uploads/' + path + '/';
     for filename in os.listdir(full_path):
-        print filename
-        user_pics.append(['uploads/' + path + '/' + filename, filename])
-    print user_pics
+        user_pics.append(['uploads/' + path + '/' + filename, filename, user_path + filename])
     return user_pics
 
 
