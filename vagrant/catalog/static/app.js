@@ -44,12 +44,44 @@ $(function () {
                 sortListDir();
             });
         };
+        $( "select" )
+          .change(function () {
+            var self = this;
+            console.log(self);
+            var strOption = self.options[self.selectedIndex].value;
+            console.log(self.options[self.selectedIndex]);
+            // console.log(self.options("data-imgsrc"));
+            // console.log(self.attr('data-imgsrc'));
+            // str = $( "select option:selected" ).value();
+            // console.log(value)
+            // $( "div" ).text( str );
+              console.log(strOption);
+          });
 
-        $('#image_select').ddslick({
-            onSelected: function(selectedData){
-                //callback function: do something with selectedData;
-            }
-        });
+        // $('#image_select1').ddslick({
+        //     onSelected: function(selectedData){
+        //         console.log(selectedData.selectedData.value);
+        //         // console.log(selectedData.value);
+        //         var element = $('#image_select');
+        //         console.log(element);
+        //         // console.log(element.value);
+        //         // var x = document.getElementById("image_select").value;
+        //         // console.log(x);
+        //         // var x = document.getElementById("image_select").name;
+        //         // console.log(x);
+        //
+        //         // $('#image_select').value = selectedData.selectedData.value;
+        //         // console.log($('#image_select'));
+        //         // console.log($('#image_select').value);
+        //         //callback function: do something with selectedData;
+        //     }
+        // });
+
+        var doThis = function() {
+            var text = value.getAttribute('data-imgsrc');
+            console.log(text);
+        };
+
         // console.log('here');
 
         // var sortListDir = function() {
