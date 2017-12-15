@@ -5,7 +5,7 @@
     <div class="form-heading">
         <h1>New Restaurant</h1>
     </div>
-    <form action="{{ url_for('create_restaurant') }}" method="post" enctype="multipart/form-data">
+    <form id="newRestForm" action="{{ url_for('create_restaurant') }}" method="post" enctype="multipart/form-data">
         <label>Name <span class="required">*</span></label>
         <div>
             <input type="text" size="80" name="name" placeholder="Name" required>
@@ -17,20 +17,27 @@
 {#        <label>Picture <span class="">*</span></label>#}
         <div>
         <span>Choose an Image</span>
-            <ul class="img_gallery">
-            <li class="img_thumbnail">
-                <input type="checkbox" value="check1" name="check" >
-                <img src="{{ url_for('static', filename='img/not-available-abbreviation-inside-a-circle_318-33662.jpg') }}" alt="img">
-            </li>
-                {% for k,v in user_pics %}\
-                    <li class="img_thumbnail">
-                        <input type="checkbox" >
-                        <img src="{{ url_for('static', filename='img/' + k) }}" alt="img">
-                    </li>
-                {%  endfor %}
-            </ul>
-{#            <select id="image_select" name="fuck">#}
-{#                <option value="9" data-imagesrc="{{ url_for('static',filename='img/not-available-abbreviation-inside-a-circle_318-33662.jpg') }}"></option>              data-description="Not Available"></option>#}
+{#            <ul class="img_gallery">#}
+{#            <li class="img_thumbnail">#}
+{#                <input type="checkbox" value="check1" name="check" >#}
+{#                <img src="{{ url_for('static', filename='img/not-available-abbreviation-inside-a-circle_318-33662.jpg') }}" alt="img">#}
+{#            </li>#}
+{#                {% for k,v in user_pics %}#}
+{#                    <li class="img_thumbnail">#}
+{#                        <input type="checkbox" >#}
+{#                        <img src="{{ url_for('static', filename='img/' + k) }}" alt="img">#}
+{#                    </li>#}
+{#                {%  endfor %}#}
+{#            </ul>#}
+            <input class="target" type="text" value="Field 1">
+            <select id="image_select" name="picture" class="target" onclick="doThis()">
+                <option value="9" data-imagesrc="{{ url_for('static',filename='img/not-available-abbreviation-inside-a-circle_318-33662.jpg') }}">N/A</option>
+                {%  for k,v in user_pics %}
+                    <option value="{{ loop.index }}" data-imagesrc="{{ url_for('static', filename='img/' + k) }}" data-description="{{ v }}">{{ v }}</option>
+                {% endfor %}
+            </select>
+{#            <select id="image_select" name="picture">#}
+{#                <option value="9" data-imagesrc="{{ url_for('static',filename='img/not-available-abbreviation-inside-a-circle_318-33662.jpg') }}" data-description="Not Available"></option>#}
 {#                {%  for k,v in user_pics %}#}
 {#                    <option value="{{ loop.index }}" data-imagesrc="{{ url_for('static', filename='img/' + k) }}" data-description="{{ v }}"></option>#}
 {#                {% endfor %}#}
