@@ -311,15 +311,6 @@ def create_user(login_session):
     session.add(newUser)
     session.commit()
     user = session.query(User).filter_by(email=login_session['email']).one()
-    # # create the upload directory for the user if it does not exist
-    # if login_session['provider'] == 'google':
-    #     print "google"
-    #     directory = 'static/img/uploads/' + login_session['gplus_id']
-    # else:
-    #     print "facebook"
-    #     directory = 'static/img/uploads/' + login_session['facebook_id']
-    # if not os.path.exists(directory):
-    #     os.makedirs(directory)
     return user.id
 
 # End login methods
@@ -360,11 +351,10 @@ def create_restaurant():
         except:
             print "Error with Image upload."
         if file:
-            print "358- with file"
             # Get the path for the user
             # user = login_session['user_id']
             path = user.path
-            print "379-User Path: " + str(path);
+            # print "379-User Path: " + str(path);
             f = os.path.join(app.config['UPLOAD_FOLDER'], path, file.filename)
             newRestaurant = Restaurant(name=request.form['name'],
                                        picture='uploads/' + path + '/' +
@@ -387,9 +377,6 @@ def create_restaurant():
                 print "359-User Pics:"
                 print user_pics
                 z = user_pics[0][index]
-                # z = [x[0][index] for x in user_pics]
-                # img_path = 'uploads/' + path + '/' + file.filename
-
                 new_path = 'uploads/' + str(user.path) + '/' + str(z)
                 print "366-New Path: " + new_path
                 try:
