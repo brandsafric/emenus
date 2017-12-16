@@ -357,11 +357,8 @@ def create_restaurant():
         print "POST - 357"
         try:
             file = request.files['image']
-            print file.content_length
         except:
-            print request.files['image'].content_length
-            print "file too large"
-            return redirect(url_for('show_restaurants'))
+            print "Error with Image upload."
         if file:
             print "358- with file"
             # Get the path for the user
@@ -379,21 +376,29 @@ def create_restaurant():
         else:
             print"360 - no file"
             index=int(request.form['picture'])
-            user_pics=get_pictures(user.path)
-            print "359-User Pics:"
-            print user_pics
-            z = user_pics[0][index]
-            # z = [x[0][index] for x in user_pics]
-            # img_path = 'uploads/' + path + '/' + file.filename
-
-            new_path = 'uploads/' + str(user.path) + '/' + str(z)
-            print "366-New Path: " + new_path
-            try:
+            if index == 9:
+                print"It's the NA image"
                 newRestaurant = Restaurant(name=request.form['name'],
-                                       picture=new_path,
-                                       user_id=login_session['user_id'])
-            except ValueError:
-                print "error"
+                                           picture='',
+                                           user_id=login_session['user_id'])
+            else:
+                print "382 - Index: " + str(index)
+                user_pics=get_pictures(user.path)
+                print "359-User Pics:"
+                print user_pics
+                z = user_pics[0][index]
+                # z = [x[0][index] for x in user_pics]
+                # img_path = 'uploads/' + path + '/' + file.filename
+
+                new_path = 'uploads/' + str(user.path) + '/' + str(z)
+                print "366-New Path: " + new_path
+                try:
+                    newRestaurant = Restaurant(name=request.form['name'],
+                                           picture=new_path,
+                                           user_id=login_session['user_id'])
+                except ValueError:
+                    print "error"
+
         session.add(newRestaurant)
         session.commit()
         flash("New Restaurant created by {0}!".format(
@@ -413,7 +418,6 @@ def get_pictures(path):
     user_path = 'uploads/' + path + '/';
     for filename in os.listdir(full_path):
         user_pics.append(['uploads/' + path + '/' + filename, filename, user_path + filename])
-    print "User Pics[0] " + str(user_pics[0][1])
     return user_pics
 
 
