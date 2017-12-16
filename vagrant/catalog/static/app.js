@@ -54,21 +54,29 @@ $(function () {
                 console.log('File has changed.');
                 console.log(e.target.value);
                 console.log((e.target.value).slice(12));
+                // console.log(document.forms[0].elements);
+                // console.log(document.forms[3].value);
+
 
                 var f=this.files[0];
+
                 var sizeInMb = f.size/1024;
                 var sizeLimit= 1024*1; // if you want 1 MB
                 console.log(sizeInMb);
                 if (sizeInMb > sizeLimit) {
-                    alert('Sorry the file exceeds the maximum size of 5 MB!');
+                    alert('Sorry the file exceeds the maximum size of 1 MB!');
                     // reset the input (code for all browser)
-                    this.replaceWith(input.val('').clone(true));
-                    return false;
+                    var es = document.forms[0].elements;
+                    try {
+                        es[3].value = '';
+                    } catch(err) {
+                        console.log('Error with clearing upload. ' + err);
+                    }
                 }
                 else {
-                    // go on
+                    // Continue on...
                 }
-                         });
+                 });
 
 
 
