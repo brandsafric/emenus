@@ -51,10 +51,24 @@ $(function () {
             });
 
             $("#upload").change(function(e){
-                     console.log('File has changed.');
-                     console.log(e.target.value);
-                    console.log((e.target.value).slice(12));
-             });
+                console.log('File has changed.');
+                console.log(e.target.value);
+                console.log((e.target.value).slice(12));
+
+                var f=this.files[0];
+                var sizeInMb = f.size/1024;
+                var sizeLimit= 1024*1; // if you want 1 MB
+                console.log(sizeInMb);
+                if (sizeInMb > sizeLimit) {
+                    alert('Sorry the file exceeds the maximum size of 5 MB!');
+                    // reset the input (code for all browser)
+                    this.replaceWith(input.val('').clone(true));
+                    return false;
+                }
+                else {
+                    // go on
+                }
+                         });
 
 
 
