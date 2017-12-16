@@ -29,7 +29,7 @@ session = DBSession()
 UPLOAD_FOLDER = os.path.relpath('static/img/uploads')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
-app.config['MAX_CONTENT_LENGTH'] = 0.5 * 1024 * 1024
+app.config['MAX_CONTENT_LENGTH'] = 10 * 1024 * 1024
 
 
 # Login Methods
@@ -350,50 +350,50 @@ def create_restaurant():
         return redirect('/login')
     # Grab the user ID first
     user = get_user_info(login_session['user_id'])
-    print 'User id: ' + str(user.id)
-    print 'User Path: ' + str(user.path)
+    print '353-User id: ' + str(user.id)
+    print '354-User Path: ' + str(user.path)
 
     if request.method == 'POST':
-        index=int(request.form['picture'])
-        user_pics=get_pictures(user.path)
-        print "User Pics:"
-        print user_pics
-        z = user_pics[0][index]
-        # z = [x[0][index] for x in user_pics]
-        # img_path = 'uploads/' + path + '/' + file.filename
-
-        new_path = 'uploads/' + str(user.path) + '/' + str(z)
-        print "New Path: " + new_path
-
+        print "POST - 357"
         try:
-            newRestaurant = Restaurant(name=request.form['name'],
-                                   picture=new_path,
-                                   user_id=login_session['user_id'])
-        except ValueError:
-            print "error"
-
-        # user = get_user_info(login_session['user_id'])
-        # print user.id
-
-        file = request.files['image']
+            file = request.files['image']
+            print file.content_length
+        except:
+            print request.files['image'].content_length
+            print "file too large"
+            return redirect(url_for('show_restaurants'))
         if file:
+            print "358- with file"
             # Get the path for the user
             # user = login_session['user_id']
             path = user.path
-            print "User Path: " + str(path);
+            print "379-User Path: " + str(path);
             f = os.path.join(app.config['UPLOAD_FOLDER'], path, file.filename)
-            newRestaurant.picture = 'uploads/' + path + '/' + file.filename
+            newRestaurant = Restaurant(name=request.form['name'],
+                                       picture='uploads/' + path + '/' +
+                                               file.filename,
+                                       user_id=login_session['user_id'])
             # add your custom code to check that the uploaded file is a valid
             # image and not a malicious file (out-of-scope for this post)
             file.save(f)
-            # print "Saved file {0}".format(file.filename)
+        else:
+            print"360 - no file"
+            index=int(request.form['picture'])
+            user_pics=get_pictures(user.path)
+            print "359-User Pics:"
+            print user_pics
+            z = user_pics[0][index]
+            # z = [x[0][index] for x in user_pics]
+            # img_path = 'uploads/' + path + '/' + file.filename
 
-        # restaurantToEdit.picture = path + '/' + file.filename
-
-        # restaurantToEdit.picture = 'uploads/' + login_session{'gplus_id'+ file.filename
-
-
-
+            new_path = 'uploads/' + str(user.path) + '/' + str(z)
+            print "366-New Path: " + new_path
+            try:
+                newRestaurant = Restaurant(name=request.form['name'],
+                                       picture=new_path,
+                                       user_id=login_session['user_id'])
+            except ValueError:
+                print "error"
         session.add(newRestaurant)
         session.commit()
         flash("New Restaurant created by {0}!".format(
@@ -402,7 +402,7 @@ def create_restaurant():
     else:
         user_pics=[]
         user_pics=get_pictures(user.path)
-        print "User Pics:"
+        print "393-User Pics:"
         print user_pics
         return render_template('newRestaurant.html',
                                picture=login_session['picture'], user_pics=user_pics)
