@@ -54,12 +54,7 @@ $(function () {
                 console.log('File has changed.');
                 console.log(e.target.value);
                 console.log((e.target.value).slice(12));
-                // console.log(document.forms[0].elements);
-                // console.log(document.forms[3].value);
-
-
                 var f=this.files[0];
-
                 var sizeInMb = f.size/1024;
                 var sizeLimit= 1024*1; // if you want 1 MB
                 console.log(sizeInMb);
@@ -77,11 +72,6 @@ $(function () {
                     // Continue on...
                 }
                  });
-
-
-
-
-
         };
         $( "select" )
           .change(function () {
