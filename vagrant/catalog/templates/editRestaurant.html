@@ -23,7 +23,7 @@
     <form id="editRestForm" action="{{ url_for('create_restaurant') }}" method="post" enctype="multipart/form-data">
         <label>Name <span class="required">*</span></label>
         <div>
-            <input type="text" size="80" name="name" placeholder="Name" required>
+            <input type="text" size="80" name="name" placeholder={{ restaurant.name }} required>
         </div>
         <div>
         <span>Choose an Image</span>
