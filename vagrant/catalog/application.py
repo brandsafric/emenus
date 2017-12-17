@@ -365,26 +365,28 @@ def create_restaurant():
             file.save(f)
         else:
             print"360 - no file"
-            index=int(request.form['picture'])
-            if index == 9:
-                print"It's the NA image"
+            index = request.form['picture'];
+            try:
                 newRestaurant = Restaurant(name=request.form['name'],
-                                           picture='',
-                                           user_id=login_session['user_id'])
-            else:
-                print "382 - Index: " + str(index)
-                user_pics=get_pictures(user.path)
-                print "359-User Pics:"
-                print user_pics
-                z = user_pics[0][index]
-                new_path = 'uploads/' + str(user.path) + '/' + str(z)
-                print "366-New Path: " + new_path
-                try:
-                    newRestaurant = Restaurant(name=request.form['name'],
-                                           picture=new_path,
-                                           user_id=login_session['user_id'])
-                except ValueError:
-                    print "error"
+                                       picture=request.form['picture'],
+                                       user_id=login_session['user_id'])
+            except ValueError:
+                print "error"
+
+            # print 'index: ' + str(index)
+            # if index == 9:
+            #     print"It's the NA image"
+            #     newRestaurant = Restaurant(name=request.form['name'],
+            #                                picture='',
+            #                                user_id=login_session['user_id'])
+            # else:
+            #     print "382 - Index: " + str(index)
+            #     user_pics=get_pictures(user.path)
+            #     print "359-User Pics:"
+            #     print user_pics
+            #     z = user_pics[0][index]
+            #     new_path = 'uploads/' + str(user.path) + '/' + str(z)
+            #     print "366-New Path: " + new_path
 
         session.add(newRestaurant)
         session.commit()
@@ -404,7 +406,7 @@ def get_pictures(path):
     full_path = os.path.join(app.config['UPLOAD_FOLDER'], path)
     user_path = 'uploads/' + path + '/';
     for filename in os.listdir(full_path):
-        user_pics.append(['uploads/' + path + '/' + filename, filename, user_path + filename])
+        user_pics.append([user_path + filename, filename, user_path + filename])
     return user_pics
 
 
