@@ -341,20 +341,15 @@ def create_restaurant():
         return redirect('/login')
     # Grab the user ID first
     user = get_user_info(login_session['user_id'])
-    print '353-User id: ' + str(user.id)
-    print '354-User Path: ' + str(user.path)
 
     if request.method == 'POST':
-        print "POST - 357"
         try:
             file = request.files['image']
         except:
             print "Error with Image upload."
         if file:
             # Get the path for the user
-            # user = login_session['user_id']
             path = user.path
-            # print "379-User Path: " + str(path);
             f = os.path.join(app.config['UPLOAD_FOLDER'], path, file.filename)
             newRestaurant = Restaurant(name=request.form['name'],
                                        picture='uploads/' + path + '/' +
@@ -364,7 +359,6 @@ def create_restaurant():
             # image and not a malicious file (out-of-scope for this post)
             file.save(f)
         else:
-            print"360 - no file"
             index = request.form['picture'];
             try:
                 newRestaurant = Restaurant(name=request.form['name'],
@@ -372,21 +366,6 @@ def create_restaurant():
                                        user_id=login_session['user_id'])
             except ValueError:
                 print "error"
-
-            # print 'index: ' + str(index)
-            # if index == 9:
-            #     print"It's the NA image"
-            #     newRestaurant = Restaurant(name=request.form['name'],
-            #                                picture='',
-            #                                user_id=login_session['user_id'])
-            # else:
-            #     print "382 - Index: " + str(index)
-            #     user_pics=get_pictures(user.path)
-            #     print "359-User Pics:"
-            #     print user_pics
-            #     z = user_pics[0][index]
-            #     new_path = 'uploads/' + str(user.path) + '/' + str(z)
-            #     print "366-New Path: " + new_path
 
         session.add(newRestaurant)
         session.commit()
