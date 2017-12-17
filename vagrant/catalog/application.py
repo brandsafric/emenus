@@ -391,6 +391,7 @@ def get_pictures(path):
 
 @app.route('/restaurant/<int:restaurant_id>/edit', methods=['GET', 'POST'])
 def edit_restaurant(restaurant_id):
+    user = get_user_info(login_session['user_id'])
     print request.referrer
     restaurantToEdit = session.query(Restaurant).\
         filter_by(id=restaurant_id).one()
@@ -429,9 +430,30 @@ def edit_restaurant(restaurant_id):
         return redirect(url_for('show_menu', restaurant_id=restaurant_id,
                                 picture=login_session['picture']))
     else:
+        user_pics=[]
+        user_pics=get_pictures(user.path)
+        print 'user.path = ' + user.path
+        # print user_pics.index(user.path)
+        print 'restaurantToEdit.picture = ' + restaurantToEdit.picture
+        print user_pics
+
+        try:
+            # index = user_pics.index[0]
+            print user_pics[0][0]
+        except ValueError:
+            print("List does not contain value")
+
+        [(i, pic.index(restaurantToEdit.picture))
+         for i, pic in enumerate(user_pics)
+         if restaurantToEdit.picture in pic]
+        print i
+        print user_pics[0][i]
+        restaurant_pic = user_pics[0][i]
+
         return render_template(
             'editRestaurant.html', restaurant_id=restaurant_id,
-            restaurant=restaurantToEdit, picture=login_session['picture'])
+            restaurant=restaurantToEdit, picture=login_session['picture'],
+            user_pics=user_pics, restaurant_pic=restaurant_pic, index=i+1)
 
 
 @app.route('/restaurant/<int:restaurant_id>/delete', methods=['GET', 'POST'])
