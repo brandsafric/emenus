@@ -57,7 +57,8 @@ $(function () {
                     console.log($(event.target));
                    console.log($(event.target)[0]);
                     console.log(src);
-                    $('#target').child().val(src);
+                    console.log(src.eq(0).attr('data-imgpath'));
+                    // $('#target').child().val('');
                 }
                 else {
                     console.log('it is image');
@@ -67,7 +68,8 @@ $(function () {
                     $(event.target).parent().siblings(".selected").toggleClass("selected");
                     var src = $(event.target)[0].src;
                     console.log(src);
-                    $('#target').val(src);
+                    var path = $(event.target).eq(0).attr('data-imgpath');
+                    $('#target').val(path);
 
                 }
                 // e.target.addClass('yellow_border');
