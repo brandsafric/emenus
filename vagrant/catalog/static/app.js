@@ -93,6 +93,7 @@ $(function () {
                  });
         };
         bindEvents();
+
         if ($("#editRestForm").length) {
             console.log('this is the edit restaurant');
             var el = $('#target').attr('data-index');
@@ -102,4 +103,15 @@ $(function () {
             $( "ul.img_gallery li.img_thumbnail:eq("+ el + ")" ).toggleClass( "selected" );
 
         }
+
+        if ($(".img_thumbnail").length) {
+            console.log('image gallery exists');
+            console.log($(".img_thumbnail").length);
+            var image_count = $(".img_thumbnail").length;
+            if (image_count >= 5) {
+                console.log('No more images permitted until you delete one.');
+            }
+        }
+
+
 });
