@@ -16,19 +16,24 @@
 {#        </div>#}
 {#        <label>Picture <span class="">*</span></label>#}
         <div>
-{#        <span>Choose an Image</span>#}
+        <span>Choose an Image</span>
             <ul class="img_gallery">
-            <li class="img_thumbnail">
-                <img id="img_thumbnail" src="{{ url_for('static', filename='img/not-available-abbreviation-inside-a-circle_318-33662.jpg') }}" alt="img">
-            </li>
-            </ul>
-            <input class="target" type="text">
-            <select id="image_select" name="picture" class="target">
-                <option value="9" data-imagesrc="{{ url_for('static',filename='img/not-available-abbreviation-inside-a-circle_318-33662.jpg') }}">N/A</option>
+                <li class="img_thumbnail">
+                    <img id="img_thumbnail" class="img_tn" src="{{ url_for('static', filename='img/not-available-abbreviation-inside-a-circle_318-33662.jpg') }}" alt="img">
+                </li>
                 {%  for k,v,z in user_pics %}
-                    <option value="{{ loop.index }}" data-relpath=""data-imagesrc="{{ url_for('static', filename='img/' + k) }}" data-description="{{ v }}">{{ v }}</option>
+                    <li class="img_thumbnail">
+                        <img class="img_tn" src="{{ url_for('static', filename='img/' + k) }}" alt="img">
+                    </li>
                 {% endfor %}
-            </select>
+            </ul>
+            <input id="target" type="text">
+{#            <select id="image_select" name="picture" class="target">#}
+{#                <option value="9" data-imagesrc="{{ url_for('static',filename='img/not-available-abbreviation-inside-a-circle_318-33662.jpg') }}">N/A</option>#}
+{#                {%  for k,v,z in user_pics %}#}
+{#                    <option value="{{ loop.index }}" data-relpath=""data-imagesrc="{{ url_for('static', filename='img/' + k) }}" data-description="{{ v }}">{{ v }}</option>#}
+{#                {% endfor %}#}
+{#            </select>#}
 
 {#            <select id="image_select" name="picture">#}
 {#                <option value="9" data-imagesrc="{{ url_for('static',filename='img/not-available-abbreviation-inside-a-circle_318-33662.jpg') }}" data-description="Not Available"></option>#}
