@@ -93,4 +93,13 @@ $(function () {
                  });
         };
         bindEvents();
+        if ($("#editRestForm").length) {
+            console.log('this is the edit restaurant');
+            var el = $('#target').attr('data-index');
+            console.log(el);
+            console.log($( "ul.img_gallery li.img_thumbnail:eq( 0 )" ));
+            console.log($( "ul.img_gallery li.img_thumbnail:eq("+el +" )" ));
+            $( "ul.img_gallery li.img_thumbnail:eq("+ el + ")" ).toggleClass( "selected" );
+
+        }
 });
