@@ -50,26 +50,37 @@ $(function () {
                 // $(event.target).hasClass('textbox')
                 if ($(event.target).hasClass('img_thumbnail')) {
                     console.log('it is thumbnail');
-                    $(event.target).toggleClass('selected');
-                    $(event.target).siblings(".selected").toggleClass("selected");
-                      // var myUL = $(this).siblings(".selected").toggleClass("showme");
-                    var src = $(event.target).firstElementChild;
-                    console.log($(event.target));
-                   console.log($(event.target)[0]);
-                    console.log(src);
-                    console.log(src.eq(0).attr('data-imgpath'));
-                    // $('#target').child().val('');
+                    if ($(event.target).hasClass('selected')) {
+                        // do nothing
+                    } else {
+                            $(event.target).toggleClass('selected');
+                            $(event.target).siblings(".selected").toggleClass("selected");
+                            // var myUL = $(this).siblings(".selected").toggleClass("showme");
+                            var src = $(event.target).firstElementChild;
+                            // console.log($(event.target));
+                           // console.log($(event.target)[0]);
+                            // console.log(src);
+                            // console.log(src.eq(0).attr('data-imgpath'));
+                            var path = $(event.target).eq(0).attr('data-imgpath');
+                            $('#target').child().val('');
+                    }
+
                 }
                 else {
                     console.log('it is image');
                     console.log($(event.target));
-                    $(event.target).parent().toggleClass('selected');
-                    // $(this)[0].addClass('yellow_border');
-                    $(event.target).parent().siblings(".selected").toggleClass("selected");
-                    var src = $(event.target)[0].src;
-                    console.log(src);
-                    var path = $(event.target).eq(0).attr('data-imgpath');
-                    $('#target').val(path);
+                    if ($(event.target).parent().hasClass('selected')) {
+                        // do nothing
+                    } else {
+                        $(event.target).parent().toggleClass('selected');
+                        // $(this)[0].addClass('yellow_border');
+                        $(event.target).parent().siblings(".selected").toggleClass("selected");
+                        // var src = $(event.target)[0].src;
+                        // console.log(src);
+                        var path = $(event.target).eq(0).attr('data-imgpath');
+                        $('#target').val(path);
+                        }
+
 
                 }
                 // e.target.addClass('yellow_border');
