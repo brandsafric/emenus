@@ -375,8 +375,8 @@ def create_restaurant():
     else:
         user_pics=[]
         user_pics=get_pictures(user.path)
-        print "393-User Pics:"
-        print user_pics
+        # print "393-User Pics:"
+        # print user_pics
         return render_template('newRestaurant.html',
                                picture=login_session['picture'], user_pics=user_pics)
 
@@ -411,17 +411,17 @@ def edit_restaurant(restaurant_id):
         # Get the path for the user
         user = get_user_info(restaurantToEdit.user_id)
         path = user.path
-        print path
+        # print path
         f = os.path.join(app.config['UPLOAD_FOLDER'], path, file.filename)
         restaurantToEdit.picture = 'uploads/' + path + '/' + file.filename
         # restaurantToEdit.picture = path + '/' + file.filename
-        print f
-        print 'here'
+        # print f
+        # print 'here'
         # restaurantToEdit.picture = 'uploads/' + login_session{'gplus_id'+ file.filename
         # add your custom code to check that the uploaded file is a valid
         # image and not a malicious file (out-of-scope for this post)
         file.save(f)
-        print "Saved file {0}".format(file.filename)
+        # print "Saved file {0}".format(file.filename)
 
         session.add(restaurantToEdit)
         flash("Restaurant has been edited by {0}."
@@ -438,7 +438,6 @@ def edit_restaurant(restaurant_id):
         print user_pics
 
         try:
-            # index = user_pics.index[0]
             print user_pics[0][0]
         except ValueError:
             print("List does not contain value")
@@ -447,8 +446,10 @@ def edit_restaurant(restaurant_id):
          for i, pic in enumerate(user_pics)
          if restaurantToEdit.picture in pic]
         print i
-        print user_pics[0][i]
-        restaurant_pic = user_pics[0][i]
+        for pic in user_pics:
+            print "pic: " + pic[0]
+        print user_pics[i][0]
+        restaurant_pic = user_pics[i][0]
 
         return render_template(
             'editRestaurant.html', restaurant_id=restaurant_id,
