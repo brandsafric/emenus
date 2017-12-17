@@ -19,15 +19,15 @@
         <span>Choose an Image</span>
             <ul class="img_gallery">
                 <li class="img_thumbnail">
-                    <img id="img_thumbnail" class="img_tn" src="{{ url_for('static', filename='img/not-available-abbreviation-inside-a-circle_318-33662.jpg') }}" alt="img">
+                    <img id="img_thumbnail" class="img_tn" data-imgpath="not-available-abbreviation-inside-a-circle_318-33662.jpg" src="{{ url_for('static', filename='img/not-available-abbreviation-inside-a-circle_318-33662.jpg') }}" alt="img">
                 </li>
                 {%  for k,v,z in user_pics %}
                     <li class="img_thumbnail">
-                        <img class="img_tn" src="{{ url_for('static', filename='img/' + k) }}" alt="img">
+                        <img class="img_tn" data-imgpath="{{ k }}" src="{{ url_for('static', filename='img/' + k) }}" alt="img">
                     </li>
                 {% endfor %}
             </ul>
-            <input id="target" type="text">
+            <input id="target" type="text" name="picture">
 {#            <select id="image_select" name="picture" class="target">#}
 {#                <option value="9" data-imagesrc="{{ url_for('static',filename='img/not-available-abbreviation-inside-a-circle_318-33662.jpg') }}">N/A</option>#}
 {#                {%  for k,v,z in user_pics %}#}
