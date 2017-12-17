@@ -460,30 +460,44 @@ input[type=submit],
     list-style: none;
 }
 .img_thumbnail {
-    width: 50px;
+    width: 56px;
+    height: 56px;
+    padding: 2px;
     white-space: nowrap;
     border: 1px solid black;
     float: left;
+    transition: border ease-out .25s;
 }
 
 .img_thumbnail img{
     width: 50px;
 }
 
-
-.dd-option-image, .dd-selected-image {
-    height: 40px;
-    margin-right: 10px !important;
-    PADDING: 6px;
+.img_thumbnail:hover {
+    border: 1px solid white;
 }
 
-.dd-option-image {
-    background: #f7dad6;
+.selected{
+    border: 1px solid yellow;
 }
+/*.tn_rest {*/
+    /*width: 100px;*/
+                /*}*/
 
-.dd-select {
-    width: 210px;
-}
+
+/*.dd-option-image, .dd-selected-image {*/
+    /*height: 40px;*/
+    /*margin-right: 10px !important;*/
+    /*PADDING: 6px;*/
+/*}*/
+
+/*.dd-option-image {*/
+    /*background: #f7dad6;*/
+/*}*/
+
+/*.dd-select {*/
+    /*width: 210px;*/
+/*}*/
 
 #course {
     width: 19em;
