@@ -391,12 +391,14 @@ def get_pictures(path):
 
 @app.route('/restaurant/<int:restaurant_id>/edit', methods=['GET', 'POST'])
 def edit_restaurant(restaurant_id):
-    user = get_user_info(login_session['user_id'])
+
     print request.referrer
     restaurantToEdit = session.query(Restaurant).\
         filter_by(id=restaurant_id).one()
     if 'username' not in login_session:
         return redirect('/login')
+    else:
+        user = get_user_info(login_session['user_id'])
     if restaurantToEdit.user_id != login_session['user_id']:
         return "<script>function myFunction() {alert('You are not" \
                "\ authorized to edit this restaurant. Please create " \
