@@ -53,47 +53,19 @@ $(function () {
                             $(event.target).toggleClass('selected');
                             // Check if the no_upload is showing
                             if($(".no_upload").css('display') == 'block') {
-                                // Start to the delete button toggle
-                                console.log($(event.target));
-                                // console.log($(event.target).siblings(".img_thumbnail"));
-                                // var img_nodes = $(event.target).siblings();
-                                // img_nodes.each(function(index) {
-                                //     console.log(index);
-                                //     // console.log($(this));
-                                //     console.log($(this).children());
-                                //     console.log($(this).children().hasClass('icon_show'));
-                                //     // $(this).find('.icon_show').toggleClass('icon_show');
-                                //                   // console.log($(this).find('.img_tn'));
-                                // })
-
-                                console.log($(event.target).find('.img_tn').attr('id'));
                                 // Slice the id string
                                 var id = "i_delete_" + $(event.target).find('.img_tn').attr('id').slice(-1);
-                                console.log(id);
                                 $('#' + id).toggleClass('icon_show');
                                 var i_parent = $('#' + id).parent().get(0);
-                                console.log(i_parent);
                                 var img_nodes = $(i_parent).siblings();
-                                console.log(img_nodes);
-                                img_nodes.each(function(index) {
-                                    console.log(index);
-                                    // console.log($(this));
-                                    console.log($(this).children());
-                                    console.log($(this).children().hasClass('icon_show'));
+                                img_nodes.each(function() {
                                     if ($(this).children().hasClass('icon_show')) {
                                         $(this).children().toggleClass('icon_show');
                                     }
-                                    // $(this).find('.icon_show').toggleClass('icon_show');
-                                                  // console.log($(this).find('.img_tn'));
                                 })
-                                // console.log($('#' + id).closest('icons-delete'));
-                                // .find('fa-times-circle').toggleClass("icon_show");
-                                // End delete button toggle
                             }
 
                             $(event.target).siblings(".selected").toggleClass("selected");
-                            var src = $(event.target).firstElementChild;
-                            var path = $(event.target).eq(0).attr('data-imgpath');
                             $('#target').children().val('');
                     }
 
@@ -109,16 +81,18 @@ $(function () {
                             console.log($(event.target));
                            console.log(event.target.id);
                            // Slice the id string
-                           var id = "i_delete_" + event.target.id.slice(-1);
-                           console.log(id);
-                           $('#' + id).toggleClass('icon_show');
-
-                           // console.log($('#' + id).closest('icons-delete'));
-                           // $('#' + id).siblings('.icon_show').toggleClass("icon_show");
-                           // End delete button toggle
+                            var targetID = event.target.id.slice(-1);
+                           var iName = "i_delete_" + targetID;
+                           var el = $('#' + iName);
+                           el.toggleClass('icon_show');
+                            var iParent = el.parent().get(0);
+                            var img_nodes = $(iParent).siblings();
+                            img_nodes.each(function(index) {
+                                if ($(this).children().hasClass('icon_show')) {
+                                    $(this).children().toggleClass('icon_show');
+                                }
+                            })
                        }
-
-
                         $(event.target).parent().siblings(".selected").toggleClass("selected");
                         var path = $(event.target).eq(0).attr('data-imgpath');
                         $('#target').val(path);
