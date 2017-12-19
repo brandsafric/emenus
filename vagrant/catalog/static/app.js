@@ -56,19 +56,37 @@ $(function () {
                                 // Start to the delete button toggle
                                 console.log($(event.target));
                                 // console.log($(event.target).siblings(".img_thumbnail"));
-                                var img_nodes = $(event.target).siblings(".img_thumbnail");
-                                img_nodes.each(function(index) {
-                                    console.log($(this).find('.icon_show'));
-                                    $(this).find('.icon_show').toggleClass('icon_show');
-                                                  // console.log($(this).find('.img_tn'));
-                                })
+                                // var img_nodes = $(event.target).siblings();
+                                // img_nodes.each(function(index) {
+                                //     console.log(index);
+                                //     // console.log($(this));
+                                //     console.log($(this).children());
+                                //     console.log($(this).children().hasClass('icon_show'));
+                                //     // $(this).find('.icon_show').toggleClass('icon_show');
+                                //                   // console.log($(this).find('.img_tn'));
+                                // })
 
                                 console.log($(event.target).find('.img_tn').attr('id'));
                                 // Slice the id string
                                 var id = "i_delete_" + $(event.target).find('.img_tn').attr('id').slice(-1);
                                 console.log(id);
                                 $('#' + id).toggleClass('icon_show');
-                                console.log($('#' + id).closest('icons-delete'));
+                                var i_parent = $('#' + id).parent().get(0);
+                                console.log(i_parent);
+                                var img_nodes = $(i_parent).siblings();
+                                console.log(img_nodes);
+                                img_nodes.each(function(index) {
+                                    console.log(index);
+                                    // console.log($(this));
+                                    console.log($(this).children());
+                                    console.log($(this).children().hasClass('icon_show'));
+                                    if ($(this).children().hasClass('icon_show')) {
+                                        $(this).children().toggleClass('icon_show');
+                                    }
+                                    // $(this).find('.icon_show').toggleClass('icon_show');
+                                                  // console.log($(this).find('.img_tn'));
+                                })
+                                // console.log($('#' + id).closest('icons-delete'));
                                 // .find('fa-times-circle').toggleClass("icon_show");
                                 // End delete button toggle
                             }
@@ -94,7 +112,8 @@ $(function () {
                            var id = "i_delete_" + event.target.id.slice(-1);
                            console.log(id);
                            $('#' + id).toggleClass('icon_show');
-                           console.log($('#' + id).closest('icons-delete'));
+
+                           // console.log($('#' + id).closest('icons-delete'));
                            // $('#' + id).siblings('.icon_show').toggleClass("icon_show");
                            // End delete button toggle
                        }
