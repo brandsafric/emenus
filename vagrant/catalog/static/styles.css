@@ -621,6 +621,7 @@ input[type=submit],
     /*border: 1px solid red;*/
     /*border-radius: 20px;*/
     transition: color ease-in .25s;
+    opacity: 0;
 }
 
 .icons_delete:hover i {
@@ -636,6 +637,10 @@ input[type=submit],
   content: "";
   display: table;
   clear: left;
+}
+
+.icon_show {
+    opacity: 1 !important;
 }
 /*.dd-option-image, .dd-selected-image {*/
     /*height: 40px;*/
