@@ -620,7 +620,7 @@ input[type=submit],
     color :#4f0b02;
     /*border: 1px solid red;*/
     /*border-radius: 20px;*/
-    transition: color ease-in .25s;
+    transition: color ease-in .25s, opacity ease-in .25s;
     opacity: 0;
 }
 
