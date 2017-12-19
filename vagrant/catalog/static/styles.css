@@ -613,7 +613,7 @@ input[type=submit],
 .icons_delete {
     width: 56px;
     float: left;
-    margin-top: -15px;
+    margin-top: -13px;
 }
 
 .icons_delete i {
@@ -621,6 +621,7 @@ input[type=submit],
     /*border: 1px solid red;*/
     /*border-radius: 20px;*/
     transition: color ease-in .25s, opacity ease-in .25s;
+    font-size: 20px;
     opacity: 0;
 }
 
