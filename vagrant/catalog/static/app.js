@@ -45,23 +45,27 @@ $(function () {
             });
 
             $(".img_thumbnail").click(function (e) {
+                // User clicks the thumbnail frame
                 if ($(event.target).hasClass('img_thumbnail')) {
                     if ($(event.target).hasClass('selected')) {
                         // do nothing
                     } else {
                             $(event.target).toggleClass('selected');
+                            console.log($(event.target).find('.img_tn').attr('id'));
                             $(event.target).siblings(".selected").toggleClass("selected");
                             var src = $(event.target).firstElementChild;
                             var path = $(event.target).eq(0).attr('data-imgpath');
-                            $('#target').child().val('');
+                            $('#target').children().val('');
                     }
 
                 }
+                // User clicks the image
                 else {
                     if ($(event.target).parent().hasClass('selected')) {
                         // do nothing
                     } else {
                         $(event.target).parent().toggleClass('selected');
+                        console.log(event.target.id);
                         $(event.target).parent().siblings(".selected").toggleClass("selected");
                         var path = $(event.target).eq(0).attr('data-imgpath');
                         $('#target').val(path);
@@ -94,8 +98,8 @@ $(function () {
         };
         bindEvents();
 
-        if ($("#editRestForm").length) {
-            console.log('this is the edit restaurant');
+        if (($("#editRestForm").length) || ($("#newRestForm").length)) {
+            console.log('this is the edit/new restaurant');
             var el = $('#target').attr('data-index');
             console.log(el);
             console.log($( "ul.img_gallery li.img_thumbnail:eq( 0 )" ));
@@ -110,8 +114,13 @@ $(function () {
             var image_count = $(".img_thumbnail").length;
             if (image_count >= 5) {
                 console.log('No more images permitted until you delete one.');
+                $(".btn-file").css("display", "none");
+                $(".no_upload").css("display", "block");
             }
         }
+          if ($("#newRestForm").length) {
+
+          }
 
 
 });
