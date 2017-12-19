@@ -34,37 +34,39 @@
 <div class="modal fade " id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog " role="document">
         <div class="modal-content gallery">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Image Gallery</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <span>Choose an Image</span>
-                <span class="warning">(Max 5 images)</span>
-                <ul class="img_gallery">
-                    <li class="img_thumbnail selected">
-                        <img id="img_thumbnail_0" class="img_tn" data-imgpath="not-available-abbreviation-inside-a-circle_318-33662.jpg" src="{{ url_for('static', filename='img/not-available-abbreviation-inside-a-circle_318-33662.jpg') }}" alt="img">
-                    </li>
-                    {% for k,v,z in user_pics %}
-                        <li class="img_thumbnail">
-                            <img id="img_thumbnail_{{ loop.index }}" class="img_tn" data-imgpath="{{ k }}" src="{{ url_for('static', filename='img/' + k) }}" alt="img">
+            <form id="imageForm" action="{{ url_for('some_method') }}" method="post" enctype="multipart/form-data">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Image Gallery</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <span>Choose an Image</span>
+                    <span class="warning">(Max 5 images)</span>
+                    <ul class="img_gallery">
+                        <li class="img_thumbnail selected">
+                            <img id="img_thumbnail_0" class="img_tn" data-imgpath="not-available-abbreviation-inside-a-circle_318-33662.jpg" src="{{ url_for('static', filename='img/not-available-abbreviation-inside-a-circle_318-33662.jpg') }}" alt="img">
                         </li>
-                    {% endfor %}
-                </ul>
-            <div class="image_container">
-             <div class="icons_delete">
-                 <i id="i_delete_0" class="fa fa-times-circle i_delete" aria-hidden="true"></i>
-             </div>
-             {% for k in user_pics %}
+                        {% for k,v,z in user_pics %}
+                            <li class="img_thumbnail">
+                                <img id="img_thumbnail_{{ loop.index }}" class="img_tn" data-imgpath="{{ k }}" src="{{ url_for('static', filename='img/' + k) }}" alt="img">
+                            </li>
+                        {% endfor %}
+                    </ul>
+                <div class="image_container">
                  <div class="icons_delete">
-                     <i id="i_delete_{{ loop.index }}" class="fa fa-times-circle i_delete" aria-hidden="true"></i>
+                     <i id="i_delete_0" class="fa fa-times-circle i_delete" aria-hidden="true"></i>
                  </div>
-             {% endfor %}
-            </div>
-        <span class="btn btn-default btn-file">Upload <input type="file" id="upload" name="image"></span>
-        <span class="no_upload">Please <span class="btn-remove">remove </span>a picture to free up space.</span>
+                 {% for k in user_pics %}
+                     <div class="icons_delete">
+                         <i id="i_delete_{{ loop.index }}" class="fa fa-times-circle i_delete" aria-hidden="true"></i>
+                     </div>
+                 {% endfor %}
+                </div>
+                <span class="btn btn-default btn-file">Upload <input type="file" id="upload" name="image"></span>
+                <span class="no_upload">Please <span class="btn-remove">remove </span>a picture to free up space.</span>
+            </form>
         </div>
             </div>
             <div class="modal-footer gallery">
