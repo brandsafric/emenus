@@ -51,7 +51,28 @@ $(function () {
                         // do nothing
                     } else {
                             $(event.target).toggleClass('selected');
-                            console.log($(event.target).find('.img_tn').attr('id'));
+                            // Check if the no_upload is showing
+                            if($(".no_upload").css('display') == 'block') {
+                                // Start to the delete button toggle
+                                console.log($(event.target));
+                                // console.log($(event.target).siblings(".img_thumbnail"));
+                                var img_nodes = $(event.target).siblings(".img_thumbnail");
+                                img_nodes.each(function(index) {
+                                    console.log($(this).find('.icon_show'));
+                                    $(this).find('.icon_show').toggleClass('icon_show');
+                                                  // console.log($(this).find('.img_tn'));
+                                })
+
+                                console.log($(event.target).find('.img_tn').attr('id'));
+                                // Slice the id string
+                                var id = "i_delete_" + $(event.target).find('.img_tn').attr('id').slice(-1);
+                                console.log(id);
+                                $('#' + id).toggleClass('icon_show');
+                                console.log($('#' + id).closest('icons-delete'));
+                                // .find('fa-times-circle').toggleClass("icon_show");
+                                // End delete button toggle
+                            }
+
                             $(event.target).siblings(".selected").toggleClass("selected");
                             var src = $(event.target).firstElementChild;
                             var path = $(event.target).eq(0).attr('data-imgpath');
@@ -65,7 +86,20 @@ $(function () {
                         // do nothing
                     } else {
                         $(event.target).parent().toggleClass('selected');
-                        console.log(event.target.id);
+                        if($(".no_upload").css('display') == 'block') {
+                           // Start to the delete button toggle
+                            console.log($(event.target));
+                           console.log(event.target.id);
+                           // Slice the id string
+                           var id = "i_delete_" + event.target.id.slice(-1);
+                           console.log(id);
+                           $('#' + id).toggleClass('icon_show');
+                           console.log($('#' + id).closest('icons-delete'));
+                           // $('#' + id).siblings('.icon_show').toggleClass("icon_show");
+                           // End delete button toggle
+                       }
+
+
                         $(event.target).parent().siblings(".selected").toggleClass("selected");
                         var path = $(event.target).eq(0).attr('data-imgpath');
                         $('#target').val(path);
