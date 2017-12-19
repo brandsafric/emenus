@@ -76,9 +76,6 @@ $(function () {
                     } else {
                         $(event.target).parent().toggleClass('selected');
                         if($(".no_upload").css('display') == 'block') {
-                           // Start to the delete button toggle
-                            console.log($(event.target));
-                           console.log(event.target.id);
                            // Slice the id string
                             var targetID = event.target.id.slice(-1);
                            var iName = "i_delete_" + targetID;
@@ -135,15 +132,11 @@ $(function () {
         if (($("#editRestForm").length) || ($("#newRestForm").length)) {
             console.log('this is the edit/new restaurant');
             var el = $('#target').attr('data-index');
-            console.log(el);
-            console.log($( "ul.img_gallery li.img_thumbnail:eq( 0 )" ));
-            console.log($( "ul.img_gallery li.img_thumbnail:eq("+el +" )" ));
             $( "ul.img_gallery li.img_thumbnail:eq("+ el + ")" ).toggleClass( "selected" );
 
         }
 
         if ($(".img_thumbnail").length) {
-            console.log('image gallery exists');
             console.log($(".img_thumbnail").length);
             var image_count = $(".img_thumbnail").length;
             if (image_count >= 5) {
