@@ -105,6 +105,18 @@ $(function () {
                     re = "[^\\/]+$"
                     var filename = el.match(re).toString();
                     console.log(filename);
+
+                    $.ajax({
+                        url: '/deleteImage',
+                        data: $('form').serialize(),
+                        type: 'POST',
+                        success: function(response) {
+                            console.log(response);
+                        },
+                        error: function(error) {
+                            console.log(error);
+                        }
+                    });
                 }
 
             });
@@ -151,9 +163,6 @@ $(function () {
                 $(".no_upload").css("display", "block");
             }
         }
-          if ($("#newRestForm").length) {
-
-          }
 
 
 });
