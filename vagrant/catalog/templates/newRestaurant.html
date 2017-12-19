@@ -2,9 +2,6 @@
 {% block content %}
 {% include "header.html" %}
 <div class="form-wrapper">
-{#    <div class="form_image">#}
-{#        <img data-imgpath="not-available-abbreviation-inside-a-circle_318-33662.jpg" src="{{ url_for('static', filename='img/not-available-abbreviation-inside-a-circle_318-33662.jpg') }}" alt="img">#}
-{#    </div>#}
    <!-- colored -->
     <div class="ih-item circle colored effect5 form_image"><a data-toggle="modal" data-target="#exampleModal">
         <div class="img"><img src="{{ url_for('static', filename='img/not-available-abbreviation-inside-a-circle_318-33662.jpg') }}" alt="img"></div>
@@ -18,75 +15,64 @@
     <div class="form-heading form-heading-nr">
         <h1>New Restaurant</h1>
     </div>
-
     <form id="newRestForm" action="{{ url_for('create_restaurant') }}" method="post" enctype="multipart/form-data">
         <label>Name <span class="required">*</span></label>
         <div>
             <input type="text" size="80" name="name" placeholder="Name" required>
         </div>
         <div>
-{#        <span>Choose an Image</span>#}
-{#            <ul class="img_gallery">#}
-{#                <li class="img_thumbnail selected">#}
-{#                    <img id="img_thumbnail" class="img_tn" data-imgpath="not-available-abbreviation-inside-a-circle_318-33662.jpg" src="{{ url_for('static', filename='img/not-available-abbreviation-inside-a-circle_318-33662.jpg') }}" alt="img">#}
-{#                </li>#}
-{#                {% for k,v,z in user_pics %}#}
-{#                    <li class="img_thumbnail">#}
-{#                        <img class="img_tn" data-imgpath="{{ k }}" src="{{ url_for('static', filename='img/' + k) }}" alt="img">#}
-{#                    </li>#}
-{#                {% endfor %}#}
-{#            </ul>#}
             <input id="target" type="text" name="picture" value="not-available-abbreviation-inside-a-circle_318-33662.jpg">
-
         </div>
-
-
-{#        <div>#}
-{#            <span class="btn btn-default btn-file">Upload <input type="file" id="upload" name="image"></span>#}
-{#        </div>#}
-{#        <div>#}
-            <input type="submit" value="Create">
-            <a class="cancel" href="{{ url_for('show_restaurants') }}">Cancel</a>
+            <input class="btn btn-primary" type="submit" value="Create">
+            <a class="cancel btn btn-secondary" href="{{ url_for('show_restaurants') }}">Cancel</a>
         </div>
     </form>
 </div>
 
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Image Gallery</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-          <span>Choose an Image</span>
-            <span class="warning">(Max 5 images)</span>
-            <ul class="img_gallery">
-                <li class="img_thumbnail selected">
-                    <img id="img_thumbnail" class="img_tn" data-imgpath="not-available-abbreviation-inside-a-circle_318-33662.jpg" src="{{ url_for('static', filename='img/not-available-abbreviation-inside-a-circle_318-33662.jpg') }}" alt="img">
-                </li>
-                {% for k,v,z in user_pics %}
-                    <li class="img_thumbnail">
-                        <img class="img_tn" data-imgpath="{{ k }}" src="{{ url_for('static', filename='img/' + k) }}" alt="img">
+<div class="modal fade " id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content gallery">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Image Gallery</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <span>Choose an Image</span>
+                <span class="warning">(Max 5 images)</span>
+                <ul class="img_gallery">
+                    <li class="img_thumbnail selected">
+                        <img id="img_thumbnail_0" class="img_tn" data-imgpath="not-available-abbreviation-inside-a-circle_318-33662.jpg" src="{{ url_for('static', filename='img/not-available-abbreviation-inside-a-circle_318-33662.jpg') }}" alt="img">
                     </li>
-                {% endfor %}
-            </ul>
-{#            <input id="target" type="text" name="picture" value="not-available-abbreviation-inside-a-circle_318-33662.jpg">#}
+                    {% for k,v,z in user_pics %}
+                        <li class="img_thumbnail">
+                            <img id="img_thumbnail_{{ loop.index }}" class="img_tn" data-imgpath="{{ k }}" src="{{ url_for('static', filename='img/' + k) }}" alt="img">
+                        </li>
+                    {% endfor %}
+                </ul>
+            <div class="image_container">
+             <div class="icons_delete">
+                 <i id="i_delete_0" class="fa fa-times-circle" aria-hidden="true"></i>
+             </div>
+             {% for k in user_pics %}
+                 <div class="icons_delete">
+                     <i id="i_delete_{{ loop.index }}" class="fa fa-times-circle" aria-hidden="true"></i>
+                 </div>
+             {% endfor %}
+            </div>
+        <span class="btn btn-default btn-file">Upload <input type="file" id="upload" name="image"></span>
+        <span class="no_upload">Please <span class="btn-remove">remove </span>a picture to free up space.</span>
         </div>
-        <div>
-            <span class="btn btn-default btn-file">Upload <input type="file" id="upload" name="image"></span>
+            </div>
+            <div class="modal-footer gallery">
+                <button type="button" class="btn btn-primary btn-save">Save</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
         </div>
-      </div>
-          <button type="button" class="btn btn-save" data-dismiss="modal">Close</button>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-cancel" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-save">Save changes</button>
-      </div>
     </div>
-  </div>
 </div>
+
 {% endblock %}
