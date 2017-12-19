@@ -638,6 +638,11 @@ def restaurant_item_json(restaurant_id, menu_id):
     return jsonify(items=[item.serialize])
 # End API Endpoints
 
+@app.route('/deleteImage', methods=['POST'])
+def delete_image():
+    filename =  request.form['filename'];
+    return json.dumps({'status':'OK','filename':filename,'deleted':'yes'});
+
 
 if __name__ == '__main__':
     app.secret_key = 'super_secret_key'
