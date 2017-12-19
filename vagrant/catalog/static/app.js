@@ -99,6 +99,12 @@ $(function () {
             $(".i_delete").click(function (e) {
                 if ($(e.target).hasClass('icon_show')) {
                     console.log('delete click');
+                    var targetID = event.target.id.slice(-1);
+                    imgName = "#img_thumbnail_" + targetID;
+                    el = $(imgName).attr('src');
+                    re = "[^\\/]+$"
+                    var filename = el.match(re).toString();
+                    console.log(filename);
                 }
 
             });
