@@ -64,7 +64,6 @@ $(function () {
                                     }
                                 })
                             }
-
                             $(event.target).siblings(".selected").toggleClass("selected");
                             $('#target').children().val('');
                     }
@@ -99,6 +98,14 @@ $(function () {
                         }
                 }
             });
+
+            $(".i_delete").click(function (e) {
+                if ($(e.target).hasClass('icon_show')) {
+                    console.log('delete click');
+                }
+
+            });
+
 
             $("#upload").change(function(e){
                 console.log('File has changed.');
