@@ -563,7 +563,8 @@ input[type=submit],
 }
 
 
-.btn-save:hover {
+.btn-save:hover,
+.btn-set:hover {
     background: #246939;
 }
 
