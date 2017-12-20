@@ -52,7 +52,7 @@ $(function () {
                     } else {
                             $(event.target).toggleClass('selected');
                             // Check if the no_upload is showing
-                            if($(".no_upload").css('display') == 'block') {
+                            // if($(".no_upload").css('display') == 'block') {
                                 // Slice the id string
                                 var id = "i_delete_" + $(event.target).find('.img_tn').attr('id').slice(-1);
                                 $('#' + id).toggleClass('icon_show');
@@ -63,7 +63,7 @@ $(function () {
                                         $(this).children().toggleClass('icon_show');
                                     }
                                 })
-                            }
+                            // }
                             $(event.target).siblings(".selected").toggleClass("selected");
                             $('#target').children().val('');
                     }
@@ -75,7 +75,7 @@ $(function () {
                         // do nothing
                     } else {
                         $(event.target).parent().toggleClass('selected');
-                        if($(".no_upload").css('display') == 'block') {
+                        // if($(".no_upload").css('display') == 'block') {
                            // Slice the id string
                             var targetID = event.target.id.slice(-1);
                            var iName = "i_delete_" + targetID;
@@ -88,7 +88,7 @@ $(function () {
                                     $(this).children().toggleClass('icon_show');
                                 }
                             })
-                       }
+                       // }
                         $(event.target).parent().siblings(".selected").toggleClass("selected");
                         var path = $(event.target).eq(0).attr('data-imgpath');
                         $('#target').val(path);
@@ -101,22 +101,41 @@ $(function () {
                     console.log('delete click');
                     var targetID = event.target.id.slice(-1);
                     imgName = "#img_thumbnail_" + targetID;
-                    el = $(imgName).attr('src');
+                    el = $(imgName);
+                    src = el.attr('src');
                     re = "[^\\/]+$"
-                    var filename = el.match(re).toString();
+                    var filename = src.match(re).toString();
                     console.log(filename);
+                    $('#delete_image').val(filename);
+                    var image = $('#delete_image').val();
 
-                    $.ajax({
-                        url: '/deleteImage',
-                        data: $('form').serialize(),
-                        type: 'POST',
-                        success: function(response) {
-                            console.log(response);
-                        },
-                        error: function(error) {
-                            console.log(error);
-                        }
-                    });
+                    // Test to see if it removes
+                    var iParent = el.parent().get(0);
+                    console.log(iParent);
+                    var icon = $(event.target).parent().get(0);
+                    console.log(icon);
+                    $(iParent).css('display', 'none');
+                    $(icon).css('display', 'none');
+                     console.log('Images can now be added');
+                    $(".btn-file").css("display", "block");
+                    $(".no_upload").css("display", "none");
+
+
+
+                    // $.ajax({
+                    //
+                    //     url: '/deleteImage',
+                    //     data: $('form').serialize(),
+                    //     type: 'POST',
+                    //     success: function(response) {
+                    //         console.log(response);
+                    //         // Remove the image from the page
+                    //
+                    //     },
+                    //     error: function(error) {
+                    //         console.log(error);
+                    //     }
+                    // });
                 }
 
             });
