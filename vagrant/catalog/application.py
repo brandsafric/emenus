@@ -648,12 +648,12 @@ def delete_image():
     f = os.path.join(app.config['UPLOAD_FOLDER'], path, filename)
     print f
     if os.path.exists(f):
-	try:
-		os.remove(f)
-	except OSError, e:
-		print ("Error: %s - %s." % (e.f,e.strerror))
+        try:
+            os.remove(f)
+        except OSError, e:
+            print ("Error: %s - %s." % (e.f,e.strerror))
     else:
-	    print("Sorry, I can not find %s file." % f)
+        print("Sorry, I can not find %s file." % f)
     # restaurantToEdit.picture = 'uploads/' + path + '/' + file.filename
     # restaurantToEdit.picture = path + '/' + file.filename
     # print f
