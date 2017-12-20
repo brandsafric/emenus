@@ -641,6 +641,31 @@ def restaurant_item_json(restaurant_id, menu_id):
 @app.route('/deleteImage', methods=['POST'])
 def delete_image():
     filename =  request.form['filename'];
+    user = get_user_info(login_session['user_id'])
+    print user
+   # Get the path for the user
+   #  user = get_user_info(restaurantToEdit.user_id)
+    path = user.path
+    print path
+    f = os.path.join(app.config['UPLOAD_FOLDER'], path, filename)
+    print f
+    if os.path.exists(f):
+	try:
+		os.remove(f)
+	except OSError, e:
+		print ("Error: %s - %s." % (e.f,e.strerror))
+    else:
+	    print("Sorry, I can not find %s file." % f)
+    # restaurantToEdit.picture = 'uploads/' + path + '/' + file.filename
+    # restaurantToEdit.picture = path + '/' + file.filename
+    # print f
+    # print 'here'
+    # restaurantToEdit.picture = 'uploads/' + login_session{'gplus_id'+ file.filename
+    # add your custom code to check that the uploaded file is a valid
+    # image and not a malicious file (out-of-scope for this post)
+    # file.save(f)
+
+
     return json.dumps({'status':'OK','filename':filename,'deleted':'yes'});
 
 
