@@ -34,7 +34,7 @@
 <div class="modal fade " id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog " role="document">
         <div class="modal-content gallery">
-            <form id="imageForm" action="{{ url_for('some_method') }}" method="post" enctype="multipart/form-data">
+            <form id="imageForm" action="{{ url_for('delete_image') }}" method="post" enctype="multipart/form-data">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Image Gallery</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -66,6 +66,7 @@
                 </div>
                 <span class="btn btn-default btn-file">Upload <input type="file" id="upload" name="image"></span>
                 <span class="no_upload">Please <span class="btn-remove">remove </span>a picture to free up space.</span>
+                <input id="delete_image" type="text" name="filename" value="">
             </form>
         </div>
             </div>
