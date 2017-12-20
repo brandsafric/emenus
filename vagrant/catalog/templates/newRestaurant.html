@@ -3,6 +3,7 @@
 {% include "header.html" %}
 <div class="form-wrapper">
    <!-- colored -->
+
     <div class="ih-item circle colored effect5 form_image">
         <a data-toggle="modal" data-target="#exampleModal">
             <div class="img"><img id="rest_img" src="{{ url_for('static', filename='img/not-available-abbreviation-inside-a-circle_318-33662.jpg') }}" alt="img"></div>
@@ -52,7 +53,7 @@
                         </li>
                         {% for k,v,z in user_pics %}
                             <li class="img_thumbnail">
-                                <img id="img_thumbnail_{{ loop.index }}" class="img_tn" data-imgpath="{{ k }}" src="{{ url_for('static', filename='img/' + k) }}" alt="img">
+                                <img id="img_thumbnail_{{ loop.index }}" class="img_tn" data-usrpath = "{{ k }}" data-filename = "{{ v }}" data-imgpath="{{ z }}" src="{{ url_for('static', filename='img/' + k) }}" alt="img">
                             </li>
                         {% endfor %}
                     </ul>
