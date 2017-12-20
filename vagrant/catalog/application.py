@@ -345,9 +345,6 @@ def create_restaurant():
     if request.method == 'POST':
         try:
             file = request.files['image']
-        except:
-            print "Error with Image upload."
-        if file:
             # Get the path for the user
             path = user.path
             f = os.path.join(app.config['UPLOAD_FOLDER'], path, file.filename)
@@ -358,7 +355,8 @@ def create_restaurant():
             # add your custom code to check that the uploaded file is a valid
             # image and not a malicious file (out-of-scope for this post)
             file.save(f)
-        else:
+        except:
+            print "No file specified for image upload."
             index = request.form['picture'];
             try:
                 newRestaurant = Restaurant(name=request.form['name'],

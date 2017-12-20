@@ -144,6 +144,12 @@ $(function () {
             $(".btn-set").on("click", function() {
                 console.log('Image has been set.');
                 // Change the image on the form circle to be the selected image.
+                var img = $('#target');
+                console.log(img.val());
+                var rest = $('#rest_img');
+                console.log(rest.attr('src'));
+                var path="/static/img/" + img.val();
+                rest.attr('src', path);
 
             });
 
