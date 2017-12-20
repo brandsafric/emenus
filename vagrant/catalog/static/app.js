@@ -96,6 +96,7 @@ $(function () {
                 }
             });
 
+
             $(".i_delete").click(function (e) {
                 if ($(e.target).hasClass('icon_show')) {
                     console.log('delete click');
@@ -140,6 +141,11 @@ $(function () {
 
             });
 
+            $(".btn-set").on("click", function() {
+                console.log('Image has been set.');
+                // Change the image on the form circle to be the selected image.
+
+            });
 
             $("#upload").change(function(e){
                 console.log('File has changed.');
