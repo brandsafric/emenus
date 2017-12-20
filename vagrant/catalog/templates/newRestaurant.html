@@ -3,14 +3,17 @@
 {% include "header.html" %}
 <div class="form-wrapper">
    <!-- colored -->
-    <div class="ih-item circle colored effect5 form_image"><a data-toggle="modal" data-target="#exampleModal">
-        <div class="img"><img src="{{ url_for('static', filename='img/not-available-abbreviation-inside-a-circle_318-33662.jpg') }}" alt="img"></div>
-        <div class="info">
-          <div class="info-back info-bg">
-            <h3>Change Picture</h3>
-            <p>View your image gallery</p>
-          </div>
-        </div></a></div>
+    <div class="ih-item circle colored effect5 form_image">
+        <a data-toggle="modal" data-target="#exampleModal">
+            <div class="img"><img id="rest_img" src="{{ url_for('static', filename='img/not-available-abbreviation-inside-a-circle_318-33662.jpg') }}" alt="img"></div>
+            <div class="info">
+              <div class="info-back info-bg">
+                <h3>Change Picture</h3>
+                <p>View your image gallery</p>
+              </div>
+            </div>
+        </a>
+    </div>
     <!-- end colored -->
     <div class="form-heading form-heading-nr">
         <h1>New Restaurant</h1>
@@ -23,9 +26,8 @@
         <div>
             <input id="target" type="text" name="picture" value="not-available-abbreviation-inside-a-circle_318-33662.jpg">
         </div>
-            <input class="btn btn-primary" type="submit" value="Create">
-            <a class="cancel btn btn-secondary" href="{{ url_for('show_restaurants') }}">Cancel</a>
-        </div>
+        <input class="btn btn-primary" type="submit" value="Create">
+        <a class="cancel btn btn-secondary" href="{{ url_for('show_restaurants') }}">Cancel</a>
     </form>
 </div>
 
@@ -69,12 +71,10 @@
                 <input id="delete_image" type="text" name="filename" value="">
             </form>
         </div>
-            </div>
             <div class="modal-footer gallery">
                 <button id="btn-set" type="button" class="btn btn-primary btn-set">Set</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
             </div>
-        </div>
     </div>
 </div>
 
