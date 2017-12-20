@@ -170,24 +170,57 @@ $(function () {
                 }
                  });
         };
-        bindEvents();
 
-        if (($("#editRestForm").length) || ($("#newRestForm").length)) {
-            console.log('this is the edit/new restaurant');
-            var el = $('#target').attr('data-index');
-            $( "ul.img_gallery li.img_thumbnail:eq("+ el + ")" ).toggleClass( "selected" );
+        var bindForms = function() {
 
-        }
+            var imageItems = [];
+            var imageNode = $(".img_tn");
 
-        if ($(".img_thumbnail").length) {
-            console.log($(".img_thumbnail").length);
-            var image_count = $(".img_thumbnail").length;
-            if (image_count >= 5) {
-                console.log('No more images permitted until you delete one.');
-                $(".btn-file").css("display", "none");
-                $(".no_upload").css("display", "block");
+            imageNode.each(function(index) {
+                var src = $(this).attr('src');
+                var imgPath = $(this).attr('data-imgpath');
+                var usrPath = $(this).attr('data-usrpath');
+                var filename = $(this).attr('data-filename');
+
+                var userDir = src.replace(imgPath, '');
+
+                console.log( index + ' : ' + src);
+                console.log( index + ' : ' + imgPath);
+                console.log( index + ' : ' + userDir);
+                console.log( index + ' : ' + usrPath);
+                console.log( index + ' : ' + filename);
+
+            });
+
+
+
+            if (($("#editRestForm").length) || ($("#newRestForm").length)) {
+                console.log('this is the edit/new restaurant');
+                var el = $('#target').attr('data-index');
+                $( "ul.img_gallery li.img_thumbnail:eq("+ el + ")" ).toggleClass( "selected" );
+
             }
-        }
+
+            //Check for image thumbnails on the image_gallery.
+            if ($(".img_thumbnail").length) {
+                console.log($(".img_thumbnail").length);
+                var image_count = $(".img_thumbnail").length;
+
+                $()
+
+                if (image_count >= 5) {
+                    console.log('No more images permitted until you delete one.');
+                    $(".btn-file").css("display", "none");
+                    $(".no_upload").css("display", "block");
+                }
+            }
+
+
+        };
+
+
+        bindEvents();
+        bindForms();
 
 
 });
