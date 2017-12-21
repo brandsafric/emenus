@@ -104,61 +104,48 @@ $(function () {
 
             $(".i_delete").click(function (e) {
                 if ($(e.target).hasClass('icon_show')) {
-                    var pID = '#' + ($(this).attr("data-parent"));
-                    // console.log($(event.target).val('data-parent'));
-                    // console.log($(e.target).val('data-parent'));
-                    // var p = ($(e.target).val('data-parent'));
-
-
                     console.log('delete click');
-                    var targetID = event.target.id.slice(-1);
-                    imgName = "#img_thumbnail_" + targetID;
-                    el = $(imgName);
-                    // Grab the src attribute.
-                    src = el.attr('src');
-                    re = "[^\\/]+$"
-                    // Strip the src to reveal the filename
-                    var filename = src.match(re).toString();
-                    console.log(filename);
 
-                    // $('#delete_image').val(filename);
-                    // var image = $('#delete_image').val();
-                    // console.log(image);
+                    //Grab the data-parent attribute which stores the ID of the parent
+                    var iconID = '#' + ($(this).attr("data-parent"));
+                    // Grab the index of the imagge
+                    var imgIndex = ($(this).attr("data-index"));
+                    // Grab the data-tn attribute which stores the ID of the img_thumbnail
+                    var imgID = '#' + ($(this).attr("data-tn"));
+                    // Grab the node objects
+                    var imgNode = $(imgID);
+                    var iNode = $(iconID);
 
-                    // Test to see if it removes
-                    var iParent = el.parent().get(0);
-                    iParent = ($(e.target).val('data-parent'));
-                    console.log(iParent);
-                    iParent = $(pID);
-                    console.log(iParent);
+                    console.log(iNode);
+                    console.log(imgNode);
+                    console.log(imgIndex);
 
-
-
-
-                    var icon = $(event.target).parent().get(0);
-                    console.log(icon);
-                    $(iParent).css('display', 'none');
-                    $(icon).css('display', 'none');
+                    // var icon = $(event.target).parent().get(0);
+                    // console.log(icon);
+                    $(iNode).css('display', 'none');
+                    $(imgNode).css('display', 'none');
                      console.log('Images can now be added');
                     $(".btn-file").css("display", "block");
                     $(".no_upload").css("display", "none");
 
+                    var data = "{'image_index':'" + imgIndex + "'}";
 
 
-                    // $.ajax({
-                    //
-                    //     url: '/deleteImage',
-                    //     data: $('form').serialize(),
-                    //     type: 'POST',
-                    //     success: function(response) {
-                    //         console.log(response);
-                    //         // Remove the image from the page
-                    //
-                    //     },
-                    //     error: function(error) {
-                    //         console.log(error);
-                    //     }
-                    // });
+                    $.ajax({
+
+                        url: '/deleteImage',
+                        contentType: 'application/json',
+                        data: JSON.stringify(data),
+                        type: 'POST',
+                        success: function(response) {
+                            console.log(response);
+                            // Remove the image from the page
+
+                        },
+                        error: function(error) {
+                            console.log(error);
+                        }
+                    });
                 }
 
             });
