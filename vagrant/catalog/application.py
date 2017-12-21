@@ -643,9 +643,9 @@ def restaurant_item_json(restaurant_id, menu_id):
 @app.route('/deleteImage', methods=['POST'])
 def delete_image():
     print "test"
-    idx = request.json
-    for item in idx:
-        print item
+    data = request.get_json()
+    print data['image_index']
+    index = data['image_index']
     # print idx[1]
     # print "filename idx : "
     # print idx
@@ -674,7 +674,7 @@ def delete_image():
     # file.save(f)
 
 
-    # return json.dumps({'status':'OK','filename':filename,'deleted':'yes'});
+    return json.dumps({'status':'OK','index':index,'deleted':'yes'});
 
 
 if __name__ == '__main__':
