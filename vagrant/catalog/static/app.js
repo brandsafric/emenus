@@ -104,20 +104,37 @@ $(function () {
 
             $(".i_delete").click(function (e) {
                 if ($(e.target).hasClass('icon_show')) {
+                    var pID = '#' + ($(this).attr("data-parent"));
+                    // console.log($(event.target).val('data-parent'));
+                    // console.log($(e.target).val('data-parent'));
+                    // var p = ($(e.target).val('data-parent'));
+
+
                     console.log('delete click');
                     var targetID = event.target.id.slice(-1);
                     imgName = "#img_thumbnail_" + targetID;
                     el = $(imgName);
+                    // Grab the src attribute.
                     src = el.attr('src');
                     re = "[^\\/]+$"
+                    // Strip the src to reveal the filename
                     var filename = src.match(re).toString();
                     console.log(filename);
-                    $('#delete_image').val(filename);
-                    var image = $('#delete_image').val();
+
+                    // $('#delete_image').val(filename);
+                    // var image = $('#delete_image').val();
+                    // console.log(image);
 
                     // Test to see if it removes
                     var iParent = el.parent().get(0);
+                    iParent = ($(e.target).val('data-parent'));
                     console.log(iParent);
+                    iParent = $(pID);
+                    console.log(iParent);
+
+
+
+
                     var icon = $(event.target).parent().get(0);
                     console.log(icon);
                     $(iParent).css('display', 'none');
@@ -193,6 +210,8 @@ $(function () {
                 console.log( index + ' : ' + usrPath);
                 console.log( index + ' : ' + filename);
 
+
+
             });
 
 
@@ -209,7 +228,6 @@ $(function () {
                 console.log($(".img_thumbnail").length);
                 var image_count = $(".img_thumbnail").length;
 
-                $()
 
                 if (image_count >= 5) {
                     console.log('No more images permitted until you delete one.');
@@ -225,7 +243,7 @@ $(function () {
         // Check to see if this is the newRestForm or editForm.
         if (($("#editRestForm").length) || ($("#newRestForm").length)) {
             // If ao, bind form events.
-                bindForms();
+            bindForms();
         }
 
 
