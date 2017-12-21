@@ -383,7 +383,11 @@ def get_pictures(path):
     full_path = os.path.join(app.config['UPLOAD_FOLDER'], path)
     user_path = 'uploads/' + path + '/';
     for filename in os.listdir(full_path):
-        user_pics.append([user_path + filename, filename, user_path + filename])
+        user_pics.append([user_path + filename, filename, user_path])
+    for idx, val in enumerate(user_pics):
+        print str(idx) + " (path) : " + val[0]
+        print str(idx) + " (filename) : " + val[1]
+        print str(idx) + " (user_path) : " + val[2]
     return user_pics
 
 
