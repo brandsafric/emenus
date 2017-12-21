@@ -383,7 +383,7 @@ def get_pictures(path):
     full_path = os.path.join(app.config['UPLOAD_FOLDER'], path)
     user_path = 'uploads/' + path + '/';
     for filename in os.listdir(full_path):
-        user_pics.append([user_path + filename, filename, user_path])
+        user_pics.append([user_path + filename, filename, path + '/' + filename])
     for idx, val in enumerate(user_pics):
         print str(idx) + " (path) : " + val[0]
         print str(idx) + " (filename) : " + val[1]
@@ -442,7 +442,7 @@ def edit_restaurant(restaurant_id):
         print user_pics
 
         try:
-            print user_pics[0][0]
+            print user_pics[0][2]
         except ValueError:
             print("List does not contain value")
 
@@ -642,28 +642,22 @@ def restaurant_item_json(restaurant_id, menu_id):
 
 @app.route('/deleteImage', methods=['POST'])
 def delete_image():
-    print "test"
     data = request.get_json()
-    print data['image_index']
-    index = data['image_index']
-    # print idx[1]
-    # print "filename idx : "
-    # print idx
-   #  user = get_user_info(login_session['user_id'])
-   #  print user
-   # # Get the path for the user
-   # #  user = get_user_info(restaurantToEdit.user_id)
-   #  path = user.path
-   #  print path
-   #  f = os.path.join(app.config['UPLOAD_FOLDER'], path, filename)
-   #  print f
-   #  if os.path.exists(f):
-   #      try:
-   #          os.remove(f)
-   #      except OSError, e:
-   #          print ("Error: %s - %s." % (e.f,e.strerror))
-   #  else:
-   #      print("Sorry, I can not find %s file." % f)
+    index = int(data['image_index'])
+    user = get_user_info(login_session['user_id'])
+   # Get the path for the user
+    path = user.path
+    user_pics = get_pictures(path)
+    image_to_delete = user_pics[index][2]
+    f = os.path.join(app.config['UPLOAD_FOLDER'], image_to_delete)
+    if os.path.exists(f):
+        try:
+            # os.remove(item_to_delete)
+            print "deleted " + f
+        except OSError, e:
+            print ("Error: {0} - {1}.".format(e.f,e.strerror))
+    else:
+        print("Sorry, I can not find {0} file.".format(f))
     # restaurantToEdit.picture = 'uploads/' + path + '/' + file.filename
     # restaurantToEdit.picture = path + '/' + file.filename
     # print f
