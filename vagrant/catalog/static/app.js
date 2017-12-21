@@ -128,14 +128,13 @@ $(function () {
                     $(".btn-file").css("display", "block");
                     $(".no_upload").css("display", "none");
 
-                    var data = "{'image_index':'" + imgIndex + "'}";
-
+                    var data = {"image_index":imgIndex};
 
                     $.ajax({
-
                         url: '/deleteImage',
                         contentType: 'application/json',
                         data: JSON.stringify(data),
+                        dataType : 'json',
                         type: 'POST',
                         success: function(response) {
                             console.log(response);
