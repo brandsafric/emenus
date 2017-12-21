@@ -44,6 +44,11 @@ $(function () {
                 sortListDir();
             });
 
+
+        };
+
+        var bindForms = function() {
+
             $(".img_thumbnail").click(function (e) {
                 // User clicks the thumbnail frame
                 if ($(event.target).hasClass('img_thumbnail')) {
@@ -144,12 +149,6 @@ $(function () {
             $(".btn-set").on("click", function() {
                 console.log('Image has been set.');
                 // Change the image on the form circle to be the selected image.
-                var img = $('#target');
-                console.log(img.val());
-                var rest = $('#rest_img');
-                console.log(rest.attr('src'));
-                var path="/static/img/" + img.val();
-                rest.attr('src', path);
 
             });
 
@@ -175,9 +174,7 @@ $(function () {
                     // Continue on...
                 }
                  });
-        };
 
-        var bindForms = function() {
 
             var imageItems = [];
             var imageNode = $(".img_tn");
@@ -224,9 +221,14 @@ $(function () {
 
         };
 
-
         bindEvents();
-        bindForms();
+        // Check to see if this is the newRestForm or editForm.
+        if (($("#editRestForm").length) || ($("#newRestForm").length)) {
+            // If ao, bind form events.
+                bindForms();
+        }
+
+
 
 
 });
