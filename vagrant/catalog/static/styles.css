@@ -410,6 +410,8 @@ footer div a:hover {
 
 /*forms*/
 
+
+
 form {
     margin-left: 20px;
     max-width: 500px;
@@ -591,25 +593,16 @@ input[type=submit],
 }
 
 .gallery {
-        background-color: #005b34;
+    background-color: #005b34;
+    /*Needed so that the scroll bar does not appear on the amimated button child div*/
+    overflow-y: hidden;
 }
-/*.tn_rest {*/
-    /*width: 100px;*/
-                /*}*/
 
 .no_upload {
     display: none;
     color: #66d3a5;
 }
 
-.btn-remove {
-    /*transition: background: .5s, color .25s;*/
-}
-
-.btn-remove:hover {
-    /*color: white;*/
-    /*background: #66d3a5;*/
-}
 
 .icons_delete {
     width: 56px;
@@ -631,7 +624,7 @@ input[type=submit],
 }
 
 .image_container {
-    margin-left: 40px;
+    margin-left: 96px;
     text-align: center;
 }
 
@@ -644,19 +637,22 @@ input[type=submit],
 .icon_show {
     opacity: 1 !important;
 }
-/*.dd-option-image, .dd-selected-image {*/
-    /*height: 40px;*/
-    /*margin-right: 10px !important;*/
-    /*PADDING: 6px;*/
-/*}*/
+.upload_container,
+.file_container {
+    text-align: center;
+}
 
-/*.dd-option-image {*/
-    /*background: #f7dad6;*/
-/*}*/
 
-/*.dd-select {*/
-    /*width: 210px;*/
-/*}*/
+.file_container {
+    font-size: 12px;
+}
+
+.upload_container {
+    /*opacity: 0;*/
+    transition: opacity ease-in-out .75s;
+    visibility: hidden;
+}
+
 
 #course {
     width: 19em;
