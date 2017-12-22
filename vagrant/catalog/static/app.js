@@ -175,6 +175,9 @@ $(function () {
                 }
                 else {
                     // Continue on...
+                    $(".upload_container").css("visibility", "visible");
+                                        $(".upload_container").addClass('animated bounceInUp');
+
                 }
                  });
 
