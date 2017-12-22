@@ -58,16 +58,17 @@
                         {% endfor %}
                     </ul>
                 <div class="image_container">
-                 <div class="icons_delete">
-                     <i id="i_delete_0" class="fa fa-times-circle i_delete" aria-hidden="true"></i>
-                 </div>
+{#                 <div class="icons_delete">#}
+{#                     <i id="i_delete_0" class="fa fa-times-circle i_delete" aria-hidden="true"></i>#}
+{#                 </div>#}
                  {% for k in user_pics %}
                      <div class="icons_delete" id="icons_delete_{{ loop.index }}">
                          <i id="i_delete_{{ loop.index }}" data-index="{{ loop.index - 1 }}" data-tn="img_thumbnail_{{ loop.index }}" data-parent="icons_delete_{{ loop.index }}" class="fa fa-times-circle i_delete" aria-hidden="true"></i>
                      </div>
                  {% endfor %}
                 </div>
-                <span class="btn btn-default btn-file">Upload <input type="file" id="upload" name="image"></span>
+                <div class="file_container"><input type="file" id="upload" name="image"></div>
+                <div class="upload_container"><button class="btn btn-default btn-file ">Upload a file</button></div>
                 <span class="no_upload">Please <span class="btn-remove">remove </span>a picture to free up space.</span>
                 <input id="delete_image" type="text" name="filename" value="">
             </form>
