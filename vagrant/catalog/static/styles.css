@@ -599,7 +599,7 @@ input[type=submit],
 }
 
 .no_upload {
-    display: none;
+    visibility: hidden;
     color: #66d3a5;
 }
 
@@ -651,6 +651,7 @@ input[type=submit],
     /*opacity: 0;*/
     transition: opacity ease-in-out .75s;
     visibility: hidden;
+    /*display: none;*/
 }
 
 
