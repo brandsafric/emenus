@@ -125,8 +125,8 @@ $(function () {
                     $(iNode).css('display', 'none');
                     $(imgNode).css('display', 'none');
                      console.log('Images can now be added');
-                    $(".btn-file").css("display", "block");
-                    $(".no_upload").css("display", "none");
+                    $(".file_container").css("visibility", "visible");
+                    $(".no_upload").css("visibility", "hidden");
 
                     var data = {"image_index":imgIndex};
 
@@ -175,8 +175,9 @@ $(function () {
                 }
                 else {
                     // Continue on...
+                    // $(".upload_container").css("display", "block");
                     $(".upload_container").css("visibility", "visible");
-                                        $(".upload_container").addClass('animated bounceInUp');
+                    $(".upload_container").addClass('animated bounceInUp');
 
                 }
                  });
@@ -220,8 +221,9 @@ $(function () {
 
                 if (image_count >= 5) {
                     console.log('No more images permitted until you delete one.');
-                    $(".btn-file").css("display", "none");
-                    $(".no_upload").css("display", "block");
+                    // $(".btn-file").css("display", "none");
+                    $(".no_upload").css("visibility", "visible");
+                    $(".file_container").css('visibility', 'hidden');
                 }
             }
 
