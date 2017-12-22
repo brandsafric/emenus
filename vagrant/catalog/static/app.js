@@ -176,6 +176,7 @@ $(function () {
                 else {
                     // Continue on...
                     // $(".upload_container").css("display", "block");
+                    $(".no_upload").css("margin-top", "0");
                     $(".upload_container").css("visibility", "visible");
                     $(".upload_container").addClass('animated bounceInUp');
 
@@ -224,6 +225,7 @@ $(function () {
                     // $(".btn-file").css("display", "none");
                     $(".no_upload").css("visibility", "visible");
                     $(".file_container").css('visibility', 'hidden');
+                    $(".no_upload").css("margin-top", "-50px");
                 }
             }
 
