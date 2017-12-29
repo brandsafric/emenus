@@ -2,11 +2,11 @@
 {% block content %}
 {% include "header.html" %}
 <div class="form-wrapper">
-   <!-- colored -->
-
     <div class="ih-item circle colored effect5 form_image">
         <a data-toggle="modal" data-target="#exampleModal">
-            <div class="img"><img id="rest_img" src="{{ url_for('static', filename='img/not-available-abbreviation-inside-a-circle_318-33662.jpg') }}" alt="img"></div>
+            <div class="img">
+                <img id="rest_img" src="{{ url_for('static', filename='img/not-available-abbreviation-inside-a-circle_318-33662.jpg') }}" alt="img">
+            </div>
             <div class="info">
               <div class="info-back info-bg">
                 <h3>Change Picture</h3>
@@ -37,7 +37,7 @@
 <div class="modal fade " id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog " role="document">
         <div class="modal-content gallery">
-            <form id="imageForm" action="{{ url_for('delete_image') }}" method="post" enctype="multipart/form-data">
+{#            <form id="imageForm" action="{{ url_for('upload_image') }}" method="post" enctype="multipart/form-data">#}
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Image Gallery</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -68,10 +68,10 @@
                  {% endfor %}
                 </div>
                 <div class="file_container"><input type="file" id="upload" name="image"></div>
-                <div class="upload_container"><button class="btn btn-default btn-file ">Upload file</button></div>
+                <div class="upload_container"><button class="btn btn-default btn-file">Upload file</button></div>
                 <div class="no_upload">Please remove a picture to free up space.</div>
                 <input id="delete_image" type="text" name="filename" value="">
-            </form>
+{#            </form>#}
         </div>
             <div class="modal-footer gallery">
                 <button id="btn-set" type="button" class="btn btn-primary btn-set" data-dismiss="modal">Set</button>
