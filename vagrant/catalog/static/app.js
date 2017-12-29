@@ -194,21 +194,36 @@ $(function () {
 
             var imageItems = [];
             var imageNode = $(".img_tn");
+            var selected = $('#target').val();
+            console.log(selected);
 
             imageNode.each(function(index) {
+                var parent = $(this).parent().get(0);
+                $(this).parent().parent().attr('id');
                 var src = $(this).attr('src');
                 var imgPath = $(this).attr('data-imgpath');
-                var usrPath = $(this).attr('data-usrpath');
-                var filename = $(this).attr('data-filename');
-
-                var userDir = src.replace(imgPath, '');
 
                 console.log( index + ' : ' + src);
                 console.log( index + ' : ' + imgPath);
-                console.log( index + ' : ' + userDir);
-                console.log( index + ' : ' + usrPath);
-                console.log( index + ' : ' + filename);
+
+                if (imgPath == selected && ($("#editRestForm").length)) {
+                    console.log('match');
+                    console.log('edit restaurant form')
+                    console.log(imgPath);
+                    console.log(parent);
+                    $(parent).toggleClass('selected');
+                    // console.log(parent.attr('id'));
+                    // var parent = self.parent().get(0);
+                    // parent.toggleClass('selected');
+                }
+
+
             });
+
+
+
+
+
 
             if (($("#editRestForm").length) || ($("#newRestForm").length)) {
                 console.log('this is the edit/new restaurant');
