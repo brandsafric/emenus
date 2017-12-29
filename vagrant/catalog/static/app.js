@@ -101,6 +101,27 @@ $(function () {
                 }
             });
 
+            $(".btn-file").click(function (e) {
+                var file = document.getElementById('upload').files[0]; //Files[0] = 1st file
+                var filename = document.getElementById('upload').files[0].name; //Should be 'picture.jpg'
+                console.log('image');
+                var formData = new FormData();
+                formData.append('image', file, filename);
+
+                $.ajax({
+                        url: '/uploadImage',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        type: 'POST',
+                        success: function(response) {
+                            console.log(response);
+                        },
+                        error: function(error) {
+                            console.log(error);
+                        }
+                    });
+            });
 
             $(".i_delete").click(function (e) {
                 if ($(e.target).hasClass('icon_show')) {
@@ -124,7 +145,7 @@ $(function () {
                     // console.log(icon);
                     $(iNode).css('display', 'none');
                     $(imgNode).css('display', 'none');
-                     console.log('Images can now be added');
+                     console.log('Images can be added');
                     $(".file_container").css("visibility", "visible");
                     $(".no_upload").css("visibility", "hidden");
 
