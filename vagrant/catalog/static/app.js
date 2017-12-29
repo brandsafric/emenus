@@ -56,7 +56,6 @@ $(function () {
             $(".btn-file").click(function (e) {
                 var file = document.getElementById('upload').files[0]; //Files[0] = 1st file
                 var filename = document.getElementById('upload').files[0].name; //Should be 'picture.jpg'
-                console.log('image');
                 var formData = new FormData();
                 formData.append('image', file, filename);
 
@@ -78,8 +77,8 @@ $(function () {
                                 console.log('status is ok');
                                 // Grab the index of the new element
                                 var index = ($(".img_gallery .img_tn").length);
-                                var HTMLimage = '<li class="img_thumbnail" id="img_thumbnail_%data%"><img id="img_thumbnail%data%" class="img_tn img_tn_ul" src="" alt="img"></li>';
-                                var formattedHTML = HTMLimage.replace('%data%', index).replace('%data%', index);
+                                var HTMLimage = '<li class="img_thumbnail" id="img_thumbnail_%data%" data-index="%data%"><img id="img_thumbnail%data%" class="img_tn img_tn_ul" data-index="%data%" src="" alt="img"></li>';
+                                var formattedHTML = HTMLimage.replace(/%data%/g, index);
                                 // Add the image thumbnail node
                                 $('.img_gallery').append(formattedHTML);
                                 var node = $('.img_tn_ul');
@@ -88,22 +87,44 @@ $(function () {
                                 reader.onloadend = function () {
                                     node.attr("src", reader.result);
                                     console.log('Image node has been added');
+                                    console.log(index);
+                                    console.log(node);
+                                    var parent = $(node).parent().get(0);
+                                    var bro_nodes = $(parent).siblings();
+                                    console.log(bro_nodes);
+
+                                    bro_nodes.each(function(index) {
+                                        console.log($(this));
+                                        if ($(this).hasClass('selected')) {
+                                            $(this).toggleClass('selected');
+                                            console.log('index is ' + index);
+                                            if ($(this).children().hasClass('icon-show')) {
+                                                $(this).children().toggleClass('icon-show');
+                                            }
+
+
+                                            }
+                                    })
+
+
                                 };
 
                                 reader.readAsDataURL(file);
 
                                 // Set the node as selected
-                                $('#img_thubnail_' + index).toggleClass('selected');
+                                $('#img_thumbnail_' + index).toggleClass('selected');
+
+                                // Toggle selected for other elements
 
                                 // Add click listener
-                                $('#img_thubnail_' + index).click(function(e) {
+                                $('#img_thumbnail_' + index).click(function(e) {
                                     imgClick();
                                 });
                                 $('#i_delete_' + index).toggleClass('icon_show');
 
                                 // Add the icon node
-                                var HTMLicon = '<div class="icons_delete" id="icons_delete_%data%"><i id="i_delete_%data%" data-index="%data%" data-tn="img_thumbnail_%data%" data-parent="icons_delete_%data%" class="fa fa-times-circle i_delete icon_show" aria-hidden="true"></i></div>'
-                                var formattedIcon = HTMLicon.replace('%data%', index).replace('%data%', index).replace('%data%', index).replace('%data%', index).replace('%data%', index).replace('%data%', index);
+                                var HTMLicon = '<div class="icons_delete" id="icons_delete_%data%" data-index="%data%"><i id="i_delete_%data%" data-index="%data%" data-tn="img_thumbnail_%data%" data-parent="icons_delete_%data%" class="fa fa-times-circle i_delete icon_show" aria-hidden="true"></i></div>'
+                                var formattedIcon = HTMLicon.replace(/%data%/g, index);
                                 console.log(formattedIcon);
                                 $('.image_container').append(formattedIcon);
                             }
@@ -248,7 +269,6 @@ $(function () {
             }
 
             var imgClick = function() {
-                console.log('image has been clicked');
                 // User clicks the thumbnail frame
                 if ($(event.target).hasClass('img_thumbnail')) {
                     console.log('Clicked img_thumbnail.');
@@ -273,10 +293,6 @@ $(function () {
                                 if (el.hasClass('icon_show')) {
                                   el.toggleClass('icon_show');
                                 }
-                                else {
-                                    el.toggleClass('icon_show');
-                                }
-
                             } else {
                             el.toggleClass('icon_show');
                         }
@@ -296,36 +312,43 @@ $(function () {
                 }
                 // User clicks the image. Happens most of the time
                 else {
-                    console.log('Clicked img.');
+                    console.log('Clicked image..');
+                    console.log('parent is...');
+                    console.log($(event.target).parent());
                     if ($(event.target).parent().hasClass('selected')) {
                         // do nothing
                         console.log('parent has class selected. Doing nothing.');
                     } else {
-                        console.log('parent does  not have class selected.');
+                        console.log('parent does not have class selected.');
+                        console.log('going to toggle parent class of selected');
                         $(event.target).parent().toggleClass('selected');
                         var targetID = $(event.target).attr('data-index');
                         var el = $('#i_delete_' + targetID);
+                        console.log('element is: ');
                         console.log(el);
                         if (!el.hasClass('i_delete')) {
-                            console.log('there is no element');
+                            console.log('element  does not have i_delete class');
                             var index = ($(".image_container .icons_delete").length);
                             console.log(index);
                             el = $('#i_delete_' + index);
-                            console.log('further item down is');
+                            console.log('the last indexed icons_delete is');
                             console.log(el);
-
                             if (el.hasClass('icon_show')) {
-                              el.toggleClass('icon_show');
+                                el.toggleClass('icon_show');
                             }
                         } else {
+                            console.log('Has class i_delete. going to toggle off');
+                                console.log(el);
                             el.toggleClass('icon_show');
                         }
                         var iParent = el.parent().get(0);
                         console.log(iParent);
+                        $(iParent).toggleClass('icon_show');
+                        // el.toggleClass('icon_show')
                         var img_nodes = $(iParent).siblings();
 
                         img_nodes.each(function(index) {
-                            console.log($(this));
+                            // console.log($(this));
 
                             if ($(this).children().hasClass('icon_show')) {
                                 $(this).children().toggleClass('icon_show');
