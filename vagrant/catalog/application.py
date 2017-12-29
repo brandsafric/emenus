@@ -384,10 +384,15 @@ def get_pictures(path):
     user_path = 'uploads/' + path + '/';
     for filename in os.listdir(full_path):
         user_pics.append([user_path + filename, filename, path + '/' + filename])
+    print "----------------------------"
+    print "Begin get_pictures"
     for idx, val in enumerate(user_pics):
         print str(idx) + " (path) : " + val[0]
         print str(idx) + " (filename) : " + val[1]
         print str(idx) + " (user_path) : " + val[2]
+    print "----------------------------"
+    print "End get_pictures"
+
     return user_pics
 
 
@@ -440,10 +445,9 @@ def edit_restaurant(restaurant_id):
         # print user_pics.index(user.path)
         print 'restaurantToEdit.picture = ' + restaurantToEdit.picture
         print user_pics
-
         try:
             print user_pics[0][2]
-        except ValueError:
+        except IndexError:
             print("List does not contain value")
 
         [(i, pic.index(restaurantToEdit.picture))
@@ -652,7 +656,7 @@ def delete_image():
     f = os.path.join(app.config['UPLOAD_FOLDER'], image_to_delete)
     if os.path.exists(f):
         try:
-            # os.remove(item_to_delete)
+            os.remove(f)
             print "deleted " + f
         except OSError, e:
             print ("Error: {0} - {1}.".format(e.f,e.strerror))
@@ -669,6 +673,21 @@ def delete_image():
 
 
     return json.dumps({'status':'OK','index':index,'deleted':'yes'});
+
+@app.route('/uploadImage', methods=['POST'])
+def upload_image():
+    f = request.files['image']
+    filename = f.filename
+    user = get_user_info(login_session['user_id'])
+    # Get the path for the user
+    path = user.path
+    target = os.path.join(app.config['UPLOAD_FOLDER'], path)
+    print "target"
+    print target
+    destination = "/".join([target, filename])
+    f.save(destination)
+    print destination
+    return json.dumps({'status':'OK','index':"x",'deleted':'yes'});
 
 
 if __name__ == '__main__':
