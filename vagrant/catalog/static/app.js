@@ -101,6 +101,7 @@ $(function () {
                 }
             });
 
+            // Upload image file
             $(".btn-file").click(function (e) {
                 var file = document.getElementById('upload').files[0]; //Files[0] = 1st file
                 var filename = document.getElementById('upload').files[0].name; //Should be 'picture.jpg'
@@ -116,6 +117,12 @@ $(function () {
                         type: 'POST',
                         success: function(response) {
                             console.log(response);
+                            // Reset the upload divs
+                            $('#upload').val("");
+                            // $(".no_upload").css("margin-top", "0");
+                            $(".upload_container").css("visibility", "hidden");
+
+
                         },
                         error: function(error) {
                             console.log(error);
@@ -123,6 +130,7 @@ $(function () {
                     });
             });
 
+            // Delete image file
             $(".i_delete").click(function (e) {
                 if ($(e.target).hasClass('icon_show')) {
                     console.log('delete click');
@@ -176,6 +184,7 @@ $(function () {
 
             });
 
+            // Upload file change
             $("#upload").change(function(e){
                 console.log('File has changed.');
                 console.log(e.target.value);
@@ -195,9 +204,9 @@ $(function () {
                     }
                 }
                 else {
-                    // Continue on...
+                    // Set the upload_container to visible.
                     // $(".upload_container").css("display", "block");
-                    $(".no_upload").css("margin-top", "0");
+                    // $(".no_upload").css("margin-top", "0");
                     $(".upload_container").css("visibility", "visible");
                     $(".upload_container").addClass('animated bounceInUp');
 
