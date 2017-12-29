@@ -53,7 +53,7 @@
                         </li>
                         {% for k,v,z in user_pics %}
                             <li class="img_thumbnail" id="img_thumbnail_{{ loop.index }}">
-                                <img id="img_thumbnail__{{ loop.index }}" class="img_tn" data-usrpath = "{{ k }}" data-filename = "{{ v }}" data-imgpath="{{ z }}" src="{{ url_for('static', filename='img/' + k) }}" alt="img">
+                                <img id="img_thumbnail_{{ loop.index }}" class="img_tn" data-usrpath = "{{ k }}" data-filename = "{{ v }}" data-imgpath="{{ z }}" src="{{ url_for('static', filename='img/' + k) }}" alt="img">
                             </li>
                         {% endfor %}
                     </ul>
