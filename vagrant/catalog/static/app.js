@@ -43,62 +43,13 @@ $(function () {
             $("#icon-sort").click(function () {
                 sortListDir();
             });
-
-
         };
 
         var bindForms = function() {
 
-            $(".img_thumbnail").click(function (e) {
-                // User clicks the thumbnail frame
-                if ($(event.target).hasClass('img_thumbnail')) {
-                    if ($(event.target).hasClass('selected')) {
-                        // do nothing
-                    } else {
-                            $(event.target).toggleClass('selected');
-                            // Check if the no_upload is showing
-                            // if($(".no_upload").css('display') == 'block') {
-                                // Slice the id string
-                                var id = "i_delete_" + $(event.target).find('.img_tn').attr('id').slice(-1);
-                                $('#' + id).toggleClass('icon_show');
-                                var i_parent = $('#' + id).parent().get(0);
-                                var img_nodes = $(i_parent).siblings();
-                                img_nodes.each(function() {
-                                    if ($(this).children().hasClass('icon_show')) {
-                                        $(this).children().toggleClass('icon_show');
-                                    }
-                                })
-                            // }
-                            $(event.target).siblings(".selected").toggleClass("selected");
-                            $('#target').children().val('');
-                    }
 
-                }
-                // User clicks the image
-                else {
-                    if ($(event.target).parent().hasClass('selected')) {
-                        // do nothing
-                    } else {
-                        $(event.target).parent().toggleClass('selected');
-                        // if($(".no_upload").css('display') == 'block') {
-                           // Slice the id string
-                            var targetID = event.target.id.slice(-1);
-                           var iName = "i_delete_" + targetID;
-                           var el = $('#' + iName);
-                           el.toggleClass('icon_show');
-                            var iParent = el.parent().get(0);
-                            var img_nodes = $(iParent).siblings();
-                            img_nodes.each(function(index) {
-                                if ($(this).children().hasClass('icon_show')) {
-                                    $(this).children().toggleClass('icon_show');
-                                }
-                            })
-                       // }
-                        $(event.target).parent().siblings(".selected").toggleClass("selected");
-                        var path = $(event.target).eq(0).attr('data-imgpath');
-                        $('#target').val(path);
-                        }
-                }
+            $(".img_thumbnail").click(function (e) {
+                imgClick();
             });
 
             // Upload image file
@@ -123,25 +74,38 @@ $(function () {
                             $(".upload_container").css("visibility", "hidden");
                             var returnedData = JSON.parse(response);
 
-                              // var preview = document.querySelector('img');
-                              // var file    = document.querySelector('input[type=file]').files[0];
-
-
                             if ('status' in returnedData && returnedData.status == "OK") {
-                                  console.log('status is ok');
-                                  var index = ($(".img_gallery .img_tn").length);
-                                  var HTMLimage = '<li class="img_thumbnail" id="img_thumbnail_%data%"><img id="img_thumbnail%data%" class="img_tn img_tn_ul" src="" alt="img"></li>';
-                                  var formattedHTML = HTMLimage.replace('%data%', index).replace('%data%', index);
-                                  $('.img_gallery').append(formattedHTML);
-                                  var node = $('.img_tn_ul');
-                                  var reader  = new FileReader();
+                                console.log('status is ok');
+                                // Grab the index of the new element
+                                var index = ($(".img_gallery .img_tn").length);
+                                var HTMLimage = '<li class="img_thumbnail" id="img_thumbnail_%data%"><img id="img_thumbnail%data%" class="img_tn img_tn_ul" src="" alt="img"></li>';
+                                var formattedHTML = HTMLimage.replace('%data%', index).replace('%data%', index);
+                                // Add the image thumbnail node
+                                $('.img_gallery').append(formattedHTML);
+                                var node = $('.img_tn_ul');
+                                var reader  = new FileReader();
 
-                                  reader.onloadend = function () {
+                                reader.onloadend = function () {
                                     node.attr("src", reader.result);
                                     console.log('Image node has been added');
-                                  };
+                                };
 
-                                  reader.readAsDataURL(file);
+                                reader.readAsDataURL(file);
+
+                                // Set the node as selected
+                                $('#img_thubnail_' + index).toggleClass('selected');
+
+                                // Add click listener
+                                $('#img_thubnail_' + index).click(function(e) {
+                                    imgClick();
+                                });
+                                $('#i_delete_' + index).toggleClass('icon_show');
+
+                                // Add the icon node
+                                var HTMLicon = '<div class="icons_delete" id="icons_delete_%data%"><i id="i_delete_%data%" data-index="%data%" data-tn="img_thumbnail_%data%" data-parent="icons_delete_%data%" class="fa fa-times-circle i_delete icon_show" aria-hidden="true"></i></div>'
+                                var formattedIcon = HTMLicon.replace('%data%', index).replace('%data%', index).replace('%data%', index).replace('%data%', index).replace('%data%', index).replace('%data%', index);
+                                console.log(formattedIcon);
+                                $('.image_container').append(formattedIcon);
                             }
                         },
                         error: function(error) {
@@ -169,8 +133,6 @@ $(function () {
                     console.log(imgNode);
                     console.log(imgIndex);
 
-                    // var icon = $(event.target).parent().get(0);
-                    // console.log(icon);
                     $(iNode).css('display', 'none');
                     $(imgNode).css('display', 'none');
                      console.log('Images can be added');
@@ -188,7 +150,6 @@ $(function () {
                         success: function(response) {
                             console.log(response);
                             // Remove the image from the page
-
                         },
                         error: function(error) {
                             console.log(error);
@@ -201,7 +162,6 @@ $(function () {
             $(".btn-set").on("click", function() {
                 console.log('Image has been set.');
                 // Change the image on the form circle to be the selected image.
-
             });
 
             // Upload file change
@@ -225,14 +185,12 @@ $(function () {
                 }
                 else {
                     // Set the upload_container to visible.
-                    // $(".upload_container").css("display", "block");
                     // $(".no_upload").css("margin-top", "0");
                     $(".upload_container").css("visibility", "visible");
                     $(".upload_container").addClass('animated bounceInUp');
 
                 }
                  });
-
 
             var imageItems = [];
             var imageNode = $(".img_tn");
@@ -250,12 +208,7 @@ $(function () {
                 console.log( index + ' : ' + userDir);
                 console.log( index + ' : ' + usrPath);
                 console.log( index + ' : ' + filename);
-
-
-
             });
-
-
 
             if (($("#editRestForm").length) || ($("#newRestForm").length)) {
                 console.log('this is the edit/new restaurant');
@@ -279,7 +232,98 @@ $(function () {
                 }
             }
 
+            var imgClick = function() {
+                console.log('image has been clicked');
+                // User clicks the thumbnail frame
+                if ($(event.target).hasClass('img_thumbnail')) {
+                    console.log('Clicked img_thumbnail.');
+                    if ($(event.target).hasClass('selected')) {
+                        console.log('It has class selected. Doing nothing.');
+                        // do nothing
+                    } else {
+                            $(event.target).toggleClass('selected');
+                            console.log('It does not have class selected.');
+                            // Check if the no_upload is showing
+                            // if($(".no_upload").css('display') == 'block') {
+                                // Slice the id string
+                            var targetID= $(event.target).attr('data-index');
+                            var el = $('#i_delete_' + targetID);
+                            if (!el.hasClass('i_delete')) {
+                                console.log('there is no element');
+                                var index = ($(".image_container .icons_delete").length);
+                                console.log(index);
+                                el = $('#i_delete_' + index);
+                                console.log('further item down is');
+                                console.log(el);
+                                if (el.hasClass('icon_show')) {
+                                  el.toggleClass('icon_show');
+                                }
+                                else {
+                                    el.toggleClass('icon_show');
+                                }
 
+                            } else {
+                            el.toggleClass('icon_show');
+                        }
+                    var i_parent = el.parent().get(0);
+                    var img_nodes = $(i_parent).siblings();
+
+                    img_nodes.each(function() {
+                        if ($(this).children().hasClass('icon_show')) {
+                            $(this).children().toggleClass('icon_show');
+                        }
+                    });
+
+                    $(event.target).siblings(".selected").toggleClass("selected");
+                    $('#target').children().val('');
+
+                    }
+                }
+                // User clicks the image. Happens most of the time
+                else {
+                    console.log('Clicked img.');
+                    if ($(event.target).parent().hasClass('selected')) {
+                        // do nothing
+                        console.log('parent has class selected. Doing nothing.');
+                    } else {
+                        console.log('parent does  not have class selected.');
+                        $(event.target).parent().toggleClass('selected');
+                        var targetID = $(event.target).attr('data-index');
+                        var el = $('#i_delete_' + targetID);
+                        console.log(el);
+                        if (!el.hasClass('i_delete')) {
+                            console.log('there is no element');
+                            var index = ($(".image_container .icons_delete").length);
+                            console.log(index);
+                            el = $('#i_delete_' + index);
+                            console.log('further item down is');
+                            console.log(el);
+
+                            if (el.hasClass('icon_show')) {
+                              el.toggleClass('icon_show');
+                            }
+                        } else {
+                            el.toggleClass('icon_show');
+                        }
+                        var iParent = el.parent().get(0);
+                        console.log(iParent);
+                        var img_nodes = $(iParent).siblings();
+
+                        img_nodes.each(function(index) {
+                            console.log($(this));
+
+                            if ($(this).children().hasClass('icon_show')) {
+                                $(this).children().toggleClass('icon_show');
+                                }
+                        })
+
+                        $(event.target).parent().siblings(".selected").toggleClass("selected");
+                        var path = $(event.target).eq(0).attr('data-imgpath');
+                        $('#target').val(path);
+                        }
+                }
+
+            };
         };
 
         bindEvents();
