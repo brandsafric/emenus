@@ -687,7 +687,10 @@ def upload_image():
     destination = "/".join([target, filename])
     f.save(destination)
     print destination
-    return json.dumps({'status':'OK','index':"x",'deleted':'yes'});
+    # clientPath = os.path.join(path, filename)
+    # print clientPath
+    # return send_from_directory(target, filename)
+    return json.dumps({'status':'OK'});
 
 
 if __name__ == '__main__':
