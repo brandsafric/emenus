@@ -116,13 +116,33 @@ $(function () {
                         contentType: false,
                         type: 'POST',
                         success: function(response) {
-                            console.log(response);
+                            // console.log(response);
                             // Reset the upload divs
                             $('#upload').val("");
                             // $(".no_upload").css("margin-top", "0");
                             $(".upload_container").css("visibility", "hidden");
+                            var returnedData = JSON.parse(response);
+
+                              // var preview = document.querySelector('img');
+                              // var file    = document.querySelector('input[type=file]').files[0];
 
 
+                            if ('status' in returnedData && returnedData.status == "OK") {
+                                  console.log('status is ok');
+                                  var index = ($(".img_gallery .img_tn").length);
+                                  var HTMLimage = '<li class="img_thumbnail" id="img_thumbnail_%data%"><img id="img_thumbnail%data%" class="img_tn img_tn_ul" src="" alt="img"></li>';
+                                  var formattedHTML = HTMLimage.replace('%data%', index).replace('%data%', index);
+                                  $('.img_gallery').append(formattedHTML);
+                                  var node = $('.img_tn_ul');
+                                  var reader  = new FileReader();
+
+                                  reader.onloadend = function () {
+                                    node.attr("src", reader.result);
+                                    console.log('Image node has been added');
+                                  };
+
+                                  reader.readAsDataURL(file);
+                            }
                         },
                         error: function(error) {
                             console.log(error);
