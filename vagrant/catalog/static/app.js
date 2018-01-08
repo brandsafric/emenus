@@ -70,7 +70,11 @@ $(function () {
                             // Reset the upload divs
                             $('#upload').val("");
                             // $(".no_upload").css("margin-top", "0");
-                            $(".upload_container").css("visibility", "hidden");
+                            $('.upload_container').css("visibility", "hidden");
+
+                             if ($(".upload_container").addClass('animated bounceInUp')) {
+                                 $('.upload_container').removeClass('animated bounceInUp');
+                             };
                             var returnedData = JSON.parse(response);
 
                             if ('status' in returnedData && returnedData.status == "OK") {
@@ -96,18 +100,19 @@ $(function () {
                                     var parent = $(node).parent().get(0);
                                     var bro_nodes = $(parent).siblings();
                                     console.log(bro_nodes);
-
-                                    bro_nodes.each(function(index) {
+                                    var dataIdx;
+                                    bro_nodes.each(function() {
                                         console.log('Cycling through each thumbnail node.');
                                         console.log($(this));
                                         if ($(this).hasClass('selected')) {
+                                            dataIdx = $(this).attr('data-index');
                                             $(this).toggleClass('selected');
                                             console.log('thumbnail has class selected. so toggling off');
                                             console.log($(this));
-                                            console.log('index is ' + index);
+                                            console.log('data-index is ' + dataIdx);
                                             console.log('storing index as idx');
                                             // Toggle icon off
-                                            var idx = index--;
+                                            var idx = dataIdx--;
                                             var iconNode = $('#i_delete_' + idx);
                                             console.log('Matching icon node selected previously is...');
                                             console.log(iconNode);
@@ -139,6 +144,9 @@ $(function () {
                                 var formattedIcon = HTMLicon.replace(/%data%/g, index);
                                 console.log(formattedIcon);
                                 $('.image_container').append(formattedIcon);
+
+                                // Finally, check to see if we are at the max 5 images
+                                countImages();
                             }
                         },
                         error: function(error) {
@@ -166,11 +174,7 @@ $(function () {
                     console.log(imgNode);
                     console.log(imgIndex);
 
-                    $(iNode).css('display', 'none');
-                    $(imgNode).css('display', 'none');
-                     console.log('Images can be added');
-                    $(".file_container").css("visibility", "visible");
-                    $(".no_upload").css("visibility", "hidden");
+
 
                     var data = {"image_index":imgIndex};
 
@@ -182,10 +186,19 @@ $(function () {
                         type: 'POST',
                         success: function(response) {
                             console.log(response);
+                            console.log("Success. Going to remove images from DOM.");
                             // Remove the image from the page
+                            $(iNode).remove();
+                            $(imgNode).remove();
+                            // $(iNode).css('display', 'none');
+                            // $(imgNode).css('display', 'none');
+                            console.log('Images can be added');
+                            $(".file_container").css("visibility", "visible");
+                            $(".no_upload").css("visibility", "hidden");
                         },
                         error: function(error) {
                             console.log(error);
+                            console.log("Error. Cannot Remove image from DOM.");
                         }
                     });
                 }
@@ -223,6 +236,7 @@ $(function () {
                     $(".upload_container").css("visibility", "visible");
                     $(".upload_container").addClass('animated bounceInUp');
 
+
                 }
                  });
 
@@ -254,10 +268,22 @@ $(function () {
 
             });
 
+            var countImages = function() {
+                //Check for image thumbnails on the image_gallery.
+                if ($(".img_thumbnail").length) {
+                    console.log($(".img_thumbnail").length);
+                    var image_count = $(".img_thumbnail").length;
 
 
-
-
+                    if (image_count >= 5) {
+                        console.log('No more images permitted until you delete one.');
+                        // $(".btn-file").css("display", "none");
+                        $(".no_upload").css("visibility", "visible");
+                        $(".file_container").css('visibility', 'hidden');
+                        $(".no_upload").css("margin-top", "-50px");
+                    }
+                }
+            }
 
             if (($("#editRestForm").length) || ($("#newRestForm").length)) {
                 console.log('this is the edit/new restaurant');
@@ -266,20 +292,7 @@ $(function () {
 
             }
 
-            //Check for image thumbnails on the image_gallery.
-            if ($(".img_thumbnail").length) {
-                console.log($(".img_thumbnail").length);
-                var image_count = $(".img_thumbnail").length;
-
-
-                if (image_count >= 5) {
-                    console.log('No more images permitted until you delete one.');
-                    // $(".btn-file").css("display", "none");
-                    $(".no_upload").css("visibility", "visible");
-                    $(".file_container").css('visibility', 'hidden');
-                    $(".no_upload").css("margin-top", "-50px");
-                }
-            }
+            countImages();
 
             var imgClick = function() {
                 // User clicks the thumbnail frame
@@ -375,6 +388,8 @@ $(function () {
                 }
 
             };
+
+            var iconClick = function() {}
         };
 
         bindEvents();
