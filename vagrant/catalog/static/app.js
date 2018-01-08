@@ -86,6 +86,7 @@ $(function () {
                                 console.log('Setting the image for the last img_tn_ul element');
                                 var node = $('.img_tn_ul').last();
                                 var reader  = new FileReader();
+                                var idx;
 
                                 reader.onloadend = function () {
                                     node.attr("src", reader.result);
@@ -101,9 +102,18 @@ $(function () {
                                         console.log($(this));
                                         if ($(this).hasClass('selected')) {
                                             $(this).toggleClass('selected');
+                                            console.log('thumbnail has class selected. so toggling off');
+                                            console.log($(this));
                                             console.log('index is ' + index);
-                                            if ($(this).children().hasClass('icon-show')) {
-                                                $(this).children().toggleClass('icon-show');
+                                            console.log('storing index as idx');
+                                            // Toggle icon off
+                                            var idx = index--;
+                                            var iconNode = $('#i_delete_' + idx);
+                                            console.log('Matching icon node selected previously is...');
+                                            console.log(iconNode);
+                                            if (iconNode.hasClass('icon_show')) {
+                                                    console.log('icon has icon-show. going to toggle off');
+                                                    $(iconNode).toggleClass('icon_show');
                                             }
                                         }
                                     })
@@ -120,6 +130,8 @@ $(function () {
                                 $('#img_thumbnail_' + index).click(function(e) {
                                     imgClick();
                                 });
+
+
                                 $('#i_delete_' + index).toggleClass('icon_show');
 
                                 // Add the icon node
