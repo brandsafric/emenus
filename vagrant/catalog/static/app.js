@@ -55,7 +55,7 @@ $(function () {
             // Upload image file
             $(".btn-file").click(function (e) {
                 var file = document.getElementById('upload').files[0]; //Files[0] = 1st file
-                var filename = document.getElementById('upload').files[0].name; //Should be 'picture.jpg'
+                var filename = document.getElementById('upload').files[0].name;
                 var formData = new FormData();
                 formData.append('image', file, filename);
 
@@ -193,10 +193,20 @@ $(function () {
                     }
                 }
                 else {
+                    console.log('Going to run checkforduplicate.');
                     // Set the upload_container to visible.
                     // $(".no_upload").css("margin-top", "0");
-                    $(".upload_container").css("visibility", "visible");
-                    $(".upload_container").addClass('animated bounceInUp');
+                    if (checkDuplicate(f.name)) {
+                        console.log('No filename duplicatess found.');
+                        $(".upload_container").css("visibility", "visible");
+                        $(".upload_container").addClass('animated bounceInUp');
+                    } else {
+                        console.log('Diplicate file found.');
+                        $('#upload').val("");
+                        alert("File is already uploaded!");
+
+                    }
+
 
 
                 }
@@ -229,6 +239,24 @@ $(function () {
 
 
             });
+
+            var checkDuplicate = function(filename) {
+                var imageNode = $(".img_tn");
+                console.log('Looking for a match of ' + filename);
+
+                imageNode.each(function() {
+                    var imgSrc = $(this).attr('src');
+                    console.log('imgSrc is ' + imgSrc);
+                    if (imgSrc.includes(filename)) {
+                        console.log('Duplicate image found!');
+                        return true;
+                    }
+
+
+                });
+
+
+            }
 
             var countImages = function() {
                 //Check for image thumbnails on the image_gallery.
