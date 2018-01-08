@@ -80,14 +80,14 @@ $(function () {
                             if ('status' in returnedData && returnedData.status == "OK") {
                                 console.log('status is ok');
                                 // Grab the index of the new element
-                                var index = ($(".img_gallery .img_tn").length);
-                                var HTMLimage = '<li class="img_thumbnail" id="img_thumbnail_%data%" data-index="%data%"><img id="img_thumbnail%data%" class="img_tn img_tn_ul" data-index="%data%" src="" alt="img"></li>';
+                                var index = ($(".img_gallery .img_tn").length - 1);
+                                var HTMLimage = '<li class="img_thumbnail" id="img_thumbnail_%data%" data-index="%data%"><img id="img_%data%" class="img_tn img_tn_ul" data-index="%data%" src="" alt="img"></li>';
                                 var formattedHTML = HTMLimage.replace(/%data%/g, index);
                                 // Add the image thumbnail node
                                 console.log('Going to add image thumbnail node (without src)');
                                 console.log('Adding: ' + formattedHTML);
                                 $('.img_gallery').append(formattedHTML);
-                                console.log('Setting the image for the last img_tn_ul element');
+                                console.log('Setting the image to be for the last img_tn_ul element');
                                 var node = $('.img_tn_ul').last();
                                 var reader  = new FileReader();
                                 var idx;
@@ -112,7 +112,7 @@ $(function () {
                                             console.log('data-index is ' + dataIdx);
                                             console.log('storing index as idx');
                                             // Toggle icon off
-                                            var idx = dataIdx--;
+                                            var idx = dataIdx;
                                             var iconNode = $('#i_delete_' + idx);
                                             console.log('Matching icon node selected previously is...');
                                             console.log(iconNode);
@@ -296,11 +296,13 @@ $(function () {
 
                 console.log(iNode);
                 console.log(imgNode);
-                console.log(imgIndex);
+                // console.log(imgIndex);
+
 
 
 
                 var data = {"image_index":imgIndex};
+                console.log('Sending delete for index ' + imgIndex.toString());
 
                 $.ajax({
                     url: '/deleteImage',
@@ -383,12 +385,14 @@ $(function () {
                         $(event.target).parent().toggleClass('selected');
                         var targetID = $(event.target).attr('data-index');
                         var el = $('#i_delete_' + targetID);
+                        console.log('targetID is ' + targetID);
                         console.log('element is: ');
                         console.log(el);
                         if (!el.hasClass('i_delete')) {
                             console.log('element  does not have i_delete class');
-                            var index = ($(".image_container .icons_delete").length);
+                            var index = ($(".image_container .icons_delete").length - 1);
                             console.log(index);
+                            console.log('#i_delete_' + index.toString());
                             el = $('#i_delete_' + index);
                             console.log('the last indexed icons_delete is');
                             console.log(el);
