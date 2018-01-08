@@ -80,6 +80,8 @@ $(function () {
                                 var HTMLimage = '<li class="img_thumbnail" id="img_thumbnail_%data%" data-index="%data%"><img id="img_thumbnail%data%" class="img_tn img_tn_ul" data-index="%data%" src="" alt="img"></li>';
                                 var formattedHTML = HTMLimage.replace(/%data%/g, index);
                                 // Add the image thumbnail node
+                                console.log('Going to add image thumbnail node (without src)');
+                                console.log('Adding: ' + formattedHTML);
                                 $('.img_gallery').append(formattedHTML);
                                 var node = $('.img_tn_ul');
                                 var reader  = new FileReader();
@@ -101,12 +103,8 @@ $(function () {
                                             if ($(this).children().hasClass('icon-show')) {
                                                 $(this).children().toggleClass('icon-show');
                                             }
-
-
-                                            }
+                                        }
                                     })
-
-
                                 };
 
                                 reader.readAsDataURL(file);
@@ -199,7 +197,8 @@ $(function () {
                     // reset the input (code for all browser)
                     var es = document.forms[0].elements;
                     try {
-                        es[3].value = '';
+                        // es[3].value = '';
+                        $('#upload').val("");
                     } catch(err) {
                         console.log('Error with clearing upload. ' + err);
                     }
