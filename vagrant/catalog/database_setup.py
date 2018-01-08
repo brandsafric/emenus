@@ -16,6 +16,23 @@ class User(Base):
     path = Column(String(250))
     picture = Column(String(250))
 
+class Picture(Base):
+    __tablename__ = 'picture'
+    id = Column(Integer, primary_key=True)
+    filename = Column(String(250), nullable=False)
+    path = Column(String(250), nullable=False)
+    user_id = Column(Integer, ForeignKey('user.id'))
+    user = relationship(User)
+
+    @property
+    def serialize(self):
+        # Returns object data in easily serializable format
+        return {
+            'filename': self.filename,
+            'id': self.id,
+            'path': self.path
+        }
+
 class Restaurant(Base):
     __tablename__ = 'restaurant'
 
