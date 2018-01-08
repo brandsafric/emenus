@@ -83,7 +83,8 @@ $(function () {
                                 console.log('Going to add image thumbnail node (without src)');
                                 console.log('Adding: ' + formattedHTML);
                                 $('.img_gallery').append(formattedHTML);
-                                var node = $('.img_tn_ul');
+                                console.log('Setting the image for the last img_tn_ul element');
+                                var node = $('.img_tn_ul').last();
                                 var reader  = new FileReader();
 
                                 reader.onloadend = function () {
@@ -96,6 +97,7 @@ $(function () {
                                     console.log(bro_nodes);
 
                                     bro_nodes.each(function(index) {
+                                        console.log('Cycling through each thumbnail node.');
                                         console.log($(this));
                                         if ($(this).hasClass('selected')) {
                                             $(this).toggleClass('selected');
