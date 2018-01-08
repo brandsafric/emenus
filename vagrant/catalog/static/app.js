@@ -145,6 +145,11 @@ $(function () {
                                 console.log(formattedIcon);
                                 $('.image_container').append(formattedIcon);
 
+                                // Add click listener
+                                $('#i_delete_' + index).click(function(e) {
+                                   iconClick();
+                                });
+
                                 // Finally, check to see if we are at the max 5 images
                                 countImages();
                             }
@@ -158,51 +163,8 @@ $(function () {
             // Delete image file
             $(".i_delete").click(function (e) {
                 if ($(e.target).hasClass('icon_show')) {
-                    console.log('delete click');
-
-                    //Grab the data-parent attribute which stores the ID of the parent
-                    var iconID = '#' + ($(this).attr("data-parent"));
-                    // Grab the index of the imagge
-                    var imgIndex = ($(this).attr("data-index"));
-                    // Grab the data-tn attribute which stores the ID of the img_thumbnail
-                    var imgID = '#' + ($(this).attr("data-tn"));
-                    // Grab the node objects
-                    var imgNode = $(imgID);
-                    var iNode = $(iconID);
-
-                    console.log(iNode);
-                    console.log(imgNode);
-                    console.log(imgIndex);
-
-
-
-                    var data = {"image_index":imgIndex};
-
-                    $.ajax({
-                        url: '/deleteImage',
-                        contentType: 'application/json',
-                        data: JSON.stringify(data),
-                        dataType : 'json',
-                        type: 'POST',
-                        success: function(response) {
-                            console.log(response);
-                            console.log("Success. Going to remove images from DOM.");
-                            // Remove the image from the page
-                            $(iNode).remove();
-                            $(imgNode).remove();
-                            // $(iNode).css('display', 'none');
-                            // $(imgNode).css('display', 'none');
-                            console.log('Images can be added');
-                            $(".file_container").css("visibility", "visible");
-                            $(".no_upload").css("visibility", "hidden");
-                        },
-                        error: function(error) {
-                            console.log(error);
-                            console.log("Error. Cannot Remove image from DOM.");
-                        }
-                    });
+                    iconClick();
                 }
-
             });
 
             $(".btn-set").on("click", function() {
@@ -293,6 +255,53 @@ $(function () {
             }
 
             countImages();
+
+            var iconClick = function() {
+                console.log('delete click');
+
+
+                    //Grab the data-parent attribute which stores the ID of the parent
+                    var iconID = '#' + ($(event.target).attr("data-parent"));
+                    // Grab the index of the imagge
+                    var imgIndex = ($(event.target).attr("data-index"));
+                    // Grab the data-tn attribute which stores the ID of the img_thumbnail
+                    var imgID = '#' + ($(event.target).attr("data-tn"));
+                    // Grab the node objects
+                    var imgNode = $(imgID);
+                    var iNode = $(iconID);
+
+                    console.log(iNode);
+                    console.log(imgNode);
+                    console.log(imgIndex);
+
+
+
+                    var data = {"image_index":imgIndex};
+
+                    $.ajax({
+                        url: '/deleteImage',
+                        contentType: 'application/json',
+                        data: JSON.stringify(data),
+                        dataType : 'json',
+                        type: 'POST',
+                        success: function(response) {
+                            console.log(response);
+                            console.log("Success. Going to remove images from DOM.");
+                            // Remove the image from the page
+                            $(iNode).remove();
+                            $(imgNode).remove();
+                            // $(iNode).css('display', 'none');
+                            // $(imgNode).css('display', 'none');
+                            console.log('Images can be added');
+                            $(".file_container").css("visibility", "visible");
+                            $(".no_upload").css("visibility", "hidden");
+                        },
+                        error: function(error) {
+                            console.log(error);
+                            console.log("Error. Cannot Remove image from DOM.");
+                        }
+                    });
+            };
 
             var imgClick = function() {
                 // User clicks the thumbnail frame
@@ -389,7 +398,6 @@ $(function () {
 
             };
 
-            var iconClick = function() {}
         };
 
         bindEvents();
