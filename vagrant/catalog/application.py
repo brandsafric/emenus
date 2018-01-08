@@ -682,9 +682,16 @@ def upload_image():
     # Get the path for the user
     path = user.path
     target = os.path.join(app.config['UPLOAD_FOLDER'], path)
+    print "path"
+    print path
     print "target"
     print target
     destination = "/".join([target, filename])
+    fullpath = 'uploads/' + path + '/' + filename
+    newPicture = Picture(filename=filename, path=fullpath, user_id=user.id)
+    session.add(newPicture)
+    session.commit()
+    print "save to database"
     f.save(destination)
     print destination
     # clientPath = os.path.join(path, filename)
