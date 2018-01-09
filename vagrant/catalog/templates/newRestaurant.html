@@ -51,10 +51,10 @@
                         <li class="img_thumbnail selected">
                             <img id="img_thumbnail" class="img_tn" data-index="99" data-imgpath="not-available-abbreviation-inside-a-circle_318-33662.jpg" src="{{ url_for('static', filename='img/not-available-abbreviation-inside-a-circle_318-33662.jpg') }}" alt="img">
                         </li>
-                        {% for k,v,z in user_pics %}
-                            <li class="img_thumbnail" id="img_thumbnail_{{ loop.index }}" data-index="{{ loop.index }}">
+                        {% for p in user_pics %}
+                            <li class="img_thumbnail" id="img_thumbnail_{{ p.id }}" data-index="{{ p.id }}">
 {#                                <img id="img_thumbnail_{{ loop.index }}" class="img_tn" data-index="{{ loop.index }}" data-usrpath = "{{ k }}" data-filename = "{{ v }}" data-imgpath="{{ z }}" src="{{ url_for('static', filename='img/' + k) }}" alt="img">#}
-                                <img id="img_thumbnail_{{ loop.index }}" class="img_tn" data-index="{{ loop.index }}" data-imgpath="{{ z }}" src="{{ url_for('static', filename='img/' + k) }}" alt="img">
+                                <img id="img_thumbnail_{{ p.id}}" class="img_tn" data-index="{{ p.id }}" data-imgpath="{{ p.path }}" src="{{ url_for('static', filename='img/' + p.path) }}" alt="img">
 
                             </li>
                         {% endfor %}
@@ -63,9 +63,9 @@
 {#                 <div class="icons_delete">#}
 {#                     <i id="i_delete_0" class="fa fa-times-circle i_delete" aria-hidden="true"></i>#}
 {#                 </div>#}
-                 {% for k in user_pics %}
-                     <div class="icons_delete" id="icons_delete_{{ loop.index }}" data-index="{{ loop.index }}">
-                         <i id="i_delete_{{ loop.index }}" data-index="{{ loop.index - 1 }}" data-tn="img_thumbnail_{{ loop.index }}" data-parent="icons_delete_{{ loop.index }}" class="fa fa-times-circle i_delete" aria-hidden="true"></i>
+                 {% for p in user_pics %}
+                     <div class="icons_delete" id="icons_delete_{{ p.id }}" data-index="{{ p.id }}">
+                         <i id="i_delete_{{ p.id }}" data-index="{{ p.id }}" data-tn="img_thumbnail_{{ p.id }}" data-parent="icons_delete_{{ p.id }}" class="fa fa-times-circle i_delete" aria-hidden="true"></i>
                      </div>
                  {% endfor %}
                 </div>
