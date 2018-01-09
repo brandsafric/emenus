@@ -47,6 +47,8 @@ $(function () {
 
         var bindForms = function() {
 
+            var selected;
+
 
             $(".img_thumbnail").click(function (e) {
                 imgClick();
@@ -331,33 +333,38 @@ $(function () {
             };
 
             var imgClick = function() {
-                // User clicks the thumbnail frame
                 if ($(event.target).hasClass('img_thumbnail')) {
+                    // User clicks the thumbnail frame
                     console.log('Clicked img_thumbnail.');
                     if ($(event.target).hasClass('selected')) {
                         console.log('It has class selected. Doing nothing.');
                         // do nothing
                     } else {
-                            $(event.target).toggleClass('selected');
-                            console.log('It does not have class selected.');
-                            // Check if the no_upload is showing
-                            // if($(".no_upload").css('display') == 'block') {
-                                // Slice the id string
-                            var targetID= $(event.target).attr('data-index');
-                            var el = $('#i_delete_' + targetID);
-                            if (!el.hasClass('i_delete')) {
-                                console.log('there is no element');
-                                var index = ($(".image_container .icons_delete").length);
-                                console.log(index);
-                                el = $('#i_delete_' + index);
-                                console.log('further item down is');
-                                console.log(el);
-                                if (el.hasClass('icon_show')) {
-                                  el.toggleClass('icon_show');
-                                }
-                            } else {
-                            el.toggleClass('icon_show');
-                        }
+                    // Dnoes not have selected, Going to toggle it.
+                        $(event.target).toggleClass('selected');
+                        console.log('It does not have class selected.');
+                        // Check if the no_upload is showing
+                        // if($(".no_upload").css('display') == 'block') {
+                            // Slice the id string
+                        var targetID= $(event.target).attr('data-index');
+                        // Set selected to the targetID
+                        selected = targetID;
+                        console.log('Selected is now '+ selected);
+                        var el = $('#i_delete_' + targetID);
+                        // Check if the element has a class, therefore not a null value
+                        if (!el.hasClass('i_delete')) {
+                            console.log('there is no element');
+                            var index = ($(".image_container .icons_delete").length);
+                            console.log(index);
+                            el = $('#i_delete_' + index);
+                            console.log('further item down is');
+                            console.log(el);
+                            if (el.hasClass('icon_show')) {
+                              el.toggleClass('icon_show');
+                            }
+                        } else {
+                        el.toggleClass('icon_show');
+                    }
                     var i_parent = el.parent().get(0);
                     var img_nodes = $(i_parent).siblings();
 
@@ -385,12 +392,16 @@ $(function () {
                         console.log('going to toggle parent class of selected');
                         $(event.target).parent().toggleClass('selected');
                         var targetID = $(event.target).attr('data-index');
+                        // Set selected to the targetID
+                        selected = targetID;
+                        console.log('Selected is now '+ selected);
                         var el = $('#i_delete_' + targetID);
                         console.log('targetID is ' + targetID);
                         console.log('element is: ');
                         console.log(el);
                         if (!el.hasClass('i_delete')) {
                             console.log('element  does not have i_delete class');
+                            console.log('Going to set to the last .icons_delete')
                             var index = ($(".image_container .icons_delete").length - 1);
                             console.log(index);
                             console.log('#i_delete_' + index.toString());
@@ -399,6 +410,7 @@ $(function () {
                             console.log(el);
                             if (el.hasClass('icon_show')) {
                                 el.toggleClass('icon_show');
+                                console.log("Toggling class icon_show to off")
                             }
                         } else {
                             console.log('Has class i_delete. going to toggle off');
@@ -407,6 +419,7 @@ $(function () {
                         }
                         var iParent = el.parent().get(0);
                         console.log(iParent);
+                        console.log('Toggling class of icon_show on a parent item');
                         $(iParent).toggleClass('icon_show');
                         // el.toggleClass('icon_show')
                         var img_nodes = $(iParent).siblings();
@@ -416,10 +429,12 @@ $(function () {
 
                             if ($(this).children().hasClass('icon_show')) {
                                 $(this).children().toggleClass('icon_show');
+                                console.log("Toggling class icon_show to off")
                                 }
                         })
 
                         $(event.target).parent().siblings(".selected").toggleClass("selected");
+                        console.log("Toggling target's parent's sibling's element selected class");
                         var path = $(event.target).eq(0).attr('data-imgpath');
                         $('#target').val(path);
                         }
