@@ -684,24 +684,12 @@ def delete_image():
                 print ("Error: {0} - {1}.".format(e.f,e.strerror))
         else:
             print("Sorry, I can not find {0} file in the filesystem.".format(f))
-        return json.dumps({'success':'true', 'responseText':'File at index ' + str(index)+' was deleted successfully'});
+        return json.dumps({'status': 'OK', 'index': "x", 'deleted': 'yes'});
+
     except Exception, e:
         print "error with removing file from DB"
-        return json.dumps({'success':'false', 'responseText':'File at index ' + str(index) +' was not deleted.'});
+        return json.dumps({'status': 'ERROR', 'index': index, 'deleted': 'no'});
 
-
-
-    # restaurantToEdit.picture = 'uploads/' + path + '/' + file.filename
-    # restaurantToEdit.picture = path + '/' + file.filename
-    # print f
-    # print 'here'
-    # restaurantToEdit.picture = 'uploads/' + login_session{'gplus_id'+ file.filename
-    # add your custom code to check that the uploaded file is a valid
-    # image and not a malicious file (out-of-scope for this post)
-    # file.save(f)
-
-
-    return json.dumps({'status':'OK','index':index,'deleted':'yes'});
 
 @app.route('/uploadImage', methods=['POST'])
 def upload_image():
@@ -710,25 +698,30 @@ def upload_image():
     user = get_user_info(login_session['user_id'])
     # Get the path for the user
     path = user.path
-    target = os.path.join(app.config['UPLOAD_FOLDER'], path)
-    print "path"
-    print path
-    print "target"
-    print target
-    destination = "/".join([target, filename])
+    destination = os.path.join(app.config['UPLOAD_FOLDER'], path, filename)
+
+    # destination = "/".join([target, filename])
     fullpath = 'uploads/' + path + '/' + filename
     print "userid = "
     print user.id
-    newPicture = Picture(filename=filename, path=fullpath, user_id=user.id)
-    session.add(newPicture)
-    session.commit()
-    print "save to database"
-    f.save(destination)
-    print destination
-    # clientPath = os.path.join(path, filename)
+
+    try:
+        newPicture = Picture(filename=filename, path=fullpath, user_id=user.id)
+        session.add(newPicture)
+        session.commit()
+        print "save to database"
+        f.save(destination)
+        return json.dumps({'status': 'OK', 'index': "x", 'deleted': 'yes'});
+
+    except Exception, e:
+        print "Error. Could not save to database."
+        return json.dumps({'status': 'ERROR', 'index': "x", 'deleted': 'no'});
+
+
+        # clientPath = os.path.join(path, filename)
     # print clientPath
     # return send_from_directory(target, filename)
-    return json.dumps({'status':'OK'});
+
 
 
 if __name__ == '__main__':
