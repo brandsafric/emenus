@@ -47,7 +47,7 @@ $(function () {
 
         var bindForms = function() {
 
-            var selected;
+            var current = 99;
 
 
             $(".img_thumbnail").click(function (e) {
@@ -299,10 +299,6 @@ $(function () {
 
                 console.log(iNode);
                 console.log(imgNode);
-                // console.log(imgIndex);
-
-
-
 
                 var data = {"image_index":imgIndex};
                 console.log('Sending delete for index ' + imgIndex.toString());
@@ -333,6 +329,8 @@ $(function () {
             };
 
             var imgClick = function() {
+                console.log('selected is ' + current.toString());
+                var oldImage, oldIcon, newImage, newIcon;
                 if ($(event.target).hasClass('img_thumbnail')) {
                     // User clicks the thumbnail frame
                     console.log('Clicked img_thumbnail.');
@@ -340,20 +338,30 @@ $(function () {
                         console.log('It has class selected. Doing nothing.');
                         // do nothing
                     } else {
-                    // Dnoes not have selected, Going to toggle it.
+                        // Let's toggle the old selection
+                        oldImage = $('#img_thumbnail_' + current);
+                        oldIcon = $('#i_delete_' + current);
+                        if ( oldImage.hasClass('selected') ) {
+                            console.log('toggling selected from previous selected image')
+                            oldImage.toggleClass('selected');
+                        }
+
+                        if ( oldIcon.hasClass('icon_show') ) {
+                            console.log('toggling icon_show from previous selected icon');
+                            oldIcon.toggleClass('icon_show');
+                        }
+
+                        // Does not have selected, Going to toggle it.
                         $(event.target).toggleClass('selected');
                         console.log('It does not have class selected.');
-                        // Check if the no_upload is showing
-                        // if($(".no_upload").css('display') == 'block') {
-                            // Slice the id string
-                        var targetID= $(event.target).attr('data-index');
-                        // Set selected to the targetID
-                        selected = targetID;
-                        console.log('Selected is now '+ selected);
-                        var el = $('#i_delete_' + targetID);
-                        // Check if the element has a class, therefore not a null value
+
+                        current = $(event.target).attr('data-index');
+                        console.log('current is now '+ current);
+                        // Assign el to the target's associated icon
+                        var el = $('#i_delete_' + current);
+                        // Check if the element has a class, therefore existing
                         if (!el.hasClass('i_delete')) {
-                            console.log('there is no element');
+                            console.log('there is no element. Do not know why Going to grab last .icon_delete');
                             var index = ($(".image_container .icons_delete").length);
                             console.log(index);
                             el = $('#i_delete_' + index);
@@ -363,20 +371,10 @@ $(function () {
                               el.toggleClass('icon_show');
                             }
                         } else {
-                        el.toggleClass('icon_show');
+                            console.log('Toggling icon_show on target icon')
+                            el.toggleClass('icon_show');
                     }
-                    var i_parent = el.parent().get(0);
-                    var img_nodes = $(i_parent).siblings();
-
-                    img_nodes.each(function() {
-                        if ($(this).children().hasClass('icon_show')) {
-                            $(this).children().toggleClass('icon_show');
-                        }
-                    });
-
-                    $(event.target).siblings(".selected").toggleClass("selected");
                     $('#target').children().val('');
-
                     }
                 }
                 // User clicks the image. Happens most of the time
@@ -388,54 +386,40 @@ $(function () {
                         // do nothing
                         console.log('parent has class selected. Doing nothing.');
                     } else {
+                        // Let's toggle the old selection
+                        console.log('old selection is ' + current.toString());
+                        oldImage = $('#img_thumbnail_' + current);
+                        oldIcon = $('#i_delete_' + current);
+                        // toggleElements(oldImage, oldIcon);
+                        if ( oldImage.hasClass('selected') ) {
+                            console.log('toggling selected from previous selected image')
+                            oldImage.toggleClass('selected');
+                        }
+
+                        if ( oldIcon.hasClass('icon_show') ) {
+                            console.log('toggling icon_show from previous selected icon')
+                            oldIcon.toggleClass('icon_show');
+                        }
+
                         console.log('parent does not have class selected.');
                         console.log('going to toggle parent class of selected');
-                        $(event.target).parent().toggleClass('selected');
-                        var targetID = $(event.target).attr('data-index');
-                        // Set selected to the targetID
-                        selected = targetID;
-                        console.log('Selected is now '+ selected);
-                        var el = $('#i_delete_' + targetID);
-                        console.log('targetID is ' + targetID);
-                        console.log('element is: ');
-                        console.log(el);
-                        if (!el.hasClass('i_delete')) {
-                            console.log('element  does not have i_delete class');
-                            console.log('Going to set to the last .icons_delete')
-                            var index = ($(".image_container .icons_delete").length - 1);
-                            console.log(index);
-                            console.log('#i_delete_' + index.toString());
-                            el = $('#i_delete_' + index);
-                            console.log('the last indexed icons_delete is');
-                            console.log(el);
-                            if (el.hasClass('icon_show')) {
-                                el.toggleClass('icon_show');
-                                console.log("Toggling class icon_show to off")
-                            }
-                        } else {
-                            console.log('Has class i_delete. going to toggle off');
-                                console.log(el);
-                            el.toggleClass('icon_show');
+                        // Assign the seleted variable to the data-index of the target
+                        current = $(event.target).attr('data-index');
+                        console.log('current is now '+ current);
+
+                        newImage = $('#img_thumbnail_' + current);
+                        newIcon = $('#i_delete_' + current);
+
+                        if ( newImage.not('selected') ) {
+                            console.log('toggling selected of target image');
+                            newImage.toggleClass('selected');
                         }
-                        var iParent = el.parent().get(0);
-                        console.log(iParent);
-                        console.log('Toggling class of icon_show on a parent item');
-                        $(iParent).toggleClass('icon_show');
-                        // el.toggleClass('icon_show')
-                        var img_nodes = $(iParent).siblings();
+                        if ( newIcon.not('icon_show') ) {
+                            console.log('toggling icon_show of target icon');
+                            newIcon.toggleClass('icon_show');
+                        }
 
-                        img_nodes.each(function(index) {
-                            // console.log($(this));
-
-                            if ($(this).children().hasClass('icon_show')) {
-                                $(this).children().toggleClass('icon_show');
-                                console.log("Toggling class icon_show to off")
-                                }
-                        })
-
-                        $(event.target).parent().siblings(".selected").toggleClass("selected");
-                        console.log("Toggling target's parent's sibling's element selected class");
-                        var path = $(event.target).eq(0).attr('data-imgpath');
+                        var path = $(newImage).attr('data-imgpath');
                         $('#target').val(path);
                         }
                 }
@@ -450,8 +434,5 @@ $(function () {
             // If ao, bind form events.
             bindForms();
         }
-
-
-
 
 });
