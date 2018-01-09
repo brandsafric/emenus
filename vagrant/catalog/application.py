@@ -379,19 +379,32 @@ def create_restaurant():
                                picture=login_session['picture'], user_pics=user_pics)
 
 def get_pictures(path):
+    # Grab the user ID first
+    user = get_user_info(login_session['user_id'])
+    print "user id is:"
+    print user.id
     user_pics=[]
-    full_path = os.path.join(app.config['UPLOAD_FOLDER'], path)
-    user_path = 'uploads/' + path + '/';
-    for filename in os.listdir(full_path):
-        user_pics.append([user_path + filename, filename, path + '/' + filename])
-    print "----------------------------"
-    print "Begin get_pictures"
-    for idx, val in enumerate(user_pics):
-        print str(idx) + " (path) : " + val[0]
-        print str(idx) + " (filename) : " + val[1]
-        print str(idx) + " (user_path) : " + val[2]
-    print "----------------------------"
-    print "End get_pictures"
+    picture_list = session.query(Picture).filter_by(user_id=user.id).all()
+    print "Pictures in DB:"
+    for pic in picture_list:
+        user_pics.append(pic)
+        print pic.filename
+        print pic.path
+        print pic.user_id
+        print pic.id
+    # user_pics=[]
+    # full_path = os.path.join(app.config['UPLOAD_FOLDER'], path)
+    # user_path = 'uploads/' + path + '/';
+    # for filename in os.listdir(full_path):
+    #     user_pics.append([user_path + filename, filename, path + '/' + filename])
+    # print "----------------------------"
+    # print "Begin get_pictures"
+    # for idx, val in enumerate(user_pics):
+    #     print str(idx) + " (path) : " + val[0]
+    #     print str(idx) + " (filename) : " + val[1]
+    #     print str(idx) + " (user_path) : " + val[2]
+    # print "----------------------------"
+    # print "End get_pictures"
 
     return user_pics
 
@@ -649,19 +662,35 @@ def delete_image():
     data = request.get_json()
     index = int(data['image_index'])
     user = get_user_info(login_session['user_id'])
-   # Get the path for the user
-    path = user.path
-    user_pics = get_pictures(path)
-    image_to_delete = user_pics[index][2]
-    f = os.path.join(app.config['UPLOAD_FOLDER'], image_to_delete)
-    if os.path.exists(f):
-        try:
-            os.remove(f)
-            print "deleted " + f
-        except OSError, e:
-            print ("Error: {0} - {1}.".format(e.f,e.strerror))
-    else:
-        print("Sorry, I can not find {0} file.".format(f))
+    try:
+        pictureToDelete = session.query(Picture).filter_by(user_id=user.id,
+                                                       id=index).one()
+        print "Picture in DB:"
+        print pictureToDelete.path
+        session.delete(pictureToDelete)
+        session.commit()
+        print "Made change to DB."
+        # Get the path for the user
+        path = user.path
+        # user_pics = get_pictures(path)
+        # image_to_delete = user_pics[index][2]
+        f = os.path.join(app.config['UPLOAD_FOLDER'], user.path, pictureToDelete.filename)
+        print f
+        if os.path.exists(f):
+            try:
+                os.remove(f)
+                print "deleted " + f
+            except OSError, e:
+                print ("Error: {0} - {1}.".format(e.f,e.strerror))
+        else:
+            print("Sorry, I can not find {0} file in the filesystem.".format(f))
+        return json.dumps({'success':'true', 'responseText':'File at index ' + str(index)+' was deleted successfully'});
+    except Exception, e:
+        print "error with removing file from DB"
+        return json.dumps({'success':'false', 'responseText':'File at index ' + str(index) +' was not deleted.'});
+
+
+
     # restaurantToEdit.picture = 'uploads/' + path + '/' + file.filename
     # restaurantToEdit.picture = path + '/' + file.filename
     # print f
@@ -688,6 +717,8 @@ def upload_image():
     print target
     destination = "/".join([target, filename])
     fullpath = 'uploads/' + path + '/' + filename
+    print "userid = "
+    print user.id
     newPicture = Picture(filename=filename, path=fullpath, user_id=user.id)
     session.add(newPicture)
     session.commit()
