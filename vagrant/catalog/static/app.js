@@ -54,6 +54,7 @@ $(function () {
 
             // Upload image file
             $(".btn-file").click(function (e) {
+                console.log('Upload clicked');
                 var file = document.getElementById('upload').files[0]; //Files[0] = 1st file
                 var filename = document.getElementById('upload').files[0].name;
                 var formData = new FormData();
@@ -66,7 +67,7 @@ $(function () {
                         contentType: false,
                         type: 'POST',
                         success: function(response) {
-                            // console.log(response);
+                            console.log(response);
                             // Reset the upload divs
                             $('#upload').val("");
                             // $(".no_upload").css("margin-top", "0");
