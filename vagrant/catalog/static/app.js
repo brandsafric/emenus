@@ -212,7 +212,9 @@ $(function () {
 
         $(".btn-set").on("click", function () {
             console.log('Image has been set.');
-            // Change the image on the form circle to be the selected image.
+            // Change the image on the form circle to be the selected image
+            var newImg = $('#img_tn_' + current).attr('data-imgpath');
+            $('#rest_img').attr('src', '/static/img/' + newImg);
         });
 
         // Upload file change
@@ -434,8 +436,8 @@ $(function () {
                     }
                     // Grab the filename and assign it to the target value.
                     console.log("Setting value of target")
-                    if ($(newImage).children().attr('data-fn')) {
-                        var path = newImage.children().attr('data-fn');
+                    if ($(newImage).children().attr('data-imgpath')) {
+                        var path = newImage.children().attr('data-imgpath');
                         console.log('setting value to ' + path);
                         $('#target').val(path);
                     } else {
