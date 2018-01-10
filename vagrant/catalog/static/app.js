@@ -101,6 +101,8 @@ $(function () {
                                     console.log('Image node has been added');
                                     console.log(idx);
                                     console.log(node);
+                                    console.log('Pushing to imagesArr');
+                                    imagesArr.push(filename);
                                     console.log('old current is ' + current.toString());
                                     oldImage = $('#img_thumbnail_' + current);
                                     oldIcon = $('#i_delete_' + current);
@@ -220,7 +222,6 @@ $(function () {
                 var f=this.files[0];
                 var sizeInMb = f.size/1024;
                 var sizeLimit= 1024*1; // if you want 1 MB
-                console.log(sizeInMb);
                 if (sizeInMb > sizeLimit) {
                     alert('Sorry the file exceeds the maximum size of 1 MB!');
                     // reset the input (code for all browser)
@@ -276,55 +277,61 @@ $(function () {
                     console.log(imgPath);
                     console.log(parent);
                     $(parent).toggleClass('selected');
-                    // console.log(parent.attr('id'));
-                    // var parent = self.parent().get(0);
-                    // parent.toggleClass('selected');
                 }
 
 
             });
 
             var checkDuplicate = function(filename) {
-                var imageNode = $(".img_tn");
+                // var imageNode = $(".img_tn");
                 console.log('Looking for a match of ' + filename);
                 var found;
+                console.log('imagesArr');
+                for (var i = 0; i < imagesArr.length; i++) {
+                        console.log(i + ' : ' + imagesArr[i]);
+                }
 
-                imageNode.each(function() {
-                    var imgSrc = $(this).attr('src');
-                    console.log('imgSrc is ' + imgSrc);
-                    if (imgSrc.includes(filename)) {
-                        console.log('Duplicate image found!');
-                        console.log('going to return true');
-                        // Using variable here because return true does not work.
-                        found = true;
-                    }
-                });
 
-                if (found) {
-                    return true;
-                } else {
-
-                    console.log('returning false');
-
+                if (imagesArr.indexOf(filename) == -1) {
+                    console.log('filename not found. returning false.')
                     return false;
                 }
+
+                console.log('filename found to already exist. Returning true');
+                return true;
+                // imageNode.each(function() {
+                //     var imgSrc = $(this).attr('src');
+                //     console.log('imgSrc is ' + imgSrc);
+                //     if (imgSrc.includes(filename)) {
+                //         console.log('Duplicate image found!');
+                //         console.log('going to return true');
+                //         // Using variable here because return true does not work.
+                //         found = true;
+                //     }
+                // });
+                //
+                // if (found) {
+                //     return true;
+                // } else {
+                //
+                //     console.log('returning false');
+                //
+                //     return false;
+                // }
 
 
             }
 
             var countImages = function() {
+                console.log('inside countImages function.');
                 //Check for image thumbnails on the image_gallery.
                 if (imagesArr.length) {
                     console.log('image length is ' + imagesArr.length);
-                    var image_count = imagesArr.length;
                     console.log('Images in imagesArr:');
                     for (var i = 0; i < imagesArr.length; i++) {
                         console.log(i + ' : ' + imagesArr[i]);
                     }
-
-
-
-                    if (image_count >= 5) {
+                    if (imagesArr.length >= 5) {
                         console.log('No more images permitted until you delete one.');
                         // $(".btn-file").css("display", "none");
                         $(".no_upload").css("visibility", "visible");
@@ -352,6 +359,7 @@ $(function () {
                 var imgIndex = ($(event.target).attr("data-index"));
                 // Grab the data-tn attribute which stores the ID of the img_thumbnail
                 var imgID = '#' + ($(event.target).attr("data-tn"));
+                var fn = '#' + ($(event.target).attr("data-fn"));
                 // Grab the node objects
                 var imgNode = $(imgID);
                 var iNode = $(iconID);
@@ -374,6 +382,11 @@ $(function () {
                         // Remove the image from the page
                         $(iNode).remove();
                         $(imgNode).remove();
+                        console.log("Removing image from imagesArr");
+                        var idx = imagesArr.indexOf(fn);
+                        if (idx > -1) {
+                            imagesArr.splice(idx, 1);
+                        }
                         // $(iNode).css('display', 'none');
                         // $(imgNode).css('display', 'none');
                         console.log('Images can be added');
