@@ -49,12 +49,12 @@
                     <span class="warning">(Max 5 images)</span>
                     <ul class="img_gallery">
                         <li class="img_thumbnail selected" id="img_thumbnail_99">
-                            <img class="img_tn" data-index="99" data-imgpath="not-available-abbreviation-inside-a-circle_318-33662.jpg" src="{{ url_for('static', filename='img/not-available-abbreviation-inside-a-circle_318-33662.jpg') }}" alt="img">
+                            <img class="img_tn_99" data-index="99" data-imgpath="not-available-abbreviation-inside-a-circle_318-33662.jpg" src="{{ url_for('static', filename='img/not-available-abbreviation-inside-a-circle_318-33662.jpg') }}" alt="img">
                         </li>
                         {% for p in user_pics %}
                             <li class="img_thumbnail" id="img_thumbnail_{{ p.id }}" data-index="{{ p.id }}">
 {#                                <img id="img_thumbnail_{{ loop.index }}" class="img_tn" data-index="{{ loop.index }}" data-usrpath = "{{ k }}" data-filename = "{{ v }}" data-imgpath="{{ z }}" src="{{ url_for('static', filename='img/' + k) }}" alt="img">#}
-                                <img id="img_thumbnail_{{ p.id}}" class="img_tn" data-index="{{ p.id }}" data-fn="{{ p.filename }}" data-imgpath="{{ p.path }}" src="{{ url_for('static', filename='img/' + p.path) }}" alt="img">
+                                <img id="img_tn_{{ p.id}}" class="img_tn" data-index="{{ p.id }}" data-fn="{{ p.filename }}" data-imgpath="{{ p.path }}" src="{{ url_for('static', filename='img/' + p.path) }}" alt="img">
 
                             </li>
                         {% endfor %}
