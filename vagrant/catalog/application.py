@@ -684,7 +684,7 @@ def delete_image():
                 print ("Error: {0} - {1}.".format(e.f,e.strerror))
         else:
             print("Sorry, I can not find {0} file in the filesystem.".format(f))
-        return json.dumps({'status': 'OK', 'index': "x", 'deleted': 'yes'});
+        return json.dumps({'status': 'OK', 'index': "x", 'deleted': 'yes', 'filename': pictureToDelete.filename});
 
     except Exception, e:
         print "error with removing file from DB"
@@ -711,7 +711,7 @@ def upload_image():
         print "save to database"
         f.save(destination)
         print "new image index is " + str(newPicture.id)
-        return json.dumps({'status': 'OK', 'index': newPicture.id, 'uploaded': 'yes'})
+        return json.dumps({'status': 'OK', 'index': newPicture.id, 'uploaded': 'yes', 'filename': filename})
     except Exception, e:
         print "Error. Could not save to database."
         return json.dumps({'status': 'ERROR', 'index': "n/a", 'uploaded': 'no'});
