@@ -49,24 +49,24 @@ $(function () {
 
         var imageItems = [];
         var imageNode = $(".img_tn");
-        var selected = $('#target').val();
+        var defaultImg = $('#target').val();
 
-        console.log('selected is ' + selected);
-
+        console.log('defaultImg is ' + defaultImg);
+        // Only set to 99 if this is a new restaurant
         var current = 99;
         var imagesArr = [];
 
-        countImages();
+
         // Grab the filenames and push to array.
         imageNode.each(function (index) {
-            var parent = $(this).parent().get(0);
-            $(this).parent().parent().attr('id');
-            var src = $(this).attr('src');
+            // var parent = $(this).parent().get(0);
+            // $(this).parent().parent().attr('id');
+            // var src = $(this).attr('src');
             var imgPath = $(this).attr('data-imgpath');
             var fn = $(this).attr('data-fn');
 
-            console.log(index + ' : ' + src);
-            console.log(index + ' : ' + imgPath);
+            // console.log(index + ' : ' + src);
+            // console.log(index + ' : ' + imgPath);
             console.log(index + ' : ' + fn);
             // This way, we don't push the default image that lacks a data-fn
             if (fn) {
@@ -74,7 +74,9 @@ $(function () {
             }
             console.log('Push fn to imageAR');
 
-            if (imgPath == selected && ($("#editRestForm").length)) {
+            // Set the default image to defaultImg if the imgPath is that and if
+            // this is the edit restaurant form.
+            if (imgPath == defaultImg && ($("#editRestForm").length)) {
                 console.log('match');
                 console.log('edit restaurant form')
                 console.log(imgPath);
@@ -82,16 +84,15 @@ $(function () {
                 $(parent).toggleClass('selected');
             }
 
-
         });
 
         // Set the default selected image to N/A
-        if (($("#editRestForm").length) || ($("#newRestForm").length)) {
-            console.log('this is the edit/new restaurant');
-            var el = $('#target').attr('data-index');
-            $("ul.img_gallery li.img_thumbnail:eq(" + el + ")").toggleClass("selected");
-
-        }
+        // if (($("#editRestForm").length) || ($("#newRestForm").length)) {
+        //     console.log('this is the edit/new restaurant');
+        //     var el = $('#target').attr('data-index');
+        //     $("ul.img_gallery li.img_thumbnail:eq(" + el + ")").toggleClass("selected");
+        //
+        // }
 
 
 
@@ -339,7 +340,7 @@ $(function () {
         };
 
         var imgClick = function () {
-            console.log('selected is ' + current.toString());
+            console.log('current is ' + current.toString());
             var oldImage, oldIcon, newImage, newIcon;
             if ($(event.target).hasClass('img_thumbnail')) {
                 // User clicks the thumbnail frame
@@ -431,13 +432,26 @@ $(function () {
                         console.log('toggling icon_show of target icon');
                         newIcon.toggleClass('icon_show');
                     }
+                    // Grab the filename and assign it to the target value.
+                    console.log("Setting value of target")
+                    if ($(newImage).children().attr('data-fn')) {
+                        var path = newImage.children().attr('data-fn');
+                        console.log('setting value to ' + path);
+                        $('#target').val(path);
+                    } else {
+                        // Does not have attribute, therefore must be default.
+                        $('#target').val(defaultImg);
+                    }
 
-                    var path = $(newImage).attr('data-imgpath');
-                    $('#target').val(path);
                 }
             }
 
         };
+
+        // Main execution
+        // Start off by counting the images
+        countImages();
+
 
     };
 
@@ -447,5 +461,6 @@ $(function () {
         // If ao, bind form events.
         bindForms();
     }
+
 
 });
