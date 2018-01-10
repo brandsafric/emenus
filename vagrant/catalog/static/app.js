@@ -359,16 +359,18 @@ $(function () {
                 var imgIndex = ($(event.target).attr("data-index"));
                 // Grab the data-tn attribute which stores the ID of the img_thumbnail
                 var imgID = '#' + ($(event.target).attr("data-tn"));
-                var fn = '#' + ($(event.target).attr("data-fn"));
+                var fn = ($(event.target).attr("data-fn"));
                 // Grab the node objects
                 var imgNode = $(imgID);
                 var iNode = $(iconID);
+
 
                 console.log(iNode);
                 console.log(imgNode);
 
                 var data = {"image_index":imgIndex};
                 console.log('Sending delete for index ' + imgIndex.toString());
+                console.log('Filename is:' + fn);
 
                 $.ajax({
                     url: '/deleteImage',
