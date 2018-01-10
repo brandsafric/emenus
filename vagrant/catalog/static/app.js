@@ -122,45 +122,6 @@ $(function () {
                                         current = idx;
                                     console.log('new current is ' + current.toString());
 
-                                        // Set the new image and icon as selected
-                                        // newImage = $('#img_thumbnail_' + current);
-                                        // newIcon = $('#i_delete_' + current);
-
-                                        // if ( newImage.not('selected') ) {
-                                        //     console.log('toggling selected of target image');
-                                        //     newImage.toggleClass('selected');
-                                        // }
-                                        // if ( newIcon.not('icon_show') ) {
-                                        //     console.log('toggling icon_show of target icon');
-                                        //     newIcon.toggleClass('icon_show');
-                                        // }
-                                    // Set current to uploaded node's data-index
-
-                                    // var parent = $(node).parent().get(0);
-                                    // var bro_nodes = $(parent).siblings();
-                                    // console.log(bro_nodes);
-                                    // var dataIdx;
-                                    // bro_nodes.each(function() {
-                                    //     console.log('Cycling through each thumbnail node.');
-                                    //     console.log($(this));
-                                    //     if ($(this).hasClass('selected')) {
-                                    //         dataIdx = $(this).attr('data-index');
-                                    //         $(this).toggleClass('selected');
-                                    //         console.log('thumbnail has class selected. so toggling off');
-                                    //         console.log($(this));
-                                    //         console.log('data-index is ' + dataIdx);
-                                    //         console.log('storing index as idx');
-                                    //         // Toggle icon off
-                                    //         var idx = dataIdx;
-                                    //         var iconNode = $('#i_delete_' + idx);
-                                    //         console.log('Matching icon node selected previously is...');
-                                    //         console.log(iconNode);
-                                    //         if (iconNode.hasClass('icon_show')) {
-                                    //                 console.log('icon has icon-show. going to toggle off');
-                                    //                 $(iconNode).toggleClass('icon_show');
-                                    //         }
-                                    //     }
-                                    // })
                                 };
 
                                 reader.readAsDataURL(file);
@@ -299,26 +260,6 @@ $(function () {
 
                 console.log('filename found to already exist. Returning true');
                 return true;
-                // imageNode.each(function() {
-                //     var imgSrc = $(this).attr('src');
-                //     console.log('imgSrc is ' + imgSrc);
-                //     if (imgSrc.includes(filename)) {
-                //         console.log('Duplicate image found!');
-                //         console.log('going to return true');
-                //         // Using variable here because return true does not work.
-                //         found = true;
-                //     }
-                // });
-                //
-                // if (found) {
-                //     return true;
-                // } else {
-                //
-                //     console.log('returning false');
-                //
-                //     return false;
-                // }
-
 
             }
 
