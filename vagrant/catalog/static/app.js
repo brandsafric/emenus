@@ -83,75 +83,110 @@ $(function () {
                             if ('status' in returnedData && returnedData.status == "OK") {
                                 console.log('status is ok');
                                 // Grab the index of the new element
-                                var index = ($(".img_gallery .img_tn").length - 1);
+                                var idx = returnedData.index;
                                 var HTMLimage = '<li class="img_thumbnail" id="img_thumbnail_%data%" data-index="%data%"><img id="img_%data%" class="img_tn img_tn_ul" data-index="%data%" src="" alt="img"></li>';
-                                var formattedHTML = HTMLimage.replace(/%data%/g, index);
+                                var formattedHTML = HTMLimage.replace(/%data%/g, idx);
                                 // Add the image thumbnail node
                                 console.log('Going to add image thumbnail node (without src)');
                                 console.log('Adding: ' + formattedHTML);
                                 $('.img_gallery').append(formattedHTML);
-                                console.log('Setting the image to be for the last img_tn_ul element');
+                                // console.log('Setting the image to be for the last img_tn_ul element');
                                 var node = $('.img_tn_ul').last();
                                 var reader  = new FileReader();
-                                var idx;
 
                                 reader.onloadend = function () {
                                     node.attr("src", reader.result);
                                     console.log('Image node has been added');
-                                    console.log(index);
+                                    console.log(idx);
                                     console.log(node);
-                                    var parent = $(node).parent().get(0);
-                                    var bro_nodes = $(parent).siblings();
-                                    console.log(bro_nodes);
-                                    var dataIdx;
-                                    bro_nodes.each(function() {
-                                        console.log('Cycling through each thumbnail node.');
-                                        console.log($(this));
-                                        if ($(this).hasClass('selected')) {
-                                            dataIdx = $(this).attr('data-index');
-                                            $(this).toggleClass('selected');
-                                            console.log('thumbnail has class selected. so toggling off');
-                                            console.log($(this));
-                                            console.log('data-index is ' + dataIdx);
-                                            console.log('storing index as idx');
-                                            // Toggle icon off
-                                            var idx = dataIdx;
-                                            var iconNode = $('#i_delete_' + idx);
-                                            console.log('Matching icon node selected previously is...');
-                                            console.log(iconNode);
-                                            if (iconNode.hasClass('icon_show')) {
-                                                    console.log('icon has icon-show. going to toggle off');
-                                                    $(iconNode).toggleClass('icon_show');
-                                            }
-                                        }
-                                    })
+                                    console.log('old current is ' + current.toString());
+                                    oldImage = $('#img_thumbnail_' + current);
+                                    oldIcon = $('#i_delete_' + current);
+                                    console.log('old image is: ');
+                                    console.log(oldImage);
+                                    // toggleElements(oldImage, oldIcon);
+                                    if ( oldImage.hasClass('selected') ) {
+                                        console.log('toggling selected from previous selected image')
+                                        oldImage.toggleClass('selected');
+                                    }
+
+                                    if ( oldIcon.hasClass('icon_show') ) {
+                                        console.log('toggling icon_show from previous selected icon')
+                                        oldIcon.toggleClass('icon_show');
+                                    }
+                                  // Set current to just added image
+                                        current = idx;
+                                    console.log('new current is ' + current.toString());
+
+                                        // Set the new image and icon as selected
+                                        // newImage = $('#img_thumbnail_' + current);
+                                        // newIcon = $('#i_delete_' + current);
+
+                                        // if ( newImage.not('selected') ) {
+                                        //     console.log('toggling selected of target image');
+                                        //     newImage.toggleClass('selected');
+                                        // }
+                                        // if ( newIcon.not('icon_show') ) {
+                                        //     console.log('toggling icon_show of target icon');
+                                        //     newIcon.toggleClass('icon_show');
+                                        // }
+                                    // Set current to uploaded node's data-index
+
+                                    // var parent = $(node).parent().get(0);
+                                    // var bro_nodes = $(parent).siblings();
+                                    // console.log(bro_nodes);
+                                    // var dataIdx;
+                                    // bro_nodes.each(function() {
+                                    //     console.log('Cycling through each thumbnail node.');
+                                    //     console.log($(this));
+                                    //     if ($(this).hasClass('selected')) {
+                                    //         dataIdx = $(this).attr('data-index');
+                                    //         $(this).toggleClass('selected');
+                                    //         console.log('thumbnail has class selected. so toggling off');
+                                    //         console.log($(this));
+                                    //         console.log('data-index is ' + dataIdx);
+                                    //         console.log('storing index as idx');
+                                    //         // Toggle icon off
+                                    //         var idx = dataIdx;
+                                    //         var iconNode = $('#i_delete_' + idx);
+                                    //         console.log('Matching icon node selected previously is...');
+                                    //         console.log(iconNode);
+                                    //         if (iconNode.hasClass('icon_show')) {
+                                    //                 console.log('icon has icon-show. going to toggle off');
+                                    //                 $(iconNode).toggleClass('icon_show');
+                                    //         }
+                                    //     }
+                                    // })
                                 };
 
                                 reader.readAsDataURL(file);
 
                                 // Set the node as selected
-                                $('#img_thumbnail_' + index).toggleClass('selected');
+                                $('#img_thumbnail_' + idx).toggleClass('selected');
 
                                 // Toggle selected for other elements
 
                                 // Add click listener
-                                $('#img_thumbnail_' + index).click(function(e) {
+                                $('#img_thumbnail_' + idx).click(function(e) {
                                     imgClick();
                                 });
 
 
-                                $('#i_delete_' + index).toggleClass('icon_show');
+                                $('#i_delete_' + idx).toggleClass('icon_show');
 
                                 // Add the icon node
                                 var HTMLicon = '<div class="icons_delete" id="icons_delete_%data%" data-index="%data%"><i id="i_delete_%data%" data-index="%data%" data-tn="img_thumbnail_%data%" data-parent="icons_delete_%data%" class="fa fa-times-circle i_delete icon_show" aria-hidden="true"></i></div>'
-                                var formattedIcon = HTMLicon.replace(/%data%/g, index);
+                                var formattedIcon = HTMLicon.replace(/%data%/g, idx);
                                 console.log(formattedIcon);
                                 $('.image_container').append(formattedIcon);
 
                                 // Add click listener
-                                $('#i_delete_' + index).click(function(e) {
+                                $('#i_delete_' + idx).click(function(e) {
                                    iconClick();
                                 });
+
+
+
 
                                 // Finally, check to see if we are at the max 5 images
                                 countImages();
@@ -215,7 +250,7 @@ $(function () {
             var imageItems = [];
             var imageNode = $(".img_tn");
             var selected = $('#target').val();
-            console.log(selected);
+            console.log('selected is ' + selected);
 
             imageNode.each(function(index) {
                 var parent = $(this).parent().get(0);
@@ -243,25 +278,35 @@ $(function () {
             var checkDuplicate = function(filename) {
                 var imageNode = $(".img_tn");
                 console.log('Looking for a match of ' + filename);
+                var found;
 
                 imageNode.each(function() {
                     var imgSrc = $(this).attr('src');
                     console.log('imgSrc is ' + imgSrc);
                     if (imgSrc.includes(filename)) {
                         console.log('Duplicate image found!');
-                        return true;
+                        console.log('going to return true');
+                        // Using variable here because return true does not work.
+                        found = true;
                     }
                 });
-                console.log('returning false');
 
-                return false;
+                if (found) {
+                    return true;
+                } else {
+
+                    console.log('returning false');
+
+                    return false;
+                }
+
 
             }
 
             var countImages = function() {
                 //Check for image thumbnails on the image_gallery.
                 if ($(".img_thumbnail").length) {
-                    console.log($(".img_thumbnail").length);
+                    console.log('image length is ' + $(".img_thumbnail").length);
                     var image_count = $(".img_thumbnail").length;
 
 
@@ -354,6 +399,7 @@ $(function () {
                         // Does not have selected, Going to toggle it.
                         $(event.target).toggleClass('selected');
                         console.log('It does not have class selected.');
+                        console.log('event target is ' + event.target)
 
                         current = $(event.target).attr('data-index');
                         console.log('current is now '+ current);
@@ -363,7 +409,7 @@ $(function () {
                         if (!el.hasClass('i_delete')) {
                             console.log('there is no element. Do not know why Going to grab last .icon_delete');
                             var index = ($(".image_container .icons_delete").length);
-                            console.log(index);
+                            console.log('index is ' + index.toString());
                             el = $('#i_delete_' + index);
                             console.log('further item down is');
                             console.log(el);
@@ -390,6 +436,8 @@ $(function () {
                         console.log('old selection is ' + current.toString());
                         oldImage = $('#img_thumbnail_' + current);
                         oldIcon = $('#i_delete_' + current);
+                        console.log('old image is: ');
+                        console.log(oldImage);
                         // toggleElements(oldImage, oldIcon);
                         if ( oldImage.hasClass('selected') ) {
                             console.log('toggling selected from previous selected image')
