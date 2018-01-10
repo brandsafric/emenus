@@ -96,34 +96,6 @@ $(function () {
                                 var node = $('.img_tn_ul').last();
                                 var reader  = new FileReader();
 
-                                reader.onloadend = function () {
-                                    node.attr("src", reader.result);
-                                    console.log('Image node has been added');
-                                    console.log(idx);
-                                    console.log(node);
-                                    console.log('Pushing to imagesArr');
-                                    imagesArr.push(filename);
-                                    console.log('old current is ' + current.toString());
-                                    oldImage = $('#img_thumbnail_' + current);
-                                    oldIcon = $('#i_delete_' + current);
-                                    console.log('old image is: ');
-                                    console.log(oldImage);
-                                    // toggleElements(oldImage, oldIcon);
-                                    if ( oldImage.hasClass('selected') ) {
-                                        console.log('toggling selected from previous selected image')
-                                        oldImage.toggleClass('selected');
-                                    }
-
-                                    if ( oldIcon.hasClass('icon_show') ) {
-                                        console.log('toggling icon_show from previous selected icon')
-                                        oldIcon.toggleClass('icon_show');
-                                    }
-                                  // Set current to just added image
-                                        current = idx;
-                                    console.log('new current is ' + current.toString());
-
-                                };
-
                                 reader.readAsDataURL(file);
 
                                 // Set the node as selected
@@ -150,11 +122,37 @@ $(function () {
                                    iconClick();
                                 });
 
+                                reader.onloadend = function () {
+                                    node.attr("src", reader.result);
+                                    console.log('Image node has been added');
+                                    console.log(idx);
+                                    console.log(node);
+                                    console.log('Pushing to imagesArr');
+                                    imagesArr.push(filename);
+                                    console.log('old current is ' + current.toString());
+                                    oldImage = $('#img_thumbnail_' + current);
+                                    oldIcon = $('#i_delete_' + current);
+                                    console.log('old image is: ');
+                                    console.log(oldImage);
+                                    // toggleElements(oldImage, oldIcon);
+                                    if ( oldImage.hasClass('selected') ) {
+                                        console.log('toggling selected from previous selected image')
+                                        oldImage.toggleClass('selected');
+                                    }
+
+                                    if ( oldIcon.hasClass('icon_show') ) {
+                                        console.log('toggling icon_show from previous selected icon')
+                                        oldIcon.toggleClass('icon_show');
+                                    }
+                                  // Set current to just added image
+                                        current = idx;
+                                    console.log('new current is ' + current.toString());
 
 
+                                    // Finally, check to see if we are at the max 5 images
+                                    countImages();
 
-                                // Finally, check to see if we are at the max 5 images
-                                countImages();
+                                };
                             }
                         },
                         error: function(error) {
