@@ -702,20 +702,19 @@ def upload_image():
 
     # destination = "/".join([target, filename])
     fullpath = 'uploads/' + path + '/' + filename
-    print "userid = "
-    print user.id
-
+    print "userid = " + str(user.id)
+    print "picture = " + filename
     try:
         newPicture = Picture(filename=filename, path=fullpath, user_id=user.id)
         session.add(newPicture)
         session.commit()
         print "save to database"
         f.save(destination)
-        return json.dumps({'status': 'OK', 'index': "x", 'deleted': 'yes'});
-
+        print "new image index is " + str(newPicture.id)
+        return json.dumps({'status': 'OK', 'index': newPicture.id, 'uploaded': 'yes'})
     except Exception, e:
         print "Error. Could not save to database."
-        return json.dumps({'status': 'ERROR', 'index': "x", 'deleted': 'no'});
+        return json.dumps({'status': 'ERROR', 'index': "n/a", 'uploaded': 'no'});
 
 
         # clientPath = os.path.join(path, filename)
