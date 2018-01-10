@@ -48,6 +48,8 @@ $(function () {
         var bindForms = function() {
 
             var current = 99;
+            var imagesArr=[];
+
 
 
             $(".img_thumbnail").click(function (e) {
@@ -257,9 +259,16 @@ $(function () {
                 $(this).parent().parent().attr('id');
                 var src = $(this).attr('src');
                 var imgPath = $(this).attr('data-imgpath');
+                var fn = $(this).attr('data-fn');
 
                 console.log( index + ' : ' + src);
                 console.log( index + ' : ' + imgPath);
+                console.log( index + ' : ' + fn);
+                // This way, we don't push the default image that lacks a data-fn
+                if (fn) {
+                    imagesArr.push(fn);
+                }
+                console.log('Push fn to imageAR');
 
                 if (imgPath == selected && ($("#editRestForm").length)) {
                     console.log('match');
@@ -305,9 +314,14 @@ $(function () {
 
             var countImages = function() {
                 //Check for image thumbnails on the image_gallery.
-                if ($(".img_thumbnail").length) {
-                    console.log('image length is ' + $(".img_thumbnail").length);
-                    var image_count = $(".img_thumbnail").length;
+                if (imagesArr.length) {
+                    console.log('image length is ' + imagesArr.length);
+                    var image_count = imagesArr.length;
+                    console.log('Images in imagesArr:');
+                    for (var i = 0; i < imagesArr.length; i++) {
+                        console.log(i + ' : ' + imagesArr[i]);
+                    }
+
 
 
                     if (image_count >= 5) {
