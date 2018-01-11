@@ -30,11 +30,7 @@
 <div class="picture-container ih-item circle colored effect13 bottom_to_top">
     <a href="{{ url_for('edit_restaurant', restaurant_id = restaurant.id) }}">
     <div class="img">
-        {%  if restaurant.picture == '' %}
-            <img src="{{ url_for('static', filename='img/not-available-abbreviation-inside-a-circle_318-33662.jpg') }}" alt="img">
-        {%  else %}
-            <img src="{{ url_for('static', filename='img/' + restaurant.picture) }}" alt="img">
-        {%  endif %}
+        <img src="{{ url_for('static', filename=r_picture.path) }}" alt="img">
     </div>
     <div class="info">
         <div class="info-back">
