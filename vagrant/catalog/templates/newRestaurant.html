@@ -37,7 +37,6 @@
 <div class="modal fade " id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog " role="document">
         <div class="modal-content gallery">
-{#            <form id="imageForm" action="{{ url_for('upload_image') }}" method="post" enctype="multipart/form-data">#}
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Image Gallery</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -53,16 +52,11 @@
                         </li>
                         {% for p in user_pics %}
                             <li class="img_thumbnail" id="img_thumbnail_{{ p.id }}" data-index="{{ p.id }}">
-{#                                <img id="img_thumbnail_{{ loop.index }}" class="img_tn" data-index="{{ loop.index }}" data-usrpath = "{{ k }}" data-filename = "{{ v }}" data-imgpath="{{ z }}" src="{{ url_for('static', filename='img/' + k) }}" alt="img">#}
                                 <img id="img_tn_{{ p.id}}" class="img_tn" data-index="{{ p.id }}" data-fn="{{ p.filename }}" data-imgpath="{{ p.path }}" src="{{ url_for('static', filename='img/' + p.path) }}" alt="img">
-
                             </li>
                         {% endfor %}
                     </ul>
                 <div class="image_container">
-{#                 <div class="icons_delete">#}
-{#                     <i id="i_delete_0" class="fa fa-times-circle i_delete" aria-hidden="true"></i>#}
-{#                 </div>#}
                  {% for p in user_pics %}
                      <div class="icons_delete" id="icons_delete_{{ p.id }}" data-index="{{ p.id }}">
                          <i id="i_delete_{{ p.id }}" data-index="{{ p.id }}" data-fn="{{ p.filename }}"data-tn="img_thumbnail_{{ p.id }}" data-parent="icons_delete_{{ p.id }}" class="fa fa-times-circle i_delete" aria-hidden="true"></i>
@@ -73,7 +67,6 @@
                 <div class="upload_container"><button class="btn btn-default btn-file">Upload file</button></div>
                 <div class="no_upload">Please remove a picture to free up space.</div>
                 <input id="delete_image" type="text" name="filename" value="">
-{#            </form>#}
         </div>
             <div class="modal-footer gallery">
                 <button id="btn-set" type="button" class="btn btn-primary btn-set" data-dismiss="modal">Set</button>
