@@ -128,6 +128,7 @@ $(function () {
                         var idx = returnedData.index;
                         // Grab the path of the file
                         var path = returnedData.path;
+                        console.log(typeof(path));
                         var HTMLimage = '<li class="img_thumbnail selected" id="img_thumbnail_%data%" data-index="%data%" ><img id="img_tn_%data%" class="img_tn img_tn_ul" data-imgpath="%path%" data-index="%data%" src="" alt="img"></li>';
                         var formattedHTML = HTMLimage.replace(/%data%/g, idx).replace(/%path%/g, path);
                         // Add the image thumbnail node
@@ -162,8 +163,8 @@ $(function () {
                             iconClick();
                         });
 
-                        // Set the value of #target to the img-path of new uploaded image
-                        $('#target').val(path);
+                        // Set the value of #target to the idx of new uploaded image
+                        $('#target').val(idx);
 
                         reader.onloadend = function () {
                             node.attr("src", reader.result);
@@ -177,16 +178,16 @@ $(function () {
                             oldIcon = $('#i_delete_' + current);
                             console.log('old image is: ');
                             console.log(oldImage);
-                            // toggleElements(oldImage, oldIcon);
-                            // if (oldImage.hasClass('selected')) {
-                            //     console.log('toggling selected from previous selected image');
-                            //     oldImage.toggleClass('selected');
-                            // }
-                            //
-                            // if (oldIcon.hasClass('icon_show')) {
-                            //     console.log('toggling icon_show from previous selected icon');
-                            //     oldIcon.toggleClass('icon_show');
-                            // }
+                            toggleElements(oldImage, oldIcon);
+                            if (oldImage.hasClass('selected')) {
+                                console.log('toggling selected from previous selected image');
+                                oldImage.toggleClass('selected');
+                            }
+
+                            if (oldIcon.hasClass('icon_show')) {
+                                console.log('toggling icon_show from previous selected icon');
+                                oldIcon.toggleClass('icon_show');
+                            }
                             // Set current to just added image
                             current = idx;
                             console.log('new current is ' + current.toString());
@@ -214,7 +215,7 @@ $(function () {
             console.log('Image has been set.');
             // Change the image on the form circle to be the selected image
             var newImg = $('#img_tn_' + current).attr('data-imgpath');
-            $('#rest_img').attr('src', '/static/img/' + newImg);
+            $('#rest_img').attr('src', '/static/' + newImg);
         });
 
         // Upload file change
@@ -419,8 +420,8 @@ $(function () {
 
                     // Grab the filename and assign it to the target value.
                     console.log("Setting value of target")
-                    if ($(newImage).children().attr('data-imgpath')) {
-                        var path = newImage.children().attr('data-imgpath');
+                    if ($(newImage).children().attr('data-index')) {
+                        var path = newImage.children().attr('data-index');
                         console.log('setting value to ' + path);
                         $('#target').val(path);
                     } else {
