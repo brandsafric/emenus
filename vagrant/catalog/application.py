@@ -393,7 +393,6 @@ def get_pictures(path):
 
 @app.route('/restaurant/<int:restaurant_id>/edit', methods=['GET', 'POST'])
 def edit_restaurant(restaurant_id):
-
     print request.referrer
     restaurantToEdit = session.query(Restaurant).\
         filter_by(id=restaurant_id).one()
@@ -415,10 +414,8 @@ def edit_restaurant(restaurant_id):
         # Get the path for the user
         user = get_user_info(restaurantToEdit.user_id)
         path = user.path
-        # print path
         f = os.path.join(app.config['UPLOAD_FOLDER'], path, file.filename)
         restaurantToEdit.picture = 'uploads/' + path + '/' + file.filename
-
         # add your custom code to check that the uploaded file is a valid
         # image and not a malicious file (out-of-scope for this post)
         file.save(f)
@@ -435,24 +432,25 @@ def edit_restaurant(restaurant_id):
         # print user_pics.index(user.path)
         print 'restaurantToEdit.picture = ' + restaurantToEdit.picture
         print user_pics
-        try:
-            print user_pics[0][2]
-        except IndexError:
-            print("List does not contain value")
+        # try:
+        #     print user_pics[0][2]
+        # except IndexError:
+        #     print("List does not contain value")
 
-        [(i, pic.index(restaurantToEdit.picture))
-         for i, pic in enumerate(user_pics)
-         if restaurantToEdit.picture in pic]
-        print i
-        for pic in user_pics:
-            print "pic: " + pic[0]
-        print user_pics[i][0]
-        restaurant_pic = user_pics[i][0]
+        # [(i, pic.index(restaurantToEdit.picture))
+        #  for i, pic in enumerate(user_pics)
+        #  if restaurantToEdit.picture in pic]
+        # print i
+        # for pic in user_pics:
+        #     print "pic: " + pic[0]
+        # print user_pics[i][0]
+        # restaurant_pic = user_pics[i][0]
+
 
         return render_template(
             'editRestaurant.html', restaurant_id=restaurant_id,
             restaurant=restaurantToEdit, picture=login_session['picture'],
-            user_pics=user_pics, restaurant_pic=restaurant_pic, index=i+1)
+            user_pics=user_pics, restaurant_pic=restaurantToEdit.picture)
 
 
 @app.route('/restaurant/<int:restaurant_id>/delete', methods=['GET', 'POST'])
