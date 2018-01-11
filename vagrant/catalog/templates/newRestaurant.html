@@ -25,7 +25,7 @@
             <input type="text" size="80" name="name" placeholder="Name" required>
         </div>
         <div>
-            <input id="target" type="text" name="picture" value="not-available-abbreviation-inside-a-circle_318-33662.jpg">
+            <input id="target" type="text" name="picture" value=1>
         </div>
         <input class="btn btn-primary" type="submit" value="Create">
         <a class="cancel btn btn-secondary" href="{{ url_for('show_restaurants') }}">Cancel</a>
@@ -52,7 +52,7 @@
                         </li>
                         {% for p in user_pics %}
                             <li class="img_thumbnail" id="img_thumbnail_{{ p.id }}" data-index="{{ p.id }}">
-                                <img id="img_tn_{{ p.id}}" class="img_tn" data-index="{{ p.id }}" data-fn="{{ p.filename }}" data-imgpath="{{ p.path }}" src="{{ url_for('static', filename='img/' + p.path) }}" alt="img">
+                                <img id="img_tn_{{ p.id}}" class="img_tn" data-index="{{ p.id }}" data-fn="{{ p.filename }}" data-imgpath="{{ p.path }}" src="{{ url_for('static', filename= p.path) }}" alt="img">
                             </li>
                         {% endfor %}
                     </ul>
