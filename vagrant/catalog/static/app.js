@@ -59,14 +59,8 @@ $(function () {
 
         // Grab the filenames and push to array.
         imageNode.each(function (index) {
-            // var parent = $(this).parent().get(0);
-            // $(this).parent().parent().attr('id');
-            // var src = $(this).attr('src');
             var imgPath = $(this).attr('data-imgpath');
             var fn = $(this).attr('data-fn');
-
-            // console.log(index + ' : ' + src);
-            // console.log(index + ' : ' + imgPath);
             console.log(index + ' : ' + fn);
             // This way, we don't push the default image that lacks a data-fn
             if (fn) {
@@ -108,6 +102,7 @@ $(function () {
             var formData = new FormData();
             formData.append('image', file, filename);
 
+
             $.ajax({
                 url: '/uploadImage',
                 data: formData,
@@ -131,7 +126,7 @@ $(function () {
                         console.log('status is ok');
                         // Grab the index of the new element
                         var idx = returnedData.index;
-                        var HTMLimage = '<li class="img_thumbnail" id="img_thumbnail_%data%" data-index="%data%"><img id="img_%data%" class="img_tn img_tn_ul" data-index="%data%" src="" alt="img"></li>';
+                        var HTMLimage = '<li class="img_thumbnail" id="img_thumbnail_%data%" data-index="%data%" data-imgpath=""><img id="img_tn_%data%" class="img_tn img_tn_ul" data-index="%data%" src="" alt="img"></li>';
                         var formattedHTML = HTMLimage.replace(/%data%/g, idx);
                         // Add the image thumbnail node
                         console.log('Going to add image thumbnail node (without src)');
@@ -354,15 +349,9 @@ $(function () {
                     // Let's toggle the old selection
                     oldImage = $('#img_thumbnail_' + current);
                     oldIcon = $('#i_delete_' + current);
-                    if (oldImage.hasClass('selected')) {
-                        console.log('toggling selected from previous selected image')
-                        oldImage.toggleClass('selected');
-                    }
 
-                    if (oldIcon.hasClass('icon_show')) {
-                        console.log('toggling icon_show from previous selected icon');
-                        oldIcon.toggleClass('icon_show');
-                    }
+                    toggleElements(oldImage, 'selected', 0);
+                    toggleElements(oldIcon, 'icon_show', 0);
 
                     // Does not have selected, Going to toggle it.
                     $(event.target).toggleClass('selected');
@@ -407,15 +396,9 @@ $(function () {
                     console.log('old image is: ');
                     console.log(oldImage);
                     // toggleElements(oldImage, oldIcon);
-                    if (oldImage.hasClass('selected')) {
-                        console.log('toggling selected from previous selected image')
-                        oldImage.toggleClass('selected');
-                    }
 
-                    if (oldIcon.hasClass('icon_show')) {
-                        console.log('toggling icon_show from previous selected icon')
-                        oldIcon.toggleClass('icon_show');
-                    }
+                    toggleElements(oldImage, 'selected', 0);
+                    toggleElements(oldIcon, 'icon_show', 0);
 
                     console.log('parent does not have class selected.');
                     console.log('going to toggle parent class of selected');
@@ -425,15 +408,10 @@ $(function () {
 
                     newImage = $('#img_thumbnail_' + current);
                     newIcon = $('#i_delete_' + current);
+                    //
+                    toggleElements(newImage, 'selected', 1);
+                    toggleElements(newIcon, 'icon_show', 1);
 
-                    if (newImage.not('selected')) {
-                        console.log('toggling selected of target image');
-                        newImage.toggleClass('selected');
-                    }
-                    if (newIcon.not('icon_show')) {
-                        console.log('toggling icon_show of target icon');
-                        newIcon.toggleClass('icon_show');
-                    }
                     // Grab the filename and assign it to the target value.
                     console.log("Setting value of target")
                     if ($(newImage).children().attr('data-imgpath')) {
@@ -446,6 +424,22 @@ $(function () {
                     }
 
                 }
+            }
+
+        };
+
+        var toggleElements = function(el, className, isNot) {
+            console.log('in toggleElements.');
+            console.log(el);
+            console.log(className);
+            if (isNot) {
+                if (el.not(className)) {
+                    console.log('toggling ' + className + 'from previous ' + className);
+                    el.toggleClass(className);
+                }
+            } else if (el.hasClass(className)) {
+                console.log('toggling ' + className + 'from previous ' + className);
+                el.toggleClass(className);
             }
 
         };
