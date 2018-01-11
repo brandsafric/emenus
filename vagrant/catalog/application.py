@@ -331,8 +331,6 @@ def show_restaurants():
         return render_template('publicrestaurants.html',
                                restaurants=restaurants,
                                picture=login_session['picture'])
-        # return render_template('restaurants.html', restaurants=restaurants,
-        #                        picture=login_session['picture'])
 
 
 @app.route('/restaurants/new', methods=['GET', 'POST'])
@@ -373,8 +371,6 @@ def create_restaurant():
     else:
         user_pics=[]
         user_pics=get_pictures(user.path)
-        # print "393-User Pics:"
-        # print user_pics
         return render_template('newRestaurant.html',
                                picture=login_session['picture'], user_pics=user_pics)
 
@@ -392,20 +388,6 @@ def get_pictures(path):
         print pic.path
         print pic.user_id
         print pic.id
-    # user_pics=[]
-    # full_path = os.path.join(app.config['UPLOAD_FOLDER'], path)
-    # user_path = 'uploads/' + path + '/';
-    # for filename in os.listdir(full_path):
-    #     user_pics.append([user_path + filename, filename, path + '/' + filename])
-    # print "----------------------------"
-    # print "Begin get_pictures"
-    # for idx, val in enumerate(user_pics):
-    #     print str(idx) + " (path) : " + val[0]
-    #     print str(idx) + " (filename) : " + val[1]
-    #     print str(idx) + " (user_path) : " + val[2]
-    # print "----------------------------"
-    # print "End get_pictures"
-
     return user_pics
 
 
@@ -436,15 +418,10 @@ def edit_restaurant(restaurant_id):
         # print path
         f = os.path.join(app.config['UPLOAD_FOLDER'], path, file.filename)
         restaurantToEdit.picture = 'uploads/' + path + '/' + file.filename
-        # restaurantToEdit.picture = path + '/' + file.filename
-        # print f
-        # print 'here'
-        # restaurantToEdit.picture = 'uploads/' + login_session{'gplus_id'+ file.filename
+
         # add your custom code to check that the uploaded file is a valid
         # image and not a malicious file (out-of-scope for this post)
         file.save(f)
-        # print "Saved file {0}".format(file.filename)
-
         session.add(restaurantToEdit)
         flash("Restaurant has been edited by {0}."
               .format(login_session['username']))
@@ -670,10 +647,6 @@ def delete_image():
         session.delete(pictureToDelete)
         session.commit()
         print "Made change to DB."
-        # Get the path for the user
-        path = user.path
-        # user_pics = get_pictures(path)
-        # image_to_delete = user_pics[index][2]
         f = os.path.join(app.config['UPLOAD_FOLDER'], user.path, pictureToDelete.filename)
         print f
         if os.path.exists(f):
@@ -700,7 +673,6 @@ def upload_image():
     path = user.path
     destination = os.path.join(app.config['UPLOAD_FOLDER'], path, filename)
 
-    # destination = "/".join([target, filename])
     fullpath = 'uploads/' + path + '/' + filename
     print "userid = " + str(user.id)
     print "picture = " + filename
@@ -715,12 +687,6 @@ def upload_image():
     except Exception, e:
         print "Error. Could not save to database."
         return json.dumps({'status': 'ERROR', 'index': "n/a", 'uploaded': 'no'});
-
-
-        # clientPath = os.path.join(path, filename)
-    # print clientPath
-    # return send_from_directory(target, filename)
-
 
 
 if __name__ == '__main__':
