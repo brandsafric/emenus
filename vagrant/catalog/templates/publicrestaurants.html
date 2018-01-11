@@ -34,11 +34,7 @@
                 <div class="ih-item circle colored effect6 scale_up">
                 {{ r.image }}
                     <a href="{{ url_for('show_menu', restaurant_id = r.id) }}">
-                        {%  if r.picture == '' %}
-                            <div class="img"><img src="{{ url_for('static', filename='img/not-available-abbreviation-inside-a-circle_318-33662.jpg') }}" alt="img"></div>
-                        {%  else %}
-                            <div class="img"><img src="{{ url_for('static', filename='img/' + r.picture) }}" alt="img"></div>
-                        {%  endif %}
+                        <div class="img"><img src="{{ url_for('static', filename=pictures[r.picture_id - 1].path) }}" alt="img"></div>
                     <div class="info info-bg">
                         <h3 class="name">{{ r.name|truncate(20, True) }}</h3>
                         <p class="cuisine">{{ r.cuisine }}</p>
