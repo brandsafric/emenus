@@ -76,7 +76,7 @@
     <div class="form-heading form-heading-nr">
         <h1>Edit Restaurant</h1>
     </div>
-    <form id="editRestForm" action="{{ url_for('edit_restaurant') }}" method="post" enctype="multipart/form-data">
+    <form id="editRestForm" action="{{ url_for('edit_restaurant', restaurant_id=restaurant_id) }}" method="post" enctype="multipart/form-data">
         <label>Name <span class="required">*</span></label>
         <div>
             <input type="text" size="80" name="name" placeholder={{ restaurant.name }} required>
