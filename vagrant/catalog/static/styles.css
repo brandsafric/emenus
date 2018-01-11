@@ -491,7 +491,8 @@ input[type=submit],
     cursor: pointer;
 }
 
-#newRestForm {
+#newRestForm,
+#editRestForm {
     clear: both;
 }
 
