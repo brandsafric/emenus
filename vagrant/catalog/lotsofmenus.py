@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from database_setup import Restaurant, Base, MenuItem, User
+from database_setup import Restaurant, Base, MenuItem, User, Picture
 
 engine = create_engine('sqlite:///restaurantmenuwithusers.db')
 # Bind the engine to the metadata of the Base class so that the
@@ -26,7 +26,7 @@ session.add(User1)
 session.commit()
 
 # Menu for UrbanBurger
-restaurant1 = Restaurant(user_id=1, name="Urban Burger", cuisine="American", picture="pexels-photo-660282.jpg")
+restaurant1 = Restaurant(user_id=1, name="Urban Burger", cuisine="American", picture_id=8)
 
 session.add(restaurant1)
 session.commit()
@@ -88,7 +88,7 @@ session.commit()
 
 
 # Menu for Super Stir Fry
-restaurant2 = Restaurant(user_id=1, name="Super Stir Fry", cuisine="Stir Fry", picture="pexels-photo-76093.jpg")
+restaurant2 = Restaurant(user_id=1, name="Super Stir Fry", cuisine="Stir Fry", picture_id=2)
 
 session.add(restaurant2)
 session.commit()
@@ -131,7 +131,7 @@ session.add(menuItem6)
 session.commit()
 
 # Menu for Panda Garden
-restaurant1 = Restaurant(user_id=1, name="Panda Garden", cuisine="Thai", picture="thai-food-noodle-fried-noodles-meal-46247.jpg")
+restaurant1 = Restaurant(user_id=1, name="Panda Garden", cuisine="Thai", picture_id=9)
 
 session.add(restaurant1)
 session.commit()
@@ -169,7 +169,7 @@ session.commit()
 
 
 # Menu for Thyme for that
-restaurant1 = Restaurant(user_id=1, name="Thyme for That Vegetarian Cuisine", cuisine="Vegetarian", picture="pexels-photo-568370.jpg")
+restaurant1 = Restaurant(user_id=1, name="Thyme for That Vegetarian Cuisine", cuisine="Vegetarian", picture_id=6)
 
 session.add(restaurant1)
 session.commit()
@@ -213,7 +213,7 @@ session.commit()
 
 
 # Menu for Tony's Bistro
-restaurant1 = Restaurant(user_id=1, name="Tony\'s Bistro", cuisine="American", picture="pexels-photo-425008.jpg")
+restaurant1 = Restaurant(user_id=1, name="Tony\'s Bistro", cuisine="American", picture_id=5)
 
 session.add(restaurant1)
 session.commit()
@@ -251,7 +251,7 @@ session.commit()
 
 
 # Menu for Andala's
-restaurant1 = Restaurant(user_id=1, name="Andala\'s", cuisine="American/Sushi", picture="pexels-photo-221143.jpg")
+restaurant1 = Restaurant(user_id=1, name="Andala\'s", cuisine="American/Sushi", picture_id=3)
 session.add(restaurant1)
 session.commit()
 
@@ -287,7 +287,7 @@ session.add(menuItem2)
 session.commit()
 
 # Menu for Auntie Ann's
-restaurant1 = Restaurant(user_id=1, name="Auntie Ann\'s Diner'", cuisine="American Diner", picture="water-drink-glass-drinking.jpg")
+restaurant1 = Restaurant(user_id=1, name="Auntie Ann\'s Diner'", cuisine="American Diner", picture_id=10)
 
 session.add(restaurant1)
 session.commit()
@@ -337,7 +337,7 @@ session.commit()
 
 
 # Menu for Cocina Y Amor
-restaurant1 = Restaurant(user_id=1, name="Cocina Y Amor", cuisine="Mexican", picture="pexels-photo-461198.jpg")
+restaurant1 = Restaurant(user_id=1, name="Cocina Y Amor", cuisine="Mexican", picture_id=6)
 
 session.add(restaurant1)
 session.commit()
@@ -355,7 +355,7 @@ menuItem2 = MenuItem(user_id=1, name="Cachapa", description="Golden brown, corn-
 session.add(menuItem2)
 session.commit()
 
-restaurant1 = Restaurant(user_id=1, name="State Bird Provisions", cuisine="American French Fusion", picture="pexels-photo-248444.jpg")
+restaurant1 = Restaurant(user_id=1, name="State Bird Provisions", cuisine="American French Fusion", picture_id=4)
 session.add(restaurant1)
 session.commit()
 
@@ -376,6 +376,46 @@ menuItem1 = MenuItem(user_id=1, name="Lemon Curd Ice Cream Sandwich",
                      description="Lemon Curd Ice Cream Sandwich on a chocolate macaron with cardamom meringue and cashews", price="$4.25", course="Dessert", restaurant=restaurant1)
 
 session.add(menuItem1)
+session.commit()
+
+pictureItem1 = Picture(filename="not-available-abbreviation-inside-a-circle_318-33662.jpg", path="img/not-available-abbreviation-inside-a-circle_318-33662.jpg" )
+session.add(pictureItem1)
+session.commit()
+
+pictureItem2 = Picture(filename="pexels-photo-76093.jpg", path="img/pexels-photo-76093.jpg" )
+session.add(pictureItem2)
+session.commit()
+
+pictureItem3 = Picture(filename="pexels-photo-221143.jpg", path="img/pexels-photo-221143.jpg" )
+session.add(pictureItem3)
+session.commit()
+
+pictureItem4 = Picture(filename="pexels-photo-248444.jpg", path="img/pexels-photo-248444.jpg" )
+session.add(pictureItem4)
+session.commit()
+
+pictureItem5 = Picture(filename="pexels-photo-425008.jpg", path="img/pexels-photo-425008.jpg" )
+session.add(pictureItem5)
+session.commit()
+
+pictureItem6 = Picture(filename="pexels-photo-461198.jpg", path="img/pexels-photo-461198.jpg" )
+session.add(pictureItem6)
+session.commit()
+
+pictureItem7 = Picture(filename="pexels-photo-568370.jpg", path="img/pexels-photo-568370.jpg" )
+session.add(pictureItem7)
+session.commit()
+
+pictureItem8 = Picture(filename="pexels-photo-660282.jpg", path="img/pexels-photo-660282.jpg" )
+session.add(pictureItem8)
+session.commit()
+
+pictureItem9 = Picture(filename="thai-food-noodle-fried-noodles-meal-46247.jpg", path="img/thai-food-noodle-fried-noodles-meal-46247.jpg" )
+session.add(pictureItem9)
+session.commit()
+
+pictureItem10 = Picture(filename="water-drink-glass-drinking.jpg", path="img/water-drink-glass-drinking.jpg" )
+session.add(pictureItem10)
 session.commit()
 
 
