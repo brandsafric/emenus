@@ -321,6 +321,9 @@ def create_user(login_session):
 def show_restaurants():
     restaurants = session.query(Restaurant).\
         order_by(asc(Restaurant.name)).all()
+    for r in restaurants:
+        print r.name
+        print r.picture_id
     pictures = session.query(Picture).all()
     for pic in pictures:
         print pic.filename
@@ -348,23 +351,26 @@ def create_restaurant():
 
     if request.method == 'POST':
         try:
-            file = request.files['image']
+            print "we are here."
+            print request.form['picture']
+            # file = request.files['image']
             # Get the path for the user
             path = user.path
-            f = os.path.join(app.config['UPLOAD_FOLDER'], path, file.filename)
+            print 'picture is:'
+            print request.form['picture']
+            # f = os.path.join(app.config['UPLOAD_FOLDER'], path, file.filename)
             newRestaurant = Restaurant(name=request.form['name'],
-                                       picture='uploads/' + path + '/' +
-                                               file.filename,
+                                       picture_id=request.form['picture'],
                                        user_id=login_session['user_id'])
             # add your custom code to check that the uploaded file is a valid
             # image and not a malicious file (out-of-scope for this post)
-            file.save(f)
+            # file.save(f)
         except:
             print "No file specified for image upload."
             index = request.form['picture'];
             try:
                 newRestaurant = Restaurant(name=request.form['name'],
-                                       picture=request.form['picture'],
+                                       picture_id=request.form['picture'],
                                        user_id=login_session['user_id'])
             except ValueError:
                 print "error"
@@ -402,6 +408,7 @@ def edit_restaurant(restaurant_id):
     print request.referrer
     restaurantToEdit = session.query(Restaurant).\
         filter_by(id=restaurant_id).one()
+    print restaurantToEdit.picture_id
     if 'username' not in login_session:
         return redirect('/login')
     else:
@@ -503,26 +510,30 @@ def show_menu(restaurant_id):
                                                  course="Dessert").all()
     beverages = session.query(MenuItem).filter_by(restaurant_id=restaurant_id,
                                                   course="Beverage").all()
+    picture = session.query(Picture).filter_by(id=restaurant.picture_id).one()
+    print picture.path
     if 'username' not in login_session:
         print "public menu"
         return render_template('publicmenu.html', appetizers=appetizers,
                                entrees=entrees, desserts=desserts,
                                beverages=beverages, restaurant=restaurant,
-                               creator=creator)
+                               creator=creator, r_picture=picture)
     elif creator.id != login_session['user_id']:
         print "public menu"
         return render_template('publicmenu.html', appetizers=appetizers,
                                entrees=entrees, desserts=desserts,
                                beverages=beverages, restaurant=restaurant,
                                creator=creator,
-                               picture=login_session['picture'])
+                               picture=login_session['picture'], r_picture=picture)
     else:
         print "private menu"
-        return render_template('publicMenu.html', restaurant=restaurant,
+        print picture.path
+        return render_template('publicmenu.html', restaurant=restaurant,
                                appetizers=appetizers, entrees=entrees,
                                desserts=desserts, beverages=beverages,
                                creator=creator,
-                               picture=login_session['picture'])
+                               picture=login_session['picture'],
+                               r_picture=picture)
 
 
 @app.route('/restaurant/<int:restaurant_id>/menu/new', methods=['GET', 'POST'])
@@ -677,7 +688,7 @@ def upload_image():
     path = user.path
     destination = os.path.join(app.config['UPLOAD_FOLDER'], path, filename)
 
-    fullpath = 'uploads/' + path + '/' + filename
+    fullpath = 'img/uploads/' + path + '/' + filename
     print "userid = " + str(user.id)
     print "picture = " + filename
     try:
