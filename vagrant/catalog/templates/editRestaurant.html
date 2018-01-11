@@ -1,10 +1,10 @@
-{% extends "main.html" %}
-{% block content %}
-{% include "header.html" %}
-<div class="form-wrapper">
-    <div class="form-heading">
-        <h1>Edit Restaurant</h1>
-    </div>
+{#{% extends "main.html" %}#}
+{#{% block content %}#}
+{#{% include "header.html" %}#}
+{#<div class="form-wrapper">#}
+{#    <div class="form-heading">#}
+{#        <h1>Edit Restaurant</h1>#}
+{#    </div>#}
 {#    <form class="edit-form" action="{{ url_for('edit_restaurant', restaurant_id=restaurant_id) }}" method="post" enctype="multipart/form-data">#}
 {#        <label>Name <span class="required">*</span></label>#}
 {#        <div>#}
@@ -20,36 +20,116 @@
 {#            <a class="cancel" href="{{ url_for('show_menu', restaurant_id = restaurant.id) }}">Cancel</a>#}
 {#        </div>#}
 {#    </form>#}
-    <form id="editRestForm" action="{{ url_for('create_restaurant') }}" method="post" enctype="multipart/form-data">
+{#    <form id="editRestForm" action="{{ url_for('create_restaurant') }}" method="post" enctype="multipart/form-data">#}
+{#        <label>Name <span class="required">*</span></label>#}
+{#        <div>#}
+{#            <input type="text" size="80" name="name" placeholder={{ restaurant.name }} required>#}
+{#        </div>#}
+{#        <div>#}
+{#        <span>Choose an Image</span>#}
+{#            <ul class="img_gallery">#}
+{#                <li class="img_thumbnail">#}
+{#                    <img id="img_thumbnail" class="img_tn" data-imgpath="not-available-abbreviation-inside-a-circle_318-33662.jpg" src="{{ url_for('static', filename='img/not-available-abbreviation-inside-a-circle_318-33662.jpg') }}" alt="img">#}
+{#                </li>#}
+{#                {%  for k,v,z in user_pics %}#}
+{#                    <li class="img_thumbnail">#}
+{#                        <img class="img_tn" data-imgpath="{{ k }}" src="{{ url_for('static', filename='img/' + k) }}" alt="img">#}
+{#                    </li>#}
+{#                {% endfor %}#}
+{#            </ul>#}
+{#            <input id="target" type="text" name="picture" data-index="{{ index }}" value="{{ restaurant_pic }}">#}
+{##}
+{#        </div>#}
+{##}
+{##}
+{#        <div>#}
+{#            <span class="btn btn-default btn-file">Upload <input type="file" id="upload" name="image"></span>#}
+{#        </div>#}
+{#        <div>#}
+{#            <input type="submit" value="Create">#}
+{#            <a class="cancel" href="{{ url_for('show_restaurants') }}">Cancel</a>#}
+{#        </div>#}
+{#    </form>#}
+{#</div>#}
+{##}
+{#{% endblock %}#}
+
+
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+<div class="form-wrapper">
+    <div class="ih-item circle colored effect5 form_image">
+        <a data-toggle="modal" data-target="#exampleModal">
+            <div class="img">
+                <img id="rest_img" src="{{ url_for('static', filename='img/not-available-abbreviation-inside-a-circle_318-33662.jpg') }}" alt="img">
+            </div>
+            <div class="info">
+              <div class="info-back info-bg">
+                <h3>Change Picture</h3>
+                <p>View your image gallery</p>
+              </div>
+            </div>
+        </a>
+    </div>
+    <!-- end colored -->
+    <div class="form-heading form-heading-nr">
+        <h1>Edit Restaurant</h1>
+    </div>
+    <form id="editRestForm" action="{{ url_for('edit_restaurant') }}" method="post" enctype="multipart/form-data">
         <label>Name <span class="required">*</span></label>
         <div>
             <input type="text" size="80" name="name" placeholder={{ restaurant.name }} required>
         </div>
         <div>
-        <span>Choose an Image</span>
-            <ul class="img_gallery">
-                <li class="img_thumbnail">
-                    <img id="img_thumbnail" class="img_tn" data-imgpath="not-available-abbreviation-inside-a-circle_318-33662.jpg" src="{{ url_for('static', filename='img/not-available-abbreviation-inside-a-circle_318-33662.jpg') }}" alt="img">
-                </li>
-                {%  for k,v,z in user_pics %}
-                    <li class="img_thumbnail">
-                        <img class="img_tn" data-imgpath="{{ k }}" src="{{ url_for('static', filename='img/' + k) }}" alt="img">
-                    </li>
-                {% endfor %}
-            </ul>
-            <input id="target" type="text" name="picture" data-index="{{ index }}" value="{{ restaurant_pic }}">
-
+            <input id="target" type="text" name="picture" value="not-available-abbreviation-inside-a-circle_318-33662.jpg">
         </div>
-
-
-        <div>
-            <span class="btn btn-default btn-file">Upload <input type="file" id="upload" name="image"></span>
-        </div>
-        <div>
-            <input type="submit" value="Create">
-            <a class="cancel" href="{{ url_for('show_restaurants') }}">Cancel</a>
-        </div>
+        <input class="btn btn-primary" type="submit" value="Create">
+        <a class="cancel btn btn-secondary" href="{{ url_for('show_restaurants') }}">Cancel</a>
     </form>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade " id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content gallery">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Image Gallery</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <span>Choose an Image</span>
+                    <span class="warning">(Max 5 images)</span>
+                    <ul class="img_gallery">
+                        <li class="img_thumbnail selected" id="img_thumbnail_99">
+                            <img class="img_tn_99" data-index="99" data-imgpath="not-available-abbreviation-inside-a-circle_318-33662.jpg" src="{{ url_for('static', filename='img/not-available-abbreviation-inside-a-circle_318-33662.jpg') }}" alt="img">
+                        </li>
+                        {% for p in user_pics %}
+                            <li class="img_thumbnail" id="img_thumbnail_{{ p.id }}" data-index="{{ p.id }}">
+                                <img id="img_tn_{{ p.id}}" class="img_tn" data-index="{{ p.id }}" data-fn="{{ p.filename }}" data-imgpath="{{ p.path }}" src="{{ url_for('static', filename='img/' + p.path) }}" alt="img">
+                            </li>
+                        {% endfor %}
+                    </ul>
+                <div class="image_container">
+                 {% for p in user_pics %}
+                     <div class="icons_delete" id="icons_delete_{{ p.id }}" data-index="{{ p.id }}">
+                         <i id="i_delete_{{ p.id }}" data-index="{{ p.id }}" data-fn="{{ p.filename }}"data-tn="img_thumbnail_{{ p.id }}" data-parent="icons_delete_{{ p.id }}" class="fa fa-times-circle i_delete" aria-hidden="true"></i>
+                     </div>
+                 {% endfor %}
+                </div>
+                <div class="file_container"><input type="file" id="upload" name="image"></div>
+                <div class="upload_container"><button class="btn btn-default btn-file">Upload file</button></div>
+                <div class="no_upload">Please remove a picture to free up space.</div>
+                <input id="delete_image" type="text" name="filename" value="">
+        </div>
+            <div class="modal-footer gallery">
+                <button id="btn-set" type="button" class="btn btn-primary btn-set" data-dismiss="modal">Set</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            </div>
+    </div>
 </div>
 
 {% endblock %}
