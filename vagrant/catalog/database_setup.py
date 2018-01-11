@@ -38,11 +38,11 @@ class Restaurant(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
-    picture = Column(String(250))
     cuisine = Column(String(250))
     user_id = Column(Integer, ForeignKey('user.id'))
     user = relationship(User)
-
+    picture_id = Column(Integer, ForeignKey('picture.id'))
+    picture = relationship(Picture)
     @property
     def serialize(self):
         # Returns object data in easily serializable format
