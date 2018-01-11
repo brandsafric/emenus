@@ -711,7 +711,7 @@ def upload_image():
         print "save to database"
         f.save(destination)
         print "new image index is " + str(newPicture.id)
-        return json.dumps({'status': 'OK', 'index': newPicture.id, 'uploaded': 'yes', 'filename': filename})
+        return json.dumps({'status': 'OK', 'index': newPicture.id, 'uploaded': 'yes', 'filename': filename, 'path': fullpath})
     except Exception, e:
         print "Error. Could not save to database."
         return json.dumps({'status': 'ERROR', 'index': "n/a", 'uploaded': 'no'});
