@@ -321,17 +321,23 @@ def create_user(login_session):
 def show_restaurants():
     restaurants = session.query(Restaurant).\
         order_by(asc(Restaurant.name)).all()
+    pictures = session.query(Picture).all()
+    for pic in pictures:
+        print pic.filename
+        print pic.path
+        print pic.id
+
     if 'username' not in login_session:
         print "no username is session. rendering public."
         return render_template('publicrestaurants.html',
-                               restaurants=restaurants),
+                               restaurants=restaurants, pictures=pictures),
     else:
         print "username in session. rendering private"
         print login_session
         return render_template('publicrestaurants.html',
                                restaurants=restaurants,
-                               picture=login_session['picture'])
-
+                               picture=login_session['picture'],
+                               pictures=pictures)
 
 @app.route('/restaurants/new', methods=['GET', 'POST'])
 def create_restaurant():
