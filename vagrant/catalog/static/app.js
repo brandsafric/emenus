@@ -126,8 +126,10 @@ $(function () {
                         console.log('status is ok');
                         // Grab the index of the new element
                         var idx = returnedData.index;
-                        var HTMLimage = '<li class="img_thumbnail" id="img_thumbnail_%data%" data-index="%data%" data-imgpath=""><img id="img_tn_%data%" class="img_tn img_tn_ul" data-index="%data%" src="" alt="img"></li>';
-                        var formattedHTML = HTMLimage.replace(/%data%/g, idx);
+                        // Grab the path of the file
+                        var path = returnedData.path;
+                        var HTMLimage = '<li class="img_thumbnail selected" id="img_thumbnail_%data%" data-index="%data%" ><img id="img_tn_%data%" class="img_tn img_tn_ul" data-imgpath="%path%" data-index="%data%" src="" alt="img"></li>';
+                        var formattedHTML = HTMLimage.replace(/%data%/g, idx).replace(/%path%/g, path);
                         // Add the image thumbnail node
                         console.log('Going to add image thumbnail node (without src)');
                         console.log('Adding: ' + formattedHTML);
@@ -138,8 +140,8 @@ $(function () {
 
                         reader.readAsDataURL(file);
 
-                        // Set the node as selected
-                        $('#img_thumbnail_' + idx).toggleClass('selected');
+                        // // Set the node as selected
+                        // $('#img_thumbnail_' + idx).toggleClass('selected');
 
                         // Add click listener
                         $('#img_thumbnail_' + idx).click(function (e) {
@@ -160,6 +162,9 @@ $(function () {
                             iconClick();
                         });
 
+                        // Set the value of #target to the img-path of new uploaded image
+                        $('#target').val(path);
+
                         reader.onloadend = function () {
                             node.attr("src", reader.result);
                             console.log('Image node has been added');
@@ -173,15 +178,15 @@ $(function () {
                             console.log('old image is: ');
                             console.log(oldImage);
                             // toggleElements(oldImage, oldIcon);
-                            if (oldImage.hasClass('selected')) {
-                                console.log('toggling selected from previous selected image')
-                                oldImage.toggleClass('selected');
-                            }
-
-                            if (oldIcon.hasClass('icon_show')) {
-                                console.log('toggling icon_show from previous selected icon')
-                                oldIcon.toggleClass('icon_show');
-                            }
+                            // if (oldImage.hasClass('selected')) {
+                            //     console.log('toggling selected from previous selected image');
+                            //     oldImage.toggleClass('selected');
+                            // }
+                            //
+                            // if (oldIcon.hasClass('icon_show')) {
+                            //     console.log('toggling icon_show from previous selected icon');
+                            //     oldIcon.toggleClass('icon_show');
+                            // }
                             // Set current to just added image
                             current = idx;
                             console.log('new current is ' + current.toString());
