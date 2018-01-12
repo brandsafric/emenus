@@ -382,11 +382,10 @@ def create_restaurant():
 def get_pictures(path):
     # Grab the user ID first
     user = get_user_info(login_session['user_id'])
-    user_pics=[]
-    picture_list = session.query(Picture).filter_by(user_id=user.id).all()
+    user_pics = session.query(Picture).filter_by(user_id=user.id).all()
     # print "Pictures in DB:"
     # for pic in picture_list:
-    #     user_pics.append(pic)
+        # user_pics.append(pic)
     #     print pic.filename
     #     print pic.path
     #     print pic.user_id
