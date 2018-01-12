@@ -491,6 +491,20 @@ input[type=submit],
     cursor: pointer;
 }
 
+.cancel-delete {
+    color: white;
+}
+
+.delete {
+    float:right;
+}
+
+.delete:after {
+  content: "";
+  display: table;
+  clear: right;
+}
+
 #newRestForm,
 #editRestForm {
     clear: both;
