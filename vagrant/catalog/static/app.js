@@ -220,7 +220,8 @@ $(function () {
             console.log('Image has been set.');
             // Change the image on the form circle to be the selected image
             var newImg = $('#img_tn_' + current).attr('data-imgpath');
-            $('#rest_img').attr('src', '/static/' + newImg);
+            console.log(newImg);
+            $('#rest_img').attr('src', '/static/img/' + newImg);
         });
 
         // Upload file change
@@ -425,15 +426,10 @@ $(function () {
 
                     // Grab the filename and assign it to the target value.
                     console.log("Setting value of target")
-                    if ($(newImage).children().attr('data-index')) {
-                        var path = newImage.children().attr('data-index');
-                        console.log('setting value to ' + path);
-                        $('#target').val(path);
-                    } else {
-                        // Does not have attribute, therefore must be default.
-                        $('#target').val(defaultImg);
-                    }
-
+                    var path = newImage.children().attr('data-index');
+                    console.log('setting value to ' + path);
+                    $('#target').val(path);
+                    $('#target').val(defaultImg);
                 }
             }
 
