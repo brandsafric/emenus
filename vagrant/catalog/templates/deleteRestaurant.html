@@ -6,13 +6,15 @@
         <h1>Delete Restaurant</h1>
     </div>
     <form action="{{ url_for('delete_restaurant', restaurant_id = restaurant.id) }}" method="post">
-        <label>Name</label>
+{#        <h2>Are you sure you want to delete the following:</h2>#}
+{#        <label>Name</label>#}
+        <label><h3>Are you sure you want to delete the following:</h3></label>
         <div class="item-value">
             <span>{{restaurant.name}}</span>
         </div>
         <div>
-            <input class="input-delete" type="submit" value="Delete">
-            <a class="cancel" href="{{ url_for('show_menu', restaurant_id = restaurant.id) }}">Cancel</a>
+            <input class="input-delete" type="submit" value="DELETE">
+            <a class="cancel cancel-delete btn btn-warning" href="{{ url_for('show_menu', restaurant_id = restaurant.id) }}">Get me out of here!</a>
         </div>
     </form>
 </div>
