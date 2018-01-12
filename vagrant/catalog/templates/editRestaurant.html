@@ -109,7 +109,7 @@
                         </li>
                         {% for p in user_pics %}
                             <li class="img_thumbnail" id="img_thumbnail_{{ p.id }}" data-index="{{ p.id }}">
-                                <img id="img_tn_{{ p.id}}" class="img_tn" data-index="{{ p.id }}" data-fn="{{ p.filename }}" data-imgpath="{{ p.path }}" src="{{ url_for('static', filename='img/' + p.path) }}" alt="img">
+                                <img id="img_tn_{{ p.id}}" class="img_tn" data-index="{{ p.id }}" data-fn="{{ p.filename }}" data-imgpath="{{ p.path }}" src="{{ url_for('static', filename=p.path) }}" alt="img">
                             </li>
                         {% endfor %}
                     </ul>
