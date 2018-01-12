@@ -475,8 +475,7 @@ def edit_restaurant(restaurant_id):
 
 @app.route('/restaurant/<int:restaurant_id>/delete', methods=['GET', 'POST'])
 def delete_restaurant(restaurant_id):
-    restaurantToDelete = session.query(Restaurant).\
-        filter_by(id=restaurant_id).one()
+    restaurantToDelete = session.query(Restaurant).filter_by(id=restaurant_id).one()
     itemsToDelete = session.query(MenuItem).\
         filter_by(restaurant_id=restaurant_id).all()
     if 'username' not in login_session:
@@ -488,15 +487,18 @@ def delete_restaurant(restaurant_id):
                "window.location.href = '" + request.referrer + \
                "';}</script><body onload='myFunction()''>"
     if request.method == 'POST':
-        for i in itemsToDelete:
-            session.delete(i)
+        if itemsToDelete:
+            for i in itemsToDelete:
+                session.delete(i)
         session.delete(restaurantToDelete)
         session.commit()
         flash("Restaurant has been deleted by {0}".
               format(login_session['username']))
-        return redirect(url_for('show_menu', restaurant_id=restaurant_id,
-                                picture=login_session['picture']))
+        # return redirect(url_for('show_menu', restaurant_id=restaurant_id,
+        #                         picture=login_session['picture']))
 
+        json.dumps({'status': 'OK', 'index': restaurantToDelete.id, 'Deleted': 'yes'});
+        return show_restaurants()
     else:
         return render_template('deleteRestaurant.html',
                                restaurant=restaurantToDelete,
