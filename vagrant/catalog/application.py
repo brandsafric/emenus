@@ -348,7 +348,7 @@ def create_restaurant():
         return redirect('/login')
     # Grab the user ID first
     user = get_user_info(login_session['user_id'])
-
+    default_img = session.query(Picture).filter_by(id=1).one()
     if request.method == 'POST':
         try:
             print "we are here."
@@ -384,7 +384,8 @@ def create_restaurant():
         user_pics=[]
         user_pics=get_pictures(user.path)
         return render_template('newRestaurant.html',
-                               picture=login_session['picture'], user_pics=user_pics)
+                               picture=login_session['picture'], user_pics=user_pics,
+                               default_img=default_img)
 
 def get_pictures(path):
     # Grab the user ID first
@@ -409,6 +410,7 @@ def edit_restaurant(restaurant_id):
     restaurantToEdit = session.query(Restaurant).\
         filter_by(id=restaurant_id).one()
     r_picture = session.query(Picture).filter_by(id=restaurantToEdit.picture_id).one()
+    default_img = session.query(Picture).filter_by(id=1).one()
     print restaurantToEdit.picture_id
     if 'username' not in login_session:
         return redirect('/login')
@@ -468,7 +470,7 @@ def edit_restaurant(restaurant_id):
             'editRestaurant.html', restaurant_id=restaurant_id,
             restaurant=restaurantToEdit, picture=login_session['picture'],
             user_pics=user_pics, restaurant_pic=restaurantToEdit.picture,
-            r_picture=r_picture)
+            r_picture=r_picture, default_img=default_img)
 
 
 @app.route('/restaurant/<int:restaurant_id>/delete', methods=['GET', 'POST'])
