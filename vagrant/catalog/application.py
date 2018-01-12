@@ -257,7 +257,7 @@ def fbconnect():
 
     login_session['user_id'] = user_id
     # print "Ok"
-    print login_session
+    # print login_session
     return user_login_message()
 
 
@@ -321,14 +321,14 @@ def create_user(login_session):
 def show_restaurants():
     restaurants = session.query(Restaurant).\
         order_by(asc(Restaurant.name)).all()
-    for r in restaurants:
-        print r.name
-        print r.picture_id
+    # for r in restaurants:
+    #     print r.name
+    #     print r.picture_id
     pictures = session.query(Picture).all()
-    for pic in pictures:
-        print pic.filename
-        print pic.path
-        print pic.id
+    # for pic in pictures:
+    #     print pic.filename
+    #     print pic.path
+    #     print pic.id
 
     if 'username' not in login_session:
         print "no username is session. rendering public."
@@ -351,23 +351,16 @@ def create_restaurant():
     default_img = session.query(Picture).filter_by(id=1).one()
     if request.method == 'POST':
         try:
-            print "we are here."
             print request.form['picture']
-            # file = request.files['image']
             # Get the path for the user
-            path = user.path
-            print 'picture is:'
             print request.form['picture']
-            # f = os.path.join(app.config['UPLOAD_FOLDER'], path, file.filename)
             newRestaurant = Restaurant(name=request.form['name'],
                                        picture_id=request.form['picture'],
                                        user_id=login_session['user_id'])
             # add your custom code to check that the uploaded file is a valid
             # image and not a malicious file (out-of-scope for this post)
-            # file.save(f)
         except:
             print "No file specified for image upload."
-            index = request.form['picture'];
             try:
                 newRestaurant = Restaurant(name=request.form['name'],
                                        picture_id=request.form['picture'],
@@ -381,7 +374,6 @@ def create_restaurant():
             login_session['username']))
         return redirect(url_for('show_restaurants'))
     else:
-        user_pics=[]
         user_pics=get_pictures(user.path)
         return render_template('newRestaurant.html',
                                picture=login_session['picture'], user_pics=user_pics,
@@ -390,23 +382,20 @@ def create_restaurant():
 def get_pictures(path):
     # Grab the user ID first
     user = get_user_info(login_session['user_id'])
-    print "user id is:"
-    print user.id
     user_pics=[]
     picture_list = session.query(Picture).filter_by(user_id=user.id).all()
-    print "Pictures in DB:"
-    for pic in picture_list:
-        user_pics.append(pic)
-        print pic.filename
-        print pic.path
-        print pic.user_id
-        print pic.id
+    # print "Pictures in DB:"
+    # for pic in picture_list:
+    #     user_pics.append(pic)
+    #     print pic.filename
+    #     print pic.path
+    #     print pic.user_id
+    #     print pic.id
     return user_pics
 
 
 @app.route('/restaurant/<int:restaurant_id>/edit', methods=['GET', 'POST'])
 def edit_restaurant(restaurant_id):
-    print request.referrer
     restaurantToEdit = session.query(Restaurant).\
         filter_by(id=restaurant_id).one()
     r_picture = session.query(Picture).filter_by(id=restaurantToEdit.picture_id).one()
@@ -428,12 +417,10 @@ def edit_restaurant(restaurant_id):
         # image and not a maliciou
         if request.form['name']:
             restaurantToEdit.name = request.form['name']
-        print request.form['picture']
-        # file = request.files['image']
+        # print request.form['picture']
         # Get the path for the user
         user = get_user_info(restaurantToEdit.user_id)
-        path = user.path
-        # f = os.path.join(app.config['UPLOAD_FOLDER'], path, file.filename)
+        # path = user.path
         restaurantToEdit.picture_id = request.form['picture']
         # add your custom code to check that the uploaded file is a valid
         # image and not a malicious file (out-of-scope for this post)
@@ -447,25 +434,10 @@ def edit_restaurant(restaurant_id):
     else:
         user_pics=[]
         user_pics=get_pictures(user.path)
-        print 'user.path = ' + user.path
+        # print 'user.path = ' + user.path
         # print user_pics.index(user.path)
-        print 'restaurantToEdit.picture = ' + str(restaurantToEdit.picture_id)
-        print user_pics
-        # try:
-        #     print user_pics[0][2]
-        # except IndexError:
-        #     print("List does not contain value")
-
-        # [(i, pic.index(restaurantToEdit.picture))
-        #  for i, pic in enumerate(user_pics)
-        #  if restaurantToEdit.picture in pic]
-        # print i
-        # for pic in user_pics:
-        #     print "pic: " + pic[0]
-        # print user_pics[i][0]
-        # restaurant_pic = user_pics[i][0]
-
-
+        # print 'restaurantToEdit.picture = ' + str(restaurantToEdit.picture_id)
+        # print user_pics
         return render_template(
             'editRestaurant.html', restaurant_id=restaurant_id,
             restaurant=restaurantToEdit, picture=login_session['picture'],
@@ -494,8 +466,6 @@ def delete_restaurant(restaurant_id):
         session.commit()
         flash("Restaurant has been deleted by {0}".
               format(login_session['username']))
-        # return redirect(url_for('show_menu', restaurant_id=restaurant_id,
-        #                         picture=login_session['picture']))
 
         json.dumps({'status': 'OK', 'index': restaurantToDelete.id, 'Deleted': 'yes'});
         return show_restaurants()
@@ -520,7 +490,7 @@ def show_menu(restaurant_id):
     beverages = session.query(MenuItem).filter_by(restaurant_id=restaurant_id,
                                                   course="Beverage").all()
     picture = session.query(Picture).filter_by(id=restaurant.picture_id).one()
-    print picture.path
+    # print picture.path
     if 'username' not in login_session:
         print "public menu"
         return render_template('publicmenu.html', appetizers=appetizers,
@@ -666,17 +636,17 @@ def delete_image():
     try:
         pictureToDelete = session.query(Picture).filter_by(user_id=user.id,
                                                        id=index).one()
-        print "Picture in DB:"
-        print pictureToDelete.path
+        # print "Picture in DB:"
+        # print pictureToDelete.path
         session.delete(pictureToDelete)
         session.commit()
-        print "Made change to DB."
+        # print "Made change to DB."
         f = os.path.join(app.config['UPLOAD_FOLDER'], user.path, pictureToDelete.filename)
-        print f
+        # print f
         if os.path.exists(f):
             try:
                 os.remove(f)
-                print "deleted " + f
+                print "deleted " + f + " image file."
             except OSError, e:
                 print ("Error: {0} - {1}.".format(e.f,e.strerror))
         else:
@@ -698,15 +668,15 @@ def upload_image():
     destination = os.path.join(app.config['UPLOAD_FOLDER'], path, filename)
 
     fullpath = 'img/uploads/' + path + '/' + filename
-    print "userid = " + str(user.id)
-    print "picture = " + filename
+    # print "userid = " + str(user.id)
+    # print "picture = " + filename
     try:
         newPicture = Picture(filename=filename, path=fullpath, user_id=user.id)
         session.add(newPicture)
         session.commit()
         print "save to database"
         f.save(destination)
-        print "new image index is " + str(newPicture.id)
+        # print "new image index is " + str(newPicture.id)
         return json.dumps({'status': 'OK', 'index': newPicture.id, 'uploaded': 'yes', 'filename': filename, 'path': fullpath})
     except Exception, e:
         print "Error. Could not save to database."
