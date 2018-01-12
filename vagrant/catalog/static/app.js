@@ -52,8 +52,8 @@ $(function () {
         var defaultImg = $('#target').val();
 
         console.log('defaultImg is ' + defaultImg);
-        // Only set to 99 if this is a new restaurant
-        var current = 99;
+        // Only set to 0 if this is a new restaurant
+        var current;
         var imagesArr = [];
 
 
@@ -80,13 +80,18 @@ $(function () {
 
         });
 
-        // Set the default selected image to N/A
-        // if (($("#editRestForm").length) || ($("#newRestForm").length)) {
-        //     console.log('this is the edit/new restaurant');
-        //     var el = $('#target').attr('data-index');
-        //     $("ul.img_gallery li.img_thumbnail:eq(" + el + ")").toggleClass("selected");
-        //
-        // }
+        // Set the current based on the form.
+        if ($("#newRestForm").length) {
+            // If new Restaurant, default to 0
+            console.log('this is the new restaurant');
+            console.log('Setting current to 0');
+            current = 1;
+        } else {
+            // If this is edit restaurant, get the index of the selected img_thumbnail.
+            console.log("This is the edit reataurant");
+            current = $('.img_thumbnail.selected').attr('data-index');
+            console.log(current);
+        }
 
 
 
