@@ -104,12 +104,12 @@
                     <span>Choose an Image</span>
                     <span class="warning">(Max 5 images)</span>
                     <ul class="img_gallery">
-                        {% if r_picture.id == 0 %}
-                            <li class="img_thumbnail selected" id="img_thumbnail_99">
+                        {% if r_picture.id == 1 %}
+                            <li class="img_thumbnail selected" id="img_thumbnail_1">
                         {% else %}
-                            <li class="img_thumbnail" id="img_thumbnail_99">
+                            <li class="img_thumbnail" id="img_thumbnail_1">
                         {% endif %}
-                        <img class="img_tn_99" data-index="99" data-imgpath="not-available-abbreviation-inside-a-circle_318-33662.jpg" src="{{ url_for('static', filename='img/not-available-abbreviation-inside-a-circle_318-33662.jpg') }}" alt="img">
+                        <img class="img_tn_1" data-index="1" data-imgpath="not-available-abbreviation-inside-a-circle_318-33662.jpg" src="{{ url_for('static', filename='img/not-available-abbreviation-inside-a-circle_318-33662.jpg') }}" alt="img">
                         </li>
                         {% for p in user_pics %}
                             {%  if r_picture.id == p.id %}
