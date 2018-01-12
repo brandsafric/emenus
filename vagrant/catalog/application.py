@@ -422,17 +422,20 @@ def edit_restaurant(restaurant_id):
                "';}</script><body onload='myFunction()''>"
 
     if request.method == 'POST':
+        # add your custom code to check that the uploaded file is a valid
+        # image and not a maliciou
         if request.form['name']:
             restaurantToEdit.name = request.form['name']
-        file = request.files['image']
+        print request.form['picture']
+        # file = request.files['image']
         # Get the path for the user
         user = get_user_info(restaurantToEdit.user_id)
         path = user.path
-        f = os.path.join(app.config['UPLOAD_FOLDER'], path, file.filename)
-        restaurantToEdit.picture = 'uploads/' + path + '/' + file.filename
+        # f = os.path.join(app.config['UPLOAD_FOLDER'], path, file.filename)
+        restaurantToEdit.picture_id = request.form['picture']
         # add your custom code to check that the uploaded file is a valid
         # image and not a malicious file (out-of-scope for this post)
-        file.save(f)
+        # file.save(f)
         session.add(restaurantToEdit)
         flash("Restaurant has been edited by {0}."
               .format(login_session['username']))
