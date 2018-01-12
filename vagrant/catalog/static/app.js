@@ -221,7 +221,7 @@ $(function () {
             // Change the image on the form circle to be the selected image
             var newImg = $('#img_tn_' + current).attr('data-imgpath');
             console.log(newImg);
-            $('#rest_img').attr('src', '/static/img/' + newImg);
+            $('#rest_img').attr('src', '/static/' + newImg);
         });
 
         // Upload file change
@@ -429,7 +429,6 @@ $(function () {
                     var path = newImage.children().attr('data-index');
                     console.log('setting value to ' + path);
                     $('#target').val(path);
-                    $('#target').val(defaultImg);
                 }
             }
 
