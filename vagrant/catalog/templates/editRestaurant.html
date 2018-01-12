@@ -82,7 +82,7 @@
             <input type="text" size="80" name="name" placeholder={{ restaurant.name }} required>
         </div>
         <div>
-            <input id="target" type="text" name="picture" value={{ restaurant.picture }}>
+            <input id="target" type="text" name="picture" value={{ r_picture.id }}>
         </div>
         <input class="btn btn-primary" type="submit" value="Create">
         <a class="cancel btn btn-secondary" href="{{ url_for('show_restaurants') }}">Cancel</a>
@@ -104,20 +104,32 @@
                     <span>Choose an Image</span>
                     <span class="warning">(Max 5 images)</span>
                     <ul class="img_gallery">
-                        <li class="img_thumbnail selected" id="img_thumbnail_99">
-                            <img class="img_tn_99" data-index="99" data-imgpath="not-available-abbreviation-inside-a-circle_318-33662.jpg" src="{{ url_for('static', filename='img/not-available-abbreviation-inside-a-circle_318-33662.jpg') }}" alt="img">
+                        {% if r_picture.id == 0 %}
+                            <li class="img_thumbnail selected" id="img_thumbnail_99">
+                        {% else %}
+                            <li class="img_thumbnail" id="img_thumbnail_99">
+                        {% endif %}
+                        <img class="img_tn_99" data-index="99" data-imgpath="not-available-abbreviation-inside-a-circle_318-33662.jpg" src="{{ url_for('static', filename='img/not-available-abbreviation-inside-a-circle_318-33662.jpg') }}" alt="img">
                         </li>
                         {% for p in user_pics %}
-                            <li class="img_thumbnail" id="img_thumbnail_{{ p.id }}" data-index="{{ p.id }}">
-                                <img id="img_tn_{{ p.id}}" class="img_tn" data-index="{{ p.id }}" data-fn="{{ p.filename }}" data-imgpath="{{ p.path }}" src="{{ url_for('static', filename=p.path) }}" alt="img">
-                            </li>
+                            {%  if r_picture.id == p.id %}
+                                <li class="img_thumbnail selected" id="img_thumbnail_{{ p.id }}" data-index="{{ p.id }}">
+                            {% else %}
+                                <li class="img_thumbnail" id="img_thumbnail_{{ p.id }}" data-index="{{ p.id }}">
+                            {% endif %}
+                                    <img id="img_tn_{{ p.id}}" class="img_tn" data-index="{{ p.id }}" data-fn="{{ p.filename }}" data-imgpath="{{ p.path }}" src="{{ url_for('static', filename=p.path) }}" alt="img">
+                                </li>
                         {% endfor %}
                     </ul>
                 <div class="image_container">
                  {% for p in user_pics %}
                      <div class="icons_delete" id="icons_delete_{{ p.id }}" data-index="{{ p.id }}">
-                         <i id="i_delete_{{ p.id }}" data-index="{{ p.id }}" data-fn="{{ p.filename }}"data-tn="img_thumbnail_{{ p.id }}" data-parent="icons_delete_{{ p.id }}" class="fa fa-times-circle i_delete" aria-hidden="true"></i>
-                     </div>
+                        {%  if r_picture.id == p.id %}
+                            <i id="i_delete_{{ p.id }}" data-index="{{ p.id }}" data-fn="{{ p.filename }}"data-tn="img_thumbnail_{{ p.id }}" data-parent="icons_delete_{{ p.id }}" class="fa fa-times-circle i_delete icon_show" aria-hidden="true"></i>
+                        {% else %}
+                            <i id="i_delete_{{ p.id }}" data-index="{{ p.id }}" data-fn="{{ p.filename }}"data-tn="img_thumbnail_{{ p.id }}" data-parent="icons_delete_{{ p.id }}" class="fa fa-times-circle i_delete" aria-hidden="true"></i>
+                    {% endif %}
+                    </div>
                  {% endfor %}
                 </div>
                 <div class="file_container"><input type="file" id="upload" name="image"></div>
