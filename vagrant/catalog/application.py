@@ -408,6 +408,7 @@ def edit_restaurant(restaurant_id):
     print request.referrer
     restaurantToEdit = session.query(Restaurant).\
         filter_by(id=restaurant_id).one()
+    r_picture = session.query(Picture).filter_by(id=restaurantToEdit.picture_id).one()
     print restaurantToEdit.picture_id
     if 'username' not in login_session:
         return redirect('/login')
@@ -443,7 +444,7 @@ def edit_restaurant(restaurant_id):
         user_pics=get_pictures(user.path)
         print 'user.path = ' + user.path
         # print user_pics.index(user.path)
-        print 'restaurantToEdit.picture = ' + restaurantToEdit.picture
+        print 'restaurantToEdit.picture = ' + str(restaurantToEdit.picture_id)
         print user_pics
         # try:
         #     print user_pics[0][2]
@@ -463,7 +464,8 @@ def edit_restaurant(restaurant_id):
         return render_template(
             'editRestaurant.html', restaurant_id=restaurant_id,
             restaurant=restaurantToEdit, picture=login_session['picture'],
-            user_pics=user_pics, restaurant_pic=restaurantToEdit.picture)
+            user_pics=user_pics, restaurant_pic=restaurantToEdit.picture,
+            r_picture=r_picture)
 
 
 @app.route('/restaurant/<int:restaurant_id>/delete', methods=['GET', 'POST'])
