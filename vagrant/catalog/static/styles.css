@@ -533,6 +533,14 @@ input[type=submit],
     background-color: #36120d !important;
 }
 
+
+.modal-body {
+    height: 172px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
 .modal-footer {
     /*background: #2c6824;*/
     background: #246939;

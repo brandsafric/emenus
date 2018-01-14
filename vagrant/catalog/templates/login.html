@@ -18,7 +18,7 @@
                                 $('#logincontainer').html('<div class="loginMsg">Login Successful</div>' + result + '<div class="redirectmsg">Redirecting...</div>');
                             }, 250)
                             setTimeout(function () {
-                                window.location.href = "/restaurants";
+{#                                window.location.href = "/restaurants";#}
                             }, 4000);
                         } else if (authResult['error']) {
                             console.log("There was an error: " + authResult['error']);
@@ -107,11 +107,12 @@
                 </div>
                 <div class="modal-body">
                     <div class="login-container" id="logincontainer">
+                        <div class="loginMsg">Please login</div>
                         <div class="login-box" id="loginbox">
-                            <div class="text-container">
-                                <span>
-                                    Sign in with
-                                </span>
+{#                            <div class="text-container">#}
+{#                                <span>#}
+{#                                    Sign in with#}
+{#                                </span>#}
                             </div>
                             <!--Google Plus Sign in-->
                             <div id="signinButton">
