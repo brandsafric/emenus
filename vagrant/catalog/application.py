@@ -31,7 +31,6 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 app.config['MAX_CONTENT_LENGTH'] = 10 * 1024 * 1024
 
-
 # Login Methods
 # Create anti-forgery state token
 @app.route('/login')
@@ -683,6 +682,7 @@ def upload_image():
 
 
 if __name__ == '__main__':
-    app.secret_key = 'super_secret_key'
+    # Invalidate previous sessions by generating a unique key
+    app.secret_key = os.urandom(32)
     app.debug = True
     app.run(host='0.0.0.0', port=5000)
