@@ -76,9 +76,10 @@
                             $('#loginbox').css('opacity', '0');
                             setTimeout(function () {
                                 $('#logincontainer').html('<div class="loginMsg">Login Successful</div>' + result + '<div class="redirectmsg">Redirecting...</div>');
+                                $('.login-container').css('width', '100%');
                             }, 250)
                             setTimeout(function () {
-                                window.location.href = "/restaurants";
+{#                                window.location.href = "/restaurants";#}
                             }, 4000);
 
                         } else {
