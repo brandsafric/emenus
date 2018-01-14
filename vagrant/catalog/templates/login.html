@@ -1,59 +1,5 @@
 {% extends "main.html" %}
 {% block content %}
-<script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Login</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="login-container" id="logincontainer">
-                    <div class="login-box" id="loginbox">
-                        <div class="text-container">
-                            <span>
-                                Sign in with
-                            </span>
-                        </div>
-                        <!--Google Plus Sign in-->
-                        <div id="signinButton">
-                            <span class="g-signin"
-                                  data-scope="openid email"
-                                  data-clientid="215519493768-8jtog0odl8i5ap5dg3shcs8uic37emfh.apps.googleusercontent.com"
-                                  data-redirecturi="postmessage"
-                                  data-accesstype="offline"
-                                  data-cookiepolicy="single_host_origin"
-                                  data-callback="signInCallback"
-                                  data-approvalprompt="force">
-                            </span>
-                        </div>
-                        <!--Facebook signin button-->
-                        <button>
-                            <fb:login-button scope="public_profile,email" onlogin="sendTokenToServer();">
-                                <a href='javascript:sendTokenToServer()'>Facebook</a>
-                            </fb:login-button>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row justify-content-center top-margin">
-    <div class="col-md-6"><p>Welcome to EMenus!<br>
-        <div class="login-body">Please login to modify, create and edit entries or click the EMenus logo to return.
-        </div>
-        </p>
-    </div>
-
     <script>
         function signInCallback(authResult) {
             if (authResult['code']) {
@@ -84,10 +30,7 @@
             }
         }
     </script>
-
-
     <!--End Google Plus Sign-in-->
-
     <!--Facebook Sign-in-->
     <script>
         window.fbAsyncInit = function () {
@@ -96,7 +39,7 @@
                 cookie: true,  // enable cookies to allow the server to access
                                // the session
                 xfbml: true,  // parse social plugins on this page
-                version: 'v2.8' // use version 2.8
+                version: 'v2.11' // use version 2.8
             });
         };
         // Load the SDK asynchronously
@@ -105,7 +48,8 @@
             if (d.getElementById(id)) return;
             js = d.createElement(s);
             js.id = id;
-            js.src = "//connect.facebook.net/en_US/sdk.js";
+            {#            js.src = "//connect.facebook.net/en_US/sdk.js";#}
+            js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.11&appId=121197365194785';
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
         // Here we run a very simple test of the Graph API after login is
@@ -115,6 +59,8 @@
             console.log(access_token)
             console.log('Welcome!  Fetching your information.... ');
             FB.api('/me', function (response) {
+                console.log('Response:');
+                console.log(response);
                 console.log('Successful login for: ' + response.name);
                 $.ajax({
                     type: 'POST',
@@ -144,17 +90,70 @@
     </script>
 
     <!--END FACEBOOK SIGN IN -->
-
-    <!-- JS code -->
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
-    <!--JS below-->
-    <script>
-        $(document).ready(function () {
-            $("#myModal").modal();
-        });
-    </script>
-
-
-    {% endblock %}
+    <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="login-container" id="logincontainer">
+                        <div class="login-box" id="loginbox">
+                            <div class="text-container">
+                                <span>
+                                    Sign in with
+                                </span>
+                            </div>
+                            <!--Google Plus Sign in-->
+                            <div id="signinButton">
+                                <span class="g-signin"
+                                      data-scope="openid email"
+                                      data-clientid="215519493768-8jtog0odl8i5ap5dg3shcs8uic37emfh.apps.googleusercontent.com"
+                                      data-redirecturi="postmessage"
+                                      data-accesstype="offline"
+                                      data-cookiepolicy="single_host_origin"
+                                      data-callback="signInCallback"
+                                      data-approvalprompt="force">
+                                </span>
+                            </div>
+                            <!--Facebook signin button-->
+                            {#                        <button>#}
+                            {#                            <fb:login-button scope="public_profile,email" onlogin="sendTokenToServer();">#}
+                            {#                                <a href='javascript:sendTokenToServer()'>Facebook</a>#}
+                            {#                            </fb:login-button>#}
+                            <div class="fb-login-button" data-max-rows="1" data-size="medium"
+                                 data-button-type="login_with" data-show-faces="false" data-auto-logout-link="false"
+                                 data-use-continue-as="false" onlogin="sendTokenToServer();"></div>
+                            {#                        </button>#}
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center top-margin">
+        <div class="col-md-6"><p>Welcome to EMenus!<br>
+            <div class="login-body">Please login to modify, create and edit entries or click the EMenus logo to return.
+            </div>
+            </p>
+        </div>
+        <!-- JS code -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+        <!--JS below-->
+        <script>
+            $(document).ready(function () {
+                $("#myModal").modal();
+            });
+        </script>
+{% endblock %}
