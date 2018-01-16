@@ -28,11 +28,10 @@
                     success: function (result) {
                         if (result) {
                             var animationDone, secondAnimationDone, thirdAnimationDone;
-                            console.log('here');
                             $('#logincontainer').addClass('animated zoomOut');
                             $('#logincontainer').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
                                 if (!animationDone) {
-                                    console.log('First animation end');
+{#                                    console.log('First animation end');#}
                                     $('#loginMsg').html('Login Successful')
                                     $('#logincontainer').html(result + '<br />')
                                     .css( {'display': 'block', 'width': '100%', 'justify-content': 'normal', 'margin-top': '0'} )
@@ -40,20 +39,19 @@
                                     .addClass('zoomIn');
                                     animationDone = true;
                                 } else if (!secondAnimationDone) {
-                                    console.log('Second Animation end.');
+{#                                    console.log('Second Animation end.');#}
                                     $('#logincontainer').append('<div class="redirectmsg animated lightSpeedIn">Redirecting</div>');
                                     secondAnimationDone = true;
                                     $('.redirectmsg').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
-                                        console.log('adding first elipse');
+{#                                        console.log('adding first elipse');#}
                                         $(this).append('<span class="elips animated fadeIn">.</span>');
                                         if (!thirdAnimationDone) {
-                                            console.log('adding elips')
+{#                                            console.log('adding elips');#}
                                             $(this).append('<span class="elips animated fadeIn">.</span>');
                                             thirdAnimationDone = true;
                                         }
 
                                     });
-
                                 }
                             });
                             setTimeout(function () {
@@ -137,10 +135,6 @@
 
                                 }
                             });
-                            setTimeout(function () {
-{#                                $('#logincontainer').html(result + '<div class="redirectmsg">Redirecting...</div>');#}
-{#                                $('#logincontainer').css( {'width': '100%', 'justify-content': 'normal', 'margin-top': '0'} );#}
-                            }, 250)
                             setTimeout(function () {
 {#                                window.location.href = "/restaurants";#}
                             }, 4000);
