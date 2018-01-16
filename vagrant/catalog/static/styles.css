@@ -128,7 +128,7 @@ body {
     padding: 10px;
 }
 
-.loginMsg {
+#loginMsg {
     text-align: center;
     font-size: 1.75em;
     /*float: left;*/

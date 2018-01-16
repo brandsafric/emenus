@@ -27,11 +27,9 @@
                     contentType: 'application/octet-stream; charset=utf-8',
                     success: function (result) {
                         if (result) {
-                            $('#loginbox').css('opacity', '0');
-                            {#$('.loginMsg').css('visibility', 'hidden');#}
                             console.log('here')
                             setTimeout(function () {
-                                $('.loginMsg').html('Login Successful')
+                                $('#loginMsg').html('Login Successful')
                                 $('#logincontainer').html(result + '<div class="redirectmsg">Redirecting...</div>');
                                 $('#logincontainer').css( {'width': '100%', 'justify-content': 'normal', 'margin-top': '0'} );
                             }, 250)
@@ -87,8 +85,7 @@
                     success: function (result) {
                         // Handle or verify the server response if necessary.
                         if (result) {
-                            $('#loginbox').css('opacity', '0');
-                            $('.loginMsg').html('Login Successful')
+                            $('#loginMsg').html('Login Successful')
                             setTimeout(function () {
                                 $('#logincontainer').html(result + '<div class="redirectmsg">Redirecting...</div>');
                                 $('#logincontainer').css( {'width': '100%', 'justify-content': 'normal', 'margin-top': '0'} );
@@ -123,7 +120,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div class="loginMsg">Sign in with</div>
+                    <div id="loginMsg">Sign in with</div>
                     <div class="login-container" id="logincontainer">
                         <div class="g-signin2" id="signinButton"></div>
                         <script>
