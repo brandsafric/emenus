@@ -27,11 +27,14 @@
                     contentType: 'application/octet-stream; charset=utf-8',
                     success: function (result) {
                         if (result) {
-                            var animationDone, secondAnimationDone, thirdAnimationDone;
+                            var animationDone, secondAnimationDone, thirdAnimationDone, x;
                             $('#logincontainer').addClass('animated zoomOut');
                             $('#logincontainer').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
                                 if (!animationDone) {
-{#                                    console.log('First animation end');#}
+                                    if (!x) {
+                                        x = 0;
+                                    }
+                                    console.log('First animation end');
                                     $('#loginMsg').html('Login Successful')
                                     $('#logincontainer').html(result + '<br />')
                                     .css( {'display': 'block', 'width': '100%', 'justify-content': 'normal', 'margin-top': '0'} )
@@ -39,16 +42,24 @@
                                     .addClass('zoomIn');
                                     animationDone = true;
                                 } else if (!secondAnimationDone) {
-{#                                    console.log('Second Animation end.');#}
-                                    $('#logincontainer').append('<div class="redirectmsg animated lightSpeedIn">Redirecting</div>');
+                                    console.log('Second Animation end.');
+                                    $('#logincontainer').append('<div id="' + x + '" class="redirectmsg animated lightSpeedIn">Redirecting</div>');
                                     secondAnimationDone = true;
+                                    console.log('Appending ' + x);
+                                    x++;
                                     $('.redirectmsg').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
-{#                                        console.log('adding first elipse');#}
-                                        $(this).append('<span class="elips animated fadeIn">.</span>');
+{#                                        console.log($(this));#}
+                                        console.log('Redirect message (lightSpeed) animation finished');
+                                        $(this).append('<span id="' + x + '"class="elips animated fadeIn">.</span>');
+                                        console.log('appending : ' + x);
+                                        x++;
                                         if (!thirdAnimationDone) {
-{#                                            console.log('adding elips');#}
-                                            $(this).append('<span class="elips animated fadeIn">.</span>');
+                                            console.log('adding elips');
+{#                                                                                    console.log($(this));#}
+                                            $(this).append('<span id="' + x + '"class="elips animated fadeIn">.</span>');
+                                                      console.log('appending : ' + x)
                                             thirdAnimationDone = true;
+                                            x++;
                                         }
 
                                     });
