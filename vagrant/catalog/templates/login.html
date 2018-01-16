@@ -27,14 +27,37 @@
                     contentType: 'application/octet-stream; charset=utf-8',
                     success: function (result) {
                         if (result) {
-                            console.log('here')
+                            var animationDone, secondAnimationDone, thirdAnimationDone;
+                            console.log('here');
+                            $('#logincontainer').addClass('animated zoomOut');
+                            $('#logincontainer').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
+                                if (!animationDone) {
+                                    console.log('First animation end');
+                                    $('#loginMsg').html('Login Successful')
+                                    $('#logincontainer').html(result + '<br />')
+                                    .css( {'display': 'block', 'width': '100%', 'justify-content': 'normal', 'margin-top': '0'} )
+                                    .removeClass('zoomOut')
+                                    .addClass('zoomIn');
+                                    animationDone = true;
+                                } else if (!secondAnimationDone) {
+                                    console.log('Second Animation end.');
+                                    $('#logincontainer').append('<div class="redirectmsg animated lightSpeedIn">Redirecting</div>');
+                                    secondAnimationDone = true;
+                                    $('.redirectmsg').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
+                                        console.log('adding first elipse');
+                                        $(this).append('<span class="elips animated fadeIn">.</span>');
+                                        if (!thirdAnimationDone) {
+                                            console.log('adding elips')
+                                            $(this).append('<span class="elips animated fadeIn">.</span>');
+                                            thirdAnimationDone = true;
+                                        }
+
+                                    });
+
+                                }
+                            });
                             setTimeout(function () {
-                                $('#loginMsg').html('Login Successful')
-                                $('#logincontainer').html(result + '<div class="redirectmsg">Redirecting...</div>');
-                                $('#logincontainer').css( {'width': '100%', 'justify-content': 'normal', 'margin-top': '0'} );
-                            }, 250)
-                            setTimeout(function () {
-                                window.location.href = "/restaurants";
+{#                                window.location.href = "/restaurants";#}
                             }, 4000);
                         } else if (authResult['error']) {
                             console.log("There was an error: " + authResult['error']);
@@ -85,13 +108,41 @@
                     success: function (result) {
                         // Handle or verify the server response if necessary.
                         if (result) {
-                            $('#loginMsg').html('Login Successful')
+                            var animationDone, secondAnimationDone, thirdAnimationDone;
+                            console.log('here');
+                            $('#logincontainer').addClass('animated zoomOut');
+                            $('#logincontainer').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
+                                if (!animationDone) {
+                                    console.log('First animation end');
+                                    $('#loginMsg').html('Login Successful')
+                                    $('#logincontainer').html(result + '<br />')
+                                    .css( {'display': 'block', 'width': '100%', 'justify-content': 'normal', 'margin-top': '0'} )
+                                    .removeClass('zoomOut')
+                                    .addClass('zoomIn');
+                                    animationDone = true;
+                                } else if (!secondAnimationDone) {
+                                    console.log('Second Animation end.');
+                                    $('#logincontainer').append('<div class="redirectmsg animated lightSpeedIn">Redirecting</div>');
+                                    secondAnimationDone = true;
+                                    $('.redirectmsg').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
+                                        console.log('adding first elipse');
+                                        $(this).append('<span class="elips animated fadeIn">.</span>');
+                                        if (!thirdAnimationDone) {
+                                            console.log('adding elips')
+                                            $(this).append('<span class="elips animated fadeIn">.</span>');
+                                            thirdAnimationDone = true;
+                                        }
+
+                                    });
+
+                                }
+                            });
                             setTimeout(function () {
-                                $('#logincontainer').html(result + '<div class="redirectmsg">Redirecting...</div>');
-                                $('#logincontainer').css( {'width': '100%', 'justify-content': 'normal', 'margin-top': '0'} );
+{#                                $('#logincontainer').html(result + '<div class="redirectmsg">Redirecting...</div>');#}
+{#                                $('#logincontainer').css( {'width': '100%', 'justify-content': 'normal', 'margin-top': '0'} );#}
                             }, 250)
                             setTimeout(function () {
-                                window.location.href = "/restaurants";
+{#                                window.location.href = "/restaurants";#}
                             }, 4000);
 
                         } else {
