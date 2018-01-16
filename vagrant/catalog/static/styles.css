@@ -95,6 +95,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    animation-duration: .35s !important;
 }
 
 
