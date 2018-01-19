@@ -980,7 +980,7 @@ input[type=submit],
 @media only screen and (min-width: 375px) and (orientation: landscape) {
 /*@media only screen and (min-width: 375px)  {*/
 
-    .banner-main {
+    #banner-main {
         margin: 10px 0;
     }
     .restaurant-list {
