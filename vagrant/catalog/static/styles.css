@@ -165,7 +165,7 @@ container {
     width: 100%;
 }
 
-#restaurant-list {
+#r-list {
     display: flex;
     flex-wrap: wrap;
     /*-moz-column-count: 3;*/
@@ -789,7 +789,7 @@ input[type=submit],
         margin-bottom: 10px;
     }
 
-    #restaurant-list {
+    #r-list {
         padding-left: 0;
         width: 234px;
         column-count: 2;
@@ -910,7 +910,7 @@ input[type=submit],
 @media only screen and (min-width: 568px) and (orientation: landscape) {
 /*@media only screen and (min-width: 568px)  {*/
 
-    #restaurant-list {
+    #r-list {
         width: 390px;
         padding-left: 0;
         column-count: 3;
@@ -960,7 +960,7 @@ input[type=submit],
         margin-right: 10px;
     }
 
-    #restaurant-list {
+    #r-list {
         width: 245px;
     }
 
@@ -983,7 +983,7 @@ input[type=submit],
     #banner-main {
         margin: 10px 0;
     }
-    #restaurant-list {
+    #r-list {
         width: 450px;
     }
 }
@@ -994,7 +994,7 @@ input[type=submit],
 @media only screen and (min-width: 414px) and (orientation: portrait) {
 /*@media only screen and (min-width: 414px) {*/
 
-    #restaurant-list {
+    #r-list {
         width: 300px;
         column-gap: 100px;
     }
@@ -1006,7 +1006,7 @@ input[type=submit],
 /*@media only screen and (min-width: 735px) {*/
 @media only screen and (min-width: 735px) and (orientation: landscape) {
 
-    #restaurant-list {
+    #r-list {
         width: 500px;
     }
 
@@ -1084,7 +1084,7 @@ input[type=submit],
         margin-bottom: 40px;
     }
 
-    #restaurant-list {
+    #r-list {
         width: 800px;
         column-count: 3;
         -webkit-column-count: 3;
