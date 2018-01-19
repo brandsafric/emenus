@@ -46,44 +46,14 @@
                                 } else if ($(this).hasClass('zoomIn')) {
                                     console.log("zoomIn has ended.");
                                     $(this).removeClass('zoomIn');
-                                    var x = 0;
-                                    $('#logincontainer').append('<div id="' + x + '" class="redirectmsg animated lightSpeedIn">Redirecting</div>');
-                                    console.log('Appending redirect');
-                                    x++;
-                                    $('.redirectmsg').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
-                                        console.log($(this));
-                                        console.log('Redirect message (lightSpeed) animation finished');
-                                        console.log('appending : ' + x);
-                                        $(this).append('<span id="' + x + '"class="elips animated fadeIn">.</span>');
-                                        x++;
-                                        $('#' + x + '').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
-                                            console.log('lightning animation ended.');
-                                            console.log('appending : ' + x);
-                                            console.log('adding elips');
-                                            $(this).append('<span id="' + x + '" class="elips animated fadeIn">.</span>');
-                                            x++;
-                                            $(this).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
-                                                console.log('elips animation ended.');
-                                                console.log('appending : ' + x);
-                                                console.log('adding elips');
-                                                $(this).append('<span id="' + x + '" class="elips animated fadeIn">.</span>');
-                                                                        x++;
-                                                $(this).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
-                                                    console.log('elips animation ended.');
-                                                    console.log('appending : ' + x);
-                                                    console.log('adding elips');
-                                                    $(this).append('<span id="' + x + '" class="elips animated fadeIn">.</span>');
-                                                                            x++;
-                                                });
-
-                                            });
-
-                                        });
-                                    });
+                                    setTimeout(function () {
+                                        console.log('toggling loader.');
+                                        $('.loader').toggleClass('show animated fadeIn');
+                                    }, 2000);
                                 }
                             });
                             setTimeout(function () {
-{#                                window.location.href = "/restaurants";#}
+                                window.location.href = "/restaurants";
                             }, 4000);
                         } else if (authResult['error']) {
                             console.log("There was an error: " + authResult['error']);
@@ -134,37 +104,33 @@
                     success: function (result) {
                         // Handle or verify the server response if necessary.
                         if (result) {
-                            var animationDone, secondAnimationDone, thirdAnimationDone;
-                            console.log('here');
                             $('#logincontainer').addClass('animated zoomOut');
                             $('#logincontainer').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
-                                if (!animationDone) {
-                                    console.log('First animation end');
-                                    $('#loginMsg').html('Login Successful')
-                                    $('#logincontainer').html(result + '<br />')
-                                    .css( {'display': 'block', 'width': '100%', 'justify-content': 'normal', 'margin-top': '0'} )
-                                    .removeClass('zoomOut')
-                                    .addClass('zoomIn');
-                                    animationDone = true;
-                                } else if (!secondAnimationDone) {
-                                    console.log('Second Animation end.');
-                                    $('#logincontainer').append('<div class="redirectmsg animated lightSpeedIn">Redirecting</div>');
-                                    secondAnimationDone = true;
-                                    $('.redirectmsg').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
-                                        console.log('adding first elipse');
-                                        $(this).append('<span class="elips animated fadeIn">.</span>');
-                                        if (!thirdAnimationDone) {
-                                            console.log('adding elips')
-                                            $(this).append('<span class="elips animated fadeIn">.</span>');
-                                            thirdAnimationDone = true;
-                                        }
-
+                                console.log('#logincontainer animation ended.');
+                                $('#loginMsg').html('Login Successful');
+                                $('#logincontainer').html(result + '<br />')
+                                    .css({
+                                        'display': 'block',
+                                        'width': '100%',
+                                        'justify-content': 'normal',
+                                        'margin-top': '0'
                                     });
-
+                                if ($(this).hasClass('zoomOut')) {
+                                    console.log("Zoom out has ended.");
+                                    $(this).removeClass('zoomOut');
+                                    console.log("Adding zoomIn.");
+                                    $(this).addClass('zoomIn');
+                                } else if ($(this).hasClass('zoomIn')) {
+                                    console.log("zoomIn has ended.");
+                                    $(this).removeClass('zoomIn');
+                                    setTimeout(function () {
+                                        console.log('toggling loader.');
+                                        $('.loader').toggleClass('show animated fadeIn');
+                                    }, 2000);
                                 }
                             });
                             setTimeout(function () {
-{#                                window.location.href = "/restaurants";#}
+                                window.location.href = "/restaurants";
                             }, 4000);
 
                         } else {
@@ -213,7 +179,14 @@
                         </style>
                         <div class="fb-login-button" data-max-rows="1" data-size="medium"
                              data-button-type="continue_with" onlogin="sendTokenToServer();"
-                             data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
+                             data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false">
+                        </div>
+
+                    </div>
+                    <div class="loader">
+                        <span>
+                            <img src="{{ url_for('static', filename='img/Wedges.gif') }}" />
+                        </span>
                     </div>
                 </div>
             </div>
