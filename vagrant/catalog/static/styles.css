@@ -70,11 +70,11 @@ body {
     border-radius: 20px;
 }
 
-.user-status {
+#user-status {
     float: right;
 }
 
-.user-status a {
+#user-status a {
     margin-left: 10px;
     font-size: 14px;
     float: right;
@@ -769,7 +769,7 @@ input[type=submit],
         margin-bottom: 10px;
     }
 
-    .user-status {
+    #user-status {
         float: right;
     }
 
@@ -838,7 +838,7 @@ input[type=submit],
         text-align: center;
     }
 
-    .user-status {
+    #user-status {
         padding: 4px;
     }
 
@@ -1010,7 +1010,7 @@ input[type=submit],
         width: 500px;
     }
 
-    .user-status {
+    #user-status {
     padding: 0.5rem;
 }
 
