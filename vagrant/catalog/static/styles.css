@@ -233,7 +233,7 @@ container {
     transition: color .25s, opacity .25s, transform .35s;
 }
 
-.icon-add,
+#icon-add,
 .icon-add-r {
     font-size: 45px;
     /*color: #4fb840;*/
@@ -241,7 +241,7 @@ container {
     transition: transform .5s;
 }
 
-.icon-add:hover,
+#icon-add:hover,
 .icon-add-r:hover{
     transform: scale(1.2);
     /*color: #72c666;*/
@@ -1021,7 +1021,7 @@ input[type=submit],
 @media only screen and (min-width: 768px) and (orientation: portrait) {
 /*@media only screen and (min-width: 768px) {*/
 
-    .icon-add {
+    #icon-add {
         margin-left: 43px;
     }
 
