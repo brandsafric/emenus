@@ -53,7 +53,7 @@
                                 }
                             });
                             setTimeout(function () {
-                                window.location.href = "/restaurants";
+                                {#window.location.href = "/restaurants";#}
                             }, 4000);
                         } else if (authResult['error']) {
                             console.log("There was an error: " + authResult['error']);
@@ -185,7 +185,7 @@
                     </div>
                     <div class="loader">
                         <span>
-                            <img src="{{ url_for('static', filename='img/Wedges.gif') }}" />
+                            <img src="{{ url_for('static', filename='img/Spin.gif') }}" />
                         </span>
                     </div>
                 </div>
