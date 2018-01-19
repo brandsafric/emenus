@@ -36,7 +36,7 @@ body {
     width: 100%;
 }
 
-.logo-prefix {
+#logo-prefix {
     color: #05834c;
     /*color: #edfbea;*/
     font-weight: 600;
