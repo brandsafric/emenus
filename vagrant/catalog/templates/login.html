@@ -29,8 +29,9 @@
                         if (result) {
                             // Hide the login button
                             $('#btn-login').css('visibility', 'hidden');
+                            // Start animation sequence for login
                             $('#login-container').addClass('animated zoomOut');
-                            $('#login-container').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
+                            $('#login-container').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
                                 $('#login-msg').html('Login Successful');
                                 $('#login-container').html(result + '<br />')
                                     .css({
@@ -50,6 +51,7 @@
                                 }
                             });
                             setTimeout(function () {
+                                // Finally, redirect to the restaurants template.
                                 window.location.href = "/restaurants";
                             }, 4000);
                         } else if (authResult['error']) {
@@ -98,8 +100,10 @@
                         if (result) {
                             // Hide the login button
                             $('#btn-login').css('visibility', 'hidden');
+                            // Start animation sequence for login
+
                             $('#login-container').addClass('animated zoomOut');
-                            $('#login-container').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
+                            $('#login-container').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
                                 $('#login-msg').html('Login Successful');
                                 $('#login-container').html(result + '<br />')
                                     .css({
@@ -119,6 +123,7 @@
                                 }
                             });
                             setTimeout(function () {
+                                // Finally, redirect to the restaurants template.
                                 window.location.href = "/restaurants";
                             }, 4000);
 
@@ -159,6 +164,7 @@
                             .g-signin2:hover {
                                 cursor: pointer;
                             }
+
                             .g-signin2 {
                                 display: inline-block;
                                 width: 120px;
@@ -173,7 +179,7 @@
                     </div>
                     <div class="loader">
                         <span>
-                            <img src="{{ url_for('static', filename='img/Spin.gif') }}" />
+                            <img src="{{ url_for('static', filename='img/Spin.gif') }}"/>
                         </span>
                     </div>
                 </div>
