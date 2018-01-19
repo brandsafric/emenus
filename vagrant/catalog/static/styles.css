@@ -90,7 +90,7 @@ body {
     transition: opacity .25s;
 }
 
-.login-container {
+#login-container {
     margin-top: 10px;
     display: flex;
     align-items: center;
@@ -810,7 +810,7 @@ input[type=submit],
         height: 65%;
     }
 
-    .login-container {
+    #login-container {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
@@ -937,7 +937,7 @@ input[type=submit],
         margin-left: 30px;
     }
 
-    /*.login-container {*/
+    /*#login-container {*/
         /*flex-direction: column;*/
     /*}*/
 
@@ -967,7 +967,7 @@ input[type=submit],
     .text-container {
         height: 90px;
     }
-    .login-container {
+    #login-container {
         flex-direction: column;
     }
 
@@ -1066,7 +1066,7 @@ input[type=submit],
 /*desktops*/
 
 @media only screen and (min-width: 769px) {
-    .login-container {
+    #login-container {
         /*display: block;*/
     }
 

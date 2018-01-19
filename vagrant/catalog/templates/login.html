@@ -29,10 +29,10 @@
                         if (result) {
                             // Hide the login button
                             $('#btn-login').css('visibility', 'hidden');
-                            $('#logincontainer').addClass('animated zoomOut');
-                            $('#logincontainer').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
+                            $('#login-container').addClass('animated zoomOut');
+                            $('#login-container').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
                                 $('#loginMsg').html('Login Successful');
-                                $('#logincontainer').html(result + '<br />')
+                                $('#login-container').html(result + '<br />')
                                     .css({
                                         'display': 'block',
                                         'width': '100%',
@@ -55,7 +55,7 @@
                         } else if (authResult['error']) {
                             console.log("There was an error: " + authResult['error']);
                         } else {
-                            $('#logincontainer').html('Failed to make a server-side call. Check your configuration and console.');
+                            $('#login-container').html('Failed to make a server-side call. Check your configuration and console.');
                         }
                     }
                 })
@@ -98,10 +98,10 @@
                         if (result) {
                             // Hide the login button
                             $('#btn-login').css('visibility', 'hidden');
-                            $('#logincontainer').addClass('animated zoomOut');
-                            $('#logincontainer').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
+                            $('#login-container').addClass('animated zoomOut');
+                            $('#login-container').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
                                 $('#loginMsg').html('Login Successful');
-                                $('#logincontainer').html(result + '<br />')
+                                $('#login-container').html(result + '<br />')
                                     .css({
                                         'display': 'block',
                                         'width': '100%',
@@ -123,7 +123,7 @@
                             }, 4000);
 
                         } else {
-                            $('#logincontainer').html('Failed to make a server-side call. Check your configuration and console.');
+                            $('#login-container').html('Failed to make a server-side call. Check your configuration and console.');
                         }
                     }
                 });
@@ -149,7 +149,7 @@
                 </div>
                 <div class="modal-body">
                     <div id="loginMsg">Sign in with</div>
-                    <div class="login-container" id="logincontainer">
+                    <div id="login-container">
                         <div class="g-signin2" id="signinButton"></div>
                         <script>
                             $('#signinButton').click(function () {
