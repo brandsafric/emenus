@@ -665,18 +665,20 @@ input[type=submit],
     border-color: #005b34 !important;
     box-shadow: 0 0 0 0.2rem #005b34 !important;
     outline-color: #005b34 !important;
-        /*background-color: #00b668 !important;*/
 }
 
 .btn-secondary {
-    background-color: #a56f67;
-        background-color: #873f35;
-    border-color: #873f35;
+    background-color: #4f0b02;
+    border: 1px solid  #873f35;
 }
 
-.btn-secondary:hover {
+.btn-secondary:hover,
+.btn-secondary:active,
+.btn-secondary:focus {
     background-color: #873f35;
-        background-color: #a56f67;
+    border-color: #4f0b02 !important;
+    box-shadow: 0 0 0 0.2rem #4f0b02 !important;
+    outline-color: #4f0b02 !important;
 }
 
 .gallery {
