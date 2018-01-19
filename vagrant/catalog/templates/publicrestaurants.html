@@ -36,7 +36,7 @@
                                 <img src="{{ url_for('static', filename=pictures[r.picture_id - 1].path) }}" alt="img" />
                             </div>
                             <div class="r-info">
-                                <h3 class="name">{{ r.name|truncate(20, True) }}</h3>
+                                <h3 class="r-name">{{ r.name|truncate(20, True) }}</h3>
                                 <p class="cuisine">{{ r.cuisine }}</p>
                             </div>
                         </a>
