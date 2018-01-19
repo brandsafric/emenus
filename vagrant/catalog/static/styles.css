@@ -153,11 +153,11 @@ body {
     width: 20%;
 }
 
-.text-container, #signinButton {
+.text-container, .g-signin2 {
     /*float: left;*/
 }
 
-#signinButton {
+.g-signin2 {
     margin-right: 10px;
 }
 

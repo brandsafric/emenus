@@ -149,17 +149,17 @@
                 <div class="modal-body">
                     <div id="login-msg">Sign in with</div>
                     <div id="login-container">
-                        <div class="g-signin2" id="signinButton"></div>
+                        <div class="g-signin2"></div>
                         <script>
-                            $('#signinButton').click(function () {
+                            $('.g-signin2').click(function () {
                                 auth2.grantOfflineAccess().then(signInCallback);
                             });
                         </script>
                         <style type="text/css">
-                            #signinButton:hover {
+                            .g-signin2:hover {
                                 cursor: pointer;
                             }
-                            #signinButton {
+                            .g-signin2 {
                                 display: inline-block;
                                 width: 120px;
                                 margin-right: 10px;
