@@ -27,7 +27,8 @@
                     contentType: 'application/octet-stream; charset=utf-8',
                     success: function (result) {
                         if (result) {
-
+                            // Hide the login button
+                            $('#btn-login').css('visibility', 'hidden');
                             $('#logincontainer').addClass('animated zoomOut');
                             $('#logincontainer').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
                                 console.log('#logincontainer animation ended.');
@@ -105,6 +106,8 @@
                     success: function (result) {
                         // Handle or verify the server response if necessary.
                         if (result) {
+                            // Hide the login button
+                            $('#btn-login').css('visibility', 'hidden');
                             $('#logincontainer').addClass('animated zoomOut');
                             $('#logincontainer').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
                                 console.log('#logincontainer animation ended.');
