@@ -573,6 +573,17 @@ input[type=submit],
     /*justify-content: center;*/
 
 }
+.loader {
+    visibility: hidden;
+    padding-top: 10px;
+    width: 45px;
+    margin: 0 auto;
+}
+
+.show {
+    visibility: visible;
+}
+
 .modal-header,
 .modal-footer {
     /*background: #2c6824;*/
@@ -689,6 +700,7 @@ input[type=submit],
 .icon_show {
     opacity: 1 !important;
 }
+
 .upload_container,
 .file_container {
     text-align: center;
@@ -781,6 +793,7 @@ input[type=submit],
         flex-wrap: wrap;
         justify-content: center;
     }
+
 
     .profileImg {
         width: auto;
