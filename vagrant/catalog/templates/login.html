@@ -31,7 +31,6 @@
                             $('#btn-login').css('visibility', 'hidden');
                             $('#logincontainer').addClass('animated zoomOut');
                             $('#logincontainer').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
-                                console.log('#logincontainer animation ended.');
                                 $('#loginMsg').html('Login Successful');
                                 $('#logincontainer').html(result + '<br />')
                                     .css({
@@ -41,15 +40,11 @@
                                         'margin-top': '0'
                                     });
                                 if ($(this).hasClass('zoomOut')) {
-                                    console.log("Zoom out has ended.");
                                     $(this).removeClass('zoomOut');
-                                    console.log("Adding zoomIn.");
                                     $(this).addClass('zoomIn');
                                 } else if ($(this).hasClass('zoomIn')) {
-                                    console.log("zoomIn has ended.");
                                     $(this).removeClass('zoomIn');
                                     setTimeout(function () {
-                                        console.log('toggling loader.');
                                         $('.loader').toggleClass('show animated fadeIn');
                                     }, 2000);
                                 }
@@ -91,12 +86,7 @@
 
         function sendTokenToServer() {
             var access_token = FB.getAuthResponse()['accessToken'];
-            console.log(access_token)
-            console.log('Welcome!  Fetching your information.... ');
             FB.api('/me', function (response) {
-                console.log('Response:');
-                console.log(response);
-                console.log('Successful login for: ' + response.name);
                 $.ajax({
                     type: 'POST',
                     url: '/fbconnect?state={{STATE}}',
@@ -110,7 +100,6 @@
                             $('#btn-login').css('visibility', 'hidden');
                             $('#logincontainer').addClass('animated zoomOut');
                             $('#logincontainer').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
-                                console.log('#logincontainer animation ended.');
                                 $('#loginMsg').html('Login Successful');
                                 $('#logincontainer').html(result + '<br />')
                                     .css({
@@ -120,15 +109,11 @@
                                         'margin-top': '0'
                                     });
                                 if ($(this).hasClass('zoomOut')) {
-                                    console.log("Zoom out has ended.");
                                     $(this).removeClass('zoomOut');
-                                    console.log("Adding zoomIn.");
                                     $(this).addClass('zoomIn');
                                 } else if ($(this).hasClass('zoomIn')) {
-                                    console.log("zoomIn has ended.");
                                     $(this).removeClass('zoomIn');
                                     setTimeout(function () {
-                                        console.log('toggling loader.');
                                         $('.loader').toggleClass('show animated fadeIn');
                                     }, 2000);
                                 }
