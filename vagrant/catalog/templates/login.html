@@ -27,6 +27,7 @@
                     contentType: 'application/octet-stream; charset=utf-8',
                     success: function (result) {
                         if (result) {
+
                             $('#logincontainer').addClass('animated zoomOut');
                             $('#logincontainer').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
                                 console.log('#logincontainer animation ended.');
@@ -53,7 +54,7 @@
                                 }
                             });
                             setTimeout(function () {
-                                {#window.location.href = "/restaurants";#}
+                                window.location.href = "/restaurants";
                             }, 4000);
                         } else if (authResult['error']) {
                             console.log("There was an error: " + authResult['error']);
