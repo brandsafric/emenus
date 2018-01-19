@@ -28,7 +28,7 @@
         {% endif %}
         <ul class="restaurant-list" id="restaurant-list">
             {% for r in restaurants %}
-                <li class="restaurant-card-circle">
+                <li class="r-card">
                     <div class="ih-item circle colored effect6 scale_up">
                         {{ r.image }}
                         <a href="{{ url_for('show_menu', restaurant_id = r.id) }}">
