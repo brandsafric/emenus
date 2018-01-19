@@ -32,10 +32,10 @@
                     <div class="ih-item circle colored effect6 scale_up">
                         {{ r.image }}
                         <a href="{{ url_for('show_menu', restaurant_id = r.id) }}">
-                            <div class="img"><img
-                                    src="{{ url_for('static', filename=pictures[r.picture_id - 1].path) }}" alt="img">
+                            <div class="img">
+                                <img src="{{ url_for('static', filename=pictures[r.picture_id - 1].path) }}" alt="img" />
                             </div>
-                            <div class="info info-bg">
+                            <div class="r-info">
                                 <h3 class="name">{{ r.name|truncate(20, True) }}</h3>
                                 <p class="cuisine">{{ r.cuisine }}</p>
                             </div>
