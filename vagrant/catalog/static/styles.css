@@ -77,13 +77,15 @@ body {
 }
 
 .user-status a {
-    /*color: #4fb840;*/
-        /*color: #1e6810;*/
-        /*color: #05834c;*/
     margin-left: 10px;
-    font-weight: bold;
-    color: #05834c;
+    font-size: 14px;
     float: right;
+    padding: 2px 4px;
+    color: rgb(237, 251, 234);
+}
+
+.user-status a:hover {
+    text-decoration: none;
 }
 
 .login-box {
@@ -584,6 +586,22 @@ input[type=submit],
     visibility: visible;
 }
 
+.modal-content {
+    background: transparent;
+}
+
+
+.modal-header {
+    border-top-left-radius: 35px;
+    border-top-right-radius: 35px;
+}
+
+.modal-footer {
+    border-bottom-left-radius: 35px;
+    border-bottom-right-radius: 35px;
+
+}
+
 .modal-header,
 .modal-footer {
     /*background: #2c6824;*/
@@ -636,14 +654,18 @@ input[type=submit],
 }
 
 .btn-primary {
-    background-color: #05834c;
-        background-color: #005b34;
-    border-color: #005b34;
+    background-color: #005b34;
+    border-color: #00884e;
 }
 
-.btn-primary:hover {
-    background-color: #005b34;
-        background-color: #00b668 !important;
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:focus {
+    background-color: #00884e !important;
+    border-color: #005b34 !important;
+    box-shadow: 0 0 0 0.2rem #005b34 !important;
+    outline-color: #005b34 !important;
+        /*background-color: #00b668 !important;*/
 }
 
 .btn-secondary {
