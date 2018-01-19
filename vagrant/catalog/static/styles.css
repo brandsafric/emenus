@@ -218,7 +218,8 @@ container {
 .r-name {
     font-size: 21px !important;
 }
-.r-info {
+
+.info {
     background: hsla(154, 93%, 27%, 0.80) !important;
     /*background: hsla(112, 48%, 49%, .45) !important;*/
 }
