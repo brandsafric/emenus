@@ -59,27 +59,38 @@ $(function () {
 
         // Grab the filenames and push to array.
         // We need to store an array of the images because a lot of the code for the manipulation of images is client-side
-        imageNode.each(function (index) {
-            var imgPath = $(this).attr('data-imgpath');
-            var fn = $(this).attr('data-fn');
-            // console.log(index + ' : ' + fn);
-            // This way, we don't push the default image that lacks a data-fn
-            if (fn) {
-                imagesArr.push(fn);
+        //
+        imageNode.map(function(index, item) {
+            if ($(this).attr('data-fn')) {
+                console.log(index);
+                console.log($(this).attr('data-fn'));
+                imagesArr.push($(this).attr('data-imgpath'));
             }
-            // console.log('Push fn to imageAR');
+        })
 
-            // Set the default image to defaultImg if the imgPath is that and if
-            // this is the edit restaurant form.
-            // if (imgPath == $('#target').val() && ($("#editRestForm").length)) {
-            //     console.log('match');
-            //     console.log('edit restaurant form')
-            //     console.log(imgPath);
-            //     console.log(parent);
-            //     $(parent).toggleClass('selected');
-            // }
-
-        });
+        console.log(imagesArr);
+        //
+        // imageNode.each(function (index) {
+        //     var imgPath = $(this).attr('data-imgpath');
+        //     var fn = $(this).attr('data-fn');
+        //     console.log(index + ' : ' + fn);
+        //     // This way, we don't push the default image that lacks a data-fn
+        //     if (fn) {
+        //         imagesArr.push(fn);
+        //     }
+        //     // console.log('Push fn to imageAR');
+        //
+        //     // Set the default image to defaultImg if the imgPath is that and if
+        //     // this is the edit restaurant form.
+        //     // if (imgPath == $('#target').val() && ($("#editRestForm").length)) {
+        //     //     console.log('match');
+        //     //     console.log('edit restaurant form')
+        //     //     console.log(imgPath);
+        //     //     console.log(parent);
+        //     //     $(parent).toggleClass('selected');
+        //     // }
+        //
+        // });
 
         // Set the current based on the form.
         if ($("#newRestForm").length) {
