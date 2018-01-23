@@ -58,8 +58,8 @@ $(function () {
 
 
         // Grab the filenames and push to array.
-        // We need to store an array of the images because a lot of the code for the manipulation of images is client-side
-        //
+        // We need to store an array of the images because a lot of the code for the manipulation of images is
+        // client-side
         imageNode.map(function(index, item) {
             if ($(this).attr('data-fn')) {
                 console.log(index);
@@ -146,7 +146,9 @@ $(function () {
                         // Grab the path of the file
                         var path = returnedData.path;
                         // console.log(typeof(path));
-                        var HTMLimage = '<li class="img_thumbnail selected" id="img_thumbnail_%data%" data-index="%data%" ><img id="img_tn_%data%" class="img_tn img_tn_ul" data-imgpath="%path%" data-index="%data%" src="" alt="img"></li>';
+                        var HTMLimage = '<li class="img_thumbnail selected" id="img_thumbnail_%data%" data-index=' +
+                            '"%data%" ><img id="img_tn_%data%" class="img_tn img_tn_ul" data-imgpath=' +
+                            '"%path%" data-index="%data%" src="" alt="img"></li>';
                         var formattedHTML = HTMLimage.replace(/%data%/g, idx).replace(/%path%/g, path);
                         // Add the image thumbnail node
                         // console.log('Going to add image thumbnail node (without src)');
@@ -170,7 +172,10 @@ $(function () {
                         $('#i_delete_' + idx).toggleClass('icon_show');
 
                         // Add the icon node
-                        var HTMLicon = '<div class="icons_delete" id="icons_delete_%data%" data-index="%data%"><i id="i_delete_%data%" data-index="%data%" data-tn="img_thumbnail_%data%" data-parent="icons_delete_%data%" class="fa fa-times-circle i_delete icon_show" aria-hidden="true"></i></div>'
+                        var HTMLicon = '<div class="icons_delete" id="icons_delete_%data%" data-index="%data%">' +
+                            '<i id="i_delete_%data%" data-index="%data%" data-tn="img_thumbnail_%data%" data-parent=' +
+                            '"icons_delete_%data%" class="fa fa-times-circle i_delete icon_show" aria-hidden=' +
+                            '"true"></i></div>'
                         var formattedIcon = HTMLicon.replace(/%data%/g, idx);
                         console.log(formattedIcon);
                         $('.image_container').append(formattedIcon);
