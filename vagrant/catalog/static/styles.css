@@ -272,7 +272,7 @@ container {
 
 .flash {
     float: right;
-    color: #b8292f;
+    color: #f6b554;
 }
 
 /*showMenu template*/
@@ -456,7 +456,7 @@ textarea,
     padding: 12px 10px;
     margin: 8px 0;
     display: inline-block;
-    border: 1px solid #4f1119;
+    border: 1px solid #d84f56;
     outline-color: #d84f56;
     border-radius: 4px;
     box-sizing: border-box;
