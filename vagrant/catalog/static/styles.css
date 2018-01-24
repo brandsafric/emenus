@@ -581,7 +581,7 @@ input[type=submit],
 
 .modal-header,
 .modal-footer {
-    background: #9e8656;
+    background: #543d17;
 }
 
 .warning {
@@ -657,9 +657,18 @@ input[type=submit],
 .btn-secondary:hover,
 .btn-secondary:active,
 .btn-secondary:focus {
-    color: black;
+    /*color: black;*/
     background-color: #d84f56;
 }
+
+
+.btn-secondary:not(#login-cancel):hover,
+.btn-secondary:not(#login-cancel):active,
+.btn-secondary:not(#login-cancel):focus {
+    color: black;
+    /*background-color: #d84f56;*/
+}
+
 
 .no_upload {
     visibility: hidden;
