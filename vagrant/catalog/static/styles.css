@@ -204,9 +204,11 @@ container {
     font-size: 21px !important;
 }
 
+.info-back,
 .info {
-    background: hsla(83, 58%, 33%, 0.45) !important;
+    background-color: hsla(83, 58%, 33%, 0.75) !important;
 }
+
 
 .icon-edit,
 .icon-delete,
