@@ -132,6 +132,7 @@ $(function () {
                     $('#upload').val("");
                     // $(".no_upload").css("margin-top", "0");
                     $('.upload_container').css("visibility", "hidden");
+                    $('.file_container').css("display", "block");
 
                     if ($(".upload_container").addClass('animated bounceInUp')) {
                         $('.upload_container').removeClass('animated bounceInUp');
@@ -269,6 +270,7 @@ $(function () {
                     alert("File is already uploaded!");
                 } else {
                     console.log('No filename duplicates found.');
+                    $(".file_container").css("display", "none");
                     $(".upload_container").css("visibility", "visible");
                     $(".upload_container").addClass('animated bounceInUp');
                 }
@@ -306,9 +308,9 @@ $(function () {
                 if (imagesArr.length >= 5) {
                     console.log('No more images permitted until you delete one.');
                     // $(".btn-file").css("display", "none");
-                    $(".no_upload").css("visibility", "visible");
-                    $(".file_container").css('visibility', 'hidden');
+                    $(".file_container").css('display', 'none');
                     $(".no_upload").css("margin-top", "-50px");
+                    $(".no_upload").css("visibility", "visible");
                 }
             }
         };
@@ -351,7 +353,7 @@ $(function () {
                     // $(iNode).css('display', 'none');
                     // $(imgNode).css('display', 'none');
                     console.log('Images can be added');
-                    $(".file_container").css("visibility", "visible");
+                    $(".file_container").css("display", "block");
                     $(".no_upload").css("visibility", "hidden");
                 },
                 error: function (error) {
