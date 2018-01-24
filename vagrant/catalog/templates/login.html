@@ -171,11 +171,8 @@
                                 margin-right: 10px;
                             }
                         </style>
-                        <div class="fb-login-button" data-max-rows="1" data-size="medium"
-                             data-button-type="continue_with" onlogin="sendTokenToServer();"
-                             data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false">
+                        <div class="fb-login-button" data-max-rows="1" data-size="medium" data-button-type="continue_with" onlogin="sendTokenToServer();" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false">
                         </div>
-
                     </div>
                     <div class="loader">
                         <span>
@@ -183,12 +180,11 @@
                         </span>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="login-cancel" data-dismiss="modal">Cancel</button>
+                </div>
             </div>
         </div>
-    </div>
     </div>
     <div class="row justify-content-center top-margin">
         <div class="col-md-6"><p>Welcome to EMenus!<br>
@@ -205,4 +201,5 @@
                 $("#myModal").modal();
             });
         </script>
+    </div>
 {% endblock %}
