@@ -208,6 +208,9 @@ container {
 .info-back,
 .info:not(#form-circle) {
     background-color: hsla(83, 58%, 33%, 0.75) !important;
+    /*Stretch to full height*/
+    height: 100%;
+    border-radius: 50%;
 }
 
 
@@ -611,11 +614,11 @@ input[type=submit],
 }
 
 .img_thumbnail:hover {
-    border: 1px solid white;
+    border: 1px solid #b8292f;
 }
 
 .selected{
-    border: 1px solid yellow;
+    outline: 1px solid #f6b554;
 }
 
 .btn-save {
