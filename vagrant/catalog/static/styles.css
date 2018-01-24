@@ -5,6 +5,7 @@
 /*#543d17 Brown*/
 /*#9e8656 Tan*/
 /*#f6b554 Yellow*/
+/*hsla(50, 64%, 81%, 1) Dark Light Yellow*/
 /*#f3ecc9 Light Yellow*/
 /*#5e8323 Green*/
 /*#b6d554 Lime*/
@@ -450,12 +451,13 @@ select,
 textarea,
 .item-value {
     color: black;
-    background: #d4e3a5;
+    background: hsla(50, 64%, 81%, 1);
     width: 100%;
     padding: 12px 10px;
     margin: 8px 0;
     display: inline-block;
-    border: 1px solid #d84f56;
+    border: 1px solid #4f1119;
+    outline-color: #d84f56;
     border-radius: 4px;
     box-sizing: border-box;
 }
