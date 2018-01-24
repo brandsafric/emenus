@@ -382,13 +382,13 @@ def get_pictures(path):
     # Grab the user ID first
     user = get_user_info(login_session['user_id'])
     user_pics = session.query(Picture).filter_by(user_id=user.id).all()
-    # print "Pictures in DB:"
-    # for pic in picture_list:
+    print "Pictures in DB:"
+    for pic in user_pics:
         # user_pics.append(pic)
-    #     print pic.filename
-    #     print pic.path
-    #     print pic.user_id
-    #     print pic.id
+        print pic.filename
+        print pic.path
+        print pic.user_id
+        print pic.id
     return user_pics
 
 
