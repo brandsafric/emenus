@@ -205,7 +205,7 @@ container {
 }
 
 .info {
-    background: #5e8323 !important;
+    background: hsla(83, 58%, 33%, 0.45) !important;
 }
 
 .icon-edit,
