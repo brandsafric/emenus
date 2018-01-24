@@ -404,6 +404,7 @@ form {
     max-width: 500px;
     /*Needed so that the scroll bar does not appear on the amimated button child div*/
     overflow: hidden;
+    padding-right: 10px;
 }
 
 .form-heading .title-new-item,
@@ -627,32 +628,35 @@ input[type=submit],
     background: #b6d554;
 }
 
+.btn-primary,
+.btn-secondary {
+    float: right;
+}
+
+#btn-cancel {
+    margin-left: 5px;
+}
+
 .btn-primary {
     background-color: #5e8323;
-    border-color: #b6d554;
 }
 
 .btn-primary:hover,
 .btn-primary:active,
 .btn-primary:focus {
-    background-color: #5e8323 !important;
-    border-color: #b6d554 !important;
-    box-shadow: 0 0 0 0.2rem #b6d554 !important;
-    outline-color: #b6d554 !important;
+    color: black;
+    background-color: #b6d554 !important;
 }
 
 .btn-secondary {
     background-color: #4f1119;
-    border: 1px solid  #d84f56;
 }
 
 .btn-secondary:hover,
 .btn-secondary:active,
 .btn-secondary:focus {
+    color: black;
     background-color: #d84f56;
-    border-color: #4f1119 !important;
-    box-shadow: 0 0 0 0.2rem #4f1119 !important;
-    outline-color: #4f1119 !important;
 }
 
 .no_upload {
