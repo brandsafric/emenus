@@ -603,7 +603,7 @@ input[type=submit],
     height: 56px;
     padding: 2px;
     white-space: nowrap;
-    border: 1px solid black;
+    /*border: 1px solid black;*/
     float: left;
     transition: border ease-out .25s;
 }
@@ -614,11 +614,11 @@ input[type=submit],
 }
 
 .img_thumbnail:hover {
-    border: 1px solid #b8292f;
+    outline: 1px dotted #b8292f;
 }
 
 .selected{
-    outline: 1px solid #f6b554;
+    outline: 2px solid #f6b554;
 }
 
 .btn-save {
