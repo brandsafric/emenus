@@ -204,7 +204,8 @@ container {
     font-size: 21px !important;
 }
 
-.info-back {
+.info-back,
+.info:not(#form-circle) {
     background-color: hsla(83, 58%, 33%, 0.75) !important;
 }
 
