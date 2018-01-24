@@ -204,8 +204,7 @@ container {
     font-size: 21px !important;
 }
 
-.info-back,
-.info {
+.info-back {
     background-color: hsla(83, 58%, 33%, 0.75) !important;
 }
 
@@ -560,6 +559,10 @@ input[type=submit],
     background: transparent;
 }
 
+/*Keep this hidden as this is only used to pass information to form*/
+#target {
+    display: none;
+}
 
 .modal-header {
     border-top-left-radius: 35px;
