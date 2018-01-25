@@ -66,7 +66,7 @@ $(function () {
                 // console.log($(this).attr('data-fn'));
                 imagesArr.push($(this).attr('data-fn'));
             }
-        })
+        });
 
         console.log(imagesArr);
         //
