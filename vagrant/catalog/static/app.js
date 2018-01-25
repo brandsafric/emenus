@@ -62,9 +62,9 @@ $(function () {
         // client-side
         imageNode.map(function(index, item) {
             if ($(this).attr('data-fn')) {
-                console.log(index);
-                console.log($(this).attr('data-fn'));
-                imagesArr.push($(this).attr('data-imgpath'));
+                // console.log(index);
+                // console.log($(this).attr('data-fn'));
+                imagesArr.push($(this).attr('data-fn'));
             }
         })
 
@@ -131,7 +131,7 @@ $(function () {
                     // Reset the upload divs
                     $('#upload').val("");
                     // $(".no_upload").css("margin-top", "0");
-                    $('.upload_container').css("visibility", "hidden");
+                    $('.upload_container').css("display", "none");
                     $('.file_container').css("display", "block");
 
                     if ($(".upload_container").addClass('animated bounceInUp')) {
@@ -271,7 +271,7 @@ $(function () {
                 } else {
                     console.log('No filename duplicates found.');
                     $(".file_container").css("display", "none");
-                    $(".upload_container").css("visibility", "visible");
+                    $(".upload_container").css("display", "block");
                     $(".upload_container").addClass('animated bounceInUp');
                 }
 
@@ -287,6 +287,7 @@ $(function () {
             //     console.log(i + ' : ' + imagesArr[i]);
             // }
 
+            console.log(imagesArr);
             if (imagesArr.indexOf(filename) == -1) {
                 console.log('filename not found. returning false.')
                 return false;
@@ -309,8 +310,8 @@ $(function () {
                     console.log('No more images permitted until you delete one.');
                     // $(".btn-file").css("display", "none");
                     $(".file_container").css('display', 'none');
-                    $(".no_upload").css("margin-top", "-50px");
-                    $(".no_upload").css("visibility", "visible");
+                    // $(".no_upload").css("margin-top", "-38px");
+                    $(".no_upload").css("display", "block");
                 }
             }
         };
@@ -354,7 +355,7 @@ $(function () {
                     // $(imgNode).css('display', 'none');
                     console.log('Images can be added');
                     $(".file_container").css("display", "block");
-                    $(".no_upload").css("visibility", "hidden");
+                    $(".no_upload").css("display", "none");
                 },
                 error: function (error) {
                     console.log(error);
