@@ -324,10 +324,11 @@ def show_restaurants():
     #     print r.name
     #     print r.picture_id
     pictures = session.query(Picture).all()
-    # for pic in pictures:
-    #     print pic.filename
-    #     print pic.path
-    #     print pic.id
+    for pic in pictures:
+        print "filename : " + str(pic.filename)
+        print "path: " + str(pic.path)
+        print "user.id: " + str(pic.user_id)
+        print "pic.id: " + str(pic.id)
 
     if 'username' not in login_session:
         print "no username is session. rendering public."
@@ -385,10 +386,10 @@ def get_pictures(path):
     print "Pictures in DB:"
     for pic in user_pics:
         # user_pics.append(pic)
-        print pic.filename
-        print pic.path
-        print pic.user_id
-        print pic.id
+        print "filename : " + str(pic.filename)
+        print "path: " + str(pic.path)
+        print "user.id: " + str(pic.user_id)
+        print "pic.id: " + str(pic.id)
     return user_pics
 
 
@@ -649,6 +650,24 @@ def delete_image():
                 print ("Error: {0} - {1}.".format(e.f,e.strerror))
         else:
             print("Sorry, I can not find {0} file in the filesystem.".format(f))
+
+        print "ID of pic to delete is " + str(pictureToDelete.id)
+
+
+        # Need to reset any restaurants that have the image back to default image
+        restaurantsWithPicture = session.query(Restaurant).filter_by(picture_id=pictureToDelete.id).all()
+
+        print restaurantsWithPicture.length
+        if restaurantsWithPicture:
+            for r in restaurantsWithPicture:
+                print r.name
+                r.picture_id = 1
+                print "Changing image for restaurant :" + str(restaurantWithPicture.name) + " back to NA."
+                session.add(r)
+                session.commit()
+                print "Replaced " + str(restaurantWithPicture.name) + " in db."
+        else:
+            print "No restaurants with that image."
         return json.dumps({'status': 'OK', 'index': "x", 'deleted': 'yes', 'filename': pictureToDelete.filename});
 
     except Exception, e:
