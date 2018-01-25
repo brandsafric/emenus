@@ -674,6 +674,7 @@ def upload_image():
         session.commit()
         print "save to database"
         f.save(destination)
+
         # print "new image index is " + str(newPicture.id)
         return json.dumps({'status': 'OK', 'index': newPicture.id, 'uploaded': 'yes', 'filename': filename, 'path': fullpath})
     except Exception, e:
