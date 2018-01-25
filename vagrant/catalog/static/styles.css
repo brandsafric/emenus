@@ -549,6 +549,7 @@ input[type=submit],
     height: 172px;
     background: #f3ecc9;
     color: rgba(23, 11, 45, .75);
+    overflow-y: hidden;
 }
 
 .loader {
@@ -628,6 +629,7 @@ input[type=submit],
 }
 
 
+
 .btn-save:hover,
 .btn-set:hover {
     background: #b6d554;
@@ -661,7 +663,7 @@ input[type=submit],
 .btn-secondary:active,
 .btn-secondary:focus {
     /*color: black;*/
-    background-color: #d84f56;
+    background-color: #f6b554;
 }
 
 
@@ -674,7 +676,8 @@ input[type=submit],
 
 
 .no_upload {
-    visibility: hidden;
+    /*visibility: hidden;*/
+    display: none;
     color: #4f1119;
     font-weight: bold;
 }
@@ -702,11 +705,11 @@ input[type=submit],
     text-align: center;
 }
 
-.image_container:after {
-  content: "";
-  display: table;
-  clear: left;
-}
+/*.image_container:after {*/
+  /*content: "";*/
+  /*display: table;*/
+  /*clear: both;*/
+/*}*/
 
 .icon_show {
     opacity: 1 !important;
@@ -724,8 +727,11 @@ input[type=submit],
 
 .upload_container {
     transition: opacity ease-in-out .75s;
-    visibility: hidden;
+    /*visibility: hidden;*/
+    display: none;
 }
+
+
 
 
 #course {
