@@ -106,6 +106,8 @@ $(function () {
             console.log(current);
         }
 
+       // $("#btn-set").attr("disabled", "disabled");
+
 
 
         $(".img_thumbnail").click(function (e) {
@@ -344,6 +346,12 @@ $(function () {
                             selectImage();
                         });
 
+                        // Set the submit button to enabled
+                        // $('#btn-set').disabled = false;
+
+                       // $("#btn-set").attr("disabled", "enabled");
+                         $("#btn-set").removeAttr("disabled");
+
 
                         $('#i_delete_' + idx).toggleClass('icon_show');
 
@@ -372,27 +380,30 @@ $(function () {
                             // console.log('Pushing to imagesArr');
                             imagesArr.push(f);
                             // console.log('old current is ' + current.toString());
-                            oldImage = $('#img_thumbnail_' + current);
-                            oldIcon = $('#i_delete_' + current);
-                            console.log('Current is ' + current);
-                            // console.log('old image is: ');
-                            // console.log(oldImage);
-                            toggleElements(oldImage, oldIcon);
-                            if (oldImage.hasClass('selected')) {
-                                console.log('toggling selected from previous selected image');
-                                oldImage.toggleClass('selected');
+                            if (current != idx){
+                                oldImage = $('#img_thumbnail_' + current);
+                                oldIcon = $('#i_delete_' + current);
+                                console.log('Current is ' + current);
+                                // console.log('old image is: ');
+                                // console.log(oldImage);
+                                toggleElements(oldImage, oldIcon);
+                                if (oldImage.hasClass('selected')) {
+                                    console.log('toggling selected from previous selected image');
+                                    oldImage.toggleClass('selected');
+                                }
+
+                                if (oldIcon.hasClass('icon_show')) {
+                                    console.log('toggling icon_show from previous selected icon');
+                                    oldIcon.toggleClass('icon_show');
+                                }
+                                // Set current to just added image
+                                // if (current != idx) {
+                                //     console.log('current is not equal to idx so now it will be.');
+                                     current = idx;
+                                // }
+                                console.log('new current is ' + current.toString());
                             }
 
-                            if (oldIcon.hasClass('icon_show')) {
-                                console.log('toggling icon_show from previous selected icon');
-                                oldIcon.toggleClass('icon_show');
-                            }
-                            // Set current to just added image
-                            if (current != idx) {
-                                console.log('current is not equal to idx so now it will be.');
-                                 current = idx;
-                            }
-                            console.log('new current is ' + current.toString());
 
                             // Finally, check to see if we are at the max 5 images
                             countImages();
@@ -500,6 +511,8 @@ $(function () {
                         console.log('setting circle back to default.');
                         // var defaultImg = $('#img_tn_1').attr('src');
                         $('#rest_img').attr('src', imgDefault);
+                       $("#btn-set").attr("disabled", "disabled");
+
                     }
                 },
                 error: function (error) {
@@ -541,6 +554,10 @@ $(function () {
                         el.toggleClass('icon_show');
                     }
                     $('#target').children().val('');
+                    // Enabled the submit button
+                    // $('#btn-set').disabled = false;
+                   // $("#btn-set").attr("disabled", "enabled");
+         $("#btn-set").removeAttr("disabled");
                 }
             }
             // User clicks the image. Happens most of the time
@@ -580,6 +597,12 @@ $(function () {
                     var path = newImage.children().attr('data-index');
                     // console.log('setting value to ' + path);
                     $('#target').val(path);
+
+                    // Set the submit button to enabled
+                    console.log('Emabling button');
+                    // $('#btn-set').disabled = false;
+                   // $("#btn-set").attr("disabled", "enabled");
+         $("#btn-set").removeAttr("disabled");
                 }
             }
 
