@@ -240,7 +240,16 @@ $(function () {
             // Change the image on the form circle to be the selected image
             var newImg = $('#img_tn_' + current).attr('data-imgpath');
             console.log(newImg);
+            // This gets set to null when the image is delete.
+            if (!newImg) {
+                // $('#rest_img').attr('src', '/static/' + newImg);
+                console.log('Changeing newImg to NA.');
+                newImg = $('#image_tn_1').attr('data-imgpath');
+
+            }
             $('#rest_img').attr('src', '/static/' + newImg);
+
+
         });
 
         // Upload file change
