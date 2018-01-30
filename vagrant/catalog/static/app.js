@@ -55,6 +55,7 @@ $(function () {
         // Only set to 0 if this is a new restaurant
         var current;
         var imagesArr = [];
+        var imgDefault = $('#img_tn_1').attr('src');
 
 
         // Grab the filenames and push to array.
@@ -254,6 +255,7 @@ $(function () {
 
         // Upload file change
         $("#upload").change(function (e) {
+            console.log('Current: ') + current;
             // console.log('File has changed.');
             // console.log(e.target.value);
             // console.log((e.target.value).slice(12));
@@ -372,6 +374,7 @@ $(function () {
                             // console.log('old current is ' + current.toString());
                             oldImage = $('#img_thumbnail_' + current);
                             oldIcon = $('#i_delete_' + current);
+                            console.log('Current is ' + current);
                             // console.log('old image is: ');
                             // console.log(oldImage);
                             toggleElements(oldImage, oldIcon);
@@ -385,7 +388,10 @@ $(function () {
                                 oldIcon.toggleClass('icon_show');
                             }
                             // Set current to just added image
-                            current = idx;
+                            if (current != idx) {
+                                console.log('current is not equal to idx so now it will be.');
+                                 current = idx;
+                            }
                             console.log('new current is ' + current.toString());
 
                             // Finally, check to see if we are at the max 5 images
@@ -454,6 +460,7 @@ $(function () {
             // Grab the data-tn attribute which stores the ID of the img_thumbnail
             var imgID = '#' + ($(event.target).attr("data-tn"));
             var fn = ($(event.target).attr("data-fn"));
+            var fullPath = ($(event.target).attr("data-imgpath"));
             // Grab the node objects
             var imgNode = $(imgID);
             var iNode = $(iconID);
@@ -484,6 +491,16 @@ $(function () {
                     console.log('Images can be added');
                     $(".file_container").css("display", "block");
                     $(".no_upload").css("display", "none");
+
+                    // Check to see if the circld image is the one just deleted.
+                    // If so, then switch it back to default image
+                    console.log('The circle filename its checking is' + fn);
+                    if ( ('#rest_img').src == fullPath || ('#rest_img').src == fn )  {
+                        // Set the circle to the default img
+                        console.log('setting circle back to default.');
+                        // var defaultImg = $('#img_tn_1').attr('src');
+                        $('#rest_img').attr('src', imgDefault);
+                    }
                 },
                 error: function (error) {
                     console.log(error);
