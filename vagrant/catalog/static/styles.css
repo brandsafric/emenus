@@ -715,7 +715,7 @@ input[type=submit],
     opacity: 1 !important;
 }
 
-.upload_container,
+/*.upload_container*/
 .file_container {
     text-align: center;
 }
@@ -725,11 +725,11 @@ input[type=submit],
     font-size: 12px;
 }
 
-.upload_container {
-    transition: opacity ease-in-out .75s;
-    /*visibility: hidden;*/
-    display: none;
-}
+/*.upload_container {*/
+    /*transition: opacity ease-in-out .75s;*/
+    /*!*visibility: hidden;*!*/
+    /*display: none;*/
+/*}*/
 
 
 
