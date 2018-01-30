@@ -115,6 +115,7 @@ $(function () {
         $(".btn-file").click(function (e) {
             console.log('Upload clicked');
             var file = document.getElementById('upload').files[0]; //Files[0] = 1st file
+            console.log(file);
             var filename = document.getElementById('upload').files[0].name;
             var formData = new FormData();
             formData.append('image', file, filename);
@@ -277,10 +278,11 @@ $(function () {
                     // Insert upload code here.
 
                 // console.log('Upload clicked');
-                var file = document.getElementById('upload').files[0]; //Files[0] = 1st file
+                // var file = document.getElementById('upload').files[0]; //Files[0] = 1st file
                 // var filename = document.getElementById('upload').files[0].name;
+                //     var filename = f.name;
                 var formData = new FormData();
-                formData.append('image', file, f);
+                formData.append('image', f, f.name);
 
                 $.ajax({
                 url: '/uploadImage',
@@ -321,7 +323,7 @@ $(function () {
                         var node = $('.img_tn_ul').last();
                         var reader = new FileReader();
 
-                        reader.readAsDataURL(file);
+                        reader.readAsDataURL(f);
 
                         // // Set the node as selected
                         // $('#img_thumbnail_' + idx).toggleClass('selected');
