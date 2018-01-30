@@ -413,7 +413,7 @@ def edit_restaurant(restaurant_id):
 
     if request.method == 'POST':
         # add your custom code to check that the uploaded file is a valid
-        # image and not a maliciou
+        # image and not a malicious one.
         if request.form['name']:
             restaurantToEdit.name = request.form['name']
         # print request.form['picture']
@@ -424,7 +424,7 @@ def edit_restaurant(restaurant_id):
         # add your custom code to check that the uploaded file is a valid
         # image and not a malicious file (out-of-scope for this post)
         # file.save(f)
-        session.add(restaurantToEdit)
+        # session.add(restaurantToEdit)
         flash("Restaurant has been edited by {0}."
               .format(login_session['username']))
         session.commit()
@@ -650,29 +650,44 @@ def delete_image():
                 print ("Error: {0} - {1}.".format(e.f,e.strerror))
         else:
             print("Sorry, I can not find {0} file in the filesystem.".format(f))
-
-        print "ID of pic to delete is " + str(pictureToDelete.id)
-
-
-        # Need to reset any restaurants that have the image back to default image
-        restaurantsWithPicture = session.query(Restaurant).filter_by(picture_id=pictureToDelete.id).all()
-
-        print restaurantsWithPicture.length
-        if restaurantsWithPicture:
-            for r in restaurantsWithPicture:
-                print r.name
-                r.picture_id = 1
-                print "Changing image for restaurant :" + str(restaurantWithPicture.name) + " back to NA."
-                session.add(r)
-                session.commit()
-                print "Replaced " + str(restaurantWithPicture.name) + " in db."
-        else:
-            print "No restaurants with that image."
-        return json.dumps({'status': 'OK', 'index': "x", 'deleted': 'yes', 'filename': pictureToDelete.filename});
+        # return json.dumps({'status': 'OK', 'index': "x", 'deleted': 'yes', 'filename': pictureToDelete.filename})
 
     except Exception, e:
         print "error with removing file from DB"
-        return json.dumps({'status': 'ERROR', 'index': index, 'deleted': 'no'});
+        return json.dumps({'status': 'ERROR', 'index': index, 'deleted': 'no'})
+
+    print "ID of pic to delete is " + str(pictureToDelete.id)
+    restaurants = session.query(Restaurant).\
+        order_by(asc(Restaurant.name)).all()
+    for r in restaurants:
+        print r.name
+        print r.picture_id
+    try:
+        # Need to reset any restaurants that have the image back to default image
+        rwp = session.query(Restaurant).filter_by(picture_id=pictureToDelete.id).all()
+        print "668"
+
+        for r in rwp:
+            print r.name
+            r.picture_id = 1
+            print "Changing image for restaurant :" + str(
+                r.name) + " back to NA."
+            session.commit()
+            print "New list of restaurants:"
+            restaurants = session.query(Restaurant). \
+                order_by(asc(Restaurant.name)).all()
+            for r in restaurants:
+                print r.name
+                print r.picture_id
+            return json.dumps({'status': 'OK', 'index': "x", 'deleted': 'yes', 'filename': pictureToDelete.filename})
+    except Exception, e:
+        print "error with locating other restaurants with that picture"
+        return json.dumps({'status': 'ERROR', 'index': "x", 'deleted': 'yes', 'filename': pictureToDelete.filename, 'picslocated': 'no'})
+
+
+
+
+
 
 
 @app.route('/uploadImage', methods=['POST'])
