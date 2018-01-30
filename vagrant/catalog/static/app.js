@@ -253,12 +253,12 @@ $(function () {
             if (sizeInMb > sizeLimit) {
                 alert('Sorry the file exceeds the maximum size of 1 MB!');
                 // reset the input (code for all browser)
-                var es = document.forms[0].elements;
-                try {
-                    $('#upload').val("");
-                } catch (err) {
-                    console.log('Error with clearing upload. ' + err);
-                }
+                // var es = document.forms[0].elements;
+                // try {
+                //     $('#upload').val("");
+                // } catch (err) {
+                //     console.log('Error with clearing upload. ' + err);
+                // }
             }
             else {
                 // console.log('Going to run checkforduplicate.');
@@ -266,16 +266,133 @@ $(function () {
                 // $(".no_upload").css("margin-top", "0");
                 if (checkDuplicate(f.name)) {
                     console.log('Diplicate file found.');
-                    $('#upload').val("");
+                    // $('#upload').val("");
                     alert("File is already uploaded!");
                 } else {
                     console.log('No filename duplicates found.');
                     $(".file_container").css("display", "none");
-                    $(".upload_container").css("display", "block");
-                    $(".upload_container").addClass('animated bounceInUp');
-                }
+                    // $(".upload_container").css("display", "block");
+                    // $(".upload_container").addClass('animated bounceInUp');
 
-            }
+                    // Insert upload code here.
+
+                // console.log('Upload clicked');
+                var file = document.getElementById('upload').files[0]; //Files[0] = 1st file
+                // var filename = document.getElementById('upload').files[0].name;
+                var formData = new FormData();
+                formData.append('image', file, f);
+
+                $.ajax({
+                url: '/uploadImage',
+                data: formData,
+                processData: false,
+                contentType: false,
+                type: 'POST',
+                success: function (response) {
+                    console.log(response);
+                    // Reset the upload divs
+                    $('#upload').val("");
+                    // $(".no_upload").css("margin-top", "0");
+                    // $('.upload_container').css("display", "none");
+                    $('.file_container').css("display", "block");
+
+                    // if ($(".upload_container").addClass('animated bounceInUp')) {
+                    //     $('.upload_container').removeClass('animated bounceInUp');
+                    // }
+                    ;
+                    var returnedData = JSON.parse(response);
+
+                    if ('status' in returnedData && returnedData.status == "OK") {
+                        // console.log('status is ok');
+                        // Grab the index of the new element
+                        var idx = returnedData.index;
+                        // Grab the path of the file
+                        var path = returnedData.path;
+                        // console.log(typeof(path));
+                        var HTMLimage = '<li class="img_thumbnail selected" id="img_thumbnail_%data%" data-index=' +
+                            '"%data%" ><img id="img_tn_%data%" class="img_tn img_tn_ul" data-imgpath=' +
+                            '"%path%" data-index="%data%" src="" alt="img"></li>';
+                        var formattedHTML = HTMLimage.replace(/%data%/g, idx).replace(/%path%/g, path);
+                        // Add the image thumbnail node
+                        // console.log('Going to add image thumbnail node (without src)');
+                        console.log('Adding: ' + formattedHTML);
+                        $('.img_gallery').append(formattedHTML);
+                        // console.log('Setting the image to be for the last img_tn_ul element');
+                        var node = $('.img_tn_ul').last();
+                        var reader = new FileReader();
+
+                        reader.readAsDataURL(file);
+
+                        // // Set the node as selected
+                        // $('#img_thumbnail_' + idx).toggleClass('selected');
+
+                        // Add click listener
+                        $('#img_thumbnail_' + idx).click(function (e) {
+                            selectImage();
+                        });
+
+
+                        $('#i_delete_' + idx).toggleClass('icon_show');
+
+                        // Add the icon node
+                        var HTMLicon = '<div class="icons_delete" id="icons_delete_%data%" data-index="%data%">' +
+                            '<i id="i_delete_%data%" data-index="%data%" data-tn="img_thumbnail_%data%" data-parent=' +
+                            '"icons_delete_%data%" class="fa fa-times-circle i_delete icon_show" aria-hidden=' +
+                            '"true"></i></div>'
+                        var formattedIcon = HTMLicon.replace(/%data%/g, idx);
+                        console.log(formattedIcon);
+                        $('.image_container').append(formattedIcon);
+
+                        // Add click listener
+                        $('#i_delete_' + idx).click(function (e) {
+                            deleteImg();
+                        });
+
+                        // Set the value of #target to the idx of new uploaded image
+                        $('#target').val(idx);
+
+                        reader.onloadend = function () {
+                            node.attr("src", reader.result);
+                            // console.log('Image node has been added');
+                            // console.log(idx);
+                            // console.log(node);
+                            // console.log('Pushing to imagesArr');
+                            imagesArr.push(f);
+                            // console.log('old current is ' + current.toString());
+                            oldImage = $('#img_thumbnail_' + current);
+                            oldIcon = $('#i_delete_' + current);
+                            // console.log('old image is: ');
+                            // console.log(oldImage);
+                            toggleElements(oldImage, oldIcon);
+                            if (oldImage.hasClass('selected')) {
+                                console.log('toggling selected from previous selected image');
+                                oldImage.toggleClass('selected');
+                            }
+
+                            if (oldIcon.hasClass('icon_show')) {
+                                console.log('toggling icon_show from previous selected icon');
+                                oldIcon.toggleClass('icon_show');
+                            }
+                            // Set current to just added image
+                            current = idx;
+                            console.log('new current is ' + current.toString());
+
+                            // Finally, check to see if we are at the max 5 images
+                            countImages();
+
+                        };
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+
+
+
+                    }
+
+                }
         });
 
 
