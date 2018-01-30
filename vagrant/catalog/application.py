@@ -679,7 +679,7 @@ def delete_image():
             for r in restaurants:
                 print r.name
                 print r.picture_id
-            return json.dumps({'status': 'OK', 'index': "x", 'deleted': 'yes', 'filename': pictureToDelete.filename})
+        return json.dumps({'status': 'OK', 'index': "x", 'deleted': 'yes', 'filename': pictureToDelete.filename})
     except Exception, e:
         print "error with locating other restaurants with that picture"
         return json.dumps({'status': 'ERROR', 'index': "x", 'deleted': 'yes', 'filename': pictureToDelete.filename, 'picslocated': 'no'})
