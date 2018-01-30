@@ -1,8 +1,8 @@
 {% extends "main.html" %}
 {% block content %}
 {% include "header.html" %}
-<div class="form-wrapper">
-    <div class="ih-item circle colored effect5 form_image">
+<div class="form-wrapper no-select">
+    <div class="ih-item circle colored effect5 form_image no-select">
         <a data-toggle="modal" data-target="#exampleModal">
             <div class="img">
                 <img id="rest_img" src="{{ url_for('static', filename='img/not-available-abbreviation-inside-a-circle_318-33662.jpg') }}" alt="img">
@@ -16,11 +16,11 @@
         </a>
     </div>
     <!-- end colored -->
-    <div class="form-heading form-heading-nr">
+    <div class="form-heading form-heading-nr no-select">
         <h1>New Restaurant</h1>
     </div>
     <form id="newRestForm" action="{{ url_for('create_restaurant') }}" method="post" enctype="multipart/form-data">
-        <label>Name <span class="required">*</span></label>
+        <label class="no-select">Name <span class="required">*</span></label>
         <div>
             <input type="text" size="80" name="name" placeholder="Name" required>
         </div>
@@ -34,7 +34,7 @@
 
 
 <!-- Modal -->
-<div class="modal fade " id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade no-select" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog " role="document">
         <div class="modal-content gallery">
                 <div class="modal-header">
