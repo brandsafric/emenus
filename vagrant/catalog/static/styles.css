@@ -36,6 +36,11 @@ body {
     color: #edfbea;
 }
 
+.no-select {
+    user-select: none;
+}
+
+
 .navbar-default {
     background: #4f1119;
     border-color: #b8292f;
