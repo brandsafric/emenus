@@ -47,12 +47,8 @@ $(function () {
 
     var bindFormEvents = function () {
 
-        // var imageItems = [];
         var imageNode = $(".img_tn");
-        // var defaultImg = $('#target').val();
 
-        // console.log('defaultImg is ' + defaultImg);
-        // Only set to 0 if this is a new restaurant
         var current;
         var imagesArr = [];
         var imgDefault = $('#img_tn_1').attr('src');
@@ -63,8 +59,6 @@ $(function () {
         // client-side
         imageNode.map(function(index, item) {
             if ($(this).attr('data-fn')) {
-                // console.log(index);
-                // console.log($(this).attr('data-fn'));
                 imagesArr.push($(this).attr('data-fn'));
             }
         });
@@ -74,9 +68,7 @@ $(function () {
 
         // Set the current based on the form.
         if ($("#newRestForm").length) {
-            // If new Restaurant, default to 0
             console.log('this is the new restaurant');
-            // console.log('Setting current to 0');
             current = 1;
         } else {
             // If this is edit restaurant, get the index of the selected img_thumbnail.
@@ -104,20 +96,17 @@ $(function () {
             console.log(newImg);
             // This gets set to null when the image is delete.
             if (!newImg) {
-                // $('#rest_img').attr('src', '/static/' + newImg);
                 console.log('Changeing newImg to NA.');
                 newImg = $('#image_tn_1').attr('data-imgpath');
 
             }
             $('#rest_img').attr('src', '/static/' + newImg);
 
-
         });
 
         // Upload file change
         $("#upload").change(function (e) {
             console.log('Current: ') + current;
-
             var f = this.files[0];
             var sizeInMb = f.size / 1024;
             var sizeLimit = 1024 * 1; // if you want 1 MB
