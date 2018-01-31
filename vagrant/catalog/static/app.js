@@ -78,7 +78,7 @@ $(function () {
         }
 
 
-        $(".img_thumbnail").click(function (e) {
+        $(".img_thumbnail").click(function () {
             selectImage();
         });
 
@@ -106,7 +106,7 @@ $(function () {
 
         // Upload file change
         $("#upload").change(function (e) {
-            console.log('Current: ') + current;
+            // console.log('Current: ') + current;
             var f = this.files[0];
             var sizeInMb = f.size / 1024;
             var sizeLimit = 1024 * 1; // if you want 1 MB
@@ -224,7 +224,6 @@ $(function () {
 
 
         var checkDuplicate = function (filename) {
-            // var imageNode = $(".img_tn");
             console.log('Checking duplicate: ' + filename);
 
             console.log(imagesArr);
@@ -358,7 +357,6 @@ $(function () {
 
                     // Grab the filename and assign it to the target value.
                     var path = newImage.children().attr('data-index');
-                    // console.log('setting value to ' + path);
                     $('#target').val(path);
 
                     // Set the submit button to enabled
