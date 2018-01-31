@@ -309,17 +309,8 @@ $(function () {
                     // do nothing
                 } else {
                     // Let's toggle the old selection
-                    oldImage = $('#img_thumbnail_' + current);
-                    oldIcon = $('#i_delete_' + current);
-
-                    toggleElements(oldImage, 'selected', 0);
-                    toggleElements(oldIcon, 'icon_show', 0);
-
-                    // Does not have selected, Going to toggle it.
+                    toggleOld(event.target);
                     $(event.target).toggleClass('selected');
-
-                    current = $(event.target).attr('data-index');
-                    console.log('current is now ' + current);
                     // Assign el to the target's associated icon
                     var el = $('#i_delete_' + current);
                     // Check if there is an icon associated with the thumbnail
@@ -339,15 +330,7 @@ $(function () {
                     // do nothing
                 } else {
                     // Let's toggle the old selection
-                    oldImage = $('#img_thumbnail_' + current);
-                    oldIcon = $('#i_delete_' + current);
-
-                    toggleElements(oldImage, 'selected', 0);
-                    toggleElements(oldIcon, 'icon_show', 0);
-
-                    // Assign the seleted variable to the data-index of the target
-                    current = $(event.target).attr('data-index');
-                    console.log('current is now ' + current);
+                    toggleOld(event.target);
 
                     newImage = $('#img_thumbnail_' + current);
                     newIcon = $('#i_delete_' + current);
@@ -376,6 +359,19 @@ $(function () {
             } else if (el.hasClass(className)) {
                 el.toggleClass(className);
             }
+
+        };
+
+
+        var toggleOld = function(el) {
+            oldImage = $('#img_thumbnail_' + current);
+            oldIcon = $('#i_delete_' + current);
+
+            toggleElements(oldImage, 'selected', 0);
+            toggleElements(oldIcon, 'icon_show', 0);
+
+            current = $(el).attr('data-index');
+            console.log('current is now ' + current);
 
         };
 
