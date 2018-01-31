@@ -158,7 +158,7 @@ $(function () {
 
 
                                 // Add click listener
-                                $('#img_thumbnail_' + idx).click(function (e) {
+                                $('#img_thumbnail_' + idx).click(function() {
                                     selectImage();
                                 });
 
