@@ -208,7 +208,7 @@ container {
 
 .r-name {
     font-size: 21px !important;
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
 .info-back,
