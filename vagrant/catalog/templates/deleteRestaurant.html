@@ -13,7 +13,7 @@
             <span>{{restaurant.name}}</span>
         </div>
         <div>
-            <input class="input-delete" type="submit" value="YES">
+            <input class="input-delete btn" type="submit" value="YES">
             <a class="cancel cancel-delete btn btn-warning" href="{{ url_for('show_menu', restaurant_id = restaurant.id) }}">No!</a>
         </div>
     </form>
