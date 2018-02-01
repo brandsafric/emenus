@@ -41,9 +41,10 @@
         <div>
             <input id="target" type="text" name="picture" value={{ r_picture.id }}>
         </div>
+        <a class="cancel btn btn-secondary" id="btn-cancel" href="{{ url_for('show_menu', restaurant_id=restaurant_id) }}">Cancel</a>
         <input class="btn btn-primary" type="submit" value="Save">
-        <a class="cancel btn btn-secondary" href="{{ url_for('show_menu', restaurant_id=restaurant_id) }}">Cancel</a>
-        <a class="delete btn btn-danger" href="{{ url_for('delete_restaurant', restaurant_id=restaurant_id) }}">Delete</a>
+        <a class="delete btn btn-danger" id="btn-create" href="{{ url_for('delete_restaurant', restaurant_id=restaurant_id) }}">Delete</a>
+
 
     </form>
 </div>
@@ -90,6 +91,11 @@
                     {% endif %}
                     </div>
                  {% endfor %}
+                </div>
+                <div class="file_container">
+                    <span class="btn btn-default">
+                        <input type="file" id="upload" name="image" />
+                    </span>
                 </div>
 {#                <div class="file_container"><input type="file" id="upload" name="image"></div>#}
 {#                <div class="upload_container"><button class="btn btn-default btn-file">Upload file</button></div>#}
