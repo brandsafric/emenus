@@ -479,7 +479,8 @@ textarea:focus{
 }
 
 input[type=submit],
-.cancel {
+.cancel,
+.delete {
     color: white;
     padding: .375rem .75rem;
     margin: 8px 0;
@@ -500,7 +501,7 @@ input[type=submit],
 }
 
 .delete {
-    float:right;
+    /*float:right;*/
 }
 
 .delete:after {
