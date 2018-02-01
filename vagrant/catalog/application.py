@@ -657,26 +657,26 @@ def delete_image():
         return json.dumps({'status': 'ERROR', 'index': index, 'deleted': 'no'})
 
     print "ID of pic to delete is " + str(pictureToDelete.id)
-    # restaurants = session.query(Restaurant).\
-    #     order_by(asc(Restaurant.name)).all()
-    # for r in restaurants:
-    #     print r.name
-    #     print r.picture_id
+    restaurants = session.query(Restaurant).\
+        order_by(asc(Restaurant.name)).all()
+    for r in restaurants:
+        print r.name
+        print r.picture_id
     try:
         # Need to reset any restaurants that have the image back to default image
         restaurantsWithimages = session.query(Restaurant).filter_by(picture_id=pictureToDelete.id).all()
         for r in restaurantsWithimages:
-            # print r.name
+            print r.name
             r.picture_id = 1
-            # print "Changing image for restaurant :" + str(
-            #     r.name) + " back to NA."
+            print "Changing image for restaurant :" + str(
+                r.name) + " back to NA."
             session.commit()
-            # print "New list of restaurants:"
-            # restaurants = session.query(Restaurant). \
-            #     order_by(asc(Restaurant.name)).all()
-            # for r in restaurants:
-            #     print r.name
-            #     print r.picture_id
+            print "New list of restaurants:"
+            restaurants = session.query(Restaurant). \
+                order_by(asc(Restaurant.name)).all()
+            for r in restaurants:
+                print r.name
+                print r.picture_id
         return json.dumps({'status': 'OK', 'index': "x", 'deleted': 'yes', 'filename': pictureToDelete.filename})
     except Exception, e:
         print "error with locating other restaurants with that picture"
