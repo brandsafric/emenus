@@ -447,6 +447,7 @@ def edit_restaurant(restaurant_id):
 @app.route('/restaurant/<int:restaurant_id>/delete', methods=['GET', 'POST'])
 def delete_restaurant(restaurant_id):
     restaurantToDelete = session.query(Restaurant).filter_by(id=restaurant_id).one()
+    r_picture = session.query(Picture).filter_by(id=restaurantToDelete.picture_id).one()
     itemsToDelete = session.query(MenuItem).\
         filter_by(restaurant_id=restaurant_id).all()
     if 'username' not in login_session:
@@ -471,6 +472,7 @@ def delete_restaurant(restaurant_id):
     else:
         return render_template('deleteRestaurant.html',
                                restaurant=restaurantToDelete,
+                               r_picture=r_picture,
                                items=itemsToDelete,
                                picture=login_session['picture'])
 
