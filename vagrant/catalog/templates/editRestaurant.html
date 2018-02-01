@@ -29,8 +29,8 @@
             <input id="target" type="text" name="picture" value={{ r_picture.id }}>
         </div>
         <a class="cancel btn btn-secondary" id="btn-cancel" href="{{ url_for('show_menu', restaurant_id=restaurant_id) }}">Cancel</a>
-        <input class="btn btn-primary" type="submit" value="Save">
-        <a class="delete btn btn-danger" id="btn-create" href="{{ url_for('delete_restaurant', restaurant_id=restaurant_id) }}">Delete</a>
+        <input class="btn btn-primary"  type="submit" value="Save">
+        <a class="delete btn btn-danger"  href="{{ url_for('delete_restaurant', restaurant_id=restaurant_id) }}">Delete</a>
     </form>
 </div>
 
