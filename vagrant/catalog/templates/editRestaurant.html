@@ -16,19 +16,6 @@
             </div>
         </a>
     </div>
-{#    <div class="ih-item circle colored effect5 form_image">#}
-{#        <a data-toggle="modal" data-target="#exampleModal">#}
-{#            <div class="img">#}
-{#                <img id="rest_img" src="{{ url_for('static', filename = r_picture.path ) }}" alt="img">#}
-{#            </div>#}
-{#            <div class="info">#}
-{#              <div class="info-back info-bg">#}
-{#                <h3>Change Picture</h3>#}
-{#                <p>View your image gallery</p>#}
-{#              </div>#}
-{#            </div>#}
-{#        </a>#}
-{#    </div>#}
     <!-- end colored -->
     <div class="form-heading form-heading-nr">
         <h1>Edit Restaurant</h1>
@@ -44,8 +31,6 @@
         <a class="cancel btn btn-secondary" id="btn-cancel" href="{{ url_for('show_menu', restaurant_id=restaurant_id) }}">Cancel</a>
         <input class="btn btn-primary" type="submit" value="Save">
         <a class="delete btn btn-danger" id="btn-create" href="{{ url_for('delete_restaurant', restaurant_id=restaurant_id) }}">Delete</a>
-
-
     </form>
 </div>
 
