@@ -48,7 +48,6 @@ $(function () {
     var bindFormEvents = function () {
 
         var imageNode = $(".img_tn");
-
         var current;
         var imagesArr = [];
         var imgDefault = $('#img_tn_1').attr('src');
@@ -112,15 +111,18 @@ $(function () {
             var sizeLimit = 1024 * 1; // if you want 1 MB
             if (sizeInMb > sizeLimit) {
                 alert('Sorry the file exceeds the maximum size of 1 MB!');
+                $('#upload').val("");
+
             }
             else {
-
                 if (checkDuplicate(f.name)) {
-                    console.log('Diplicate file found.');
-                    // $('#upload').val("");
+                    console.log('Duplicate file found.');
+                    $('#upload').val("");
                     alert("File is already uploaded!");
+
                 } else {
                     console.log('No filename duplicates found.');
+                    console.log('Setting uploaded to true');
                     $(".file_container").css("display", "none");
 
                     var formData = new FormData();
@@ -227,8 +229,10 @@ $(function () {
             console.log('Checking duplicate: ' + filename);
 
             console.log(imagesArr);
+
             if (imagesArr.indexOf(filename) == -1) {
-                console.log('filename not found. returning false.')
+                console.log('filename not found. returning false.');
+                console.log(imagesArr);
                 return false;
             }
 
