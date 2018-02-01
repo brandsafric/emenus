@@ -407,6 +407,11 @@ footer div a:hover {
 
 /*forms*/
 
+.form-wrapper {
+    max-width: 540px;
+    margin: 0 auto;
+}
+
 
 
 form {
@@ -542,6 +547,10 @@ input[type=submit],
     font-size: 20px;
     font-weight: 600;
     color: hsla(50, 64%, 81%, 1);
+}
+
+#r-name {
+    color: #f6b554
 }
 
 /*Fade in from center tip from http://hawkee.com/snippet/16154/*/
@@ -701,6 +710,7 @@ input[type=submit],
 .btn-secondary:not(#login-cancel):focus {
     color: black;
     /*background-color: #d84f56;*/
+    text-decoration: none;
 }
 
 
