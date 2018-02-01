@@ -534,6 +534,12 @@ input[type=submit],
     background-color: #4f1119 !important;
 }
 
+#rest-name {
+    font-size: 20px;
+    font-weight: 600;
+    color: hsla(50, 64%, 81%, 1);
+}
+
 /*Fade in from center tip from http://hawkee.com/snippet/16154/*/
 
 .modal.fade .modal-dialog {
