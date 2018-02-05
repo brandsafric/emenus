@@ -155,7 +155,7 @@ body {
 
 
 .g-signin2 {
-    margin-right: 10px;
+    margin-bottom: 10px;
 }
 
 container {
@@ -934,6 +934,12 @@ input[type=submit],
         float: right;
         margin-right: 30px;
     }
+
+    .g-signin2 {
+        margin-right: 10px;
+        margin-bottom: 0;
+    }
+
 
     .button-mobile .icon-edit-r {
         margin-left: 125px;
