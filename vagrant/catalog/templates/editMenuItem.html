@@ -9,16 +9,16 @@
           method="post">
         <label>Name <span class="required">*</span></label>
         <div>
-            <input size="80" type="text" name="name" placeholder="{{item.name}}" required>
+            <input size="80" type="text" name="name" value={{item.name}} required>
         </div>
         <label>Description <span class="required">*</span></label>
         <div>
             <textarea class="input input-desc" type="text" size="250" name="description"
-                      placeholder="{{item.description}}" required></textarea>
+                      value={{item.description}} required></textarea>
         </div>
         <label>Price <span class="required">*</span></label>
         <div>
-            <input size="8" type="text" name="price" placeholder="{{item.price}}" required><br>
+            <input size="8" type="text" name="price" value={{item.price}} required><br>
         </div>
         <label>Course <span class="required">*</span></label>
         <div>
@@ -30,8 +30,8 @@
             </select>
         </div>
         <div>
-            <input type="submit" value="Edit">
-            <a class="cancel" href="{{ url_for('show_menu', restaurant_id = restaurant_id) }}">Cancel</a>
+            <a class="btn btn-secondary cancel" id="btn-cancel" href="{{ url_for('show_menu', restaurant_id = restaurant_id) }}">Cancel</a>
+            <input class="btn btn-primary" type="submit" value="Save">
         </div>
     </form>
 </div>
