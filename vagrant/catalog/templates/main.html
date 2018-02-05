@@ -27,10 +27,10 @@
         </a>
         <span id="user-status">
             {% if 'username' not in session %}
-                <a class="btn-login button btn-secondary" id="btn-login" href="{{url_for('show_login')}}">Log in</a>
+                <a class="btn-login button btn-secondary" id="btn-login" href="{{ url_for('show_login') }}">Log in</a>
             {% else %}
-                <img class="user_picture" src="{{picture}}" alt="Profile Picture"/>
-                <a  class="button btn-secondary" id="btn-logout" href="{{url_for('disconnect')}}">Log out </a>
+                <img class="user_picture" src="{{ picture }}" alt="Profile Picture"/>
+                <a class="button btn-secondary" id="btn-logout" href="{{ url_for('disconnect') }}">Log out </a>
             {% endif %}
 					</span>
     </div>

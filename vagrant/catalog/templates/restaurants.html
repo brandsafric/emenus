@@ -33,7 +33,7 @@
                         {{ r.image }}
                         <a href="{{ url_for('show_menu', restaurant_id = r.id) }}">
                             <div class="img">
-                                <img src="{{ url_for('static', filename=pictures[r.picture_id - 1].path) }}" alt="img" />
+                                <img src="{{ url_for('static', filename=pictures[r.picture_id - 1].path) }}" alt="img"/>
                             </div>
                             <div class="info">
                                 <h3 class="r-name">{{ r.name|truncate(20, True) }}</h3>
