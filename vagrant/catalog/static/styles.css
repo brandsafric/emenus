@@ -408,7 +408,7 @@ footer div a:hover {
 /*forms*/
 
 .form-wrapper {
-    max-width: 540px;
+    max-width: 560px;
     margin: 0 auto;
 }
 
@@ -520,7 +520,8 @@ input[type=submit],
 }
 
 #newRestForm,
-#editRestForm {
+#editRestForm,
+#deleteRestForm {
     clear: both;
 }
 
