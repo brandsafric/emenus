@@ -21,12 +21,12 @@
         </div>
         <form id="editRestForm" action="{{ url_for('edit_restaurant', restaurant_id=restaurant_id) }}" method="post"
               enctype="multipart/form-data">
-            <label>Name <span class="required">*</span></label>
+            <label>Name <span class="required"></span></label>
             <div>
-                <input type="text" size="80" name="name" value={{ restaurant.name }} required>
+                <input type="text" size="80" name="name" value="{{restaurant.name}}" required>
             </div>
             <div>
-                <input id="target" type="text" name="picture" value={{ r_picture.id }}>
+                <input id="target" type="text" name="picture" value="{{ r_picture.id }}">
             </div>
             <a class="cancel btn btn-secondary" id="btn-cancel"
                href="{{ url_for('show_menu', restaurant_id=restaurant_id) }}">Cancel</a>
