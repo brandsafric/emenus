@@ -1,5 +1,5 @@
-# Restaurant Menu App
-## A python-based full stack Menu Application.
+# EMenus
+## A python-based full stack Restaurant Menu Application.
 ## Utilizes Oauth2 Authentication for Google+ and Facebook IDs
 ## Clearly demonstrates use of full CRUD operations to a SQL database.
 
