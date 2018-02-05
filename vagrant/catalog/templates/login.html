@@ -14,7 +14,6 @@
             });
         }
     </script>
-    <!-- Last part of BODY element in file index.html -->
     <script>
         function signInCallback(authResult) {
             if (authResult['code']) {
@@ -101,7 +100,6 @@
                             // Hide the login button
                             $('#btn-login').css('visibility', 'hidden');
                             // Start animation sequence for login
-
                             $('#login-container').addClass('animated zoomOut');
                             $('#login-container').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
                                 $('#login-msg').html('Login Successful');
