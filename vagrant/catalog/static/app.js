@@ -1,4 +1,6 @@
 $(function () {
+        "use strict";
+
     var bindEvents = function () {
         $("#appetizer-section").click(function () {
             $("#appetizer-row").slideToggle();
@@ -51,6 +53,7 @@ $(function () {
         var current;
         var imagesArr = [];
         var imgDefault = $('#img_tn_1').attr('src');
+        var oldImage, oldIcon;
 
 
         // Grab the filenames and push it to an array.
@@ -153,7 +156,7 @@ $(function () {
                                 var HTMLicon = '<div class="icons_delete" id="icons_delete_%data%" data-index="%data%">' +
                                     '<i id="i_delete_%data%" data-index="%data%" data-tn="img_thumbnail_%data%" data-parent=' +
                                     '"icons_delete_%data%" class="fa fa-times-circle i_delete icon_show" aria-hidden=' +
-                                    '"true"></i></div>'
+                                    '"true"></i></div>';
                                 var formattedIcon = HTMLicon.replace(/%data%/g, idx);
                                 $('.image_container').append(formattedIcon);
                                 // Add click listener
@@ -339,6 +342,7 @@ $(function () {
 
 
     };
+
 
     bindEvents();
     // Check to see if this is the newRestForm or editForm.
