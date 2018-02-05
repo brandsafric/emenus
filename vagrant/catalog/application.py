@@ -538,7 +538,7 @@ def delete_menu_item(restaurant_id, menu_id):
                                 picture=login_session['picture']))
     else:
         return render_template(
-            'deleteMenuItem.min.html', restaurant_id=restaurant_id,
+            'min/deleteMenuItem.min.html', restaurant_id=restaurant_id,
             item=itemToDelete, picture=login_session['picture'])
 
 
