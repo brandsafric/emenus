@@ -412,8 +412,6 @@ footer div a:hover {
     margin: 0 auto;
 }
 
-
-
 form {
     margin-left: 20px;
     max-width: 500px;
@@ -507,10 +505,6 @@ input[type=submit],
 
 .cancel-delete {
     color: white;
-}
-
-.delete {
-    /*float:right;*/
 }
 
 .delete:after {
@@ -638,7 +632,6 @@ input[type=submit],
     height: 56px;
     padding: 2px;
     white-space: nowrap;
-    /*border: 1px solid black;*/
     float: left;
     transition: border ease-out .25s;
 }
@@ -701,7 +694,6 @@ input[type=submit],
 .btn-secondary:hover,
 .btn-secondary:active,
 .btn-secondary:focus {
-    /*color: black;*/
     background-color: #f6b554;
 }
 
@@ -710,7 +702,6 @@ input[type=submit],
 .btn-secondary:not(#login-cancel):active,
 .btn-secondary:not(#login-cancel):focus {
     color: black;
-    /*background-color: #d84f56;*/
     text-decoration: none;
 }
 
@@ -745,17 +736,10 @@ input[type=submit],
     text-align: center;
 }
 
-/*.image_container:after {*/
-  /*content: "";*/
-  /*display: table;*/
-  /*clear: both;*/
-/*}*/
-
 .icon_show {
     opacity: 1 !important;
 }
 
-/*.upload_container*/
 .file_container {
     text-align: center;
 }
@@ -764,15 +748,6 @@ input[type=submit],
 .file_container {
     font-size: 12px;
 }
-
-/*.upload_container {*/
-    /*transition: opacity ease-in-out .75s;*/
-    /*!*visibility: hidden;*!*/
-    /*display: none;*/
-/*}*/
-
-
-
 
 #course {
     width: 19em;
