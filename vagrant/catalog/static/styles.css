@@ -701,13 +701,12 @@ input[type=submit],
 .btn-secondary:not(#login-cancel):hover,
 .btn-secondary:not(#login-cancel):active,
 .btn-secondary:not(#login-cancel):focus {
-    color: black;
+    background-color: #d84f56;
     text-decoration: none;
 }
 
 
 .no_upload {
-    /*visibility: hidden;*/
     display: none;
     color: #4f1119;
     font-weight: bold;
