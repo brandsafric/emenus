@@ -11,16 +11,15 @@
 /*#b6d554 Lime*/
 /*#d4e3a5 Light Green*/
 
-
-
 .blink {
-  animation: blinker 1s linear 9;
+    animation: blinker 1s linear 9;
 }
 
 @keyframes blinker {
-  50% { opacity: 0; }
+    50% {
+        opacity: 0;
+    }
 }
-
 
 html {
     font-family: 'Lato', sans-serif;
@@ -40,7 +39,6 @@ body {
     user-select: none;
 }
 
-
 .navbar-default {
     background: #4f1119;
     border-color: #b8292f;
@@ -57,6 +55,7 @@ body {
     font-size: 25px;
     text-shadow: 2px 4px 3px #5e8323;
 }
+
 #logo {
     font-weight: bold;
     color: white;
@@ -104,7 +103,6 @@ body {
     animation-duration: .35s !important;
 }
 
-
 .picture-container {
     margin: 0 auto;
 }
@@ -136,7 +134,6 @@ body {
     font-size: 1.75em;
 }
 
-
 .login-body {
     padding: 10px;
 }
@@ -152,7 +149,6 @@ body {
 .text-container {
     width: 20%;
 }
-
 
 .g-signin2 {
     margin-bottom: 10px;
@@ -219,7 +215,6 @@ container {
     border-radius: 50%;
 }
 
-
 .icon-edit,
 .icon-delete,
 .icon-menu {
@@ -238,7 +233,7 @@ container {
 }
 
 #icon-add:hover,
-.icon-add-r:hover{
+.icon-add-r:hover {
     transform: scale(1.2);
     color: #b6d554;
 }
@@ -278,7 +273,6 @@ container {
     text-align: center;
 }
 
-
 .flash {
     float: right;
     color: #f6b554;
@@ -294,6 +288,7 @@ container {
 .title h4 {
     text-align: center;
 }
+
 .top-menu {
     margin-bottom: 20px;
 }
@@ -310,6 +305,7 @@ container {
 figcaption {
     padding-top: 5px;
 }
+
 .menu-container {
     margin: 0 auto;
     width: 85%;
@@ -421,8 +417,8 @@ form {
 }
 
 .form-heading .title-new-item,
-.form-heading h2{
-    display:inline;
+.form-heading h2 {
+    display: inline;
 }
 
 .edit-form {
@@ -433,12 +429,12 @@ form div {
     width: 100%;
 }
 
-form .required{
+form .required {
     color: #b8292f;
 }
 
 label {
-    margin-top:10px;
+    margin-top: 10px;
 }
 
 option {
@@ -448,6 +444,7 @@ option {
     min-height: 1.2em;
     padding: 0px 2px 1px;
 }
+
 select {
     border-radius: 0px;
     border-color: #d84f56;
@@ -476,7 +473,7 @@ textarea,
 
 input[type=text]:focus,
 select:focus,
-textarea:focus{
+textarea:focus {
     background-color: #f3ecc9;
     border: #b8292f;
 }
@@ -498,19 +495,18 @@ input[type=submit],
 
 #btn-set:disabled {
     background-color: #5e8323;
-      opacity: 0.65;
-  cursor: not-allowed;
+    opacity: 0.65;
+    cursor: not-allowed;
 }
-
 
 .cancel-delete {
     color: white;
 }
 
 .delete:after {
-  content: "";
-  display: table;
-  clear: right;
+    content: "";
+    display: table;
+    clear: right;
 }
 
 #newRestForm,
@@ -532,7 +528,6 @@ input[type=submit],
     height: 100px;
     float: left;
 }
-
 
 .bg_brown {
     background-color: #4f1119 !important;
@@ -571,7 +566,6 @@ input[type=submit],
     transform: translate3d(0, -300px, 0);
     opacity: 1;
 }
-
 
 .modal-body {
     height: 172px;
@@ -627,6 +621,7 @@ input[type=submit],
     list-style: none;
     height: 56px;
 }
+
 .img_thumbnail {
     width: 56px;
     height: 56px;
@@ -636,7 +631,7 @@ input[type=submit],
     transition: border ease-out .25s;
 }
 
-.img_thumbnail img{
+.img_thumbnail img {
     height: 50px;
     width: 50px;
 }
@@ -645,7 +640,7 @@ input[type=submit],
     outline: 1px dotted #b8292f;
 }
 
-.selected{
+.selected {
     outline: 2px solid #f6b554;
 }
 
@@ -654,8 +649,6 @@ input[type=submit],
     border-color: #b6d554;
     transition: background .5s !important;
 }
-
-
 
 .btn-save:hover,
 .btn-set:hover {
@@ -697,7 +690,6 @@ input[type=submit],
     background-color: #f6b554;
 }
 
-
 .btn-secondary:not(#login-cancel):hover,
 .btn-secondary:not(#login-cancel):active,
 .btn-secondary:not(#login-cancel):focus {
@@ -705,13 +697,11 @@ input[type=submit],
     text-decoration: none;
 }
 
-
 .no_upload {
     display: none;
     color: #4f1119;
     font-weight: bold;
 }
-
 
 .icons_delete {
     width: 56px;
@@ -720,14 +710,14 @@ input[type=submit],
 }
 
 .icons_delete i {
-    color :#4f1119;
+    color: #4f1119;
     transition: color ease-in .25s, opacity ease-in .25s;
     font-size: 20px;
     opacity: 0;
 }
 
 .icons_delete:hover i {
-    color: #b8292f ;
+    color: #b8292f;
 }
 
 .image_container {
@@ -742,7 +732,6 @@ input[type=submit],
 .file_container {
     text-align: center;
 }
-
 
 .file_container {
     font-size: 12px;
@@ -767,11 +756,9 @@ input[type=submit],
     background: #d84f56 !important;
 }
 
-
 /*iPhone 5 Portrait*/
 @media only screen and (min-width: 320px) and (orientation: portrait) {
-/*@media only screen and (min-width: 320px)  {*/
-
+    /*@media only screen and (min-width: 320px)  {*/
     #add-restaurant {
         margin-bottom: 10px;
     }
@@ -789,7 +776,6 @@ input[type=submit],
     .menu-header {
         opacity: 0;
     }
-
 
     .top-buffer {
 
@@ -823,7 +809,6 @@ input[type=submit],
         justify-content: center;
     }
 
-
     .profileImg {
         width: auto;
         margin: 5px 0 5px;
@@ -841,6 +826,7 @@ input[type=submit],
         width: 40%;
         height: 100%;
     }
+
     .welcomeMsg {
         text-align: center;
     }
@@ -912,11 +898,9 @@ input[type=submit],
     }
 }
 
-
 /*iphone 5 LS*/
 @media only screen and (min-width: 568px) and (orientation: landscape) {
-/*@media only screen and (min-width: 568px)  {*/
-
+    /*@media only screen and (min-width: 568px)  {*/
     #r-list {
         width: 390px;
         padding-left: 0;
@@ -939,13 +923,14 @@ input[type=submit],
         margin-bottom: 0;
     }
 
-
     .button-mobile .icon-edit-r {
         margin-left: 125px;
     }
+
     .button-mobile .icon-delete-r {
         margin-right: 125px;
     }
+
     .icon-add-r {
         margin-left: 30px;
     }
@@ -956,12 +941,9 @@ input[type=submit],
 
 }
 
-
 /*iPhone 6 Portrait*/
 @media only screen and (min-width: 375px) and (orientation: portrait) {
-/*@media only screen and (min-width: 375px)  {*/
-
-
+    /*@media only screen and (min-width: 375px)  {*/
     .creator {
         margin-right: 10px;
     }
@@ -973,6 +955,7 @@ input[type=submit],
     .text-container {
         height: 90px;
     }
+
     #login-container {
         flex-direction: column;
     }
@@ -984,22 +967,20 @@ input[type=submit],
 
 /*iPhone 6 LS*/
 @media only screen and (min-width: 375px) and (orientation: landscape) {
-/*@media only screen and (min-width: 375px)  {*/
-
+    /*@media only screen and (min-width: 375px)  {*/
     #banner-main {
         margin: 10px 0;
     }
+
     #r-list {
         width: 450px;
     }
 }
 
-
 /*iPhone 6+ P */
 
 @media only screen and (min-width: 414px) and (orientation: portrait) {
-/*@media only screen and (min-width: 414px) {*/
-
+    /*@media only screen and (min-width: 414px) {*/
     #r-list {
         width: 300px;
         column-gap: 100px;
@@ -1017,16 +998,15 @@ input[type=submit],
     }
 
     #user-status {
-    padding: 0.5rem;
-}
+        padding: 0.5rem;
+    }
 
 }
 
 /*iPad P */
 
 @media only screen and (min-width: 768px) and (orientation: portrait) {
-/*@media only screen and (min-width: 768px) {*/
-
+    /*@media only screen and (min-width: 768px) {*/
     #icon-add {
         margin-left: 43px;
     }
@@ -1047,7 +1027,7 @@ input[type=submit],
 /*iPad LS */
 
 @media only screen and (min-width: 768px) and (orientation: landscape) {
-/*@media only screen and (min-width: 1024px) and (orientation: landscape) {*/
+    /*@media only screen and (min-width: 1024px) and (orientation: landscape) {*/
     .container {
         margin-top: 30px;
     }
@@ -1112,7 +1092,7 @@ input[type=submit],
         left: 2px;
     }
 
-    .icon-edit  {
+    .icon-edit {
         left: 128px;
         top: 114px;
         z-index: 1;
@@ -1143,6 +1123,7 @@ input[type=submit],
     .restaurant-list-item:hover .icon-menu {
         transform: translateY(10px) scale(1.5);
     }
+
     .restaurant-list-item:hover .menu-header {
         transform: translateY(-20px);
     }
