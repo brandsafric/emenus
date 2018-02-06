@@ -167,6 +167,7 @@ container {
 
 .r-card {
     margin: 20px;
+    user-select: none;
 }
 
 .restaurant-card {
