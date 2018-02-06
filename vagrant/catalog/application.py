@@ -7,6 +7,7 @@ from sqlalchemy.orm import sessionmaker
 from oauth2client.client import flow_from_clientsecrets
 from oauth2client.client import FlowExchangeError
 from database_setup import Base, Restaurant, MenuItem, User, Picture
+from functools import wraps
 import random
 import string
 import httplib2
@@ -127,6 +128,16 @@ def gconnect():
     login_session['user_id'] = user_id
 
     return user_login_message()
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'username' in login_session:
+            return f(*args, **kwargs)
+        else:
+            flash("You are not allowed to access there.")
+            return redirect('/login')
+    return decorated_function
 
 
 def user_login_message():
@@ -319,9 +330,10 @@ def show_restaurants():
 
 
 @app.route('/restaurants/new', methods=['GET', 'POST'])
+@login_required
 def create_restaurant():
-    if 'username' not in login_session:
-        return redirect('/login')
+    # if 'username' not in login_session:
+    #     return redirect('/login')
     # Grab the user ID first
     user = get_user_info(login_session['user_id'])
     default_img = session.query(Picture).filter_by(id=1).one()
@@ -360,16 +372,17 @@ def get_pictures(path):
 
 
 @app.route('/restaurant/<int:restaurant_id>/edit', methods=['GET', 'POST'])
+@login_required
 def edit_restaurant(restaurant_id):
     restaurantToEdit = session.query(Restaurant). \
         filter_by(id=restaurant_id).one()
     r_picture = session.query(Picture).filter_by(
         id=restaurantToEdit.picture_id).one()
     default_img = session.query(Picture).filter_by(id=1).one()
-    if 'username' not in login_session:
-        return redirect('/login')
-    else:
-        user = get_user_info(login_session['user_id'])
+    # if 'username' not in login_session:
+    #     return redirect('/login')
+    # else:
+    user = get_user_info(login_session['user_id'])
     if restaurantToEdit.user_id != login_session['user_id']:
         return "<script>function myFunction() {alert('You are not" \
                "\ authorized to edit this restaurant. Please create " \
@@ -398,6 +411,7 @@ def edit_restaurant(restaurant_id):
 
 
 @app.route('/restaurant/<int:restaurant_id>/delete', methods=['GET', 'POST'])
+@login_required
 def delete_restaurant(restaurant_id):
     restaurantToDelete = session.query(Restaurant).filter_by(
         id=restaurant_id).one()
@@ -405,8 +419,8 @@ def delete_restaurant(restaurant_id):
         id=restaurantToDelete.picture_id).one()
     itemsToDelete = session.query(MenuItem). \
         filter_by(restaurant_id=restaurant_id).all()
-    if 'username' not in login_session:
-        return redirect('/login')
+    # if 'username' not in login_session:
+    #     return redirect('/login')
     if restaurantToDelete.user_id != login_session['user_id']:
         return "<script>function myFunction() {alert('You are not" \
                "\ authorized to delete this restaurant. Please create " \
@@ -460,11 +474,11 @@ def show_menu(restaurant_id):
                                picture=login_session['picture'],
                                r_picture=picture)
 
-
 @app.route('/restaurant/<int:restaurant_id>/menu/new', methods=['GET', 'POST'])
+@login_required
 def create_menu_item(restaurant_id):
-    if 'username' not in login_session:
-        return redirect('/login')
+    # if 'username' not in login_session:
+    #     return redirect('/login')
 
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
 
@@ -496,10 +510,10 @@ def create_menu_item(restaurant_id):
 
 @app.route('/restaurant/<int:restaurant_id>/<int:menu_id>/edit',
            methods=['GET', 'POST'])
+@login_required
 def edit_menu_item(restaurant_id, menu_id):
-    if 'username' not in login_session:
-        return redirect('/login')
-
+    # if 'username' not in login_session:
+    #     return redirect('/login')
     itemToEdit = session.query(MenuItem).filter_by(id=menu_id).one()
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
 
@@ -529,9 +543,10 @@ def edit_menu_item(restaurant_id, menu_id):
 
 @app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/delete',
            methods=['GET', 'POST'])
+@login_required
 def delete_menu_item(restaurant_id, menu_id):
-    if 'username' not in login_session:
-        return redirect('/login')
+    # if 'username' not in login_session:
+    #     return redirect('/login')
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
     itemToDelete = session.query(MenuItem).filter_by(id=menu_id).one()
     if login_session['user_id'] != restaurant.user_id:
