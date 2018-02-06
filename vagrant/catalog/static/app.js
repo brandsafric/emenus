@@ -258,7 +258,7 @@ $(function () {
                         // Set the circle to the default img
                         $('#rest_img').attr('src', imgDefault);
                         $("#btn-set").attr("disabled", "disabled");
-
+                        $('#target').val(1);
                     }
                 },
                 error: function (error) {
