@@ -129,6 +129,7 @@ def gconnect():
 
     return user_login_message()
 
+
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
@@ -355,14 +356,14 @@ def create_restaurant():
             login_session['username']))
         return redirect(url_for('show_restaurants'))
     else:
-        user_pics = get_pictures(user.path)
+        user_pics = get_pictures()
         return render_template('min/newRestaurant.min.html',
                                picture=login_session['picture'],
                                user_pics=user_pics,
                                default_img=default_img)
 
 
-def get_pictures(path):
+def get_pictures():
     # Grab the user ID first
     user = get_user_info(login_session['user_id'])
     user_pics = session.query(Picture).filter_by(user_id=user.id).all()
@@ -397,7 +398,7 @@ def edit_restaurant(restaurant_id):
         return redirect(url_for('show_menu', restaurant_id=restaurant_id,
                                 picture=login_session['picture']))
     else:
-        user_pics = get_pictures(user.path)
+        user_pics = get_pictures()
         return render_template(
             'min/editRestaurant.min.html', restaurant_id=restaurant_id,
             restaurant=restaurantToEdit, picture=login_session['picture'],
@@ -466,6 +467,7 @@ def show_menu(restaurant_id):
                                creator=creator,
                                picture=login_session['picture'],
                                r_picture=picture)
+
 
 @app.route('/restaurant/<int:restaurant_id>/menu/new', methods=['GET', 'POST'])
 @login_required
