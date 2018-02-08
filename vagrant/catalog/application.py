@@ -7,6 +7,7 @@ from sqlalchemy.orm import sessionmaker
 from oauth2client.client import flow_from_clientsecrets
 from oauth2client.client import FlowExchangeError
 from database_setup import Base, Restaurant, MenuItem, User, Picture
+from functools import wraps
 import random
 import string
 import httplib2
@@ -30,6 +31,7 @@ UPLOAD_FOLDER = os.path.relpath('static/img/uploads')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 app.config['MAX_CONTENT_LENGTH'] = 10 * 1024 * 1024
+
 
 # Login Methods
 # Create anti-forgery state token
@@ -64,7 +66,7 @@ def gconnect():
 
     # Check that the access token is valid
     access_token = credentials.access_token
-    url = ('https://www.googleapis.com/oauth2/v1/tokeninfo?access_token={0}')\
+    url = ('https://www.googleapis.com/oauth2/v1/tokeninfo?access_token={0}') \
         .format(access_token)
     h = httplib2.Http()
     result = json.loads(h.request(url, 'GET')[1])
@@ -128,8 +130,19 @@ def gconnect():
     return user_login_message()
 
 
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'username' in login_session:
+            return f(*args, **kwargs)
+        else:
+            flash("You are not allowed to access there.")
+            return redirect('/login')
+    return decorated_function
+
+
 def user_login_message():
-    output = '<div class="profileImg"><img src="' + login_session['picture']\
+    output = '<div class="profileImg"><img src="' + login_session['picture'] \
              + ' "></div> ' + '<div class="welcomeMsg">' + 'Welcome, ' + \
              login_session['username'] + '!'
 
@@ -139,27 +152,22 @@ def user_login_message():
 
 def gdisconnect():
     # Only disconnect a connected user.
-    print 'in gdisoonnect'
     access_token = login_session.get('access_token')
-    print access_token
 
     if access_token is None:
-        print "Access Token is none"
         response = make_response(
             json.dumps("Current user not connected."), 401)
         response.headers['Content-Type'] = 'application/json'
         return response
 
     # Execute HTTP GET request to revoke current token.
-    url = 'https://accounts.google.com/o/oauth2/revoke?token={0}'\
+    url = 'https://accounts.google.com/o/oauth2/revoke?token={0}' \
         .format(access_token)
     h = httplib2.Http()
     result = h.request(url, 'GET')[0]
-    print 'sent out request'
 
     if result['status'] == '200':
         # Reset the user's session
-        print 'deleting login_session data for google.'
         del login_session['access_token']
         del login_session['gplus_id']
         del login_session['username']
@@ -170,7 +178,6 @@ def gdisconnect():
         response.headers['Content-Type'] = 'application/json'
         return response
     else:
-        print 'failed to revoke token.'
         response = make_response(json.dumps('Failed to revoke token for given '
                                             'user.', 400))
         response.headers['Content-Type'] = 'application/json'
@@ -182,21 +189,16 @@ def gdisconnect():
 @app.route("/disconnect")
 def disconnect():
     if 'provider' in login_session:
-        print 'provider in login session'
         username = login_session['username']
         if login_session['provider'] == 'google':
-            print 'going to gdisconnect'
             gdisconnect()
         elif login_session['provider'] == 'facebook':
-            print 'going to fbisconnect'
             fbdisconnect()
 
         del login_session['provider']
         flash("{0} has logged out.".format(username))
         return redirect(url_for('show_restaurants'))
     else:
-        print 'no provider in login session'
-        print login_session
         flash("You were not logged in to begin with!")
         return redirect(url_for('show_restaurants'))
 
@@ -255,8 +257,6 @@ def fbconnect():
         user_id = create_user(login_session)
 
     login_session['user_id'] = user_id
-    # print "Ok"
-    # print login_session
     return user_login_message()
 
 
@@ -266,13 +266,13 @@ def fbdisconnect():
     url = 'https://graph.facebook.com/{0}/permissions'.format(facebook_id)
     h = httplib2.Http()
     result = h.request(url, 'DELETE')[1]
-    print 'deleting login_session data for facebook.'
     del login_session['username']
     del login_session['email']
     del login_session['picture']
     del login_session['user_id']
     del login_session['facebook_id']
     return "you have been logged out"
+
 
 # End Facebook Login Section
 
@@ -294,11 +294,9 @@ def get_user_info(user_id):
 def create_user(login_session):
     # Check for the provider used to see if the directory exists
     if login_session['provider'] == 'google':
-        print "google"
         user_id = login_session['gplus_id']
         directory = 'static/img/uploads/' + login_session['gplus_id']
     else:
-        print "facebook"
         user_id = login_session['facebook_id']
         directory = 'static/img/uploads/' + login_session['facebook_id']
     if not os.path.exists(directory):
@@ -312,59 +310,43 @@ def create_user(login_session):
     user = session.query(User).filter_by(email=login_session['email']).one()
     return user.id
 
+
 # End login methods
 
 
 @app.route('/')
 @app.route('/restaurants/')
 def show_restaurants():
-    restaurants = session.query(Restaurant).\
+    restaurants = session.query(Restaurant). \
         order_by(asc(Restaurant.name)).all()
-    # for r in restaurants:
-    #     print r.name
-    #     print r.picture_id
     pictures = session.query(Picture).all()
-    for pic in pictures:
-        print "filename : " + str(pic.filename)
-        print "path: " + str(pic.path)
-        print "user.id: " + str(pic.user_id)
-        print "pic.id: " + str(pic.id)
-
     if 'username' not in login_session:
-        print "no username is session. rendering public."
-        return render_template('publicrestaurants.html',
+        return render_template('min/restaurants.min.html',
                                restaurants=restaurants, pictures=pictures),
     else:
-        print "username in session. rendering private"
-        print login_session
-        return render_template('publicrestaurants.html',
+        return render_template('min/restaurants.min.html',
                                restaurants=restaurants,
                                picture=login_session['picture'],
                                pictures=pictures)
 
+
 @app.route('/restaurants/new', methods=['GET', 'POST'])
+@login_required
 def create_restaurant():
-    if 'username' not in login_session:
-        return redirect('/login')
     # Grab the user ID first
     user = get_user_info(login_session['user_id'])
     default_img = session.query(Picture).filter_by(id=1).one()
     if request.method == 'POST':
         try:
-            print request.form['picture']
             # Get the path for the user
-            print request.form['picture']
             newRestaurant = Restaurant(name=request.form['name'],
                                        picture_id=request.form['picture'],
                                        user_id=login_session['user_id'])
-            # add your custom code to check that the uploaded file is a valid
-            # image and not a malicious file (out-of-scope for this post)
         except:
-            print "No file specified for image upload."
             try:
                 newRestaurant = Restaurant(name=request.form['name'],
-                                       picture_id=request.form['picture'],
-                                       user_id=login_session['user_id'])
+                                           picture_id=request.form['picture'],
+                                           user_id=login_session['user_id'])
             except ValueError:
                 print "error"
 
@@ -374,36 +356,29 @@ def create_restaurant():
             login_session['username']))
         return redirect(url_for('show_restaurants'))
     else:
-        user_pics=get_pictures(user.path)
-        return render_template('newRestaurant.html',
-                               picture=login_session['picture'], user_pics=user_pics,
+        user_pics = get_pictures()
+        return render_template('min/newRestaurant.min.html',
+                               picture=login_session['picture'],
+                               user_pics=user_pics,
                                default_img=default_img)
 
-def get_pictures(path):
+
+def get_pictures():
     # Grab the user ID first
     user = get_user_info(login_session['user_id'])
     user_pics = session.query(Picture).filter_by(user_id=user.id).all()
-    print "Pictures in DB:"
-    for pic in user_pics:
-        # user_pics.append(pic)
-        print "filename : " + str(pic.filename)
-        print "path: " + str(pic.path)
-        print "user.id: " + str(pic.user_id)
-        print "pic.id: " + str(pic.id)
     return user_pics
 
 
 @app.route('/restaurant/<int:restaurant_id>/edit', methods=['GET', 'POST'])
+@login_required
 def edit_restaurant(restaurant_id):
-    restaurantToEdit = session.query(Restaurant).\
+    restaurantToEdit = session.query(Restaurant). \
         filter_by(id=restaurant_id).one()
-    r_picture = session.query(Picture).filter_by(id=restaurantToEdit.picture_id).one()
+    r_picture = session.query(Picture).filter_by(
+        id=restaurantToEdit.picture_id).one()
     default_img = session.query(Picture).filter_by(id=1).one()
-    print restaurantToEdit.picture_id
-    if 'username' not in login_session:
-        return redirect('/login')
-    else:
-        user = get_user_info(login_session['user_id'])
+    user = get_user_info(login_session['user_id'])
     if restaurantToEdit.user_id != login_session['user_id']:
         return "<script>function myFunction() {alert('You are not" \
                "\ authorized to edit this restaurant. Please create " \
@@ -412,46 +387,34 @@ def edit_restaurant(restaurant_id):
                "';}</script><body onload='myFunction()''>"
 
     if request.method == 'POST':
-        # add your custom code to check that the uploaded file is a valid
-        # image and not a malicious one.
         if request.form['name']:
             restaurantToEdit.name = request.form['name']
-        # print request.form['picture']
         # Get the path for the user
         user = get_user_info(restaurantToEdit.user_id)
-        # path = user.path
         restaurantToEdit.picture_id = request.form['picture']
-        # add your custom code to check that the uploaded file is a valid
-        # image and not a malicious file (out-of-scope for this post)
-        # file.save(f)
-        # session.add(restaurantToEdit)
         flash("Restaurant has been edited by {0}."
               .format(login_session['username']))
         session.commit()
         return redirect(url_for('show_menu', restaurant_id=restaurant_id,
                                 picture=login_session['picture']))
     else:
-        user_pics=[]
-        user_pics=get_pictures(user.path)
-        # print 'user.path = ' + user.path
-        # print user_pics.index(user.path)
-        # print 'restaurantToEdit.picture = ' + str(restaurantToEdit.picture_id)
-        # print user_pics
+        user_pics = get_pictures()
         return render_template(
-            'editRestaurant.html', restaurant_id=restaurant_id,
+            'min/editRestaurant.min.html', restaurant_id=restaurant_id,
             restaurant=restaurantToEdit, picture=login_session['picture'],
             user_pics=user_pics, restaurant_pic=restaurantToEdit.picture,
             r_picture=r_picture, default_img=default_img)
 
 
 @app.route('/restaurant/<int:restaurant_id>/delete', methods=['GET', 'POST'])
+@login_required
 def delete_restaurant(restaurant_id):
-    restaurantToDelete = session.query(Restaurant).filter_by(id=restaurant_id).one()
-    r_picture = session.query(Picture).filter_by(id=restaurantToDelete.picture_id).one()
-    itemsToDelete = session.query(MenuItem).\
+    restaurantToDelete = session.query(Restaurant).filter_by(
+        id=restaurant_id).one()
+    r_picture = session.query(Picture).filter_by(
+        id=restaurantToDelete.picture_id).one()
+    itemsToDelete = session.query(MenuItem). \
         filter_by(restaurant_id=restaurant_id).all()
-    if 'username' not in login_session:
-        return redirect('/login')
     if restaurantToDelete.user_id != login_session['user_id']:
         return "<script>function myFunction() {alert('You are not" \
                "\ authorized to delete this restaurant. Please create " \
@@ -467,10 +430,11 @@ def delete_restaurant(restaurant_id):
         flash("Restaurant has been deleted by {0}".
               format(login_session['username']))
 
-        json.dumps({'status': 'OK', 'index': restaurantToDelete.id, 'Deleted': 'yes'});
+        json.dumps({'status': 'OK', 'index': restaurantToDelete.id,
+                    'Deleted': 'yes'})
         return show_restaurants()
     else:
-        return render_template('deleteRestaurant.html',
+        return render_template('min/deleteRestaurant.min.html',
                                restaurant=restaurantToDelete,
                                r_picture=r_picture,
                                items=itemsToDelete,
@@ -491,24 +455,13 @@ def show_menu(restaurant_id):
     beverages = session.query(MenuItem).filter_by(restaurant_id=restaurant_id,
                                                   course="Beverage").all()
     picture = session.query(Picture).filter_by(id=restaurant.picture_id).one()
-    # print picture.path
     if 'username' not in login_session:
-        print "public menu"
-        return render_template('publicmenu.html', appetizers=appetizers,
+        return render_template('min/showMenu.min.html', appetizers=appetizers,
                                entrees=entrees, desserts=desserts,
                                beverages=beverages, restaurant=restaurant,
                                creator=creator, r_picture=picture)
-    elif creator.id != login_session['user_id']:
-        print "public menu"
-        return render_template('publicmenu.html', appetizers=appetizers,
-                               entrees=entrees, desserts=desserts,
-                               beverages=beverages, restaurant=restaurant,
-                               creator=creator,
-                               picture=login_session['picture'], r_picture=picture)
     else:
-        print "private menu"
-        print picture.path
-        return render_template('publicmenu.html', restaurant=restaurant,
+        return render_template('min/showMenu.min.html', restaurant=restaurant,
                                appetizers=appetizers, entrees=entrees,
                                desserts=desserts, beverages=beverages,
                                creator=creator,
@@ -517,10 +470,8 @@ def show_menu(restaurant_id):
 
 
 @app.route('/restaurant/<int:restaurant_id>/menu/new', methods=['GET', 'POST'])
+@login_required
 def create_menu_item(restaurant_id):
-    if 'username' not in login_session:
-        return redirect('/login')
-
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
 
     if login_session['user_id'] != restaurant.user_id:
@@ -544,16 +495,15 @@ def create_menu_item(restaurant_id):
         return redirect(url_for('show_menu', restaurant_id=restaurant_id,
                                 picture=login_session['picture']))
     else:
-        return render_template('newMenuItem.html', restaurant=restaurant,
+        return render_template('min/newMenuItem.min.html',
+                               restaurant=restaurant,
                                picture=login_session['picture'])
 
 
 @app.route('/restaurant/<int:restaurant_id>/<int:menu_id>/edit',
            methods=['GET', 'POST'])
+@login_required
 def edit_menu_item(restaurant_id, menu_id):
-    if 'username' not in login_session:
-        return redirect('/login')
-
     itemToEdit = session.query(MenuItem).filter_by(id=menu_id).one()
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
 
@@ -576,23 +526,22 @@ def edit_menu_item(restaurant_id, menu_id):
         return redirect(url_for('show_menu', restaurant_id=restaurant_id,
                                 picture=login_session['picture']))
     else:
-        return render_template('editMenuItem.html',
+        return render_template('min/editMenuItem.min.html',
                                restaurant_id=restaurant_id, item=itemToEdit,
                                picture=login_session['picture'])
 
 
 @app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/delete',
            methods=['GET', 'POST'])
+@login_required
 def delete_menu_item(restaurant_id, menu_id):
-    if 'username' not in login_session:
-        return redirect('/login')
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
     itemToDelete = session.query(MenuItem).filter_by(id=menu_id).one()
     if login_session['user_id'] != restaurant.user_id:
         return "<script>function myFunction() {alert('You are not " \
                "authorized to delete menu items to this restaurant. " \
                "Please create your own restaurant in order to delete " \
-               "items.');window.location.href = '" + request.referrer +\
+               "items.');window.location.href = '" + request.referrer + \
                "';}</script><body onload='myFunction()''>"
     if request.method == 'POST':
         session.delete(itemToDelete)
@@ -603,7 +552,7 @@ def delete_menu_item(restaurant_id, menu_id):
                                 picture=login_session['picture']))
     else:
         return render_template(
-            'deleteMenuItem.html', restaurant_id=restaurant_id,
+            'min/deleteMenuItem.min.html', restaurant_id=restaurant_id,
             item=itemToDelete, picture=login_session['picture'])
 
 
@@ -627,6 +576,8 @@ def restaurant_item_json(restaurant_id, menu_id):
     restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
     item = session.query(MenuItem).filter_by(id=menu_id).one()
     return jsonify(items=[item.serialize])
+
+
 # End API Endpoints
 
 @app.route('/deleteImage', methods=['POST'])
@@ -636,58 +587,40 @@ def delete_image():
     user = get_user_info(login_session['user_id'])
     try:
         pictureToDelete = session.query(Picture).filter_by(user_id=user.id,
-                                                       id=index).one()
-        # print "Picture in DB:"
-        # print pictureToDelete.path
+                                                           id=index).one()
         session.delete(pictureToDelete)
         session.commit()
-        # print "Made change to DB."
-        f = os.path.join(app.config['UPLOAD_FOLDER'], user.path, pictureToDelete.filename)
-        # print f
+        f = os.path.join(app.config['UPLOAD_FOLDER'], user.path,
+                         pictureToDelete.filename)
         if os.path.exists(f):
             try:
                 os.remove(f)
-                print "deleted " + f + " image file."
             except OSError, e:
-                print ("Error: {0} - {1}.".format(e.f,e.strerror))
+                print ("Error: {0} - {1}.".format(e.f, e.strerror))
         else:
-            print("Sorry, I can not find {0} file in the filesystem.".format(f))
-        # return json.dumps({'status': 'OK', 'index': "x", 'deleted': 'yes', 'filename': pictureToDelete.filename})
-
+            print(
+                "Sorry, I can not find {0} file in the filesystem.".format(f))
     except Exception, e:
         print "error with removing file from DB"
         return json.dumps({'status': 'ERROR', 'index': index, 'deleted': 'no'})
 
-    print "ID of pic to delete is " + str(pictureToDelete.id)
-    restaurants = session.query(Restaurant).\
+    restaurants = session.query(Restaurant). \
         order_by(asc(Restaurant.name)).all()
-    for r in restaurants:
-        print r.name
-        print r.picture_id
     try:
-        # Need to reset any restaurants that have the image back to default image
-        restaurantsWithimages = session.query(Restaurant).filter_by(picture_id=pictureToDelete.id).all()
+        # Need to reset any restaurants that have the image back to default
+        # image
+        restaurantsWithimages = session.query(Restaurant).filter_by(
+            picture_id=pictureToDelete.id).all()
         for r in restaurantsWithimages:
-            print r.name
             r.picture_id = 1
-            print "Changing image for restaurant :" + str(
-                r.name) + " back to NA."
             session.commit()
-            print "New list of restaurants:"
-            restaurants = session.query(Restaurant). \
-                order_by(asc(Restaurant.name)).all()
-            for r in restaurants:
-                print r.name
-                print r.picture_id
-        return json.dumps({'status': 'OK', 'index': "x", 'deleted': 'yes', 'filename': pictureToDelete.filename})
+        return json.dumps({'status': 'OK', 'index': "x", 'deleted': 'yes',
+                           'filename': pictureToDelete.filename})
     except Exception, e:
         print "error with locating other restaurants with that picture"
-        return json.dumps({'status': 'ERROR', 'index': "x", 'deleted': 'yes', 'filename': pictureToDelete.filename, 'picslocated': 'no'})
-
-
-
-
-
+        return json.dumps({'status': 'ERROR', 'index': "x", 'deleted': 'yes',
+                           'filename': pictureToDelete.filename,
+                           'picslocated': 'no'})
 
 
 @app.route('/uploadImage', methods=['POST'])
@@ -700,20 +633,18 @@ def upload_image():
     destination = os.path.join(app.config['UPLOAD_FOLDER'], path, filename)
 
     fullpath = 'img/uploads/' + path + '/' + filename
-    # print "userid = " + str(user.id)
-    # print "picture = " + filename
     try:
         newPicture = Picture(filename=filename, path=fullpath, user_id=user.id)
         session.add(newPicture)
         session.commit()
-        print "save to database"
         f.save(destination)
-
-        # print "new image index is " + str(newPicture.id)
-        return json.dumps({'status': 'OK', 'index': newPicture.id, 'uploaded': 'yes', 'filename': filename, 'path': fullpath})
+        return json.dumps(
+            {'status': 'OK', 'index': newPicture.id, 'uploaded': 'yes',
+             'filename': filename, 'path': fullpath})
     except Exception, e:
         print "Error. Could not save to database."
-        return json.dumps({'status': 'ERROR', 'index': "n/a", 'uploaded': 'no'});
+        return json.dumps(
+            {'status': 'ERROR', 'index': "n/a", 'uploaded': 'no'})
 
 
 if __name__ == '__main__':

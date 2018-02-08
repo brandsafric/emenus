@@ -1,4 +1,6 @@
 $(function () {
+        "use strict";
+
     var bindEvents = function () {
         $("#appetizer-section").click(function () {
             $("#appetizer-row").slideToggle();
@@ -51,51 +53,45 @@ $(function () {
         var current;
         var imagesArr = [];
         var imgDefault = $('#img_tn_1').attr('src');
+        var oldImage, oldIcon;
 
 
-        // Grab the filenames and push to array.
+        // Grab the filenames and push it to an array.
         // We need to store an array of the images because a lot of the code for the manipulation of images is
-        // client-side
+        // client-side.
         imageNode.map(function (index, item) {
             if ($(this).attr('data-fn')) {
                 imagesArr.push($(this).attr('data-fn'));
             }
         });
 
-        console.log(imagesArr);
-
-
         // Set the current based on the form.
         if ($("#newRestForm").length) {
-            console.log('this is the new restaurant');
             current = 1;
         } else {
             // If this is edit restaurant, get the index of the selected img_thumbnail.
-            console.log("This is the edit reataurant");
             current = $('.img_thumbnail.selected').attr('data-index');
-            console.log(current);
         }
 
-
+        // Set the action for the click on thumbnail.
         $(".img_thumbnail").click(function () {
             selectImage();
         });
 
-        // Delete image file
+        // Set the action for the click on delete icon.
         $(".i_delete").click(function (e) {
             if ($(e.target).hasClass('icon_show')) {
                 deleteImg();
             }
         });
 
+        // Set the action for the set button image selection.
         $(".btn-set").on("click", function () {
             console.log('Image has been set.');
             // Change the image on the form circle to be the selected image
             var newImg = $('#img_tn_' + current).attr('data-imgpath');
-            console.log(newImg);
-            // This gets set to null when the image is delete.
+            // This gets set to the default image when deleted.
             if (!newImg) {
-                console.log('Changeing newImg to NA.');
                 newImg = $('#image_tn_1').attr('data-imgpath');
 
             }
@@ -105,29 +101,25 @@ $(function () {
 
         // Upload file change
         $("#upload").change(function (e) {
-            // console.log('Current: ') + current;
             var f = this.files[0];
             var sizeInMb = f.size / 1024;
-            var sizeLimit = 1024 * 1; // if you want 1 MB
+            var sizeLimit = 1024 * 1;
+            // If sise is larger than allowed size, alert an error and reset the file dialog.
             if (sizeInMb > sizeLimit) {
                 alert('Sorry the file exceeds the maximum size of 1 MB!');
                 $('#upload').val("");
-
             }
             else {
+                // Check for duplicates based on filename.
                 if (checkDuplicate(f.name)) {
-                    console.log('Duplicate file found.');
                     $('#upload').val("");
                     alert("File is already uploaded!");
-
                 } else {
-                    console.log('No filename duplicates found.');
-                    console.log('Setting uploaded to true');
+                    // No duplicates found, let's hide the upload container.
                     $(".file_container").css("display", "none");
-
                     var formData = new FormData();
                     formData.append('image', f, f.name);
-
+                    // Lets make the ajax call to upload the file.
                     $.ajax({
                         url: '/uploadImage',
                         data: formData,
@@ -135,12 +127,10 @@ $(function () {
                         contentType: false,
                         type: 'POST',
                         success: function (response) {
-                            console.log(response);
                             // Reset the upload divs
                             $('#upload').val("");
                             $('.file_container').css("display", "block");
                             var returnedData = JSON.parse(response);
-
                             if ('status' in returnedData && returnedData.status == "OK") {
                                 // Grab the index of the new element
                                 var idx = returnedData.index;
@@ -151,62 +141,49 @@ $(function () {
                                     '"%path%" data-index="%data%" src="" alt="img"></li>';
                                 var formattedHTML = HTMLimage.replace(/%data%/g, idx).replace(/%path%/g, path);
                                 // Add the image thumbnail node
-                                console.log('Adding: ' + formattedHTML);
                                 $('.img_gallery').append(formattedHTML);
                                 var node = $('.img_tn_ul').last();
                                 var reader = new FileReader();
-
                                 reader.readAsDataURL(f);
-
-
                                 // Add click listener
                                 $('#img_thumbnail_' + idx).click(function() {
                                     selectImage();
                                 });
 
                                 $("#btn-set").removeAttr("disabled");
-
-
                                 $('#i_delete_' + idx).toggleClass('icon_show');
-
                                 // Add the icon node
                                 var HTMLicon = '<div class="icons_delete" id="icons_delete_%data%" data-index="%data%">' +
                                     '<i id="i_delete_%data%" data-index="%data%" data-tn="img_thumbnail_%data%" data-parent=' +
                                     '"icons_delete_%data%" class="fa fa-times-circle i_delete icon_show" aria-hidden=' +
-                                    '"true"></i></div>'
+                                    '"true"></i></div>';
                                 var formattedIcon = HTMLicon.replace(/%data%/g, idx);
-                                console.log(formattedIcon);
                                 $('.image_container').append(formattedIcon);
-
                                 // Add click listener
                                 $('#i_delete_' + idx).click(function (e) {
                                     deleteImg();
                                 });
-
                                 // Set the value of #target to the idx of new uploaded image
                                 $('#target').val(idx);
-
+                                // Use the reader to load the image on the client.
                                 reader.onloadend = function () {
                                     node.attr("src", reader.result);
                                     imagesArr.push(f);
                                     if (current != idx) {
                                         oldImage = $('#img_thumbnail_' + current);
                                         oldIcon = $('#i_delete_' + current);
-                                        console.log('Current is ' + current);
                                         toggleElements(oldImage, oldIcon);
+                                        // Toggling selected from previously selected.
                                         if (oldImage.hasClass('selected')) {
-                                            console.log('toggling selected from previous selected image');
                                             oldImage.toggleClass('selected');
                                         }
-
+                                        // Toggle icon_show from previously selected.
                                         if (oldIcon.hasClass('icon_show')) {
-                                            console.log('toggling icon_show from previous selected icon');
                                             oldIcon.toggleClass('icon_show');
                                         }
+                                        // Set the new current.
                                         current = idx;
-                                        console.log('new current is ' + current.toString());
                                     }
-
 
                                     // Finally, check to see if we are at the max 5 images
                                     countImages();
@@ -226,25 +203,17 @@ $(function () {
 
 
         var checkDuplicate = function (filename) {
-            console.log('Checking duplicate: ' + filename);
-
-            console.log(imagesArr);
-
             if (imagesArr.indexOf(filename) == -1) {
-                console.log('filename not found. returning false.');
-                console.log(imagesArr);
+                // No duplicates found.  Returning false.
                 return false;
             }
-
-            console.log('filename found to already exist. Returning true');
+            // Duplicate found. Return true.
             return true;
         };
 
         var countImages = function () {
-
             if (imagesArr.length) {
                 if (imagesArr.length >= 5) {
-                    console.log('No more images permitted until you delete one.');
                     $(".file_container").css('display', 'none');
                     $(".no_upload").css("display", "block");
                 }
@@ -252,8 +221,6 @@ $(function () {
         };
 
         var deleteImg = function () {
-            console.log('delete click');
-
             //Grab the data-parent attribute which stores the ID of the parent
             var iconID = '#' + ($(event.target).attr("data-parent"));
             // Grab the index of the imagge
@@ -267,7 +234,7 @@ $(function () {
             var iNode = $(iconID);
 
             var data = {"image_index": imgIndex};
-
+            // Make ajax call to delete image.
             $.ajax({
                 url: '/deleteImage',
                 contentType: 'application/json',
@@ -275,7 +242,6 @@ $(function () {
                 dataType: 'json',
                 type: 'POST',
                 success: function (response) {
-                    console.log(response);
                     // Remove the image from the page
                     $(iNode).remove();
                     $(imgNode).remove();
@@ -286,15 +252,13 @@ $(function () {
                     console.log('Images can be added');
                     $(".file_container").css("display", "block");
                     $(".no_upload").css("display", "none");
-                    // Check to see if the circld image is the one just deleted.
+                    // Check to see if the circle ld image is the one just deleted.
                     // If so, then switch it back to default image
-                    console.log('The circle filename its checking is' + fn);
                     if (('#rest_img').src == fullPath || ('#rest_img').src == fn) {
                         // Set the circle to the default img
-                        console.log('setting circle back to default.');
                         $('#rest_img').attr('src', imgDefault);
                         $("#btn-set").attr("disabled", "disabled");
-
+                        $('#target').val(1);
                     }
                 },
                 error: function (error) {
@@ -308,7 +272,6 @@ $(function () {
             var oldImage, oldIcon, newImage, newIcon;
             if ($(event.target).hasClass('img_thumbnail')) {
                 // User clicks the thumbnail frame
-                console.log('Clicked img_thumbnail.');
                 if ($(event.target).hasClass('selected')) {
                     // do nothing
                 } else {
@@ -319,7 +282,6 @@ $(function () {
                     var el = $('#i_delete_' + current);
                     // Check if there is an icon associated with the thumbnail
                     if (el.hasClass('i_delete')) {
-                        console.log('Toggling icon_show on target icon')
                         el.toggleClass('icon_show');
                     }
                     $('#target').children().val('');
@@ -329,7 +291,6 @@ $(function () {
             }
             // User clicks the image. Happens most of the time
             else {
-                console.log('Clicked image..');
                 if ($(event.target).parent().hasClass('selected')) {
                     // do nothing
                 } else {
@@ -346,9 +307,7 @@ $(function () {
                     var path = newImage.children().attr('data-index');
                     $('#target').val(path);
 
-                    // Set the submit button to enabled
-                    console.log('Emabling button');
-
+                    // Remove the disabled property from the button.
                     $("#btn-set").removeAttr("disabled");
                 }
             }
@@ -375,16 +334,15 @@ $(function () {
             toggleElements(oldIcon, 'icon_show', 0);
 
             current = $(el).attr('data-index');
-            console.log('current is now ' + current);
 
         };
-
         // Main execution
         // Start off by counting the images
         countImages();
 
 
     };
+
 
     bindEvents();
     // Check to see if this is the newRestForm or editForm.
