@@ -1,0 +1,48 @@
+{% extends "main.html" %}
+{% block content %}
+    <div class="flash blink">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                        <li><strong> {{ message }} </strong></li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+    </div>
+    <div class="clearfix"></div>
+    <div class="row" id="banner-main">
+        <div class="col-4 offset-1 col-sm-4 offset-sm-0">
+            <h1>
+                Menus
+            </h1>
+        </div>
+    </div>
+    <div class="row">
+        {% if 'username' in session %}
+            <div class="col-9 offset-1 col-sm-9 offset-sm-0 col-lg-9 offset-lg-1" id="add-restaurant">
+                <i class="fa fa-plus" id="icon-add" aria-hidden="true"
+                   onclick="location.href = '{{ url_for('create_restaurant') }}'"></i>
+            </div>
+        {% endif %}
+        <ul id="r-list">
+            {% for r in restaurants %}
+                <li class="r-card">
+                    <div class="ih-item circle colored effect6 scale_up">
+                        {{ r.image }}
+                        <a href="{{ url_for('show_menu', restaurant_id = r.id) }}">
+                            <div class="img">
+                                <img src="{{ url_for('static', filename=pictures[r.picture_id - 1].path) }}" alt="img" />
+                            </div>
+                            <div class="info">
+                                <h3 class="r-name">{{ r.name|truncate(20, True) }}</h3>
+                                <p class="r-cuisine">{{ r.cuisine }}</p>
+                            </div>
+                        </a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

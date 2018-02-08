@@ -1,0 +1,32 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+<div class="form-wrapper">
+    <div class="ih-item circle colored effect5 form_image">
+        <a data-toggle="modal" data-target="#exampleModal">
+            <div class="img">
+                <img id="rest_img" src="{{ url_for('static', filename=r_picture.path) }}" alt="img">
+            </div>
+            <div class="info" id="form-circle">
+              <div class="info-back info-bg">
+                <h3>Change Picture</h3>
+                <p>View your image gallery</p>
+              </div>
+            </div>
+        </a>
+    </div>
+    <div class="form-heading">
+        <h1>Delete Restaurant</h1>
+    </div>
+    <form action="{{ url_for('delete_restaurant', restaurant_id = restaurant.id) }}" method="post">
+        <label>Are you sure you want to delete <span id="rest-name">{{restaurant.name}}</span>?</label>
+        <div>
+            <input class="input-delete btn" type="submit" value="YES">
+            <a class="cancel cancel-delete btn btn-warning" href="{{ url_for('edit_restaurant', restaurant_id = restaurant.id) }}">No!</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+
+
