@@ -15,9 +15,9 @@ import requests
 import os
 
 app = Flask(__name__)
-
+app_path = "/var/www/html/itemcatalog"
 CLIENT_ID = json.loads(
-    open('client_secrets.json', 'r').read())['web']['client_id']
+    open(app_path + 'client_secrets.json', 'r').read())['web']['client_id']
 APPLICATION_NAME = "Restaurant Menu Application"
 
 # engine = create_engine('sqlite:///restaurantmenuwithusers.db')
