@@ -13,9 +13,8 @@ import httplib2
 import json
 import requests
 import os
-
-app = Flask(__name__)
-app_path = "/var/www/html/itemcatalog"
+app = Flask(__name__, static_url_path="/var/www/html/itemcatalog/static")
+app_path = "/var/www/html/itemcatalog/"
 CLIENT_ID = json.loads(
     open(app_path + 'client_secrets.json', 'r').read())['web']['client_id']
 APPLICATION_NAME = "Restaurant Menu Application"
@@ -27,7 +26,7 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
-UPLOAD_FOLDER = os.path.relpath('static/img/uploads')
+UPLOAD_FOLDER = app_path + '/static/img/uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 app.config['MAX_CONTENT_LENGTH'] = 10 * 1024 * 1024
@@ -297,11 +296,11 @@ def create_user(login_session):
     if login_session['provider'] == 'google':
         print "google"
         user_id = login_session['gplus_id']
-        directory = 'static/img/uploads/' + login_session['gplus_id']
+        directory = UPLOAD_FOLDER + login_session['gplus_id']
     else:
         print "facebook"
         user_id = login_session['facebook_id']
-        directory = 'static/img/uploads/' + login_session['facebook_id']
+        directory = UPLOAD_FOLDER + login_session['facebook_id']
     if not os.path.exists(directory):
         os.makedirs(directory)
     newUser = User(name=login_session['username'],
@@ -380,17 +379,10 @@ def create_restaurant():
                                picture=login_session['picture'], user_pics=user_pics,
                                default_img=default_img)
 
-def get_pictures(path):
+def get_pictures():
     # Grab the user ID first
     user = get_user_info(login_session['user_id'])
     user_pics = session.query(Picture).filter_by(user_id=user.id).all()
-    print "Pictures in DB:"
-    for pic in user_pics:
-        # user_pics.append(pic)
-        print "filename : " + str(pic.filename)
-        print "path: " + str(pic.path)
-        print "user.id: " + str(pic.user_id)
-        print "pic.id: " + str(pic.id)
     return user_pics
 
 
@@ -417,27 +409,16 @@ def edit_restaurant(restaurant_id):
         # image and not a malicious one.
         if request.form['name']:
             restaurantToEdit.name = request.form['name']
-        # print request.form['picture']
         # Get the path for the user
         user = get_user_info(restaurantToEdit.user_id)
-        # path = user.path
         restaurantToEdit.picture_id = request.form['picture']
-        # add your custom code to check that the uploaded file is a valid
-        # image and not a malicious file (out-of-scope for this post)
-        # file.save(f)
-        # session.add(restaurantToEdit)
         flash("Restaurant has been edited by {0}."
               .format(login_session['username']))
         session.commit()
         return redirect(url_for('show_menu', restaurant_id=restaurant_id,
                                 picture=login_session['picture']))
     else:
-        user_pics=[]
         user_pics=get_pictures(user.path)
-        # print 'user.path = ' + user.path
-        # print user_pics.index(user.path)
-        # print 'restaurantToEdit.picture = ' + str(restaurantToEdit.picture_id)
-        # print user_pics
         return render_template(
             'editRestaurant.html', restaurant_id=restaurant_id,
             restaurant=restaurantToEdit, picture=login_session['picture'],
@@ -686,11 +667,6 @@ def delete_image():
         return json.dumps({'status': 'ERROR', 'index': "x", 'deleted': 'yes', 'filename': pictureToDelete.filename, 'picslocated': 'no'})
 
 
-
-
-
-
-
 @app.route('/uploadImage', methods=['POST'])
 def upload_image():
     f = request.files['image']
@@ -699,18 +675,13 @@ def upload_image():
     # Get the path for the user
     path = user.path
     destination = os.path.join(app.config['UPLOAD_FOLDER'], path, filename)
-
     fullpath = 'img/uploads/' + path + '/' + filename
-    # print "userid = " + str(user.id)
-    # print "picture = " + filename
     try:
         newPicture = Picture(filename=filename, path=fullpath, user_id=user.id)
         session.add(newPicture)
         session.commit()
         print "save to database"
         f.save(destination)
-
-        # print "new image index is " + str(newPicture.id)
         return json.dumps({'status': 'OK', 'index': newPicture.id, 'uploaded': 'yes', 'filename': filename, 'path': fullpath})
     except Exception, e:
         print "Error. Could not save to database."
