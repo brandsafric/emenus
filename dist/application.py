@@ -30,7 +30,7 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
-UPLOAD_FOLDER = app_path + '/static/img/uploads/'
+UPLOAD_FOLDER = APP_PATH + '/static/img/uploads/'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 app.config['MAX_CONTENT_LENGTH'] = 10 * 1024 * 1024
