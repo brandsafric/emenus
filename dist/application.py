@@ -218,7 +218,7 @@ def fbconnect():
     app_id = json.loads(open(APP_PATH + 'fb_client_secrets.json', 'r').read())[
         'web']['app_id']
     app_secret = json.loads(
-        open('fb_client_secrets.json', 'r').read())['web']['app_secret']
+        open(APP_PATH + 'fb_client_secrets.json', 'r').read())['web']['app_secret']
     url = 'https://graph.facebook.com/oauth/access_token?grant_type=' \
           'fb_exchange_token&client_id={0}&client_secret={1}&' \
           'fb_exchange_token={2}'.format(app_id, app_secret, access_token)
