@@ -15,7 +15,7 @@ import json
 import requests
 import os
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path="/var/www/html/itemcatalog/static")
 
 APP_PATH = '/var/www/html/itemcatalog/'
 
