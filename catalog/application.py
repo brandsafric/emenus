@@ -298,10 +298,10 @@ def create_user(login_session):
     # Check for the provider used to see if the directory exists
     if login_session['provider'] == 'google':
         user_id = login_session['gplus_id']
-        directory = 'static/img/uploads/' + login_session['gplus_id']
+        directory = UPLOAD_FOLDER + login_session['gplus_id']
     else:
         user_id = login_session['facebook_id']
-        directory = 'static/img/uploads/' + login_session['facebook_id']
+        directory = UPLOAD_FOLDER + login_session['facebook_id']
     if not os.path.exists(directory):
         os.makedirs(directory)
     newUser = User(name=login_session['username'],
@@ -634,16 +634,14 @@ def upload_image():
     # Get the path for the user
     path = user.path
     destination = os.path.join(app.config['UPLOAD_FOLDER'], path, filename)
-
-    fullpath = 'img/uploads/' + path + '/' + filename
     try:
-        newPicture = Picture(filename=filename, path=fullpath, user_id=user.id)
+        newPicture = Picture(filename=filename, path=destination, user_id=user.id)
         session.add(newPicture)
         session.commit()
         f.save(destination)
         return json.dumps(
             {'status': 'OK', 'index': newPicture.id, 'uploaded': 'yes',
-             'filename': filename, 'path': fullpath})
+             'filename': filename, 'path': destination})
     except Exception, e:
         print "Error. Could not save to database."
         return json.dumps(
