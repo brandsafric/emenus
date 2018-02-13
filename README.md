@@ -79,6 +79,7 @@ sudo python lotsofmenus.py
 * Create new OAuth credentials in both Google sign-in and Facebook Developer APIs (specify the DNS name of the server
 which can be accomplished by running ```ping -a ipaddress```)
 * Replace the client_secrets.json and fb_client_secrets.json with the newly created oauth credentials.
+* Replace client id in line 3 and 12 with the Google client ID.
 * Visit the server's site via the DNS name.
 * Enjoy in creating restaurant menus complete with sections for appetizers, entrees, and more!
 * Make sure to stay hydrated while you experience the joy of making menus!
