@@ -324,10 +324,10 @@ def show_restaurants():
         order_by(asc(Restaurant.name)).all()
     pictures = session.query(Picture).all()
     if 'username' not in login_session:
-        return render_template('min/restaurants.min.html',
+        return render_template('restaurants.min.html',
                                restaurants=restaurants, pictures=pictures),
     else:
-        return render_template('min/restaurants.min.html',
+        return render_template('restaurants.min.html',
                                restaurants=restaurants,
                                picture=login_session['picture'],
                                pictures=pictures)
@@ -360,7 +360,7 @@ def create_restaurant():
         return redirect(url_for('show_restaurants'))
     else:
         user_pics = get_pictures()
-        return render_template('min/newRestaurant.min.html',
+        return render_template('newRestaurant.min.html',
                                picture=login_session['picture'],
                                user_pics=user_pics,
                                default_img=default_img)
@@ -403,7 +403,7 @@ def edit_restaurant(restaurant_id):
     else:
         user_pics = get_pictures()
         return render_template(
-            'min/editRestaurant.min.html', restaurant_id=restaurant_id,
+            'editRestaurant.min.html', restaurant_id=restaurant_id,
             restaurant=restaurantToEdit, picture=login_session['picture'],
             user_pics=user_pics, restaurant_pic=restaurantToEdit.picture,
             r_picture=r_picture, default_img=default_img)
@@ -437,7 +437,7 @@ def delete_restaurant(restaurant_id):
                     'Deleted': 'yes'})
         return show_restaurants()
     else:
-        return render_template('min/deleteRestaurant.min.html',
+        return render_template('deleteRestaurant.min.html',
                                restaurant=restaurantToDelete,
                                r_picture=r_picture,
                                items=itemsToDelete,
@@ -459,12 +459,12 @@ def show_menu(restaurant_id):
                                                   course="Beverage").all()
     picture = session.query(Picture).filter_by(id=restaurant.picture_id).one()
     if 'username' not in login_session:
-        return render_template('min/showMenu.min.html', appetizers=appetizers,
+        return render_template('showMenu.min.html', appetizers=appetizers,
                                entrees=entrees, desserts=desserts,
                                beverages=beverages, restaurant=restaurant,
                                creator=creator, r_picture=picture)
     else:
-        return render_template('min/showMenu.min.html', restaurant=restaurant,
+        return render_template('showMenu.min.html', restaurant=restaurant,
                                appetizers=appetizers, entrees=entrees,
                                desserts=desserts, beverages=beverages,
                                creator=creator,
@@ -498,7 +498,7 @@ def create_menu_item(restaurant_id):
         return redirect(url_for('show_menu', restaurant_id=restaurant_id,
                                 picture=login_session['picture']))
     else:
-        return render_template('min/newMenuItem.min.html',
+        return render_template('newMenuItem.min.html',
                                restaurant=restaurant,
                                picture=login_session['picture'])
 
@@ -529,7 +529,7 @@ def edit_menu_item(restaurant_id, menu_id):
         return redirect(url_for('show_menu', restaurant_id=restaurant_id,
                                 picture=login_session['picture']))
     else:
-        return render_template('min/editMenuItem.min.html',
+        return render_template('editMenuItem.min.html',
                                restaurant_id=restaurant_id, item=itemToEdit,
                                picture=login_session['picture'])
 
@@ -555,7 +555,7 @@ def delete_menu_item(restaurant_id, menu_id):
                                 picture=login_session['picture']))
     else:
         return render_template(
-            'min/deleteMenuItem.min.html', restaurant_id=restaurant_id,
+            'deleteMenuItem.min.html', restaurant_id=restaurant_id,
             item=itemToDelete, picture=login_session['picture'])
 
 
