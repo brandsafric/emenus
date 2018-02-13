@@ -1,10 +1,10 @@
 # EMenus
-## A python-based full stack Restaurant Menu Application that allows the creation of restaurant menus.
+## A python-based full stack Restaurant Menu Application that allows the creation and manipulation of restaurant menus.
 ## Utilizes Oauth2 Authentication for Google+ and Facebook IDs for logiu access.
 
 Utilizes:
 * [Python 2.7](https://www.python.org/)
-* Python libraries: Flask, sqlalchemy, oauth2client
+* Python libraries: Flask, sqlalchemy, oauth2client, requests, pyscopg2
 * [jQuery](https://jquery.com/)
 * [Bootstrap](http://getbootstrap.com/)
 * [Tether](http://tether.io/)
@@ -12,25 +12,69 @@ Utilizes:
 
 Prerequisites:
 * [Python 2.7](https://www.python.org/)
-* [VirtualBox](https://www.virtualbox.org/wiki/VirtualBox)
-VirtualBox is the software that actually runs the VM. You can download it from virtualbox.org, here. Install the platform package for your operating system. You do not need the extension pack or the SDK. You do not need to launch VirtualBox after installing it.
-Ubuntu 14.04 Note: If you are running Ubuntu 14.04, install VirtualBox using the [Ubuntu Software Center](https://apps.ubuntu.com/cat/applications/quantal/virtualbox-qt/), not the virtualbox.org web site. Due to a reported bug, installing VirtualBox from the site may uninstall other software you need.
-* [Vagrant](https://www.vagrantup.com/)
-Vagrant is the software that configures the VM and lets you share files between your host computer and the VM's filesystem. You can download it from vagrantup.com. Install the version for your operating system.
-Windows Note: The Installer may ask you to grant network permissions to Vagrant or make a firewall exception. Be sure to allow this.
+* Amazon Web Services or equivalent instance
 
-To launch, follow these steps:
-* Install the prerequisites listed above (Python, VirtualBox, Vagrant)
+
+To deploy, follow these steps:
 * Clone the repo
-* From a command line, change to the directory of the repo and mount the vagrant VM with 'vagrant up'
-* Connect to vagrant the VM by entering 'vagrant ssh'
-* Install the requests module with 'sudo pip install requests'
-* From the command line, type 'cd /vagrant' followed by 'cd catalog' to change to the target directory.
-* Create the database by entering 'python database_setup.py'
-* Create the sample restaurant menus by entering 'python lotsofmenus.py'
-* Launch the app by typing 'python application.py'
-* From your browser, access the site by going to 'localhost:5000'.
-* Grab beverage of choice.
+* Change the SSH port to 2200
+* Permit firewall exceptions in both UFW and Web Services firewall to allow incoming ports for the following:
+    port 2200
+    HTTP
+    NTP
+    Apache Full
+* Install Apache2
+* Install libapache2-mod-wsgi
+* Create user grader with sudo access.
+* Create new SSH key for grader and copy the public key contents to authorized_keys file for user.
+* Create itemcatalog directory under /var/www/html
+
+* Create an app.wsgi file in the itemcatalog directory with the following contents:
+ ```
+activate_this = '/var/www/html/itemcatalog/venv/bin/activate_this.py'
+execfile(activate_this, dict(__file__=activate_this))
+import sys
+sys.path.insert(0,'/var/www/html/itemcatalog')
+from application import app as application
+application.secret_key = 'super_secret_key'
+```
+
+* Either create a new virtual host and modify the .conf file or modify the default 000-default.conf file to include
+the following:
+```    WSGIDaemonProcess itemcatalog user=grader
+    WSGIScriptAlias / /var/www/html/itemcatalog/app.wsgi
+    <Directory /var/www/html/itemcatalog>
+            WSGIProcessGroup itemcatalog
+            WSGIApplicationGroup %{GLOBAL}
+            Order allow,deny
+            Allow from all
+    </Directory>
+	Alias /static /var/www/itemcatalog/static
+	<Directory /var/www/itemcatalog/static/>
+		Order allow,deny
+		Allow from all
+	</Directory>
+``` 
+* Change the following lines in the file:
+```ServerName <IP Address>
+    DocumentRoot /var/www/html/itemcatalog
+```
+* Install the following dependencies: postgresql, flask, sqlalchemy, oauth2client, pycopg2, requests
+* In psql, create the catalog database and catalog role.
+* Set the catalog role to be the owner of the catalog database.
+* Install git
+* Create directory git under itemcatalog directory
+* Clone the repo
+* Move all files from the EMenus/dist subdirectory to the item-catalog directory.
+* Install the virtual environment (virtualenv)
+* Activate the virtual environment
+* Run the following commands to setup the initial databsee tables and dummy entries:
+```angular2html
+sudo python database_setup.py
+sudo python lotsofmenus.py
+```
+* Restart Apache service
+* Visit the server's site via the DNS name (this can be accomplished by running ping -a ipaddress).
 * Enjoy in creating restaurant menus complete with sections for appetizers, entrees, and more!
 * Make sure to stay hydrated while you experience the joy of making menus!
 
