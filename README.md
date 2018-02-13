@@ -26,6 +26,7 @@ To deploy, follow these steps:
 * Restart SSH service
 * Install Apache2
 * Install libapache2-mod-wsgi
+* Set time to UTC time.
 * Create user grader with sudo access.
 * Create new SSH key for grader and copy the public key contents to authorized_keys file for user.
 * Create 'itemcatalog' directory under /var/www/html
@@ -65,7 +66,7 @@ the following:
 * Set the catalog role to be the owner of the catalog database.
 * Install git
 * Create directory git under itemcatalog directory
-* Clone the repo
+* Clone the repo AWS branch
 * Move all files from the newly clones EMenus subdirectory to the item-catalog directory.
 * Install virtual environment (virtualenv)
 * Activate the virtual environment
@@ -75,7 +76,10 @@ sudo python database_setup.py
 sudo python lotsofmenus.py
 ```
 * Restart Apache service
-* Visit the server's site via the DNS name (this can be accomplished by running ```ping -a ipaddress```).
+* Create new OAuth credentials in both Google sign-in and Facebook Developer APIs (specify the DNS name of the server
+which can be accomplished by running ```ping -a ipaddress```)
+* Replace the client_secrets.json and fb_client_secrets.json with the newly created oauth credentials.
+* Visit the server's site via the DNS name.
 * Enjoy in creating restaurant menus complete with sections for appetizers, entrees, and more!
 * Make sure to stay hydrated while you experience the joy of making menus!
 
