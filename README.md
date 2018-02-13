@@ -23,12 +23,12 @@ To deploy, follow these steps:
     HTTP
     NTP
     Apache Full
+* Restart SSH service
 * Install Apache2
 * Install libapache2-mod-wsgi
 * Create user grader with sudo access.
 * Create new SSH key for grader and copy the public key contents to authorized_keys file for user.
-* Create itemcatalog directory under /var/www/html
-
+* Create 'itemcatalog' directory under /var/www/html
 * Create an app.wsgi file in the itemcatalog directory with the following contents:
  ```
 activate_this = '/var/www/html/itemcatalog/venv/bin/activate_this.py'
@@ -41,7 +41,8 @@ application.secret_key = 'super_secret_key'
 
 * Either create a new virtual host and modify the .conf file or modify the default 000-default.conf file to include
 the following:
-```    WSGIDaemonProcess itemcatalog user=grader
+```    
+    WSGIDaemonProcess itemcatalog user=grader
     WSGIScriptAlias / /var/www/html/itemcatalog/app.wsgi
     <Directory /var/www/html/itemcatalog>
             WSGIProcessGroup itemcatalog
@@ -56,7 +57,7 @@ the following:
 	</Directory>
 ``` 
 * Change the following lines in the file:
-```ServerName <IP Address>
+``` ServerName <IP Address>
     DocumentRoot /var/www/html/itemcatalog
 ```
 * Install the following dependencies: postgresql, flask, sqlalchemy, oauth2client, pycopg2, requests
@@ -65,16 +66,16 @@ the following:
 * Install git
 * Create directory git under itemcatalog directory
 * Clone the repo
-* Move all files from the EMenus/dist subdirectory to the item-catalog directory.
-* Install the virtual environment (virtualenv)
+* Move all files from the newly clones EMenus subdirectory to the item-catalog directory.
+* Install virtual environment (virtualenv)
 * Activate the virtual environment
-* Run the following commands to setup the initial databsee tables and dummy entries:
-```angular2html
+* Run the following commands to setup the initial database tables and dummy entries:
+```
 sudo python database_setup.py
 sudo python lotsofmenus.py
 ```
 * Restart Apache service
-* Visit the server's site via the DNS name (this can be accomplished by running ping -a ipaddress).
+* Visit the server's site via the DNS name (this can be accomplished by running ```ping -a ipaddress```).
 * Enjoy in creating restaurant menus complete with sections for appetizers, entrees, and more!
 * Make sure to stay hydrated while you experience the joy of making menus!
 
