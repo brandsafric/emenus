@@ -26,6 +26,46 @@ User1 = User(name="Robo Barista", email="tinnyTim@udacity.com", path="",
 session.add(User1)
 session.commit()
 
+pictureItem1 = Picture(filename="not-available-abbreviation-inside-a-circle_318-33662.jpg", path="img/not-available-abbreviation-inside-a-circle_318-33662.jpg" )
+session.add(pictureItem1)
+session.commit()
+
+pictureItem2 = Picture(filename="pexels-photo-76093.jpg", path="img/pexels-photo-76093.jpg" )
+session.add(pictureItem2)
+session.commit()
+
+pictureItem3 = Picture(filename="pexels-photo-221143.jpg", path="img/pexels-photo-221143.jpg" )
+session.add(pictureItem3)
+session.commit()
+
+pictureItem4 = Picture(filename="pexels-photo-248444.jpg", path="img/pexels-photo-248444.jpg" )
+session.add(pictureItem4)
+session.commit()
+
+pictureItem5 = Picture(filename="pexels-photo-425008.jpg", path="img/pexels-photo-425008.jpg" )
+session.add(pictureItem5)
+session.commit()
+
+pictureItem6 = Picture(filename="pexels-photo-461198.jpg", path="img/pexels-photo-461198.jpg" )
+session.add(pictureItem6)
+session.commit()
+
+pictureItem7 = Picture(filename="pexels-photo-568370.jpg", path="img/pexels-photo-568370.jpg" )
+session.add(pictureItem7)
+session.commit()
+
+pictureItem8 = Picture(filename="pexels-photo-660282.jpg", path="img/pexels-photo-660282.jpg" )
+session.add(pictureItem8)
+session.commit()
+
+pictureItem9 = Picture(filename="thai-food-noodle-fried-noodles-meal-46247.jpg", path="img/thai-food-noodle-fried-noodles-meal-46247.jpg" )
+session.add(pictureItem9)
+session.commit()
+
+pictureItem10 = Picture(filename="water-drink-glass-drinking.jpg", path="img/water-drink-glass-drinking.jpg" )
+session.add(pictureItem10)
+session.commit()
+
 # Menu for UrbanBurger
 restaurant1 = Restaurant(user_id=1, name="Urban Burger", cuisine="American", picture_id=8)
 
@@ -378,46 +418,5 @@ menuItem1 = MenuItem(user_id=1, name="Lemon Curd Ice Cream Sandwich",
 
 session.add(menuItem1)
 session.commit()
-
-pictureItem1 = Picture(filename="not-available-abbreviation-inside-a-circle_318-33662.jpg", path="img/not-available-abbreviation-inside-a-circle_318-33662.jpg" )
-session.add(pictureItem1)
-session.commit()
-
-pictureItem2 = Picture(filename="pexels-photo-76093.jpg", path="img/pexels-photo-76093.jpg" )
-session.add(pictureItem2)
-session.commit()
-
-pictureItem3 = Picture(filename="pexels-photo-221143.jpg", path="img/pexels-photo-221143.jpg" )
-session.add(pictureItem3)
-session.commit()
-
-pictureItem4 = Picture(filename="pexels-photo-248444.jpg", path="img/pexels-photo-248444.jpg" )
-session.add(pictureItem4)
-session.commit()
-
-pictureItem5 = Picture(filename="pexels-photo-425008.jpg", path="img/pexels-photo-425008.jpg" )
-session.add(pictureItem5)
-session.commit()
-
-pictureItem6 = Picture(filename="pexels-photo-461198.jpg", path="img/pexels-photo-461198.jpg" )
-session.add(pictureItem6)
-session.commit()
-
-pictureItem7 = Picture(filename="pexels-photo-568370.jpg", path="img/pexels-photo-568370.jpg" )
-session.add(pictureItem7)
-session.commit()
-
-pictureItem8 = Picture(filename="pexels-photo-660282.jpg", path="img/pexels-photo-660282.jpg" )
-session.add(pictureItem8)
-session.commit()
-
-pictureItem9 = Picture(filename="thai-food-noodle-fried-noodles-meal-46247.jpg", path="img/thai-food-noodle-fried-noodles-meal-46247.jpg" )
-session.add(pictureItem9)
-session.commit()
-
-pictureItem10 = Picture(filename="water-drink-glass-drinking.jpg", path="img/water-drink-glass-drinking.jpg" )
-session.add(pictureItem10)
-session.commit()
-
 
 print "added menu items!"
