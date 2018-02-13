@@ -15,19 +15,22 @@ import json
 import requests
 import os
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path="/var/www/html/itemcatalog/static")
+
+APP_PATH = '/var/www/html/itemcatalog/'
 
 CLIENT_ID = json.loads(
-    open('client_secrets.json', 'r').read())['web']['client_id']
+    open(APP_PATH + 'client_secrets.json', 'r').read())['web']['client_id']
 APPLICATION_NAME = "Restaurant Menu Application"
 
 # engine = create_engine('sqlite:///restaurantmenuwithusers.db')
+engine = create_engine('postgresql://catalog:catalog@localhost/catalog')
 Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
-UPLOAD_FOLDER = os.path.relpath('static/img/uploads')
+UPLOAD_FOLDER = APP_PATH + '/static/img/uploads/'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 app.config['MAX_CONTENT_LENGTH'] = 10 * 1024 * 1024
@@ -55,7 +58,7 @@ def gconnect():
 
     try:
         # Upgrade the authorization code into a credential object
-        oauth_flow = flow_from_clientsecrets('client_secrets.json', scope='')
+        oauth_flow = flow_from_clientsecrets(APP_PATH + 'client_secrets.json', scope='')
         oauth_flow.redirect_uri = 'postmessage'
         credentials = oauth_flow.step2_exchange(code)
     except FlowExchangeError:
@@ -212,10 +215,10 @@ def fbconnect():
         return response
 
     access_token = request.data
-    app_id = json.loads(open('fb_client_secrets.json', 'r').read())[
+    app_id = json.loads(open(APP_PATH + 'fb_client_secrets.json', 'r').read())[
         'web']['app_id']
     app_secret = json.loads(
-        open('fb_client_secrets.json', 'r').read())['web']['app_secret']
+        open(APP_PATH + 'fb_client_secrets.json', 'r').read())['web']['app_secret']
     url = 'https://graph.facebook.com/oauth/access_token?grant_type=' \
           'fb_exchange_token&client_id={0}&client_secret={1}&' \
           'fb_exchange_token={2}'.format(app_id, app_secret, access_token)
