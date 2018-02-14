@@ -635,7 +635,7 @@ def upload_image():
     # Get the path for the user
     path = user.path
     destination = os.path.join(app.config['UPLOAD_FOLDER'], path, filename)
-    fullpath = path + '/img/uploads/' + filename
+    fullpath = 'img/uploads/' + path + '/' + filename
     print "Fullpath: " + fullpath
     print "Filename: " + filename
     print "Destination: " + destination
