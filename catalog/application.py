@@ -324,6 +324,8 @@ def show_restaurants():
     restaurants = session.query(Restaurant). \
         order_by(asc(Restaurant.name)).all()
     pictures = session.query(Picture).all()
+    pictures = [p.id for p in pictures]
+    print pictures
     if 'username' not in login_session:
         return render_template('restaurants.min.html',
                                restaurants=restaurants, pictures=pictures),
@@ -590,6 +592,16 @@ def delete_image():
     index = int(data['image_index'])
     user = get_user_info(login_session['user_id'])
     try:
+        # Need to reset any restaurants that have the image back to default
+        # image
+        restaurantsWithimages = session.query(Restaurant).filter_by(
+            picture_id=index).all()
+        for r in restaurantsWithimages:
+            r.picture_id = 1
+            session.commit()
+    except Exception, e:
+        print "error with locating other restaurants with that picture"
+    try:
         pictureToDelete = session.query(Picture).filter_by(user_id=user.id,
                                                            id=index).one()
         session.delete(pictureToDelete)
@@ -599,32 +611,23 @@ def delete_image():
         if os.path.exists(f):
             try:
                 os.remove(f)
+                return json.dumps({'status': 'OK', 'index': "x", 'deleted': 'yes',
+                               'filename': pictureToDelete.filename})
             except OSError, e:
                 print ("Error: {0} - {1}.".format(e.f, e.strerror))
+                return json.dumps({'status': 'ERROR', 'index': "x", 'deleted': 'no',
+                           'filename': pictureToDelete.filename,
+                           'picslocated': 'no'})
         else:
             print(
                 "Sorry, I can not find {0} file in the filesystem.".format(f))
+            return json.dumps(
+                {'status': 'ERROR', 'index': "x", 'deleted': 'no',
+                 'filename': pictureToDelete.filename,
+                 'picslocated': 'no'})
     except Exception, e:
         print "error with removing file from DB"
         return json.dumps({'status': 'ERROR', 'index': index, 'deleted': 'no'})
-
-    restaurants = session.query(Restaurant). \
-        order_by(asc(Restaurant.name)).all()
-    try:
-        # Need to reset any restaurants that have the image back to default
-        # image
-        restaurantsWithimages = session.query(Restaurant).filter_by(
-            picture_id=pictureToDelete.id).all()
-        for r in restaurantsWithimages:
-            r.picture_id = 1
-            session.commit()
-        return json.dumps({'status': 'OK', 'index': "x", 'deleted': 'yes',
-                           'filename': pictureToDelete.filename})
-    except Exception, e:
-        print "error with locating other restaurants with that picture"
-        return json.dumps({'status': 'ERROR', 'index': "x", 'deleted': 'yes',
-                           'filename': pictureToDelete.filename,
-                           'picslocated': 'no'})
 
 
 @app.route('/uploadImage', methods=['POST'])
