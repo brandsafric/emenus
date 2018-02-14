@@ -30,7 +30,7 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
-UPLOAD_FOLDER = APP_PATH + '/static/img/uploads/'
+UPLOAD_FOLDER = APP_PATH + 'static/img/uploads/'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 app.config['MAX_CONTENT_LENGTH'] = 10 * 1024 * 1024
@@ -58,7 +58,8 @@ def gconnect():
 
     try:
         # Upgrade the authorization code into a credential object
-        oauth_flow = flow_from_clientsecrets(APP_PATH + 'client_secrets.json', scope='')
+        oauth_flow = flow_from_clientsecrets(APP_PATH +
+                                             'client_secrets.json', scope='')
         oauth_flow.redirect_uri = 'postmessage'
         credentials = oauth_flow.step2_exchange(code)
     except FlowExchangeError:
@@ -217,8 +218,8 @@ def fbconnect():
     access_token = request.data
     app_id = json.loads(open(APP_PATH + 'fb_client_secrets.json', 'r').read())[
         'web']['app_id']
-    app_secret = json.loads(
-        open(APP_PATH + 'fb_client_secrets.json', 'r').read())['web']['app_secret']
+    app_secret = json.loads(open(APP_PATH + 'fb_client_secrets.json',
+                                 'r').read())['web']['app_secret']
     url = 'https://graph.facebook.com/oauth/access_token?grant_type=' \
           'fb_exchange_token&client_id={0}&client_secret={1}&' \
           'fb_exchange_token={2}'.format(app_id, app_secret, access_token)
@@ -634,14 +635,19 @@ def upload_image():
     # Get the path for the user
     path = user.path
     destination = os.path.join(app.config['UPLOAD_FOLDER'], path, filename)
+    fullpath = path + '/img/uploads/' + filename
+    print "Fullpath: " + fullpath
+    print "Filename: " + filename
+    print "Destination: " + destination
+    print "Path: " + path
     try:
-        newPicture = Picture(filename=filename, path=destination, user_id=user.id)
+        newPicture = Picture(filename=filename, path=fullpath, user_id=user.id)
         session.add(newPicture)
         session.commit()
         f.save(destination)
         return json.dumps(
             {'status': 'OK', 'index': newPicture.id, 'uploaded': 'yes',
-             'filename': filename, 'path': destination})
+             'filename': filename, 'path': fullpath})
     except Exception, e:
         print "Error. Could not save to database."
         return json.dumps(
@@ -652,4 +658,4 @@ if __name__ == '__main__':
     # Invalidate previous sessions by generating a unique key
     app.secret_key = os.urandom(32)
     app.debug = True
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0')
