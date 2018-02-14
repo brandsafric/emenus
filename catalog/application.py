@@ -324,7 +324,7 @@ def show_restaurants():
     restaurants = session.query(Restaurant). \
         order_by(asc(Restaurant.name)).all()
     pictures = session.query(Picture).all()
-    pictures = [p.id for p in pictures]
+    pictures = [(p.id, p.path) for p in pictures]
     print pictures
     if 'username' not in login_session:
         return render_template('restaurants.min.html',
@@ -652,6 +652,14 @@ def upload_image():
         return json.dumps(
             {'status': 'ERROR', 'index': "n/a", 'uploaded': 'no'})
 
+@app.route('/images/<int:pid>')
+def get_picture(pid):
+    picture = session.query(Picture)filter_by(id=pid).one()
+    directory = app.config['UPLOAD_FOLDER']
+    if picture.user_id:
+        user = session.query(User).filter_by(id=picture.user_id)
+        directory += '/' + user.path
+    return send_from_directory(directory, picture.filename)
 
 if __name__ == '__main__':
     # Invalidate previous sessions by generating a unique key
