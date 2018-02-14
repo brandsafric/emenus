@@ -636,10 +636,6 @@ def upload_image():
     path = user.path
     destination = os.path.join(app.config['UPLOAD_FOLDER'], path, filename)
     fullpath = 'img/uploads/' + path + '/' + filename
-    print "Fullpath: " + fullpath
-    print "Filename: " + filename
-    print "Destination: " + destination
-    print "Path: " + path
     try:
         newPicture = Picture(filename=filename, path=fullpath, user_id=user.id)
         session.add(newPicture)
