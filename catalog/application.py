@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, \
     redirect, url_for, flash, jsonify
 from flask import session as login_session
-from flask import make_response
+from flask import make_response, send_from_directory
 from sqlalchemy import create_engine, asc
 from sqlalchemy.orm import sessionmaker
 from oauth2client.client import flow_from_clientsecrets
@@ -654,11 +654,12 @@ def upload_image():
 
 @app.route('/images/<int:pid>')
 def get_picture(pid):
-    picture = session.query(Picture)filter_by(id=pid).one()
+    picture = session.query(Picture).filter_by(id=pid).one()
     directory = app.config['UPLOAD_FOLDER']
     if picture.user_id:
         user = session.query(User).filter_by(id=picture.user_id)
         directory += '/' + user.path
+    print "Sending " + picture.filename + ' from ' + directory
     return send_from_directory(directory, picture.filename)
 
 if __name__ == '__main__':
