@@ -142,6 +142,7 @@ def login_required(f):
         else:
             flash("You are not allowed to access there.")
             return redirect('/login')
+
     return decorated_function
 
 
@@ -321,27 +322,23 @@ def create_user(login_session):
 @app.route('/')
 @app.route('/restaurants/')
 def show_restaurants():
-    restaurants = session.query(Restaurant).order_by(asc(Restaurant.name))\
+    restaurants = session.query(Restaurant).order_by(asc(Restaurant.name)) \
         .all()
     pictures = session.query(Picture).all()
     pics = [(p.id, p.path) for p in pictures]
-    rests = [(r.picture_id, r.name) for r in restaurants]
-    # Next enumerate over each list and create a new one with
-    # a column for path where r.picture_id = p.id
-
-    [v for i, v in enumerate(rests)]
-    [v[0] for i, v in enumerate(pics)]
-
-    print pictures
-    print restaurants
+    rests = [(r.id, r.name, r.picture_id, r.cuisine) for r in restaurants]
+    rest_list = []
+    for i, v in enumerate(rests):
+        for x, y in enumerate(pics):
+            if v[2] == y[0]:
+                rest_list.append((v[0], v[1], y[1], v[3]))
     if 'username' not in login_session:
         return render_template('restaurants.min.html',
-                               restaurants=restaurants, pictures=pictures),
+                               restaurants=rest_list),
     else:
         return render_template('restaurants.min.html',
-                               restaurants=restaurants,
-                               picture=login_session['picture'],
-                               pictures=pictures)
+                               restaurants=rest_list,
+                               picture=login_session['picture'])
 
 
 @app.route('/restaurants/new', methods=['GET', 'POST'])
@@ -619,13 +616,15 @@ def delete_image():
         if os.path.exists(f):
             try:
                 os.remove(f)
-                return json.dumps({'status': 'OK', 'index': "x", 'deleted': 'yes',
-                               'filename': pictureToDelete.filename})
+                return json.dumps({'status': 'OK', 'index': "x", 'deleted':
+                                   'yes', 'filename':
+                                   pictureToDelete.filename})
             except OSError, e:
                 print ("Error: {0} - {1}.".format(e.f, e.strerror))
-                return json.dumps({'status': 'ERROR', 'index': "x", 'deleted': 'no',
-                           'filename': pictureToDelete.filename,
-                           'picslocated': 'no'})
+                return json.dumps({'status': 'ERROR', 'index': "x",
+                                   'deleted': 'no',
+                                   'filename': pictureToDelete.filename,
+                                   'picslocated': 'no'})
         else:
             print(
                 "Sorry, I can not find {0} file in the filesystem.".format(f))
@@ -660,15 +659,6 @@ def upload_image():
         return json.dumps(
             {'status': 'ERROR', 'index': "n/a", 'uploaded': 'no'})
 
-@app.route('/images/<int:pid>')
-def get_picture(pid):
-    picture = session.query(Picture).filter_by(id=pid).one()
-    directory = app.config['UPLOAD_FOLDER']
-    if picture.user_id:
-        user = session.query(User).filter_by(id=picture.user_id)
-        directory += '/' + user.path
-    print "Sending " + picture.filename + ' from ' + directory
-    return send_from_directory(directory, picture.filename)
 
 if __name__ == '__main__':
     # Invalidate previous sessions by generating a unique key
