@@ -1,5 +1,3 @@
-import os
-import sys
 from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
@@ -20,6 +18,7 @@ class Picture(Base):
     __tablename__ = 'picture'
     id = Column(Integer, primary_key=True)
     filename = Column(String(250), nullable=False)
+    path = Column(String(250), nullable=False)
     user_id = Column(Integer, ForeignKey('user.id'))
     user = relationship(User)
 
@@ -29,6 +28,7 @@ class Picture(Base):
         return {
             'filename': self.filename,
             'id': self.id,
+            'path': self.path
         }
 
 class Restaurant(Base):
