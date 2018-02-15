@@ -81,7 +81,6 @@ session.commit()
 
 # Menu for UrbanBurger
 restaurant1 = Restaurant(user_id=1, name="Urban Burger", cuisine="American",
-                         picture_id=8,
                          picture_path="img/pexels-photo-660282.jpg")
 session.add(restaurant1)
 session.commit()
@@ -153,7 +152,6 @@ session.commit()
 
 # Menu for Super Stir Fry
 restaurant2 = Restaurant(user_id=1, name="Super Stir Fry", cuisine="Stir Fry",
-                         picture_id=2,
                          picture_path="img/pexels-photo-76093.jpg")
 
 session.add(restaurant2)
@@ -218,7 +216,6 @@ session.commit()
 
 # Menu for Panda Garden
 restaurant3 = Restaurant(user_id=1, name="Panda Garden", cuisine="Thai",
-                         picture_id=9,
                          picture_path="img/thai-food-noodle-fried-noodles"
                                       "-meal-46247.jpg")
 
@@ -271,7 +268,7 @@ session.commit()
 
 # Menu for Thyme for that
 restaurant4 = Restaurant(user_id=1, name="Thyme for That Vegetarian Cuisine",
-                         cuisine="Vegetarian", picture_id=6,
+                         cuisine="Vegetarian",
                          picture_path="img/pexels-photo-461198.jpg")
 
 session.add(restaurant4)
@@ -332,7 +329,6 @@ session.commit()
 
 # Menu for Tony's Bistro
 restaurant5 = Restaurant(user_id=1, name="Tony\'s Bistro", cuisine="American",
-                         picture_id=5,
                          picture_path="img/pexels-photo-425008.jpg")
 
 session.add(restaurant5)
@@ -381,7 +377,6 @@ session.commit()
 
 # Menu for Andala's
 restaurant6 = Restaurant(user_id=1, name="Andala\'s", cuisine="American/Sushi",
-                         picture_id=3,
                          picture_path="img/pexels-photo-221143.jpg")
 session.add(restaurant6)
 session.commit()
@@ -425,7 +420,7 @@ session.commit()
 
 # Menu for Auntie Ann's
 restaurant7 = Restaurant(user_id=1, name="Auntie Ann\'s Diner'",
-                         cuisine="American Diner", picture_id=10,
+                         cuisine="American Diner",
                          picture_path="img/water-drink-glass-drinking.jpg")
 session.add(restaurant7)
 session.commit()
@@ -489,7 +484,6 @@ session.commit()
 
 # Menu for Cocina Y Amor
 restaurant8 = Restaurant(user_id=1, name="Cocina Y Amor", cuisine="Mexican",
-                         picture_id=6,
                          picture_path="img/pexels-photo-461198.jpg")
 session.add(restaurant8)
 session.commit()
@@ -511,7 +505,7 @@ session.add(menuItem2)
 session.commit()
 
 restaurant9 = Restaurant(user_id=1, name="State Bird Provisions",
-                         cuisine="American French Fusion", picture_id=4,
+                         cuisine="American French Fusion",
                          picture_path="img/pexels-photo-248444.jpg")
 session.add(restaurant9)
 session.commit()
