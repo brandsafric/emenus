@@ -323,24 +323,25 @@ def create_user(login_session):
 def show_restaurants():
     restaurants = session.query(Restaurant).order_by(asc(Restaurant.name))\
         .all()
-    # pictures = session.query(Picture).all()
-    # pics = [(p.id, p.path) for p in pictures]
-    # rests = [(r.picture_id, r.name) for r in restaurants]
+    pictures = session.query(Picture).all()
+    pics = [(p.id, p.path) for p in pictures]
+    rests = [(r.picture_id, r.name) for r in restaurants]
     # Next enumerate over each list and create a new one with
     # a column for path where r.picture_id = p.id
 
-    # [v for i, v in enumerate(rests)]
-    # [v[0] for i, v in enumerate(pics)]
+    [v for i, v in enumerate(rests)]
+    [v[0] for i, v in enumerate(pics)]
 
-    # print pictures
+    print pictures
     print restaurants
     if 'username' not in login_session:
         return render_template('restaurants.min.html',
-                               restaurants=restaurants),
+                               restaurants=restaurants, pictures=pictures),
     else:
         return render_template('restaurants.min.html',
                                restaurants=restaurants,
-                               picture=login_session['picture'])
+                               picture=login_session['picture'],
+                               pictures=pictures)
 
 
 @app.route('/restaurants/new', methods=['GET', 'POST'])
