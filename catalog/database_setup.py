@@ -41,6 +41,7 @@ class Restaurant(Base):
     cuisine = Column(String(250))
     user_id = Column(Integer, ForeignKey('user.id'))
     user = relationship(User)
+    picture_path = Column(String(250), ForeignKey('picture.path'))
     picture_id = Column(Integer, ForeignKey('picture.id'))
     picture = relationship(Picture)
     @property
@@ -50,7 +51,8 @@ class Restaurant(Base):
             'name': self.name,
             'id' : self.id,
             'cuisine': self.cuisine,
-            'picture': self.picture
+            'picture': self.picture,
+            'picture_path': self.picture_path
         }
 
 class MenuItem(Base):
