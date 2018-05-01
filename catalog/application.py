@@ -15,9 +15,9 @@ import json
 import requests
 import os
 
-app = Flask(__name__, static_url_path="/var/www/emenus/static")
+app = Flask(__name__, static_url_path="/var/www/html/emenus/static")
 
-APP_PATH = '/var/www/emenus/'
+APP_PATH = '/var/www/html/emenus/'
 
 CLIENT_ID = json.loads(
     open(APP_PATH + 'client_secrets.json', 'r').read())['web']['client_id']
@@ -487,7 +487,7 @@ def create_menu_item(restaurant_id):
 
     if login_session['user_id'] != restaurant.user_id:
         return "<script>function myFunction() {alert('You are not" \
-               "\ authorized to add menu items to this restaurant. " \
+               " authorized to add menu items to this restaurant. " \
                "Please create your own restaurant in order to edit.');" \
                "window.location.href = '" + request.referrer + \
                "';}</script><body onload='myFunction()''>"
