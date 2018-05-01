@@ -392,7 +392,7 @@ def edit_restaurant(restaurant_id):
     user = get_user_info(login_session['user_id'])
     if restaurantToEdit.user_id != login_session['user_id']:
         return "<script>function myFunction() {alert('You are not" \
-               "\ authorized to edit this restaurant. Please create " \
+               " authorized to edit this restaurant. Please create " \
                "your own restaurant in order to edit.');" \
                "window.location.href = '" + request.referrer + \
                "';}</script><body onload='myFunction()''>"
@@ -428,7 +428,7 @@ def delete_restaurant(restaurant_id):
         filter_by(restaurant_id=restaurant_id).all()
     if restaurantToDelete.user_id != login_session['user_id']:
         return "<script>function myFunction() {alert('You are not" \
-               "\ authorized to delete this restaurant. Please create " \
+               " authorized to delete this restaurant. Please create " \
                "your own restaurant in order to edit.');" \
                "window.location.href = '" + request.referrer + \
                "';}</script><body onload='myFunction()''>"
