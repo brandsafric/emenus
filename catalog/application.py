@@ -319,7 +319,7 @@ def create_user(login_session):
 # End login methods
 
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 @app.route('/restaurants/')
 def show_restaurants():
     restaurants = session.query(Restaurant).order_by(asc(Restaurant.name)) \
@@ -332,13 +332,14 @@ def show_restaurants():
         for x, y in enumerate(pics):
             if v[2] == y[0]:
                 rest_list.append((v[0], v[1], y[1], v[3]))
-    if 'username' not in login_session:
-        return render_template('restaurants.min.html',
-                               restaurants=rest_list),
-    else:
-        return render_template('restaurants.min.html',
-                               restaurants=rest_list,
-                               picture=login_session['picture'])
+    if request.method == "GET":
+        if 'username' not in login_session:
+            return render_template('restaurants.min.html',
+                                restaurants=rest_list)
+        else:
+            return render_template('restaurants.min.html',
+                                restaurants=rest_list,
+                                picture=login_session['picture'])
 
 
 @app.route('/restaurants/new', methods=['GET', 'POST'])
