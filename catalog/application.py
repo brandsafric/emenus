@@ -15,9 +15,9 @@ import json
 import requests
 import os
 
-app = Flask(__name__, static_url_path="/var/www/emenus/static")
+app = Flask(__name__, static_url_path="/var/www/emenus/catalog/static")
 
-APP_PATH = '/var/www/emenus/'
+APP_PATH = '/var/www/emenus/catalog/'
 
 CLIENT_ID = json.loads(
     open(APP_PATH + 'client_secrets.json', 'r').read())['web']['client_id']
