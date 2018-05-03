@@ -14,73 +14,109 @@ Prerequisites:
 * [Python 2.7](https://www.python.org/)
 * Amazon Web Services or equivalent instance
 
-
 To deploy, follow these steps:
 * Clone the repo
-* Change the SSH port to 2200
-* Permit firewall exceptions in both UFW and Web Services firewall to allow incoming ports for the following:
-    port 2200
-    HTTP
-    NTP
-    Apache Full
-* Restart SSH service
+* In app.js, replace the Google and Facebook credentials with your own.
+* Replace the client_secrets.json with the Google JSON credentials.
+* Replace the text in fb_client_secrets.json with your Facebook developer credentials.
 * Install Apache2
+```
+    sudo apt-get install apache2
+```
 * Install libapache2-mod-wsgi
-* Set time to UTC time.
-* Create user grader with sudo access.
-* Create new SSH key for grader and copy the public key contents to authorized_keys file for user.
-* Create 'itemcatalog' directory under /var/www/html
+```
+    sudo apt-get install libapache2-mod-wsgi python-dev
+```
+* Set time to UTC time (choose None of the Above, then UTC)
+```
+    sudo dpkg-reconfigure tzdata
+```
+* Install git
+```
+    sudo install git
+```
+* Install python packages
+```
+    sudo apt-get install python-pip
+```
+* Clone the repo into /var/www
 * Create an app.wsgi file in the itemcatalog directory with the following contents:
  ```
-activate_this = '/var/www/html/itemcatalog/venv/bin/activate_this.py'
-execfile(activate_this, dict(__file__=activate_this))
-import sys
-sys.path.insert(0,'/var/www/html/itemcatalog')
-from application import app as application
-application.secret_key = 'super_secret_key'
+    activate_this = '/var/www/emenus/venv/bin/activate_this.py'
+    execfile(activate_this, dict(__file__=activate_this))
+    import sys
+    sys.path.insert(0,'/var/www/emenus')
+    from application import app as application
+    application.secret_key = 'super_secret_key'
 ```
 
 * Either create a new virtual host and modify the .conf file or modify the default 000-default.conf file to include
 the following:
-```    
-    WSGIDaemonProcess itemcatalog user=grader
-    WSGIScriptAlias / /var/www/html/itemcatalog/app.wsgi
-    <Directory /var/www/html/itemcatalog>
-            WSGIProcessGroup itemcatalog
+``` 
+    <VirtualHost *: 80>
+    ServerName (name of ip of server)
+    DocumentRoot /var/www/emenus
+
+    WSGIDaemonProcess emenus user=(username) python-path=/var/www/emenus/catalog/venv/bin/python2.7
+    WSGIScriptAlias / /var/www/emenus/app.wsgi
+    <Directory /var/www/html/emenus/catalog>
+            WSGIProcessGroup emenus
             WSGIApplicationGroup %{GLOBAL}
             Order allow,deny
             Allow from all
     </Directory>
-	Alias /static /var/www/itemcatalog/static
-	<Directory /var/www/itemcatalog/static/>
+	Alias /static /var/www/emenus/catalog/static
+	<Directory /var/www/emenus/catalog/static/>
 		Order allow,deny
 		Allow from all
 	</Directory>
 ``` 
-* Change the following lines in the file:
-``` ServerName <IP Address>
-    DocumentRoot /var/www/html/itemcatalog
+* Change into the directory /var/www/emenus
+* Install PostgreSQL
 ```
-* Install the following dependencies: postgresql, flask, sqlalchemy, oauth2client, pycopg2, requests
-* In psql, create the catalog database and catalog role.
-* Set the catalog role to be the owner of the catalog database.
-* Install git
-* Create directory git under itemcatalog directory
-* Clone the repo AWS branch
-* Move all files from the newly clones EMenus subdirectory to the item-catalog directory.
-* Install virtual environment (virtualenv)
+    sudo-apt-get install postgresql postgresql-contrib
+```
+* Install virtual environement
+```
+    sudo virtualenv venv
+```
 * Activate the virtual environment
+```
+    source venv/bin/activate
+```
+* Install dependencies in virtual environment
+```
+    pip install flask
+    pip install sqlalchemy
+    pip install oauth2client
+    pip install psycorpg2
+    pip install requests
+```
+* Deactivate Virtual Environemnt
+```
+    deactivate
+```
+* In psql, create the catalog database and catalog role.
+```
+    sudo su - postgres
+    psql
+    create role catalog;
+```
+* Set the catalog role to be the owner of the catalog database.
+```
+    CREATE DATABASE catalog OWNER catalog;
+    ALTER ROLE "catalog" WITH LOGIN;
+    ALTER USER catalog WITH PASSWORD 'catalog';
+```
 * Run the following commands to setup the initial database tables and dummy entries:
 ```
-sudo python database_setup.py
-sudo python lotsofmenus.py
+    sudo python database_setup.py
+    sudo python lotsofmenus.py
 ```
 * Restart Apache service
-* Create new OAuth credentials in both Google sign-in and Facebook Developer APIs (specify the DNS name of the server
-which can be accomplished by running ```ping -a ipaddress```)
-* Replace the client_secrets.json and fb_client_secrets.json with the newly created oauth credentials.
-* Replace client id in line 3 and 12 with the Google client ID in file templates/login.html
-* Visit the server's site via the DNS name.
+```
+    sudo apachectl restart
+```
 * Enjoy in creating restaurant menus complete with sections for appetizers, entrees, and more!
 * Make sure to stay hydrated while you experience the joy of making menus!
 
